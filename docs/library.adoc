@@ -1,2 +1,22 @@
-= Library
+= Explorer library
 :toc: right
+
+== Include
+
+You can include the library in your application build.gradle file under the dependencies section:
+
+.build.gradle
+[source,java]
+----
+dependencies {
+	include 'com.enonic.lib:lib-explorer:1.0.0-SNAPSHOT'
+}
+----
+
+== Client
+
+See the <<client#,Client>> documentation.
+
+== Collector
+
+See the <<collector#,Collector>> documentation.

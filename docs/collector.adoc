@@ -1,2 +1,63 @@
 = Collector application
 :toc: right
+
+== Introduction
+
+Include the library in your application as documented in the <<library#include,library>> documentation.
+
+In order for a collector to work it needs to provide 2 resources:
+
+. A <<_react_bundle, React bundle>> using semantic-ui-react-formik-functional.
+. A <<_task,task>> that does the collecting.
+
+In order for the main <<adin#,Explorer>> application to know where these resources is located a collector application needs to register itself:
+
+== Register / unregister
+.main.es
+[source,java]
+----
+import {register} from '/lib/explorer/collector/register';
+import {unregister} from '/lib/explorer/collector/unregister';
+
+register({
+	appName: app.name,
+	collectTaskName: 'collect',
+	configAssetPath: 'react/Collector.esm.js',
+	displayName: 'My collector'
+});
+
+__.disposer(() => {
+	unregister({
+		appName: app.name
+	});
+});
+----
+
+== React bundle
+
+Setting up a build system to provide the react bundle can be quite complex.
+
+Thus we have made a starter-collector for you to use and learn from.
+
+Some important ingredients are:
+
+- node-gradle-plugin
+. webpack
+. babel
+. node_modules
+.. @babel/preset-env
+.. @babel/preset-react
+.. @purtuga/esm-webpack-plugin
+.. @h3t/semantic-ui-react-formik-functional
+
+== Task
+
+Developing a task to collect data can also be quite complex.
+
+Have a look at the app-collector-simple to see an example.
+
+Some important ingredients are:
+
+- Progress
+. Create/modify/delete
+. Journal

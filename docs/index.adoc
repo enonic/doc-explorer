@@ -8,5 +8,5 @@ Explorer is an enterprise search solution which simplifies collecting and search
 
 It consists of:
 
-. <<admin#,An administration application>>
-. A <<library#,library>> to implement <<collector#,Collector>> and <<client#,Client>> applications
+. An <<admin#,administration>> application.
+. A <<library#,library>> to implement <<client#,Client>> and <<collector#,Collector>> applications.
