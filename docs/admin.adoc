@@ -1,0 +1,112 @@
+= Explorer administration application
+:toc: right
+
+== Install
+
+The Explorer administration application can be installed directly from within the Enonic XP Applications administrator, or by downloading from the https://market.enonic.com/applications[Enonic market] website.
+
+=== Authorization
+
+In order to access the Explorer administration application you have to be logged in with user that has one of these roles:
+
+* Explorer administrator (com.enonic.app.explorer.admin)
+* Administrator (system.admin)
+
+== Introduction
+
+The Explorer administration application makes it possible to configure
+
+. <<_fields,Fields>> to index the data in.
+. <<_collections,Collections>> for <<collector#,Collectors>> to collect data to.
+. <<_interfaces,Interfaces>> for <<client#,Clients>> to use when searching.
+. <<_thesauri,Thesauri>> of <<_synonyms,Synonyms>> to expand search results.
+. <<_stop_words_2,Stop-words>> to improve scoring.
+
+== Fields
+
+In order to have good search results data is organized into fields.
+
+The application comes with some standard fields:
+
+* _alltext (readonly)
+* language
+* text
+* title
+* type
+* uri
+
+You can also create your own fields. The fields are used configure where to store data, how to search and in facets.
+
+=== Field values
+
+You can also create field values which makes it easy to group data for facets.
+
+== Collections
+
+This is where you configure how and when to collect data into a collection.
+
+Each collection needs a unique name.
+
+You can configure multiple cron schedules and select whether to collect at all.
+
+In order to collect data you need to install a collector.
+
+Read more about each collector in it's own documentation.
+
+== Interfaces
+
+When you have collected some data it's time to provide some search interfaces.
+
+Each interface needs a unique name.
+
+Then you can select which collection(s) you want to search in.
+
+=== Filters
+
+You can set up some must and mustNot filters to avoid search results that don't meet the required quality.
+For instance it's normally useful that a search result actually has an uri so it can be navigated to.
+
+=== Query
+
+You may configure a simple fulltext query, or group multiple expressions together using a logic expression.
+Combining a boosted fulltext query, with a ngram and synonym query can be a good idea.
+
+Each <<_synonyms,synonym>> is stored in a <<_thesauri,thesaurus>>.
+
+Learn mode about querying here: https://xp.readthedocs.io/en/stable/developer/search/query-functions/index.html
+
+=== Stop-words
+
+See <<_stop_words_2,below>>.
+
+=== Result mapping
+
+Here you can configure which <<_fields,fields>> are provided to the frontend and do some simple data manipulation.
+
+=== Pagination
+
+Here you can provide some simple pagination to the frontend. (may be moved to a lib in the future)
+
+== Thesauri
+
+You can have multiple thesauri to be used in various combinations in <<_interfaces,interfaces>>.
+
+=== Synonyms
+
+A synonym has two parts: From and To.
+
+//When expand = false
+
+The from part is searched and the main query is decorated with the to part.
+
+//When expand = true, both the from and to part is searched and the main query is decorated with both parts.
+
+== Stop-words
+
+You can have multiple stop-word lists to be used in various combinations in <<_interfaces,interfaces>>.
+
+Typically each language has it's own list of stop-words.
+
+Stop-words are normally short words that are used a lot in text.
+They can be found in most documents and thus does not provide much value in terms of saying which result should be scored higher than another.
+So it can be a good idea to remove them from the query for a simpler, clean scoring.

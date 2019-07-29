@@ -1,8 +1,22 @@
 {
   "menuItems": [
     {
-      "title": "Index",
-      "document": "index"
+      "title": "Administration application",
+      "document": "admin"
+    },
+    {
+      "title": "Library",
+      "document": "library",
+      "menuItems": [
+        {
+          "title": "Collector application",
+          "document": "collector"
+        },
+        {
+          "title": "Client application",
+          "document": "client"
+        }
+      ]
     }
   ]
 }
