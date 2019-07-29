@@ -1,0 +1,4 @@
+= Explorer {release} documentation
+include::variables.adoc[]
+:toc: right
+:imagesdir: images
