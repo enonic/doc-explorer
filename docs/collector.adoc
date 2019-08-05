@@ -50,6 +50,52 @@ Some important ingredients are:
 .. @purtuga/esm-webpack-plugin
 .. @h3t/semantic-ui-react-formik-functional
 
+=== React component
+
+In order for your collector's configuration user interface to work in Explorer you must provide a React component.
+Any react component type should be supported, but all examples are functional (since that is the current status quo of react).
+
+The component receives three props from Explorer:
+. explorer - static information like contentTypes, fields and sites
+. onChange - function you should call everytime you change values
+. values - object to store your collectors configuration in
+
+
+==== explorer object
+
+This object contains information from Explorer about which contentTypes, fields and sites exists.
+The information can be used to make dropdowns in your collectors configuration.
+
+==== onChange function
+
+Every time a form field value changes you should should write the change to the values object.
+And every time the values object changes you should call the onChange function.
+
+Here is one way to achieve this:
+
+[source,javasript]
+----
+React.useEffect(() => {
+	if (onChange) {
+		onChange({
+			dirty,
+			isValid,
+			values
+		});
+	}
+}, [values]);
+----
+
+Notice the onChange function takes three named parameters.
+
+. dirty - optional, set this to true when the values object doesn't match the initially received values object.
+. isValid - optional, set this to false when form validation fails.
+. values - required, your collector configuration object.
+
+==== values object
+
+This is where you store any configuration you want to use later in the collector task.
+
 == Task
 
 Developing a task to collect data can also be quite complex.
