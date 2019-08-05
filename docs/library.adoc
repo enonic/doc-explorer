@@ -15,8 +15,8 @@ dependencies {
 
 == Client
 
-See the <<client#,Client>> documentation.
+See the link:client[Client] documentation.
 
 == Collector
 
-See the <<collector#,Collector>> documentation.
+See the link:collector[Collector] documentation.

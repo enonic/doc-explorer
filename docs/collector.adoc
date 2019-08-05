@@ -3,14 +3,14 @@
 
 == Introduction
 
-Include the library in your application as documented in the <<library#include,library>> documentation.
+Include the library in your application as documented in the link:library#include[library] documentation.
 
 In order for a collector to work it needs to provide 2 resources:
 
-. A <<_react_bundle, React bundle>> using semantic-ui-react-formik-functional.
-. A <<_task,task>> that does the collecting.
+. A <<react_bundle, React bundle>>.
+. A <<task,task>> that does the collecting.
 
-In order for the main <<adin#,Explorer>> application to know where these resources is located a collector application needs to register itself:
+In order for the main link:admin[Explorer] application to know where these resources is located a collector application needs to register itself:
 
 == Register / unregister
 .main.es

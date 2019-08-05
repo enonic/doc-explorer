@@ -16,11 +16,11 @@ In order to access the Explorer administration application you have to be logged
 
 The Explorer administration application makes it possible to configure
 
-. <<_fields,Fields>> to index the data in.
-. <<_collections,Collections>> for <<collector#,Collectors>> to collect data to.
-. <<_interfaces,Interfaces>> for <<client#,Clients>> to use when searching.
-. <<_thesauri,Thesauri>> of <<_synonyms,Synonyms>> to expand search results.
-. <<_stop_words_2,Stop-words>> to improve scoring.
+. <<fields,Fields>> to index the data in.
+. <<collections,Collections>> for link:collector[Collectors] to collect data to.
+. <<interfaces,Interfaces>> for link:client[Clients] to use when searching.
+. <<thesauri,Thesauri>> of <<synonyms,Synonyms>> to expand search results.
+. <<stop_words_2,Stop-words>> to improve scoring.
 
 == Fields
 
@@ -71,17 +71,17 @@ For instance it's normally useful that a search result actually has an uri so it
 You may configure a simple fulltext query, or group multiple expressions together using a logic expression.
 Combining a boosted fulltext query, with a ngram and synonym query can be a good idea.
 
-Each <<_synonyms,synonym>> is stored in a <<_thesauri,thesaurus>>.
+Each <<synonyms,synonym>> is stored in a <<thesauri,thesaurus>>.
 
 Learn mode about querying here: https://xp.readthedocs.io/en/stable/developer/search/query-functions/index.html
 
 === Stop-words
 
-See <<_stop_words_2,below>>.
+See <<stop_words_2,below>>.
 
 === Result mapping
 
-Here you can configure which <<_fields,fields>> are provided to the frontend and do some simple data manipulation.
+Here you can configure which <<fields,fields>> are provided to the frontend and do some simple data manipulation.
 
 === Pagination
 
@@ -89,7 +89,7 @@ Here you can provide some simple pagination to the frontend. (may be moved to a 
 
 == Thesauri
 
-You can have multiple thesauri to be used in various combinations in <<_interfaces,interfaces>>.
+You can have multiple thesauri to be used in various combinations in <<interfaces,interfaces>>.
 
 === Synonyms
 
@@ -103,7 +103,7 @@ The from part is searched and the main query is decorated with the to part.
 
 == Stop-words
 
-You can have multiple stop-word lists to be used in various combinations in <<_interfaces,interfaces>>.
+You can have multiple stop-word lists to be used in various combinations in <<interfaces,interfaces>>.
 
 Typically each language has it's own list of stop-words.
 

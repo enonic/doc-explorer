@@ -3,7 +3,7 @@
 
 == Introduction
 
-Include the library in your application as documented in the <<library#include,library>> documentation.
+Include the library in your application as documented in the link:library#include[library] documentation.
 
 == Selecting interface
 
@@ -11,7 +11,7 @@ There are numerous ways to pick an interface, using a custom selector is a prett
 
 === Custom selector
 
-The Explorer <<admin#,administration>> application provides a service that can be used by a custom selector in a site application.
+The Explorer link:admin[administration] application provides a service that can be used by a custom selector in a site application.
 
 .controller.xml
 [source,xml]
