@@ -8,5 +8,5 @@ Explorer is an enterprise search solution which simplifies collecting and search
 
 It consists of:
 
-. An link:admin[administration] application.
-. A link:library[] to implement link:client[Client] and link:collector[Collector] applications.
+. An <<admin#,administration>> application.
+. A <<library#,library>> to implement <<client#,Client>> and <<collector#,Collector>> applications.
