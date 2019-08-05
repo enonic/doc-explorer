@@ -42,13 +42,11 @@ Thus we have made a starter-collector for you to use and learn from.
 Some important ingredients are:
 
 - node-gradle-plugin
-. webpack
-. babel
-. node_modules
-.. @babel/preset-env
-.. @babel/preset-react
-.. @purtuga/esm-webpack-plugin
-.. @h3t/semantic-ui-react-formik-functional
+- webpack
+- babel
+- node_modules
+  * @enonic/webpack-esm-assets
+  * @enonic/webpack-server-side-js
 
 === React component
 
@@ -107,3 +105,71 @@ Some important ingredients are:
 - Progress
 . Create/modify/delete
 . Journal
+
+The Enonic XP 7.x documentation on Tasks is still missing:
+https://developer.enonic.com/docs/xp/stable/apps#tasks
+
+So have a look at the Enonic XP 6.x documentation:
+https://xp.readthedocs.io/en/stable/developer/tasks/index.html
+
+.collect.es
+[source,javascript]
+----
+import {Collector} from '/lib/explorer/collector'; <--1-->
+
+export function run({name, configJson}) { <--2-->
+	const collector = new Collector({name, configJson}); <--3-->
+
+	if (!collector.config.uri) { <--4-->
+		throw new Error('Config is missing required parameter uri!');
+	}
+
+	collector.start(); <--5-->
+
+	const {
+		uri,
+		object: {
+			someNestedProperty
+		}
+	} = collector.config; <--6-->
+
+	while(somethingToDo) {
+		if (collector.shouldStop()) { break; } <--7-->
+
+		try {
+			const {text, title} = doSomethingThatMayFail(); <--8-->
+
+			collector.persistDocument({
+				text,
+				title,
+				uri
+			}); <--9-->
+
+			collector.addSuccess({uri}); <--10-->
+
+		} catch (e) {
+
+			collector.addError({uri, message: e.message}); <--11-->
+
+		}
+	} // while somethingToDo
+
+	// Perhaps delete documents that are no longer found...
+
+	collector.stop(); <--12-->
+
+} // export function run
+----
+
+<1> Import the Collector class
+<2> The collect task gets passed two named parameters.
+<3> Construct a Collector instance.
+<4> Validate the configuration object.
+<5> Start the collector. Sets startTime and more.
+<6> Fetch configuration properties you need from the collector.config object.
+<7> Check if someone has clicked the STOP button.
+<8> This is where you collect the data you want to persist.
+<9> Persist the collected data.
+<10> Make a journal entry that collecting data from uri was a success.
+<11> Make a journal entry that an error prevented collecting data from uri.
+<12> Stop the collector. Sets endTime and more.
