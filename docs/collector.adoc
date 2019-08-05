@@ -88,9 +88,9 @@ React.useEffect(() => {
 
 Notice the onChange function takes three named parameters.
 
-. dirty - optional, set this to true when the values object doesn't match the initially received values object.
-. isValid - optional, set this to false when form validation fails.
-. values - required, your collector configuration object.
+. dirty - set this to true when the values object doesn't match the initially received values object.
+. isValid - set this to false when form validation fails.
+. values - your collector configuration object.
 
 ==== values object
 
