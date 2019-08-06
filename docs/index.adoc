@@ -1,10 +1,13 @@
 = Explorer {release} documentation
 include::variables.adoc[]
 :toc: right
+:imagesdir: images
 
 == Introduction
 
 Explorer is an enterprise search solution which simplifies collecting and searching data from multiple sources.
+
+image::explorer.png[Explorer,768]
 
 It consists of:
 
