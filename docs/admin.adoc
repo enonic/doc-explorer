@@ -114,6 +114,8 @@ image::interface-mappings.png[Interface mappings,768]
 
 You can have multiple thesauri to be used in various combinations in <<interfaces,interfaces>>.
 
+image::thesauri.png[Thesauri,768]
+
 === Synonyms
 
 A synonym has two parts: From and To.
@@ -127,6 +129,8 @@ The from part is searched and the main query is decorated with the to part.
 == Stop-words
 
 You can have multiple stop-word lists to be used in various combinations in <<interfaces,interfaces>>.
+
+image::stopwords.png[Stopwords,707]
 
 Typically each language has it's own list of stop-words.
 
