@@ -1,0 +1,15 @@
+= Getting started
+:toc: right
+:imagesdir: images
+
+== Installation
+
+To get started, simply install Enonic Explorer to your XP instance. Explorer is available directly from https://market.enonic.com/applications[Enonic market].
+
+== Roles
+
+In order to access the Explorer administration application you have to be logged in with user that has one of these roles:
+
+* Explorer administrator (com.enonic.app.explorer.admin)
+* Administrator (system.admin)
+

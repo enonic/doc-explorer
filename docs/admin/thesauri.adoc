@@ -1,0 +1,21 @@
+= Thesauri
+:toc: right
+:imagesdir: images
+
+== Introduction
+
+You can have multiple thesauri to be used in various combinations in <<interfaces,interfaces>>.
+
+image::thesauri.png[Thesauri,768]
+
+== Synonyms
+
+A synonym has two parts: From and To.
+
+image::synonym.png[Synonym,768]
+
+//When expand = false
+
+The from part is searched and the main query is decorated with the to part.
+
+//When expand = true, both the from and to part is searched and the main query is decorated with both parts.

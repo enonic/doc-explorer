@@ -1,0 +1,49 @@
+= Interfaces
+:toc: right
+:imagesdir: images
+
+== Introduction
+
+When you have collected some data it's time to provide some search interfaces.
+
+image::interfaces.png[Interfaces,723]
+
+== New / edit
+
+Each interface needs a unique name.
+
+image::interface-name.png[Interface name,210]
+
+Then you can select which collection(s) you want to search in.
+
+image::interface-collections.png[Interface collections,148]
+
+== Filters
+
+You can set up some must and mustNot filters to avoid search results that don't meet the required quality.
+For instance it's normally useful that a search result actually has an uri so it can be navigated to.
+
+image::interface-filters.png[Interface filters,768]
+
+Read more about filters here: https://developer.enonic.com/docs/xp/stable/storage/noql#filters
+
+== Query
+
+You may configure a simple fulltext query, or group multiple expressions together using a logic expression.
+Combining a boosted fulltext query, with a ngram and synonym query can be a good idea.
+
+image::interface-query.png[Interface query,768]
+
+Each <<synonyms,synonym>> is stored in a <<thesauri,thesaurus>>.
+
+Learn mode about querying here: https://developer.enonic.com/docs/xp/stable/storage/noql#query_functions
+
+== Stop-words
+
+See <<stop_words_2,below>>.
+
+== Result mapping
+
+Here you can configure which <<fields,fields>> are provided to the frontend and do some simple data manipulation.
+
+image::interface-mappings.png[Interface mappings,768]

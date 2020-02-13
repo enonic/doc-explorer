@@ -1,22 +1,56 @@
 {
   "menuItems": [
     {
-      "title": "Administration application",
-      "document": "admin"
-    },
-    {
-      "title": "Library",
-      "document": "library",
+      "title": "Admin",
+      "document": "admin",
       "menuItems": [
         {
-          "title": "Collector application",
-          "document": "collector"
+          "title": "Fields",
+          "document": "fields"
         },
         {
-          "title": "Client application",
-          "document": "client"
+          "title": "Collections",
+          "document": "collections"
+        },
+        {
+          "title": "Thesauri",
+          "document": "thesauri"
+        },
+        {
+          "title": "Stop Words",
+          "document": "stopwords"
+        },
+        {
+          "title": "Interfaces",
+          "document": "interfaces"
         }
       ]
+    },
+    {
+      "title": "API",
+      "document": "api"
+    },
+    {
+      "title": "Collectors",
+      "document": "collectors",
+      "menuItems": [
+        {
+          "title": "Webcrawler collector",
+          "document": "webcrawler"
+        },
+        {
+          "title": "Custom collectors",
+          "document": "custom"
+        }
+      ]
+    },
+    {
+      "title": "Search clients",
+      "document": "clients"
+    },
+    {
+      "title": "API",
+      "document": "api"
     }
   ]
 }

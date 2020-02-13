@@ -1,0 +1,83 @@
+= Explorer API
+:toc: right
+
+== Usage
+
+Add the following into your build file:
+
+.build.gradle
+[source,groovy]
+----
+dependencies {
+	include 'com.enonic.lib:lib-explorer:1.0.0-SNAPSHOT'
+}
+----
+
+In your controller, add a require statement:
+
+[source,js]
+----
+const explorerLib = require('/lib/explorer');
+----
+
+You may now use the api in your controller.
+
+
+== Functions
+
+TODO
+
+=== get
+
+Returns the current context
+
+[.lead]
+Parameters
+
+None
+
+[.lead]
+Returns
+
+<<Context>>
+
+[.lead]
+Example
+
+.Getting the current context
+[source,js]
+----
+const context = contextLib.get();
+----
+
+.Sample response
+[source,js]
+----
+{
+  branch: "draft",
+  repository: "com.enonic.cms.default",
+  authInfo: {
+      user: {                            <1>
+          type: "user",
+          key: "user.system.abc",
+          displayName: "A.B.C.",
+          disabled: false,
+          email: "abc@enonic.com",
+          login: "abc",
+          idProvider: "system"
+      }
+      principals: [
+          "user:system:abc",
+          "role:system.admin",
+          "role:system.admin.login",
+          "role:system.authenticated",
+          "role:system.everyone"
+      ]
+  }
+}
+----
+
+<1> The user node will not be returned unless there is a logged in user.
+
+=== next
+

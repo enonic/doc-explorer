@@ -1,0 +1,26 @@
+= Collections
+:toc: right
+:imagesdir: images
+
+== Introduction
+
+This is where you configure how and when to collect data into a collection.
+
+image::collections.png[Collections,768]
+
+In order to do that you first need to install a link:collector[].
+
+You can develop your own link:collector[] or install one from https://market.enonic.com/applications[Enonic market].
+
+=== New / Edit
+
+Each collection needs a unique name and a link:collector[].
+
+image::collection-name.png[Collection name,475]
+
+You can configure multiple cron schedules and select whether to collect at all.
+
+image::scheduling.png[Scheduling,768]
+
+Read more about each collector in it's own documentation.
+

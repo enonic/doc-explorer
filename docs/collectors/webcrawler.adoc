@@ -1,0 +1,8 @@
+= Webcrawler collector
+:toc: right
+
+== Introduction
+
+The webcrawler collector is included with Explorer as a standard.
+
+TODO describe

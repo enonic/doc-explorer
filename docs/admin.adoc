@@ -1,145 +1,22 @@
-= Explorer administration application
+= Explorer admin UI
 :toc: right
 :imagesdir: images
 
-== Install
-
-The Explorer administration application can be installed directly from within the Enonic XP Applications administrator, or by downloading from the https://market.enonic.com/applications[Enonic market] website.
-
-=== Authorization
-
-In order to access the Explorer administration application you have to be logged in with user that has one of these roles:
-
-* Explorer administrator (com.enonic.app.explorer.admin)
-* Administrator (system.admin)
-
 == Introduction
 
-The Explorer administration application makes it possible to configure
+The Explorer administrative interface enable search administrators to define and manage how data is collected and then exposed through fine tuned search interfaces.
 
-. <<fields,Fields>> to index the data in.
-. <<collections,Collections>> for link:collector[Collectors] to collect data to.
-. <<interfaces,Interfaces>> for link:client[Clients] to use when searching.
-. <<thesauri,Thesauri>> of <<synonyms,Synonyms>> to expand search results.
-. <<stop_words_2,Stop-words>> to improve scoring.
+== Access
 
-== Fields
+If installed, the Explorer admin interface can quickly be located by logging into your XP admin console and browsing the launcher menu.
 
-In order to have good search results data is organized into fields.
+NOTE: Only users with "Explorer Admin" or "System Admin" roles can access the interface.
 
-image::fields.png[Fields,690]
+== Overview
 
-The application comes with some standard fields:
+* <<admin/fields#,Fields>> enable consistent indexing of specific properties across collections.
+* <<admin/collections#,Collections>> represent the various data sets that are collected and indexed.
+* <<admin/interfaces#,Interfaces>> enable creation and tunining of search interfaces across collections.
+* <<admin/thesauri#,Thesauri>> are lists of synonyms used to expand your search.
+* <<admin/stopwords#,Stop words>> help improve search scoring by eliminating common words.
 
-* _alltext (readonly)
-* language
-* text
-* title
-* type
-* uri
-
-You can also create your own fields. The fields are used configure where to store data, how to search and in facets.
-
-=== Field values
-
-You can also create field values which makes it easy to group data for facets.
-
-image::fieldValue.png[Field value,768]
-
-== Collections
-
-This is where you configure how and when to collect data into a collection.
-
-image::collections.png[Collections,768]
-
-In order to do that you first need to install a link:collector[].
-
-You can develop your own link:collector[] or install one from https://market.enonic.com/applications[Enonic market].
-
-=== New / Edit
-
-Each collection needs a unique name and a link:collector[].
-
-image::collection-name.png[Collection name,475]
-
-You can configure multiple cron schedules and select whether to collect at all.
-
-image::scheduling.png[Scheduling,768]
-
-Read more about each collector in it's own documentation.
-
-== Interfaces
-
-When you have collected some data it's time to provide some search interfaces.
-
-image::interfaces.png[Interfaces,723]
-
-=== New / edit
-
-Each interface needs a unique name.
-
-image::interface-name.png[Interface name,210]
-
-Then you can select which collection(s) you want to search in.
-
-image::interface-collections.png[Interface collections,148]
-
-=== Filters
-
-You can set up some must and mustNot filters to avoid search results that don't meet the required quality.
-For instance it's normally useful that a search result actually has an uri so it can be navigated to.
-
-image::interface-filters.png[Interface filters,768]
-
-Read more about filters here: https://developer.enonic.com/docs/xp/stable/storage/noql#filters
-
-=== Query
-
-You may configure a simple fulltext query, or group multiple expressions together using a logic expression.
-Combining a boosted fulltext query, with a ngram and synonym query can be a good idea.
-
-image::interface-query.png[Interface query,768]
-
-Each <<synonyms,synonym>> is stored in a <<thesauri,thesaurus>>.
-
-Learn mode about querying here: https://developer.enonic.com/docs/xp/stable/storage/noql#query_functions
-
-=== Stop-words
-
-See <<stop_words_2,below>>.
-
-=== Result mapping
-
-Here you can configure which <<fields,fields>> are provided to the frontend and do some simple data manipulation.
-
-image::interface-mappings.png[Interface mappings,768]
-
-== Thesauri
-
-You can have multiple thesauri to be used in various combinations in <<interfaces,interfaces>>.
-
-image::thesauri.png[Thesauri,768]
-
-=== Synonyms
-
-A synonym has two parts: From and To.
-
-image::synonym.png[Synonym,768]
-
-//When expand = false
-
-The from part is searched and the main query is decorated with the to part.
-
-//When expand = true, both the from and to part is searched and the main query is decorated with both parts.
-
-== Stop-words
-
-You can have multiple stop-word lists to be used in various combinations in <<interfaces,interfaces>>.
-
-image::stopwords.png[Stopwords,707]
-
-Typically each language has it's own list of stop-words.
-
-Stop-words are normally short words that are used a lot in text.
-They can be found in most documents and thus does not provide much value in terms of saying which result should be scored higher than another.
-So it can be a good idea to remove them from the query for a simple and clean scoring.

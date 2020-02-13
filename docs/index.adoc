@@ -5,11 +5,31 @@ include::variables.adoc[]
 
 == Introduction
 
-Explorer is an enterprise search solution which simplifies collecting and searching data from multiple sources.
+Explorer is an enterprise search application which simplifies collecting and searching across data from multiple sources.
+
+Explorer's essential components are:
+
+
+== Management UI
+
+Explorer provides a <<admin#,management interface>> that enable search administrators to manage all aspects of the application, such as:
+
+* Perform test searches
+* Manage global fields
+* Create data collections
+* Control Thesauri and stopwords
+* Define search interfaces
 
 image::explorer.png[Explorer,768]
 
-It consists of:
+== Collectors
 
-. An <<admin#,administration>> application.
-. A <<library#,library>> to implement <<client#,Client>> and <<collector#,Collector>> applications.
+Collectors are purpose specific applications that extracts and indexes data from specific sources. 
+
+As an example, the "webcrawler" collector is included in Explorer by default and enables traditional crawling and indexing of web content.
+
+You may extend Explorers capabilities by <<collector#, building your own collector>> to extract data from other sources.
+
+== Search API
+
+After collecting data from various sources, you may use Explorers <<api#, search API>> to create your own <<clients#, fully customized search interfaces>>.

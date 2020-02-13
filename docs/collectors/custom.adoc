@@ -1,18 +1,42 @@
-= Collector application
+= Building a custom collector
 :toc: right
 
 == Introduction
 
-Include the library in your application as documented in the link:library#include[library] documentation.
+Collectors are implemented as standard XP applications. They essentially consist of two main components:
 
-In order for a collector to work it needs to provide 2 resources:
+Form:: A React based user interface that enable search administrators to instruct the collector in it's specific activities.
 
-. A <<react_bundle, React bundle>>.
-. A <<task,task>> that does the collecting.
+Task:: Code that performs the actual retrieval of content for indexing.
 
-In order for the main link:admin[Explorer] application to know where these resources is located a collector application needs to register itself:
+This section will guide you through the basic steps of building your own custom collector.
 
-== Register / unregister
+== Step 1: Create application
+
+Use Enonic CLI to create an application based on the vanilla starter:
+
+	enonic project create -r starter-collector
+
+The starter ships with the essential setup required for any collector:
+
+=== Dependencies
+
+.build.gradle
+[source,java]
+----
+dependencies {
+	include 'com.enonic.lib:lib-explorer:1.0.0-SNAPSHOT'
+}
+----
+
+NOTE: Remember to use a version of the library that is equal to or newer than the version of Explorer you are using.
+
+
+=== Register / Unregister
+
+In order for Explorer to detect available collectors, each collector needs to register, and un.register itself:
+
+
 .main.es
 [source,java]
 ----
@@ -33,13 +57,11 @@ __.disposer(() => {
 });
 ----
 
-== React bundle
+== Step 2: React form
 
-Setting up a build system to provide the react bundle can be quite complex.
+The starter also provides the essential build system for the React-based user interface.
 
-Thus we have made a starter-collector for you to use and learn from.
-
-Some important ingredients are:
+Some important ingredients that enable this are:
 
 - node-gradle-plugin
 - webpack
@@ -61,8 +83,7 @@ The component receives three props from Explorer:
 
 ==== explorer object
 
-This object contains information from Explorer about which contentTypes, fields and sites exists.
-The information can be used to make dropdowns in your collectors configuration.
+This object contains information from Explorer about the collector context. The information can be used to make dropdowns in your collectors configuration.
 
 ==== onChange function
 
@@ -94,25 +115,23 @@ Notice the onChange function takes three named parameters.
 
 This is where you store any configuration you want to use later in the collector task.
 
-== Task
+== Step 3: Collector task
 
-Developing a task to collect data can also be quite complex.
+The actual code to retrieve and return content for indexing is implemented using https://developer.enonic.com/docs/xp/stable/framework/tasks[named tasks]. 
 
-Have a look at the app-collector-simple to see an example.
 
-Some important ingredients are:
+The most important parts of a collector are:
 
-- Progress
-. Create/modify/delete
-. Journal
+Progress reporting:: TODO
 
-The Enonic XP 7.x documentation on Tasks is still missing:
-https://developer.enonic.com/docs/xp/stable/apps#tasks
+CRUD:: TODO
 
-So have a look at the Enonic XP 6.x documentation:
-https://xp.readthedocs.io/en/stable/developer/tasks/index.html
+Journal:: TODO
 
-.collect.es
+
+The complexity of a collector may vary, but as to provide a basic idea, the starter includes a simple example:
+
+.src/resources/tasks/collect.es
 [source,javascript]
 ----
 import {Collector} from '/lib/explorer/collector'; <--1-->
@@ -173,3 +192,8 @@ export function run({name, configJson}) { <--2-->
 <10> Make a journal entry that collecting data from uri was a success.
 <11> Make a journal entry that an error prevented collecting data from uri.
 <12> Stop the collector. Sets endTime and more.
+
+
+== Step 4: Deploy and test
+
+TODO
