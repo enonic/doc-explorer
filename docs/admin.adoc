@@ -8,7 +8,7 @@ The Explorer administrative interface enable search administrators to define and
 
 == Access
 
-If installed, the Explorer admin interface can quickly be located by logging into your XP admin console and browsing the launcher menu.
+When <<install#, installed>>, the Explorer admin interface can be accessed by logging into your XP admin console. You will find it by browsing the XP launcher menu.
 
 NOTE: Only users with "Explorer Admin" or "System Admin" roles can access the interface.
 

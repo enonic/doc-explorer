@@ -3,15 +3,15 @@
 
 == Introduction
 
-The iceing on the cake is Explorers ability to create your own, fully customisable search interfaces. By default, Explorer does not expose any web APIs, but rather enable developers to access the interfaces through an internal JavaScript API.
+Explorers ability to create fully customised search interfaces is the icing on the cake. By default, Explorer does not expose any web APIs, but rather enable developers to access the <<admin/interfaces#, interfaces>> through an internal JavaScript API.
 
 == Search apps
 
-There are numerous ways of exposing your search data from Explorer, but they all begin with the development of a custom XP application.
+There are numerous ways of exposing your search data from Explorer, but they all start with the development of a custom XP application.
 
 The application will use Explorers API, and then offers a solution to exposing the data. Here are the most common approaches:
 
-Search pages:: The good old way simply provides search trough a website or webapp - delivering both the server-side generated interface and search results.
+Server pages:: Search interface and results delivered as good old web pages.
 
 RESTful API:: Exposes your search interface through a RESTful API of your preferred format and style, to be consumed by any client. This may also be secured as required.
 
@@ -20,19 +20,15 @@ GraphQL API:: Exposes your search interface through graphQL. Check out Enonic's 
 API and front-end:: Finally, you may combine the above, and have your app deliver both the API and front-end clients through XP as desired.
 
 
-== Selecting interface
+== Using the search API
 
-There are numerous ways to pick an interface, using a custom selector is a pretty good solution.
-
-== Providing a search result
-
-There are numerous ways to provide a search result.
+There are numerous ways to returan a search result.
 
 Perhaps you want to provide a JSON service to be used with a react frontend, or do a static HTML page by rendering server-side.
 
-Common to all solutions is that you have to call the search function, and perhaps manipulate the result to your liking.
+Common to all solutions is that you have to call the search api, and perhaps manipulate the result to your liking.
 
-Below is an example of this:
+Below is an example of how to invoke the search API:
 
 .controller.es
 [source,java]
@@ -67,9 +63,17 @@ export function get({
 }
 ----
 
+== Site integration
+
+When integrating search in a site, it may be practical to enable editors to select which interface to use in the search.
+
+A custom selector may be a practical solution to this.
+
 === Custom selector
 
-The Explorer link:admin[administration] application provides a service that can be used by a custom selector in a site application.
+Explorer's API provides a service that can be used by a custom selector in any site application.
+
+TODO: Confirm service is part of library
 
 .controller.xml
 [source,xml]
