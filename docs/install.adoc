@@ -17,5 +17,5 @@ Explorer supports the following file-based configuration options:
 .XP_HOME/config/com.enonic.app.explorer
 [source,java]
 ----
-TODO
+cron = true #run collectors on this node
 ----

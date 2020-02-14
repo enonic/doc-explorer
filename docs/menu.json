@@ -10,23 +10,23 @@
       "menuItems": [
         {
           "title": "Fields",
-          "document": "fields"
+          "document": "admin/fields"
         },
         {
           "title": "Collections",
-          "document": "collections"
+          "document": "admin/collections"
         },
         {
           "title": "Thesauri",
-          "document": "thesauri"
+          "document": "admin/thesauri"
         },
         {
           "title": "Stop Words",
-          "document": "stopwords"
+          "document": "admin/stopwords"
         },
         {
           "title": "Interfaces",
-          "document": "interfaces"
+          "document": "admin/interfaces"
         }
       ]
     },
@@ -36,11 +36,11 @@
       "menuItems": [
         {
           "title": "Webcrawler collector",
-          "document": "webcrawler"
+          "document": "collectors/webcrawler"
         },
         {
           "title": "Custom collectors",
-          "document": "custom"
+          "document": "collectors/custom"
         }
       ]
     },
