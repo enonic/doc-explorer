@@ -1,6 +1,10 @@
 {
   "menuItems": [
     {
+      "title": "Installation",
+      "document": "install"
+    },
+    {
       "title": "Admin",
       "document": "admin",
       "menuItems": [
@@ -27,10 +31,6 @@
       ]
     },
     {
-      "title": "API",
-      "document": "api"
-    },
-    {
       "title": "Collectors",
       "document": "collectors",
       "menuItems": [
@@ -45,7 +45,7 @@
       ]
     },
     {
-      "title": "Search clients",
+      "title": "Clients",
       "document": "clients"
     },
     {
