@@ -25,7 +25,7 @@ The starter ships with the essential setup required for any collector:
 [source,java]
 ----
 dependencies {
-	include 'com.enonic.lib:lib-explorer:1.0.0-SNAPSHOT'
+	include 'com.enonic.lib:lib-explorer:2.1.2'
 }
 ----
 
@@ -52,7 +52,8 @@ register({
 
 __.disposer(() => {
 	unregister({
-		appName: app.name
+		appName: app.name,
+		collectTaskName: 'collect'
 	});
 });
 ----
@@ -117,7 +118,7 @@ This is where you store any configuration you want to use later in the collector
 
 == Step 3: Collector task
 
-The actual code to retrieve and return content for indexing is implemented using https://developer.enonic.com/docs/xp/stable/framework/tasks[named tasks]. 
+The actual code to retrieve and return content for indexing is implemented using https://developer.enonic.com/docs/xp/stable/framework/tasks[named tasks].
 
 
 The most important parts of a collector are:
@@ -131,13 +132,36 @@ Journal:: TODO
 
 The complexity of a collector may vary, but as to provide a basic idea, the starter includes a simple example:
 
+.src/resources/tasks/collect.xml
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<task>
+	<description>Collect</description>
+	<form>
+		<input name="name" type="TextLine">
+			<label>Name</label>
+			<occurrences minimum="1" maximum="1"/>
+		</input>
+		<input name="collectorId" type="TextLine">
+			<label>Collector ID</label>
+			<occurrences minimum="1" maximum="1"/>
+		</input>
+		<input name="configJson" type="TextLine">
+			<label>Config JSON</label>
+			<occurrences minimum="1" maximum="1"/>
+		</input>
+	</form>
+</task>
+----
+
 .src/resources/tasks/collect.es
 [source,javascript]
 ----
 import {Collector} from '/lib/explorer/collector'; <--1-->
 
-export function run({name, configJson}) { <--2-->
-	const collector = new Collector({name, configJson}); <--3-->
+export function run({name, collectorId, configJson}) { <--2-->
+	const collector = new Collector({name, collectorId, configJson}); <--3-->
 
 	if (!collector.config.uri) { <--4-->
 		throw new Error('Config is missing required parameter uri!');
@@ -181,7 +205,7 @@ export function run({name, configJson}) { <--2-->
 ----
 
 <1> Import the Collector class
-<2> The collect task gets passed two named parameters.
+<2> The collect task gets passed three named parameters.
 <3> Construct a Collector instance.
 <4> Validate the configuration object.
 <5> Start the collector. Sets startTime and more.
