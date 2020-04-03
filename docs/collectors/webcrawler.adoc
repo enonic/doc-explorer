@@ -5,4 +5,29 @@
 
 The webcrawler collector is included with Explorer as a standard.
 
-TODO describe
+
+== Configuration
+
+The webcrawler collector has three configuration options.
+
+=== Uri
+
+This is the uri at which the collector will start crawling. This is usually a domain name.
+
+Example:
+----
+https://www.example.com
+----
+
+=== Exclude patterns
+
+A list of Regular expressions which are matched against the full url of each link found during crawling. If any link matches any exclude pattern it will be skipped.
+
+Example:
+----
+^https://www.example.com/whatever.*$
+----
+
+=== Custom User-Agent
+
+Some webservers handle user-agents differently. Here you can pretend to be a specific browser or robot. If you leave the field empty it will use a default useragent.
