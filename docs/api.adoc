@@ -17,7 +17,7 @@ In your controller, add a require statement:
 
 [source,js]
 ----
-import {search, register, Collector} from '/lib/explorer';
+import {search} from '/lib/explorer';
 ----
 
 
@@ -52,11 +52,11 @@ Parameters
 ! ...
 !===
 
-| interface    | string  | <required> | undefined            | Which explorer interface to use.
-| locale       | string  | <optional> | educated-guess? TODO | Which locale to return search results in (may require translated localization files).
-| name         | string  | <optional> | q                    | Which request parameter contains the searchString.
-| page         | number  | <optional> | 1                    | Which page of search results to return. Takes count into account.
-| searchString | string  | <required> | ''                   | The actual terms you want to find. Typically what a user types into a text input.
+| interface    | string  | <required> | undefined                           | Which explorer interface to use.
+| locale       | string  | <optional> | from HTTP request or server default | Which locale to return search results in (may require translated localization files).
+| name         | string  | <optional> | q                                   | Which request parameter contains the searchString.
+| page         | number  | <optional> | 1                                   | Which page of search results to return. Takes count into account.
+| searchString | string  | <required> | ''                                  | The actual terms you want to find. Typically what a user types into a text input.
 |===
 
 [.lead]
@@ -67,12 +67,12 @@ Returns
 [grid="none"]
 |===
 | Name | Type | Details
-| facetCategories | object | TODO
+| facetCategories | object | Information needed to render facets on a webpage.
 | pages | number | How many pages there are (for the current search).
-| pagination | Array.<object> | TODO
+| pagination | Array.<object> | Information needed to render a paginator on a webpage.
 | hits | Array.<object> | The search results based on explorer interface configuration.
-| removedStopWords | Array.<> | TODO
-| synonymsObj | object | TODO
+| removedStopWords | Array.<string> | Which stop-words was removed before querying.
+| synonymsObj | object | What synonyms where found and added based on the initial search string.
 | total | number | How many search results are there in total.
 |===
 
@@ -234,7 +234,7 @@ export const get = ({                           // <2>
 <17> Name of the current facet.
 <18> Url query to use to inactivate this facet filter.
 <19> How many results there would be if this facet filter was activated.
-<20> Automatically generated pagination links.
-<21> A good text to use when rendering a paginator in the webpage.
+<20> Information needed to render a paginator on a webpage.
+<21> A good text to use when rendering a paginator on a webpage.
 <22> Url query to use to go to that page.
 <23> This text can be localized.
