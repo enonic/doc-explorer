@@ -20,8 +20,6 @@ In your controller, add a require statement:
 import {search} from '/lib/explorer';
 ----
 
-
-
 == Functions
 
 === search
