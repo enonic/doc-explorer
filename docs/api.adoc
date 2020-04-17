@@ -9,7 +9,7 @@ Add the following into your build file:
 [source,groovy]
 ----
 dependencies {
-	include 'com.enonic.lib:lib-explorer:1.0.0-SNAPSHOT'
+	include 'com.enonic.lib:lib-explorer:2.1.3'
 }
 ----
 
@@ -17,67 +17,189 @@ In your controller, add a require statement:
 
 [source,js]
 ----
-const explorerLib = require('/lib/explorer');
+import {search, register, Collector} from '/lib/explorer';
 ----
 
-You may now use the api in your controller.
 
 
 == Functions
 
-TODO
+=== search
 
-=== get
-
-Returns the current context
+Uses an explorer interface to search and returns scored results.
 
 [.lead]
 Parameters
 
-None
+[%header,cols="1%,1%,1%,1%,97%a"]
+[frame="none"]
+[grid="none"]
+|===
+| Name         | Type    | Attributes | Default              | Details
+| clearCache   | boolean | <optional> | false                | Clear all server-side caches
+| count        | number  | <optional> | 10                   | How many results to return.
+| facets       | object  | <optional> |                      | Which facets in facet categories to filter on.
+
+[%header,cols="1%,1%,1%,1%,96%a"]
+[frame="topbot"]
+[grid="none"]
+[caption=""]
+.Properties
+!===
+! Name      ! Type  ! Attributes ! Default ! Description
+! categoryA ! Array.<string> ! <optional> !         ! List of active facets in facet category named categoryA to filter on.
+! categoryB ! Array.<string> ! <optional> !         ! List of active facets in facet category named categoryB to filter on.
+! ...
+!===
+
+| interface    | string  | <required> | undefined            | Which explorer interface to use.
+| locale       | string  | <optional> | educated-guess? TODO | Which locale to return search results in (may require translated localization files).
+| name         | string  | <optional> | q                    | Which request parameter contains the searchString.
+| page         | number  | <optional> | 1                    | Which page of search results to return. Takes count into account.
+| searchString | string  | <required> | ''                   | The actual terms you want to find. Typically what a user types into a text input.
+|===
 
 [.lead]
 Returns
 
-<<Context>>
+[%header,cols="1%,1%,98%a"]
+[frame="none"]
+[grid="none"]
+|===
+| Name | Type | Details
+| facetCategories | object | TODO
+| pages | number | How many pages there are (for the current search).
+| pagination | Array.<object> | TODO
+| hits | Array.<object> | The search results based on explorer interface configuration.
+| removedStopWords | Array.<> | TODO
+| synonymsObj | object | TODO
+| total | number | How many search results are there in total.
+|===
 
 [.lead]
 Example
 
-.Getting the current context
+.Executing a search in service controller
 [source,js]
 ----
-const context = contextLib.get();
+import {search} from '/lib/explorer';           // <1>
+
+export const get = ({                           // <2>
+  params: {                                     // <3>
+    count = 10,                                 // <4>
+    q: searchString = ''                        // <5>
+  } = {}                                        // <6>
+}) => ({                                        // <7>
+  body: search({                                // <8>
+    count,                                      // <9>
+    interface: 'default',                       //<10>
+    //name: 'q',                                //<11>
+    searchString                                //<12>
+  }),
+  contentType: 'application/json;charset=utf-8' //<13>
+});
 ----
+<1> Import search function from explorer library.
+<2> Export a function to handle HTTP get requests.
+<3> Use ECMAScript deconstruction to pluck the request parameters we want.
+<4> Pluck the count parameter and default to 10 if it's not passed.
+<5> Pluck the q parameter and default to 10 if it's not passed and store in a variable called searchString.
+<6> If no parameters are passed default to an empty object so deconstruction to default values still work.
+<7> Let the exported get function return a response object.
+<8> Store the result of the search function in the response object body property.
+<9> Pass on the count variable as a parameter to the search function.
+<10> Hardcode that the search function is executed using the interface named default.
+<11> Here we could change which request parameter contains the searchString.
+<12> Pass on the searchString variable as a parameter to the search function.
+<13> Since the response body property is a pure Javascript object just return it as UTF-8 encoded json.
 
 .Sample response
-[source,js]
+[source,json]
 ----
 {
-  branch: "draft",
-  repository: "com.enonic.cms.default",
-  authInfo: {
-      user: {                            <1>
-          type: "user",
-          key: "user.system.abc",
-          displayName: "A.B.C.",
-          disabled: false,
-          email: "abc@enonic.com",
-          login: "abc",
-          idProvider: "system"
-      }
-      principals: [
-          "user:system:abc",
-          "role:system.admin",
-          "role:system.admin.login",
-          "role:system.authenticated",
-          "role:system.everyone"
-      ]
-  }
+	"params": {              <1>
+		"count": 1,
+		"facets": {},
+		"interface": "default",
+		"locale": "en",
+		"name": "q",
+		"searchString": "test",
+		"start": 0
+	},
+	"count": 1,              <2>
+	"expand": false,         <3>
+	"pages": 19,             <4>
+	"total": 19,             <5>
+	"removedStopWords": [],  <6>
+	"synonymsObj": {},       <7>
+	"hits": [                <8>
+		{
+			"title": "Request a demo of Enonic XP - Enonic",
+			"text": "… TimelineCareersContact us Enonic MarketEnonic DiscussEnonic SupportDemo requestSubmit your details below to get a 5 days <b>test</b> drive in the cloud.
+ 		Email (to send you trial links)  Name I consent to receive communications in digital channels about…",
+		"href": "https://www.enonic.com/try-now"
+	}
+	],
+	"facetCategories": [],  <9>
+	"pagination": [        <10>
+		{
+			"text": "1"
+		},
+		{
+			"href": "?q=test&page=2",
+			"text": "2"
+		},
+		{
+			"href": "?q=test&page=3",
+			"text": "3"
+		},
+		{
+			"href": "?q=test&page=4",
+			"text": "4"
+		},
+		{
+			"href": "?q=test&page=5",
+			"text": "5"
+		},
+		{
+			"href": "?q=test&page=6",
+			"text": "6"
+		},
+		{
+			"href": "?q=test&page=7",
+			"text": "7"
+		},
+		{
+			"href": "?q=test&page=8",
+			"text": "8"
+		},
+		{
+			"href": "?q=test&page=9",
+			"text": "9"
+		},
+		{
+			"href": "?q=test&page=10",
+			"text": "10"
+		},
+		{
+			"href": "?q=test&page=2",
+			"text": "Next"
+		},
+		{
+			"href": "?q=test&page=19",
+			"text": "Last"
+		}
+	]
 }
 ----
 
-<1> The user node will not be returned unless there is a logged in user.
-
-=== next
-
+<1> Which parameters the search function was passed or defaulted to.
+<2> How many results was returned.
+<3> Whether or not synonym expansion was used.
+<4> How many pages there are.
+<5> How many results there are in total.
+<6> Which stop-words was removed before querying.
+<7> What synonyms where found and added based on the initial search string.
+<8> The actual search results in this page.
+<9> How many results would there be with various facets. Based on advanced aggregated filter queries.
+<10> Automatically generated pagination links.
