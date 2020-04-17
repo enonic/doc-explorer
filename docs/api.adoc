@@ -140,13 +140,35 @@ export const get = ({                           // <2>
 		"href": "https://www.enonic.com/try-now"
 	}
 	],
-	"facetCategories": [],  <9>
-	"pagination": [        <10>
+	"facetCategories": [     <9>
 		{
-			"text": "1"
+			"activeCount": 0,                           <10>
+			"clearHref": "?",                           <11>
+			"href": "?language=English&language=Norsk", <12>
+			"inactiveCount": 2,                         <13>
+			"name": "Language",                         <14>
+			"facets": [                                 <15>
+				{
+					"href": "?language=English",            <16>
+					"name": "English",                      <17>
+					"removeHref": "?",                      <18>
+					"count": 0                              <19>
+				},
+				{
+					"href": "?language=Norsk",
+					"name": "Norsk",
+					"removeHref": "?",
+					"count": 0
+				}
+			]
+		}
+	],
+	"pagination": [          <20>
+		{
+			"text": "1"               <21>
 		},
 		{
-			"href": "?q=test&page=2",
+			"href": "?q=test&page=2", <22>
 			"text": "2"
 		},
 		{
@@ -183,7 +205,7 @@ export const get = ({                           // <2>
 		},
 		{
 			"href": "?q=test&page=2",
-			"text": "Next"
+			"text": "Next"            <23>
 		},
 		{
 			"href": "?q=test&page=19",
@@ -202,4 +224,17 @@ export const get = ({                           // <2>
 <7> What synonyms where found and added based on the initial search string.
 <8> The actual search results in this page.
 <9> How many results would there be with various facets. Based on advanced aggregated filter queries.
-<10> Automatically generated pagination links.
+<10> How many facets are activated in this category.
+<11> Url query to use to clear all filters in current category.
+<12> Url query to use to activate all filters in current category.
+<13> How many facets are NOT activated in this category.
+<14> The name of the current facet category.
+<15> List of facets in this category.
+<16> Url query to use to activate this facet filter.
+<17> Name of the current facet.
+<18> Url query to use to inactivate this facet filter.
+<19> How many results there would be if this facet filter was activated.
+<20> Automatically generated pagination links.
+<21> A good text to use when rendering a paginator in the webpage.
+<22> Url query to use to go to that page.
+<23> This text can be localized.
