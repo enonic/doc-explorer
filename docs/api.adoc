@@ -65,10 +65,13 @@ Returns
 [grid="none"]
 |===
 | Name | Type | Details
+| count | number | How many results was returned.
+| expand | boolean | Whether or not synonym expansion was used. When false only searches the from field and adds from the to field. When true searches both from and to fields and adds from both to and from fields.
 | facetCategories | object | Information needed to render facets on a webpage.
+| hits | Array.<object> | The search results based on explorer interface configuration.
 | pages | number | How many pages there are (for the current search).
 | pagination | Array.<object> | Information needed to render a paginator on a webpage.
-| hits | Array.<object> | The search results based on explorer interface configuration.
+| params | object | Which parameters the search function was passed or defaulted to.
 | removedStopWords | Array.<string> | Which stop-words was removed before querying.
 | synonymsObj | object | What synonyms where found and added based on the initial search string.
 | total | number | How many search results are there in total.
@@ -121,16 +124,29 @@ export const get = ({                           // <2>
 		"interface": "default",
 		"locale": "en",
 		"name": "q",
-		"searchString": "test",
+		"searchString": "test or not",
 		"start": 0
 	},
 	"count": 1,              <2>
 	"expand": false,         <3>
 	"pages": 19,             <4>
 	"total": 19,             <5>
-	"removedStopWords": [],  <6>
-	"synonymsObj": {},       <7>
-	"hits": [                <8>
+	"removedStopWords": [    <6>
+		"or",
+		"not"
+	],
+	"synonymsObj": {         <7>
+		"Example synonyms": {  <8>
+			"test": {            <9>
+				"score": 3.862200975418091,
+				"to": [            <10>
+					"expression",
+					"term"
+				]
+			}
+		}
+	},
+	"hits": [                <11>
 		{
 			"title": "Request a demo of Enonic XP - Enonic",
 			"text": "… TimelineCareersContact us Enonic MarketEnonic DiscussEnonic SupportDemo requestSubmit your details below to get a 5 days <b>test</b> drive in the cloud.
@@ -138,19 +154,19 @@ export const get = ({                           // <2>
 		"href": "https://www.enonic.com/try-now"
 	}
 	],
-	"facetCategories": [     <9>
+	"facetCategories": [     <12>
 		{
-			"activeCount": 0,                           <10>
-			"clearHref": "?",                           <11>
-			"href": "?language=English&language=Norsk", <12>
-			"inactiveCount": 2,                         <13>
-			"name": "Language",                         <14>
-			"facets": [                                 <15>
+			"activeCount": 0,                           <13>
+			"clearHref": "?",                           <14>
+			"href": "?language=English&language=Norsk", <15>
+			"inactiveCount": 2,                         <16>
+			"name": "Language",                         <17>
+			"facets": [                                 <18>
 				{
-					"href": "?language=English",            <16>
-					"name": "English",                      <17>
-					"removeHref": "?",                      <18>
-					"count": 0                              <19>
+					"href": "?language=English",            <19>
+					"name": "English",                      <20>
+					"removeHref": "?",                      <21>
+					"count": 0                              <22>
 				},
 				{
 					"href": "?language=Norsk",
@@ -161,12 +177,12 @@ export const get = ({                           // <2>
 			]
 		}
 	],
-	"pagination": [          <20>
+	"pagination": [          <23>
 		{
-			"text": "1"               <21>
+			"text": "1"               <24>
 		},
 		{
-			"href": "?q=test&page=2", <22>
+			"href": "?q=test&page=2", <25>
 			"text": "2"
 		},
 		{
@@ -203,7 +219,7 @@ export const get = ({                           // <2>
 		},
 		{
 			"href": "?q=test&page=2",
-			"text": "Next"            <23>
+			"text": "Next"            <26>
 		},
 		{
 			"href": "?q=test&page=19",
@@ -215,24 +231,27 @@ export const get = ({                           // <2>
 
 <1> Which parameters the search function was passed or defaulted to.
 <2> How many results was returned.
-<3> Whether or not synonym expansion was used.
+<3> Whether or not synonym expansion was used. When false only searches the from field and adds from the to field. When true searches both from and to fields and adds from both to and from fields.
 <4> How many pages there are.
 <5> How many results there are in total.
-<6> Which stop-words was removed before querying.
+<6> Which stop-words was removed before querying the interface.
 <7> What synonyms where found and added based on the initial search string.
-<8> The actual search results in this page.
-<9> How many results would there be with various facets. Based on advanced aggregated filter queries.
-<10> How many facets are activated in this category.
-<11> Url query to use to clear all filters in current category.
-<12> Url query to use to activate all filters in current category.
-<13> How many facets are NOT activated in this category.
-<14> The name of the current facet category.
-<15> List of facets in this category.
-<16> Url query to use to activate this facet filter.
-<17> Name of the current facet.
-<18> Url query to use to inactivate this facet filter.
-<19> How many results there would be if this facet filter was activated.
-<20> Information needed to render a paginator on a webpage.
-<21> A good text to use when rendering a paginator on a webpage.
-<22> Url query to use to go to that page.
-<23> This text can be localized.
+<8> Thesaurus name (in which thesaurus was the synonyms found).
+<9> Synonym name (which synonym was found based on the search string).
+<10> List of synonyms added when querying the interface.
+<11> The actual search results in this page.
+<12> How many results would there be with various facets. Based on advanced aggregated filter queries.
+<13> How many facets are activated in this category.
+<14> Url query to use to clear all filters in current category.
+<15> Url query to use to activate all filters in current category.
+<16> How many facets are NOT activated in this category.
+<17> The name of the current facet category.
+<18> List of facets in this category.
+<19> Url query to use to activate this facet filter.
+<20> Name of the current facet.
+<21> Url query to use to inactivate this facet filter.
+<22> How many results there would be if this facet filter was activated.
+<23> Information needed to render a paginator on a webpage.
+<24> A good text to use when rendering a paginator on a webpage.
+<25> Url query to use to go to that page.
+<26> This text can be localized.
