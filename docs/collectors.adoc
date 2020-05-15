@@ -3,13 +3,13 @@
 
 == Introduction
 
-A collectors can be configured to extract data from a specific source, and returns the content to explorer for indexing.
+A collector can be configured to extract data from a specific source, and returns the content to explorer for indexing.
 
 == Usage
 
 === Install
 
-To make use of a collector, you must first make sure it is installed. Collectors are typically distributed as regular XP applications, but Explorer also ships with a standard collector called <<webcrawler#, webcrawler>>.
+To make use of a collector, you must first make sure it is installed. Collectors are typically distributed as regular XP applications, but Explorer also ships with a standard collector called <<collectors/webcrawler#, webcrawler>>.
 
 === Configure
 
@@ -21,5 +21,4 @@ All items returned from the collector will then be stored and indexed in the spe
 For each collection, Explorer will run the specified collector as a background job. The jobs follow the defined schedule of the collection.
 
 == Custom collectors
-Explorer enables development of custom collectors. Follow these instructions to build your own <<custom#, custom collector>>.
-
+Explorer enables development of custom collectors. Follow these instructions to build your own <<collectors/custom#, custom collector>>.
