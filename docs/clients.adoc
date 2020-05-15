@@ -19,10 +19,14 @@ GraphQL API:: Exposes your search interface through graphQL. Check out Enonic's 
 
 API and front-end:: Finally, you may combine the above, and have your app deliver both the API and front-end clients through XP as desired.
 
+== Using the Explorer Client starter
+
+Here's a tutorial on how to use the <<clients/starter#,Explorer Client starter>>
+
 
 == Using the search API
 
-There are numerous ways to returan a search result.
+There are numerous ways to return a search result.
 
 Perhaps you want to provide a JSON service to be used with a react frontend, or do a static HTML page by rendering server-side.
 
@@ -33,7 +37,7 @@ Below is an example of how to invoke the search API:
 .controller.es
 [source,java]
 ----
-import {search} from '/lib/explorer/search';
+import {search} from '/lib/explorer';
 
 export function get({
 	params
@@ -94,4 +98,3 @@ The service can currently only be accessed with any of these roles:
 * Content Manager Expert (cms.expert)
 * Administrator (system.admin)
 * Administration Console Login (system.admin.login)
-

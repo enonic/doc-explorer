@@ -24,11 +24,11 @@ image::explorer.png[Explorer,768]
 
 == Collectors
 
-Collectors are purpose specific applications that extracts and indexes data from specific sources. 
+Collectors are purpose specific applications that extracts and indexes data from specific sources.
 
 As an example, the "webcrawler" collector is included in Explorer by default and enables traditional crawling and indexing of web content.
 
-You may extend Explorers capabilities by <<collector#, building your own collector>> to extract data from other sources.
+You may extend Explorers capabilities by <<collectors#, building your own collector>> to extract data from other sources.
 
 == Search API
 

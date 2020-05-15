@@ -46,7 +46,13 @@
     },
     {
       "title": "Clients",
-      "document": "clients"
+      "document": "clients",
+      "menuItems": [
+        {
+          "title": "Client starter",
+          "document": "clients/starter"
+        }
+      ]
     },
     {
       "title": "API",
