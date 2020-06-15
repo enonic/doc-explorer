@@ -1,0 +1,28 @@
+= Getting Started
+:toc: right
+:imagesdir: images
+
+. Given you have https://developer.enonic.com/docs/xp/stable[Enonic XP] running somewhere.
+. Visit the https://developer.enonic.com/docs/xp/stable/admin#admin_console[Admin console].
+. Then choose https://developer.enonic.com/docs/xp/stable/apps[Applications] in the *XP Menu*.
+. And install *Explorer* from the *Install Menu*.
+. Once *Explorer* is installed.
+. You can open *Explorer* from the *XP Menu*.
+
+== Getting some data to search
+
+When first installing *Explorer* there is no data to search.
+Luckily *Explorer* ships with a built-in collector named *Web crawler*.
+
+. Go to the Collections page in the *Explorer Menu*.
+. Click the big green plus button in the lower right corner.
+. Give the Collection a name, for example: Example
+. Choose the *Web crawler* collector in the collector dropdown menu.
+. Input an uri, for example: https://www.example.com
+. Scroll to the bottom of the page and click *Submit*.
+. Your newly created *Collection* should appear in the list of *Collections*.
+. Click the green download from cloud icon to the right.
+. Click the *Collections Status page* in the *Explorer Menu* to see the state of the collector.
+. Once it's finished you can go to the *Home page* and try searching for terms that exist on the domain you choose to crawl.
+
+WARNING: Be careful not to harass webservers, your ip might become blocked by them.

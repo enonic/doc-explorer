@@ -7,6 +7,8 @@ include::variables.adoc[]
 
 Explorer is an enterprise search application which simplifies collecting and searching across data from multiple sources.
 
+You can try it out quickly by following the <<gettingStarted/index#,Getting Started Guide>>.
+
 Explorer's essential components are:
 
 
