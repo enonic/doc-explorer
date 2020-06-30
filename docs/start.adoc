@@ -1,0 +1,81 @@
+= Getting Started
+:toc: right
+:imagesdir: images
+
+NOTE: Explorer requires Enonic XP in order to run. It can also be tested on a local developer environment.
+
+== Installation
+
+To get started, simply install Explorer to your XP instance. Explorer is available from https://market.enonic.com/vendors/enonic/explorer[Enonic market].
+
+=== Configuration
+
+If you are running Explorer in a cluster, make sure to configure so only one of the nodes will be running collectors. 
+
+.XP_HOME/config/com.enonic.app.explorer
+[source,java]
+----
+cron = true #set value to false for all other nodes
+----
+
+
+== Explorer admin
+
+From the XP admin console, you should now be able to access the <<admin#, explorer admin>>, via a fresh entry in the XP menu. 
+
+image::XPMenuExplorer.png[XPMenuExplorer,318]
+
+NOTE: Only users with the role "system.admin", or "com.enonic.explorer" (created when explorer was installed) can see and access Explorer's admin interface.
+
+image::explorer.png[Sample screenshot from Explorers admin inteface]
+
+
+== Collecting some data
+
+When first installing Explorer there is no data to available for searching.
+
+To get started, lets can use the built-in <<collectors/webcrawler#,Web crawler collector>>.
+
+. Select the `Collections` page from the Explorer Menu.
++
+. Click the create button:
++
+image::GreenPlus.png[GreenPlus,71]
+. Give the Collection a name, i.e. "Example"
+. Choose the `Web crawler` collector in the collector dropdown menu:
+. Provide a starting URL, for example: https://www.example.com
++
+image::NewCollection.png[NewCollection,792]
+. Scroll to the bottom of the page and click `Submit`.
++
+. Your newly created *Collection* should appear in the list of *Collections*.
++
+image::CollectionsList.png[CollectionsList,577]
+. Click the green download from cloud icon to the right to start collecting data.
++
+image::Collect.png[Collect,40]
++
+WARNING: Be careful not to harass webservers, your ip might become blocked by them.
+. To view the status of the job, select the `Collections Status` page from the Explorer Menu
++
+image::CollectorStatus.png[CollectorStatus,1039]
+
+
+== Test search
+
+With some data indexed, you can try running a simple search.
+
+From the main page, use the big search field to see if you get any hits in your recently collected data.
+
+image::Home.png[Home,606]
+
+== Next
+
+You have now successfully setup a collection and filled it with data.
+We now recommend looking into the following:
+
+* Visit the <<admin#,Explorer admin docs>>
+* Learn more about <<collectors#, collectors>> and how to build a <<collectors/custom#, custom collector>>
+* Understand how <<clients#, search clients>> work, and how to build your own
+* Check out the <<api#, Explorer API>>
+

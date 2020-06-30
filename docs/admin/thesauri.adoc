@@ -4,7 +4,7 @@
 
 == Introduction
 
-You can have multiple thesauri to be used in various combinations in <<interfaces,interfaces>>.
+You can have multiple thesauri to be used in various combinations in <<interfaces#,interfaces>>.
 
 image::thesauri.png[Thesauri,768]
 

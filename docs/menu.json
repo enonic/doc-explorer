@@ -1,8 +1,8 @@
 {
   "menuItems": [
     {
-      "title": "Installation",
-      "document": "install"
+      "title": "Geting started",
+      "document": "start"
     },
     {
       "title": "Admin",
