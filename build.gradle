@@ -33,19 +33,22 @@ asciidoctor {
     }
 }
 
+def htmlOutputPath = "$buildDir/docs/html5"
+
 htmlSanityCheck {
 
     dependsOn asciidoctor
 
-    sourceDir = new File( "$buildDir/docs/html5" )
+    sourceDir = new File( htmlOutputPath )
 
-    // files to check - in Set-notation
-    sourceDocuments = [ "index.html"]
+    // filter files to check - in Set-notation
+    //sourceDocuments = [ "index.html"]
 
     // where to put results of sanityChecks...
     checkingResultsDir = new File( "$buildDir/report/htmlchecks" )
+
     //checkExternalLinks = false
 
     // fail build on errors?
-    failOnErrors = true
+    //failOnErrors = true
 }
