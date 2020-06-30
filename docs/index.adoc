@@ -1,4 +1,4 @@
-= Explorer {release} documentation
+= Enonic Explorer documentation
 include::variables.adoc[]
 :toc: right
 :imagesdir: images
@@ -7,16 +7,16 @@ include::variables.adoc[]
 
 Explorer is an enterprise search application that supports collecting, and searching across data from different sources. 
 
-NOTE: In a hurry? Visit the <<start#,Getting started section>>.
+NOTE: tl;dr - visit the <<start#,getting started section>>.
 
 These are the core concepts of Explorer:
 
-* Properties represent a common set of fields across different sources
-* Collections enable storing data from a single source
+* <<admin/fields#, Fields>> represent a common set of fields across different sources
+* <<admin/collections#, Collections>> enable storing data from a specific source.
 * <<collectors#, Collectors>> are pluggable apps that extract and fill data into collections
 * Collectors can be configured and scheduled
-* Thesauri and stopword lists can be created and managed for improved search results
-* Search inferfaces can be tuned and managed to optimise search results
+* <<admin/thesauri#, Thesauri>> and <<admin/stopwords#, Stop word>> lists can be created and managed for improved search results
+* <<admin/interfaces#, Search inferfaces>> can be tuned and managed to optimise search results
 
 Finally, explorer provides an <<api#, search API>> that can be used to implement <<clients#, fully customized search interfaces>> for end users.
 
