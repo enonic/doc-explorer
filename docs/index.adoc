@@ -5,7 +5,7 @@ include::variables.adoc[]
 
 == Introduction
 
-Explorer is an enterprise search application that supports collecting, and searching across data from different sources. 
+Explorer is an enterprise search application that supports collecting, and searching across data from different sources. You need a license to run the application. 
 
 NOTE: tl;dr - visit the <<start#,getting started section>>.
 
