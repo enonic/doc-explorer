@@ -388,3 +388,11 @@ export function run({name, collectorId, configJson}) { <--2-->
 <10> Make a journal entry that collecting data from uri was a success.
 <11> Make a journal entry that an error prevented collecting data from uri.
 <12> Stop the collector. Sets endTime and more.
+
+
+== Step 4: Install and test
+
+When you have built your collector application.
+Install the jar file on the Enonic XP server where you have Explorer installed.
+Then create a collection using your collector, and click collect to see what happens.
+It is a good idea to run locally first and keep an eye on the Enonic XP server log.
