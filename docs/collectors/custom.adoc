@@ -101,7 +101,30 @@ This object contains information from Explorer about the collector context. The 
 
 ==== isFirstRun
 
-TODO
+This is a React ref object whose .current property is initialized to true. If you have any code that should only run once on initialization of you collector component, you can use this object to achieve this. Here is some example code:
+
+[source,javascript]
+----
+import getIn from 'get-value';
+
+export const Collector = ({
+	context,
+	isFirstRun,
+	path
+}) => {
+	let initialValues = getIn(context.values, path);
+	if (isFirstRun.current) {
+		isFirstRun.current = false; // Make sure the code block never runs again.
+		if (!initialValues) {
+			initialValues = {
+				aProperty: 'defaultValueForProperty',
+			}
+		}
+	} // if isFirstRun
+} // Collector
+----
+
+You can read more about React ref objects here: https://reactjs.org/docs/hooks-reference.html#useref
 
 ==== path
 
