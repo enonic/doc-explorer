@@ -208,12 +208,99 @@ The actual code to retrieve and return content for indexing is implemented using
 
 The most important parts of a collector are:
 
-Progress reporting:: TODO
+=== Progress reporting
 
-CRUD:: TODO
+In the explorer app there is a page to display Collector status.
+In order for this page to show useful updated information.
+The collector tasks needs to send progress information.
+When your collector task runs
+[source,javascript]
+----
+collector.start();
+----
 
-Journal:: TODO
+A collector.taskProgressObj will be created automatically. Looking something like this:
 
+[source,javascript]
+----
+collector.taskProgressObj = {
+	current: 0,
+	info: {
+		name: 'Example',
+		message: 'Initializing...',
+		startTime: '2020...'
+	},
+	total: 1 // So it appears there is something to do.
+}
+----
+
+A collector task may have a set or changing number of operations to perform.
+You should keep the progress updated something like this:
+
+[source,javascript]
+----
+collector.start();
+collector.taskProgressObj.total = initialNumberOfOperations;
+while(somethingToDo) {
+	collector.taskProgressObj.info.uri = currentUri;
+	collector.taskProgressObj.info.message = 'Some useful information';
+	collector.progress(); // This will update task progress. So it can be seen.
+
+	// ... do stuff ...
+
+	collector.taskProgressObj.total += foundSomeMoreOperationsToPerform;
+
+	collector.taskProgressObj.current += 1;
+}
+collector.stop();
+----
+
+
+Finally when you collector task calls
+[source,javascript]
+----
+collector.stop();
+----
+
+It will set current = total and a nice info.message = `Finished with ${x} errors.`;
+
+=== Journal
+
+When a collector task is finished. A journal will be persisted.
+The journal contains information about things that went well, and possible errors.
+Write to the journal by using *addSuccess* or *addError* like this:
+
+[source,javascript]
+----
+try {
+	// ... do some stuff that could fail ...
+	collector.addSuccess({uri: currentUri});
+} catch (e) {
+	collector.addError({uri: currentUri, message: e.message});
+}
+----
+
+=== CRUD
+
+When you have collected some information you want to make available for later search you have to persist it.
+This can be done by calling *persistDocument* like this:
+
+[source,javascript]
+----
+collector.persistDocument({
+	aField: 'aTag', // Optional, perhaps used in aggregation and filtering.
+	anotherField: 'anotherTag', // Optional, perhaps used in aggregation and filtering.
+	text, // Required!
+	title, // Required!
+	uri, // Required!
+	whatever: 'perhapsAnImageUrl' // Optional, perhaps used when displaying search results.
+});
+----
+
+The explorer library Collection class currently does not provide any api for reading and deleting documents.
+You may connect to the collection repositories via standard Enonic API's or via other currently undocumented Explorer library functions.
+
+=== Example code
 
 The complexity of a collector may vary, but as to provide a basic idea, the starter includes a simple example:
 
@@ -301,8 +388,3 @@ export function run({name, collectorId, configJson}) { <--2-->
 <10> Make a journal entry that collecting data from uri was a success.
 <11> Make a journal entry that an error prevented collecting data from uri.
 <12> Stop the collector. Sets endTime and more.
-
-
-== Step 4: Deploy and test
-
-TODO
