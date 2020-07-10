@@ -10,12 +10,14 @@ To get started, simply install Explorer to your XP instance. Explorer is availab
 
 === Configuration
 
-If you are running Explorer in a cluster, make sure to configure so only one of the nodes will be running collectors. 
+To activate scheduling, add the following configuration file.
 
-.XP_HOME/config/com.enonic.app.explorer
+WARNING: If you are running an XP cluster, only one of the nodes must have this configuration. Running collector jobs on multiple nodes can trigger race conditions.
+
+.XP_HOME/config/com.enonic.app.explorer.cfg
 [source,java]
 ----
-cron = true #set value to false for all other nodes
+cron = true #Default is false
 ----
 
 
