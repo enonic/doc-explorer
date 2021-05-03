@@ -56,7 +56,17 @@
     },
     {
       "title": "API",
-      "document": "api"
+      "document": "api",
+      "menuItems": [
+        {
+          "title": "Document",
+          "document": "api/document"
+        },
+        {
+          "title": "Search",
+          "document": "api/search"
+        }
+      ]
     }
   ]
 }

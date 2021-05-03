@@ -1,0 +1,129 @@
+= Document API
+
+== Usage
+
+In your controller, add a require statement:
+
+[source,js]
+----
+import {create, update} from '/lib/explorer/document';
+----
+
+== Functions
+
+=== create
+
+==== Parameters
+
+[%header,cols="1%,1%,1%,1%,97%a"]
+[frame="none"]
+[grid="none"]
+|===
+| Name         | Type    | Attributes | Default              | Details
+| __boolRequireValid | boolean | <optional> | true           | The data must be valid for the document to be created
+| __connection       |         | <required> |                | A collection repo connection with write permissions
+| _name              |         | <optional> |                | If not provided the name will become the same as _id
+| ...                |         | <optional> |                | The data you want to persist
+|===
+
+==== Returns
+
+If successful the created node.
+
+==== Example
+
+.Executing create in some controller
+[source,js]
+----
+import {create} from '/lib/explorer/document';
+import {
+  COLLECTION_REPO_PREFIX,
+  PRINCIPAL_EXPLORER_WRITE
+} from '/lib/explorer/model/2/constants';
+
+export function post({
+  body,
+  params: {
+    collection
+  }
+}) {
+  create({
+    __boolRequireValid: 'true',
+    __connection: connect({
+      branch: 'master',
+      principals: [PRINCIPAL_EXPLORER_WRITE],
+      repoId: `${COLLECTION_REPO_PREFIX}${collection}`
+    }),
+    ...JSON.parse(body)
+  });
+}
+----
+
+==== Sample response
+
+[source,json]
+----
+{
+  _id: '7d28b333-3274-4f26-a2bc-36682602e493',
+  _name: 'whatever'
+}
+----
+
+
+=== update
+
+==== Parameters
+
+[%header,cols="1%,1%,1%,1%,97%a"]
+[frame="none"]
+[grid="none"]
+|===
+| Name         | Type    | Attributes | Default              | Details
+| __boolRequireValid | boolean | <optional> | true           | The data must be valid for the document to be updated
+| __connection       |         | <required> |                | A collection repo connection with write permissions
+| _id                |         | <required> |                | The id of the document you want to update
+| ...                |         | <optional> |                | The data you want to persist
+|===
+
+==== Returns
+
+If successful the updated node.
+
+==== Example
+
+.Executing create in some controller
+[source,js]
+----
+import {update} from '/lib/explorer/document';
+import {
+  COLLECTION_REPO_PREFIX,
+  PRINCIPAL_EXPLORER_WRITE
+} from '/lib/explorer/model/2/constants';
+
+export function post({
+  body,
+  params: {
+    collection
+  }
+}) {
+  update({
+    __boolRequireValid: 'true',
+    __connection: connect({
+      branch: 'master',
+      principals: [PRINCIPAL_EXPLORER_WRITE],
+      repoId: `${COLLECTION_REPO_PREFIX}${collection}`
+    }),
+    ...JSON.parse(body)
+  });
+}
+----
+
+==== Sample response
+
+[source,json]
+----
+{
+  _id: '7d28b333-3274-4f26-a2bc-36682602e493',
+  _name: 'changed'
+}
+----
