@@ -61,20 +61,20 @@
         {
           "title": "Document",
           "document": "api/document",
-          "menuItems": [
-            {
-              "title": "create",
-              "document": "api/document#create"
-            },
-            {
-              "title": "update",
-              "document": "api/document#update"
-            }
-          ]
+
         },
         {
           "title": "Search",
           "document": "api/search"
+        }
+      ]
+    },
+    {
+      "title": "REST API",
+      "menuItems": [
+        {
+          "title": "document",
+          "document": "rest/document"
         }
       ]
     }
