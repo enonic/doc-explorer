@@ -40,7 +40,7 @@ Url: http://localhost:8080/api/v1/collections/<collectionName>/documents
 | sort         | String  | <optional> | score DESC | Sorting expression.
 |===
 
-== Example
+=== Example
 
 .Requesting in some controller
 [source,js]
@@ -111,7 +111,7 @@ export function get() {
 | requireValid | String  | <optional> | true       | The data has to be valid, according to the field types, to be created or updated. If requireValid=true and the data is not strictly valid, an error will be returned.
 |===
 
-== Example
+=== Example
 
 .Requesting in some controller
 [source,js]
@@ -201,7 +201,7 @@ export function get() {
 | id           | String  | <required> | Id of document to delete. May supply multiple.
 |===
 
-== Example
+=== Example
 
 .Requesting in some controller
 [source,js]
