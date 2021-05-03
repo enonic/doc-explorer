@@ -71,6 +71,7 @@
     },
     {
       "title": "REST API",
+      "document": "rest",
       "menuItems": [
         {
           "title": "document",
