@@ -59,12 +59,12 @@
       "document": "api",
       "menuItems": [
         {
-          "title": "Document",
+          "title": "Document functions",
           "document": "api/document",
 
         },
         {
-          "title": "Search",
+          "title": "Search function",
           "document": "api/search"
         }
       ]
@@ -74,7 +74,7 @@
       "document": "rest",
       "menuItems": [
         {
-          "title": "document",
+          "title": "Document endpoint",
           "document": "rest/document"
         }
       ]
