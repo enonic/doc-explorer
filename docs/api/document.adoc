@@ -63,7 +63,7 @@ export function post({
   create(
     JSON.parse(body), // Data Object
     { // Options Object
-      boolRequireValid: 'true',
+      boolRequireValid: true,
       connection: connect({
         branch: 'master',
         principals: [PRINCIPAL_EXPLORER_WRITE],
@@ -108,6 +108,7 @@ Two objects with the following keys and their values:
 [grid="none"]
 |===
 | Name             | Type    | Attributes | Default | Details
+| boolPartial      | boolean | <optional> | false   | When true, values are only added or updated. Unprovided values are not removed.
 | boolRequireValid | boolean | <optional> | true    | The data must be valid for the document to be updated
 | connection       |         | <required> |         | A collection repo connection with write permissions
 |===
@@ -136,7 +137,8 @@ export function post({
   update(
     JSON.parse(body), // Data Object
     { // Options Object
-      boolRequireValid: 'true',
+      boolPartial: false,
+      boolRequireValid: true,
       connection: connect({
         branch: 'master',
         principals: [PRINCIPAL_EXPLORER_WRITE],
