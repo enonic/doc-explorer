@@ -5,13 +5,13 @@ include::variables.adoc[]
 
 == Introduction
 
-Explorer is an enterprise search application that supports collecting, and searching across data from different sources. 
+Explorer is an enterprise search application that supports collecting, and searching across data from different sources.
 
 NOTE: tl;dr - visit the <<start#,getting started section>>.
 
 These are the core concepts of Explorer:
 
-* <<admin/fields#, Fields>> represent a common set of fields across different sources
+* <<admin/schema#, Schema>> represent a common set of fields across different sources
 * <<admin/collections#, Collections>> enable storing data from a specific source.
 * <<collectors#, Collectors>> are pluggable apps that extract and fill data into collections
 * Collectors can be configured and scheduled
@@ -19,5 +19,3 @@ These are the core concepts of Explorer:
 * <<admin/interfaces#, Search inferfaces>> can be tuned and managed to optimise search results
 
 Finally, explorer provides an <<api#, search API>> that can be used to implement <<clients#, fully customized search interfaces>> for end users.
-
-

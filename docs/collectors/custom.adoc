@@ -25,22 +25,63 @@ The starter ships with the essential setup required for any collector:
 [source,java]
 ----
 dependencies {
-	include 'com.enonic.lib:lib-explorer:2.2.1'
+	include 'com.enonic.lib:lib-explorer:3.15.1'
 }
 ----
 
 NOTE: Remember to use a version of the library that is equal to or newer than the version of Explorer you are using.
 
+=== Collectors.json
 
-=== Register / Unregister
+You can include multiple collectors in a single enonic xp application.
+If you only include one, the collectors.json file should still contain an array with a single object entry.
 
-In order for Explorer to detect available collectors, each collector needs to register, and unregister itself:
+Each collector needs to have it's own unique library name so react can access it on the window object.
 
+.webpack.config.babel.js
+[source,java]
+----
+const config = {
+	entry: {
+		'MyCollectorNameA': './CollectorA.jsx',
+		'MyCollectorNameB': './CollectorB.jsx',
+	},
+	output: {
+		filename: '[name].esm.js',
+		library: 'Lib[name]',
+		libraryTarget: 'var',
+	}
+}
+----
+
+./src/main/resources/collectors.json
+[source,json]
+----
+[{
+	"componentPath": "window.LibMyCollectorNameA.Collector",
+	"configAssetPath": "react/MyCollectorNameA.esm.js",
+	"displayName": "My collector A",
+	"taskName": "collectA"
+},{
+	"componentPath": "window.LibMyCollectorNameB.Collector",
+	"configAssetPath": "react/MyCollectorNameB.esm.js",
+	"displayName": "My collector B",
+	"taskName": "collectB"
+}]
+----
+
+
+=== Register (DEPRECATED) / Unregister
+
+The register function has now been deprecated, but has been improved to detect installed version app-explorer.
+So if you want your collector to work on app-explorer versions<1.5.0 just keep the register call.
+
+In order for Explorer to detect available collectors, each collector needs to register:
 
 .main.es
 [source,java]
 ----
-import {register, unregister} from '/lib/explorer';
+import {register} from '/lib/explorer';
 
 register({
 	appName: app.name,
@@ -48,6 +89,18 @@ register({
 	configAssetPath: 'react/Collector.esm.js',
 	displayName: 'My collector'
 });
+----
+
+=== Unregister (NOT DEPRECATED YET)
+
+Unregister is not deprecated yet in order to remove old registrations.
+
+In order for Explorer to detect available collectors, each collector needs to unregister itself:
+
+.main.es
+[source,java]
+----
+import {unregister} from '/lib/explorer';
 
 __.disposer(() => {
 	unregister({
@@ -56,6 +109,7 @@ __.disposer(() => {
 	});
 });
 ----
+
 
 == Step 2: React form
 

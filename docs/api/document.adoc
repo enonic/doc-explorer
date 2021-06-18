@@ -15,15 +15,28 @@ import {create, update} from '/lib/explorer/document';
 
 ==== Parameters
 
+Two objects with the following keys and their values:
+
+===== Data Object
+
 [%header,cols="1%,1%,1%,1%,97%a"]
 [frame="none"]
 [grid="none"]
 |===
-| Name         | Type    | Attributes | Default              | Details
-| __boolRequireValid | boolean | <optional> | true           | The data must be valid for the document to be created
-| __connection       |         | <required> |                | A collection repo connection with write permissions
-| _name              |         | <optional> |                | If not provided the name will become the same as _id
-| ...                |         | <optional> |                | The data you want to persist
+| Name  | Type   | Attributes | Default | Details
+| _name | String | <optional> |         | If not provided the name will become the same as _id
+| ...   |        | <optional> |         | More properties you want to persist
+|===
+
+===== Options Object
+
+[%header,cols="1%,1%,1%,1%,97%a"]
+[frame="none"]
+[grid="none"]
+|===
+| Name             | Type    | Attributes | Default | Details
+| boolRequireValid | boolean | <optional> | true    | The data must be valid for the document to be created
+| connection       |         | <required> |         | A collection repo connection with write permissions
 |===
 
 ==== Returns
@@ -47,15 +60,17 @@ export function post({
     collection
   }
 }) {
-  create({
-    __boolRequireValid: 'true',
-    __connection: connect({
-      branch: 'master',
-      principals: [PRINCIPAL_EXPLORER_WRITE],
-      repoId: `${COLLECTION_REPO_PREFIX}${collection}`
-    }),
-    ...JSON.parse(body)
-  });
+  create(
+    JSON.parse(body), // Data Object
+    { // Options Object
+      boolRequireValid: 'true',
+      connection: connect({
+        branch: 'master',
+        principals: [PRINCIPAL_EXPLORER_WRITE],
+        repoId: `${COLLECTION_REPO_PREFIX}${collection}`
+      })
+    }
+  );
 }
 ----
 
@@ -69,20 +84,32 @@ export function post({
 }
 ----
 
-
 === update
 
 ==== Parameters
+
+Two objects with the following keys and their values:
+
+===== Data Object
 
 [%header,cols="1%,1%,1%,1%,97%a"]
 [frame="none"]
 [grid="none"]
 |===
 | Name         | Type    | Attributes | Default              | Details
-| __boolRequireValid | boolean | <optional> | true           | The data must be valid for the document to be updated
-| __connection       |         | <required> |                | A collection repo connection with write permissions
 | _id                |         | <required> |                | The id of the document you want to update
-| ...                |         | <optional> |                | The data you want to persist
+| ...                |         | <optional> |                | More properties you want to persist
+|===
+
+===== Options Object
+
+[%header,cols="1%,1%,1%,1%,97%a"]
+[frame="none"]
+[grid="none"]
+|===
+| Name             | Type    | Attributes | Default | Details
+| boolRequireValid | boolean | <optional> | true    | The data must be valid for the document to be updated
+| connection       |         | <required> |         | A collection repo connection with write permissions
 |===
 
 ==== Returns
@@ -106,15 +133,17 @@ export function post({
     collection
   }
 }) {
-  update({
-    __boolRequireValid: 'true',
-    __connection: connect({
-      branch: 'master',
-      principals: [PRINCIPAL_EXPLORER_WRITE],
-      repoId: `${COLLECTION_REPO_PREFIX}${collection}`
-    }),
-    ...JSON.parse(body)
-  });
+  update(
+    JSON.parse(body), // Data Object
+    { // Options Object
+      boolRequireValid: 'true',
+      connection: connect({
+        branch: 'master',
+        principals: [PRINCIPAL_EXPLORER_WRITE],
+        repoId: `${COLLECTION_REPO_PREFIX}${collection}`
+      })
+    }
+  );
 }
 ----
 

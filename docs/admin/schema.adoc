@@ -1,4 +1,4 @@
-= Fields
+= Schema
 :toc: right
 :imagesdir: images
 
@@ -10,11 +10,9 @@ image::fields.png[Fields,690]
 
 The application comes with some standard fields:
 
-* _alltext (readonly)
 * language
 * text
 * title
-* type
 * uri
 
 You can also create your own fields. The fields are used configure where to store data, how to search and in facets.
@@ -24,4 +22,3 @@ You can also create your own fields. The fields are used configure where to stor
 You can also create field values which makes it easy to group data for facets.
 
 image::fieldValue.png[Field value,768]
-
