@@ -24,7 +24,7 @@ Read more about filters here: https://developer.enonic.com/docs/xp/stable/storag
 == Query
 
 You may configure a simple fulltext query, or group multiple expressions together using a logic expression.
-Combining a boosted fulltext query, with a ngram and synonym query can be a good idea.
+Combining a boosted fulltext query, with a stemmed, ngram and synonym query can be a good idea.
 
 image::interface-query.png[Interface query,768]
 

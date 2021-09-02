@@ -16,8 +16,8 @@ Each collection needs a unique name and a collector.
 
 image::collection-name.png[Collection name,475]
 
+Selecting a language, makes it possible to use stemmed search.
+
 You can configure multiple cron schedules and select whether to collect at all.
 
 image::scheduling.png[Scheduling,768]
-
-
