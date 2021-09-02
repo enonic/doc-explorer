@@ -9,7 +9,17 @@ Add the following into your build file:
 [source,groovy]
 ----
 dependencies {
-	include 'com.enonic.lib:lib-explorer:3.15.1'
+	include 'com.enonic.lib:lib-explorer:3.20.1'
+
+	// Needed by lib-explorer (or lib-util)?
+	include "com.enonic.xp:lib-cluster:${xpVersion}"
+	include "com.enonic.xp:lib-context:${xpVersion}"
+	include "com.enonic.xp:lib-event:${xpVersion}"
+	include "com.enonic.xp:lib-i18n:${xpVersion}"
+	include "com.enonic.xp:lib-mail:${xpVersion}"
+	include "com.enonic.xp:lib-node:${xpVersion}"
+	include "com.enonic.xp:lib-portal:${xpVersion}"
+	include "com.enonic.xp:lib-repo:${xpVersion}"
 }
 ----
 

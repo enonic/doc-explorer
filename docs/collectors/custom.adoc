@@ -25,7 +25,17 @@ The starter ships with the essential setup required for any collector:
 [source,java]
 ----
 dependencies {
-	include 'com.enonic.lib:lib-explorer:3.15.1'
+	include 'com.enonic.lib:lib-explorer:3.20.1'
+
+	// Needed by lib-explorer (or lib-util)?
+	include "com.enonic.xp:lib-cluster:${xpVersion}"
+	include "com.enonic.xp:lib-context:${xpVersion}"
+	include "com.enonic.xp:lib-event:${xpVersion}"
+	include "com.enonic.xp:lib-i18n:${xpVersion}"
+	include "com.enonic.xp:lib-mail:${xpVersion}"
+	include "com.enonic.xp:lib-node:${xpVersion}"
+	include "com.enonic.xp:lib-portal:${xpVersion}"
+	include "com.enonic.xp:lib-repo:${xpVersion}"
 }
 ----
 
@@ -377,6 +387,10 @@ The complexity of a collector may vary, but as to provide a basic idea, the star
 			<label>Config JSON</label>
 			<occurrences minimum="1" maximum="1"/>
 		</input>
+		<input name="language" type="TextLine">
+			<label>Language</label>
+			<occurrences minimum="0" maximum="1"/>
+		</input>
 	</form>
 </task>
 ----
@@ -384,65 +398,131 @@ The complexity of a collector may vary, but as to provide a basic idea, the star
 .src/resources/tasks/collect.es
 [source,javascript]
 ----
-import {Collector} from '/lib/explorer/collector'; <--1-->
+import '@enonic/nashorn-polyfills'; <--1-->
+import {Collector} from '/lib/explorer/collector'; <--2-->
 
-export function run({name, collectorId, configJson}) { <--2-->
-	const collector = new Collector({name, collectorId, configJson}); <--3-->
+export function run({name, collectorId, configJson, language}) { <--3-->
+	const collector = new Collector({name, collectorId, configJson, language}); <--4-->
 
-	if (!collector.config.uri) { <--4-->
+	if (!collector.config.uri) { <--5-->
 		throw new Error('Config is missing required parameter uri!');
 	}
 
-	collector.start(); <--5-->
+	collector.start(); <--6-->
 
 	const {
 		uri,
 		object: {
 			someNestedProperty
 		}
-	} = collector.config; <--6-->
+	} = collector.config; <--7-->
 
 	while(somethingToDo) {
-		if (collector.shouldStop()) { break; } <--7-->
+		if (collector.shouldStop()) { break; } <--8-->
 
 		try {
-			const {text, title} = doSomethingThatMayFail(); <--8-->
+			const {text, title} = doSomethingThatMayFail(); <--9-->
 
 			collector.persistDocument({
 				text,
 				title,
 				uri
-			}); <--9-->
+			}); <--10-->
 
-			collector.addSuccess({uri}); <--10-->
+			collector.addSuccess({uri}); <--11-->
 
 		} catch (e) {
 
-			collector.addError({uri, message: e.message}); <--11-->
+			collector.addError({uri, message: e.message}); <--12-->
 
 		}
 	} // while somethingToDo
 
 	// Perhaps delete documents that are no longer found...
 
-	collector.stop(); <--12-->
+	collector.stop(); <--13-->
 
 } // export function run
 ----
 
-<1> Import the Collector class
-<2> The collect task gets passed three named parameters.
-<3> Construct a Collector instance.
-<4> Validate the configuration object.
-<5> Start the collector. Sets startTime and more.
-<6> Fetch configuration properties you need from the collector.config object.
-<7> Check if someone has clicked the STOP button.
-<8> This is where you collect the data you want to persist.
-<9> Persist the collected data.
-<10> Make a journal entry that collecting data from uri was a success.
-<11> Make a journal entry that an error prevented collecting data from uri.
-<12> Stop the collector. Sets endTime and more.
+<1> Perhaps import <<_polyfills,polyfills>>.
+<2> Import the Collector class
+<3> The collect task gets passed four named parameters.
+<4> Construct a Collector instance.
+<5> Validate the configuration object.
+<6> Start the collector. Sets startTime and more.
+<7> Fetch configuration properties you need from the collector.config object.
+<8> Check if someone has clicked the STOP button.
+<9> This is where you collect the data you want to persist.
+<10> Persist the collected data.
+<11> Make a journal entry that collecting data from uri was a success.
+<12> Make a journal entry that an error prevented collecting data from uri.
+<13> Stop the collector. Sets endTime and more.
 
+=== Polyfills
+
+Depending upon what your Enonic XP serverside code contains, or potential node modules you import, you may have to polyfill some js functionality that the Javascript engine (Nashorn) doesn't support.
+
+.src/resources/lib/nashorn/index.js
+[source,javascript]
+----
+require './global';
+require './Array';
+require './Number';
+----
+
+.webpack.config.babel.js
+[source,java]
+----
+import path from 'path';
+const WEBPACK_CONFIG = {
+	resolve: {
+		alias: '@enonic/nashorn-polyfills': path.resolve(__dirname, 'src/main/resources/lib/nashorn/index.js')
+	}
+}
+export { WEBPACK_CONFIG as default };
+----
+
+==== Global
+.src/resources/lib/nashorn/global.js
+[source,javascript]
+----
+// https://stackoverflow.com/questions/9107240/1-evalthis-vs-evalthis-in-javascript
+const global = (1, eval)('this'); // eslint-disable-line no-eval
+global.global = global;
+global.globalThis = global;
+global.frames = global;
+global.self = global;
+global.window = global;
+module.exports = global;
+----
+
+==== Array.flat
+.src/resources/lib/nashorn/Array.js
+[source,javascript]
+----
+if (!Array.prototype.flat) {
+	Object.defineProperty(Array.prototype, 'flat', {
+		value: function(depth = 1) {
+			return this.reduce(function (flat, toFlatten) {
+				return flat.concat((Array.isArray(toFlatten) && (depth>1)) ? toFlatten.flat(depth-1) : toFlatten);
+			}, []);
+		}
+	});
+}
+----
+
+==== Number.isInteger
+
+.src/resources/lib/nashorn/Number.js
+[source,javascript]
+----
+Number.isInteger = Number.isInteger || function(value) {
+	return typeof value === 'number' &&
+	isFinite(value) &&
+	Math.floor(value) === value;
+};
+----
 
 == Step 4: Install and test
 
