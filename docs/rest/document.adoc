@@ -19,9 +19,10 @@ Url: http://localhost:8080/api/v1/collections/<collectionName>/documents
 [frame="none"]
 [grid="none"]
 |===
-| Name         | Attributes | Value            | Details
-| Accept       | <optional> | application/json | What MIME-type the client wants in the response
-| Content-Type | <required> | application/json | What type of data is sent in the request body
+| Name          | Attributes | Value                     | Details
+| Accept        | <optional> | application/json          | What MIME-type the client wants in the response
+| Content-Type  | <required> | application/json          | What type of data is sent in the request body
+| Authorization | <required> | Explorer-Api-Key password | A valid API key (password) for the collection you want to get documents from.
 |===
 
 === Parameters
@@ -31,7 +32,6 @@ Url: http://localhost:8080/api/v1/collections/<collectionName>/documents
 [grid="none"]
 |===
 | Name         | Type    | Attributes | Default    | Details
-| apiKey       | String  | <required> |            | A valid API key (password) for the collection you want to get documents from.
 | id           | String  | <optional> |            | Id of document to get. May supply multiple. Will be converted into a query filter on the serverside.
 | count        | Integer | <optional> | 10         | How many documents to get.
 | start        | Integer | <optional> | 0          | Start index (used for paging).
@@ -48,17 +48,17 @@ Url: http://localhost:8080/api/v1/collections/<collectionName>/documents
 import {request} from '/lib/http-client';
 
 const COLLECTION = 'collectionName';
-const API_KEY = 'apiKey';
+const AUTHORIZATION = 'Explorer-Api-Key apiKey';
 
 export function get() {
   const response = request({
     contentType: 'application/json'
     headers: {
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'Authorization': AUTHORIZATION
     },
     method: 'GET',
     params: {
-      apiKey: API_KEY,
       count: 2,
       start: 0,
       filters: JSON.stringify({
@@ -98,6 +98,7 @@ export function get() {
 | Name         | Attributes | Value            | Details
 | Accept       | <optional> | application/json | What MIME-type the client wants in the response
 | Content-Type | <required> | application/json | What type of data is sent in the request body
+| Authorization | <required> | Explorer-Api-Key password | A valid API key (password) for the collection you want to get documents from.
 |===
 
 === Parameters
@@ -107,7 +108,6 @@ export function get() {
 [grid="none"]
 |===
 | Name         | Type    | Attributes | Default    | Details
-| apiKey       | String  | <required> |            | A valid API key (password) for the collection you want to get documents from.
 | requireValid | String  | <optional> | true       | The data has to be valid, according to the field types, to be created or updated. If requireValid=true and the data is not strictly valid, an error will be returned.
 | partial      | String  | <optional> | false      | When true, values are only added or updated. Unprovided values are not removed.
 |===
@@ -120,7 +120,7 @@ export function get() {
 import {request} from '/lib/http-client';
 
 const COLLECTION = 'collectionName';
-const API_KEY = 'apiKey';
+const AUTHORIZATION = 'Explorer-Api-Key apiKey';
 
 export function get() {
   const response = request({
@@ -156,11 +156,11 @@ export function get() {
 }],
     contentType: 'application/json'
     headers: {
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'Authorization': AUTHORIZATION
     },
     method: 'POST',
     params: {
-      apiKey: API_KEY,
       requireValid: true,
       partial: false
     },
@@ -190,6 +190,7 @@ export function get() {
 | Name         | Attributes | Value            | Details
 | Accept       | <optional> | application/json | What MIME-type the client wants in the response
 | Content-Type | <optional> | application/json | What type of data is sent in the request body
+| Authorization | <required> | Explorer-Api-Key password | A valid API key (password) for the collection you want to get documents from.
 |===
 
 === Parameters
@@ -199,7 +200,6 @@ export function get() {
 [grid="none"]
 |===
 | Name         | Type    | Attributes | Details
-| apiKey       | String  | <required> | A valid API key (password) for the collection you want to delete documents from.
 | id           | String  | <required> | Id of document to delete. May supply multiple.
 |===
 
@@ -211,17 +211,17 @@ export function get() {
 import {request} from '/lib/http-client';
 
 const COLLECTION = 'collectionName';
-const API_KEY = 'apiKey';
+const AUTHORIZATION = 'Explorer-Api-Key apiKey';
 
 export function get() {
   const response = request({
     contentType: 'application/json'
     headers: {
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'Authorization': AUTHORIZATION
     },
     method: 'DELETE',
     params: {
-      apiKey: API_KEY,
       id: '7b89af94-32a9-4e39-aedb-c553675a3287'
     },
     url: `http://localhost:8080/api/v1/collections/${COLLECTION}/documents`,
