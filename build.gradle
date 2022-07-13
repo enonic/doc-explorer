@@ -11,7 +11,9 @@ asciidoctor {
     sourceDir = file('docs')
     outputDir = file('build/docs')
 
-    attributes 'source-highlighter': 'coderay'
+    attributes 'source-highlighter': 'highlight.js'
+    attributes 'source-language': 'typescript'
+    attributes 'highlightjs-languages': 'groovy, typescript'
 
     resources {
         from(sourceDir) {
