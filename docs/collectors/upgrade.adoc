@@ -1,0 +1,73 @@
+= Upgrade a custom collector
+
+In order to make further development easier and to clean up old tech dept both lib-explorer and app-explorer have gotten new major releases.
+As such there are some breaking changes to the API's.
+
+This document explains what is needed to move from
+* lib-explorer-3.x.x to lib-explorer-4.x.x
+* app-explorer-1.5.x to app-explorer-2.x.x
+
+== Development
+
+=== Dependencies
+
+In build.gradle you have to bump lib-explorer version to 4.0.0 and include some more lib dependencies. See <<custom/Dependencies#, Dependencies>>
+
+== Installation
+
+=== Document-types
+
+Collectors are now supposed to provide their own documentTypes. See <<custom/documentTypes.json#, documentTypes.json>>
+
+=== Register (DEPRECATION ERROR)
+
+In lib-explorer-3.0.0/app-explorer-1.5.0 the register function would log a deprecation warning.
+In lib-explorer-4.0.0/app-explorer-2.0.0 the register function will now throw a deprecation error.
+
+Simply remove it from src/main/resources/main.js
+
+=== Unregister (DEPRECATION WARNING)
+
+In lib-explorer-4.0.0/app-explorer-2.0.0 the unregister function is no longer needed and will log a deprecation warning.
+
+Simply remove it from src/main/resources/main.js
+
+== Configuration
+
+=== React Component
+
+The previous way to implement a Collector React Component was strongly hooked to semantic-ui-react-form, which had various complexity issues.
+
+The new way uses React.forwardRef and React.useImperativeHandle in order for the (child) Collector component to provide callbacks that the (parent) Collection component can run when appropriate.
+
+These are named afterReset and validate:
+* When the reset button is clicked: the (parent) Collection component will reset it's state, but whatever state is internal to the (child) Collector needs to be handled inside it's afterReset function.
+* When the save button is clicked: the (parent) Collection component will validate it's own input fields, but whatever inputs are provided by the (child) Collector component, should be handeled inside it's own validate function.
+
+These props are removed:
+* context object (sort of replaced by collectorConfig)
+* dispatch function (sort of replaced by setCollectorConfig)
+* isFirstRun ref (no longer needed)
+* path string (no longer needed)
+
+These props are added:
+* collectorConfig (object)
+* setCollectorConfig (setState function)
+* setCollectorConfigErrorCount (setState function)
+
+This prop is untouched:
+* explorer
+
+== Run
+
+=== Task
+
+==== persistDocument
+
+Since collectors now provide their own document-types, you also have to specify documentTypeName when persisting a document.
+Just make sure it matches a (lowercased and ascii folded) _name in the src/main/resources/documentTypes.json file.
+
+Since uri is no longer a required parameter to persistDocument, there is no way for a collector instance to automatically figure out which document node to update.
+If you want to update a document, rather than creating endless new ones, you have to lookup and provide the document node _id in your collector task implementation.
+
+See <<custom/persistDocument#, persistDocument>>

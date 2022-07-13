@@ -25,23 +25,39 @@ The starter ships with the essential setup required for any collector:
 [source,java]
 ----
 dependencies {
-	include 'com.enonic.lib:lib-explorer:3.20.6'
+	include 'com.enonic.lib:lib-explorer:4.0.0'
 
-	// Needed by lib-explorer (or lib-util)?
-	include "com.enonic.xp:lib-cluster:${xpVersion}"
+	//──────────────────────────────────────────────────────────────────────────
+	// New lib-explorer-4.0.0
+	//──────────────────────────────────────────────────────────────────────────
+	include "com.enonic.xp:lib-auth:${xpVersion}"
+	include "com.enonic.xp:lib-common:${xpVersion}"
+	include "com.enonic.xp:lib-io:${xpVersion}"
+	include "com.enonic.xp:lib-scheduler:${xpVersion}"
+	include "com.enonic.xp:lib-value:${xpVersion}"
+
+	//──────────────────────────────────────────────────────────────────────────
+	// Same as lib-explorer-3.x.x
+	//──────────────────────────────────────────────────────────────────────────
 	include "com.enonic.xp:lib-context:${xpVersion}"
 	include "com.enonic.xp:lib-event:${xpVersion}"
-	include "com.enonic.xp:lib-i18n:${xpVersion}"
 	include "com.enonic.xp:lib-mail:${xpVersion}"
 	include "com.enonic.xp:lib-node:${xpVersion}"
 	include "com.enonic.xp:lib-portal:${xpVersion}"
 	include "com.enonic.xp:lib-repo:${xpVersion}"
+	include "com.enonic.xp:lib-task:${xpVersion}"
+
+	//──────────────────────────────────────────────────────────────────────────
+	// No longer needed in lib-explorer-4.0.0
+	//──────────────────────────────────────────────────────────────────────────
+	//include "com.enonic.xp:lib-cluster:${xpVersion}"
+	//include "com.enonic.xp:lib-i18n:${xpVersion}"
 }
 ----
 
 IMPORTANT: Remember to use the latest version of the library that is compatible with your version of Explorer and XP.
 
-=== Collectors.json
+=== collectors.json
 
 You can include multiple collectors in a single enonic xp application.
 If you only include one, the collectors.json file should still contain an array with a single object entry.
@@ -80,46 +96,85 @@ const config = {
 }]
 ----
 
+=== documentTypes.json
 
-=== Register (DEPRECATED) / Unregister
+In the explorer admin GUI, when you create or edit a collection and select a collector, the option to choose a default document-type is hidden.
+This is because a collector is supposed to provide it's own document-type(s).
+You can do this by including a documentTypes.json file in the src/main/resources folder.
+The json file contains an array of object so you can provide multiple document-types.
 
-The register function has now been deprecated, but has been improved to detect installed version app-explorer.
-So if you want your collector to work on app-explorer versions<1.5.0 just keep the register call.
+Make sure that the _name property is unique.
+You may want to prefix the name to avoid name collision with previously installed document-types.
+Also keep in mind that _name is lowercased and ascii-folded upon installation.
 
-In order for Explorer to detect available collectors, each collector needs to register:
+Currently document-types are installed when an app that contains a documentTypes.json file is started.
+If the document-type _name already exists, it is not overwritten.
 
-.main.es
-[source,java]
+./src/main/resources/documentTypes.json
+[source,json]
 ----
-import {register} from '/lib/explorer';
-
-register({
-	appName: app.name,
-	collectTaskName: 'collect',
-	configAssetPath: 'react/Collector.esm.js',
-	displayName: 'My collector'
-});
+[{
+	"_name": "myDocumentTypeName", <--1-->
+	"addFields": false, <--2-->
+	"properties": [{
+		"active": true, <--3-->
+		"enabled": true, <--4-->
+		"fulltext": true, <--4-->
+		"includeInAllText": true, <--4-->
+		"max": 0, <--5-->
+		"min": 0, <--6-->
+		"name": "text", <--7-->
+		"nGram": true, <--4-->
+		"path": false, <--4-->
+		"valueType": "string" <--8-->
+	},{
+		"active": true,
+		"enabled": true,
+		"fulltext": true,
+		"includeInAllText": true,
+		"max": 0,
+		"min": 0,
+		"name": "title",
+		"nGram": true,
+		"path": false,
+		"valueType": "string"
+	},{
+		"active": true,
+		"enabled": true,
+		"fulltext": true,
+		"includeInAllText": false,
+		"max": 0,
+		"min": 1, <--9-->
+		"name": "url",
+		"nGram": false,
+		"path": false,
+		"valueType": "string"
+	}]
+}]
 ----
 
-=== Unregister (NOT DEPRECATED YET)
+<1> The documentType name must be unique. It's automatically lowercased and ascii-folded to match /^[a-z][a-z0-9_]$/
+<2> If your collector stores "dynamic" data, aka fields it doesn't know about in advance: set addFields to true and persistDocument will automatically try to figure out the correct valueType for them and add them to the installed document-type.
+<3> Deleting a field, can break an interface GraphQL ... on DocumentTypeName query. Simply deactivating it is safe.
+<4> See https://developer.enonic.com/docs/xp/stable/storage/indexing#config_options
+<5> Setting max to 0 means there is no limit on how many values the field can have.
+<6> Setting min to 0 means the field is optional. Setting it to anything larger than 0 means it's a required field.
+<7> The name of a field must be unique and match the following regexp /^[a-z][a-z0-9_]*$/
+<8> See https://developer.enonic.com/docs/xp/stable/storage/indexing#value_types
+<9> Setting the min property to 1 means the field is a required field.
 
-Unregister is not deprecated yet in order to remove old registrations.
+=== Register (DEPRECATION ERROR)
 
-In order for Explorer to detect available collectors, each collector needs to unregister itself:
+In lib-explorer-3.0.0/app-explorer-1.5.0 the register function would log a deprecation warning.
+In lib-explorer-4.0.0/app-explorer-2.0.0 the register function will now throw a deprecation error.
 
-.main.es
-[source,java]
-----
-import {unregister} from '/lib/explorer';
+Simply remove it from src/main/resources/main.js
 
-__.disposer(() => {
-	unregister({
-		appName: app.name,
-		collectTaskName: 'collect'
-	});
-});
-----
+=== Unregister (DEPRECATION WARNING)
 
+In lib-explorer-4.0.0/app-explorer-2.0.0 the unregister function is no longer needed and will log a deprecation warning.
+
+Simply remove it from src/main/resources/main.js
 
 == Step 2: React form
 
@@ -131,138 +186,180 @@ Some important ingredients that enable this are:
 - webpack
 - babel
 - node_modules
-  * @enonic/semantic-ui-react-form
   * @enonic/webpack-esm-assets
   * @enonic/webpack-server-side-js
-	* get-value
 	* semantic-ui-react
-	* set-value
 
 === React component
 
 In order for your collector's configuration user interface to work in Explorer you must provide a React component.
 Any react component type should be supported, but all examples are functional (since that is the current status quo of react).
 
-The component receives five props from Explorer:
-. context - Read only object which are change via dispatching actions to its state reducer.
-. dispatch - Function to send actions to the state reducer.
+The component receives four props from Explorer:
+. collectorConfig - Read only object which is changed by calling setCollectorConfig.
 . explorer - static information like contentTypes, fields and sites
-. isFirstRun - Use this to only do things once during initialization of your form. (And not on every render)
-. path - Where your form is located in the context object.
+. setCollectorConfig - setState function used to change the collectorConfig object.
+. setCollectorConfigErrorCount - setState function to change how many validation errors exist.
 
-==== context object
+==== collectorConfig object
 
-This object contains a lot of data used to maintain state by semantic-ui-react-form.
-In most cases knowing about its values property should be enough.
-
-==== dispatch function
-
-You can import various reducer actions from semantic-ui-react-form and send the to the reducer using the dispatch function.
+This object contains whatever configuration options you define in order to control your collector.
 
 ==== explorer object
 
 This object contains information from Explorer about the collector context. The information can be used to make dropdowns in your collectors configuration.
 
-==== isFirstRun
+==== setCollectorConfig function
 
-This is a React ref object whose .current property is initialized to true. If you have any code that should only run once on initialization of you collector component, you can use this object to achieve this. Here is some example code:
+Call this function whenever you need to change some value inside the collectorConfig.
+Typically it's used with onChange events.
 
-[source,javascript]
-----
-import getIn from 'get-value';
+==== setCollectorConfigErrorCount
 
-export const Collector = ({
-	context,
-	isFirstRun,
-	path
-}) => {
-	let initialValues = getIn(context.values, path);
-	if (isFirstRun.current) {
-		isFirstRun.current = false; // Make sure the code block never runs again.
-		if (!initialValues) {
-			initialValues = {
-				aProperty: 'defaultValueForProperty',
-			}
-		}
-	} // if isFirstRun
-} // Collector
-----
-
-You can read more about React ref objects here: https://reactjs.org/docs/hooks-reference.html#useref
-
-==== path
-
-Use to this to fetch your form values and also when dispatching actions to the state reducer.
+Call this function whenever a validation error occurs, or a validation error is resolved.
 
 ==== Example
 
-.src/resources/assets/js/react/Collector.jsx
-[source,jsx]
+.src/resources/assets/js/react/Collector.tsx
+[source,tsx]
 ----
-import getIn from 'get-value';
-import setIn from 'set-value';
-import {Button, Form, Header, Icon, Table} from 'semantic-ui-react';
-import {
-	setError,
-	setSchema,
-	setValue,
-	setVisited,
-	DeleteItemButton,
-	Form as EnonicForm,
-	Input,
-	InsertButton,
-	List,
-	MoveDownButton,
-	MoveUpButton,
-	SetValueButton
-} from 'semantic-ui-react-form';
+import type {
+	CollectorComponentRef,
+	CollectorProps
+} from '/lib/explorer/types/index.d';
 
-function required(value) {
-	return value ? undefined : 'Required!';
+import * as React from 'react';
+import {Button, Form, Header, Icon, Table} from 'semantic-ui-react';
+
+
+type CollectorConfig = {
+	url :string
 }
 
-const SCHEMA = {
-	uri: (v) => required(v)
-};
 
-export const Collector = (props) => {
-	const {
-		context,
-		dispatch,
-		explorer,
-		isFirstRun,
-		path
-	} = props;
-	let initialValues = getIn(context.values, path);
-	if (isFirstRun.current) {
-		//console.debug('isFirstRun');
-		isFirstRun.current = false;
-		dispatch(setSchema({path, schema: SCHEMA}));
-		if (!initialValues) {
-			initialValues = {
-				uri: ''
-			};
-			dispatch(setValue({path, value: initialValues}));
+function useUpdateEffect(
+	effect :React.EffectCallback,
+	deps :React.DependencyList = []
+) {
+	const isInitialMount = React.useRef(true);
+
+	React.useEffect(() => {
+		if (isInitialMount.current) {
+			isInitialMount.current = false;
+		} else {
+			return effect();
 		}
-		return <EnonicForm
-			initialValues={initialValues}
-			onChange={(values) => {
-				//console.debug('Collector onChange values', values);
-				dispatch(setValue({path, value: values}));
-			}}
-			schema={SCHEMA}
-		>
-			<Form as='div'>
-				<Form.Field>
-					<Input
-						fluid
-						label='Uri'
-						path='uri'
-					/>
-				</Form.Field>
-			</Form>
-		</EnonicForm>;
-};
+	}, deps);
+}
+
+
+export const Collector = React.forwardRef(
+	(
+		{
+			collectorConfig,
+			explorer,
+			setCollectorConfig,
+			setCollectorConfigErrorCount
+		} :CollectorProps<CollectorConfig>,
+		ref :CollectorComponentRef<CollectorConfig>
+	) => {
+
+		//──────────────────────────────────────────────────────────────────────────
+		// Avoiding derived state by not using useState, just pointing to where in collectorConfig it can be found:
+		//──────────────────────────────────────────────────────────────────────────
+		const url = collectorConfig	? (collectorConfig.url || '')	: '';
+		const setUrl = (newUrl :string) => setCollectorConfig(prevCollectorConfig => {
+			return {
+				...prevCollectorConfig,
+				url: newUrl
+			};
+		});
+
+		//──────────────────────────────────────────────────────────────────────────
+		// State internal to the (child) Collector component:
+		//──────────────────────────────────────────────────────────────────────────
+		const [urlError, setUrlError] = React.useState<string>(undefined);
+		const [/*urlVisited*/, setUrlVisited] = React.useState(false);
+
+		//──────────────────────────────────────────────────────────────────────────
+		// Callbacks, should only depend on props, not state
+		//──────────────────────────────────────────────────────────────────────────
+		const validateUrl = (urlToValidate :string) => {
+			const newError = !urlToValidate ? 'Url is required!' : undefined;
+			setUrlError(newError);
+			return !newError;
+		});
+
+		const urlOnChange = React.useCallback((
+			_event :React.ChangeEvent<HTMLInputElement>,
+			{value} : {value :string}
+		) => {
+			setCollectorConfig(prevCollectorConfig => ({
+				...prevCollectorConfig,
+				url: value
+			}));
+			validateUrl(value);
+		}, [
+			setCollectorConfig,
+			validateUrl
+		]);
+
+		const urlOnBlur = React.useCallback(() => {
+			setUrlVisited(true);
+			validateUrl(url);
+		}, [
+			collectorConfig,
+			validateUrl
+			url
+		]);
+
+		//──────────────────────────────────────────────────────────────────────────
+		// Updates (changes, not init)
+		//──────────────────────────────────────────────────────────────────────────
+		useUpdateEffect(() => {
+			setCollectorConfigErrorCount(urlError ? 1 : 0);
+		}, [
+			urlError
+		]);
+
+		//──────────────────────────────────────────────────────────────────────────
+		// Callback to be called by the (parent) Collection component
+		//──────────────────────────────────────────────────────────────────────────
+		const afterReset :CollectorComponentAfterResetFunction = () => {
+			setUrlVisited(false);
+			setUrlError(undefined);
+		};
+
+		const validate = React.useCallback<CollectorComponentValidateFunction<CollectorConfig>>(({
+			url: urlToValidate
+		} :CollectorConfig) => {
+			const newCollectorConfigErrorCount = validateUrl(urlToValidate) ? 0 : 1;
+			return !newCollectorConfigErrorCount;
+		}, [
+			validateUrl
+		]);
+
+		//──────────────────────────────────────────────────────────────────────────
+		// Make it possible for parent to call these functions
+		//──────────────────────────────────────────────────────────────────────────
+		React.useImperativeHandle(ref, () => ({
+			afterReset,
+			validate
+		}));
+
+		return <Form>
+			<Form.Input
+				error={urlError}
+				fluid
+				label='Url'
+				onBlur={urlOnBlur}
+				onChange={urlOnChange}
+				required
+				value={url}
+			/>
+		</Form>;
+	} // component
+); // forwardRef
 ----
 
 == Step 3: Collector task
@@ -306,7 +403,7 @@ You should keep the progress updated something like this:
 collector.start();
 collector.taskProgressObj.total = initialNumberOfOperations;
 while(somethingToDo) {
-	collector.taskProgressObj.info.uri = currentUri;
+	collector.taskProgressObj.info.url = currentUrl;
 	collector.taskProgressObj.info.message = 'Some useful information';
 	collector.progress(); // This will update task progress. So it can be seen.
 
@@ -347,22 +444,73 @@ try {
 === CRUD
 
 When you have collected some information you want to make available for later search you have to persist it.
-This can be done by calling *persistDocument* like this:
+This can be done by calling *persistDocument*.
 
-[source,javascript]
+In order to validate and index the information you must specify which documentTypeName the information should match.
+
+==== Create
+
+[source,typecript]
 ----
-collector.persistDocument({
-	aField: 'aTag', // Optional, perhaps used in aggregation and filtering.
-	anotherField: 'anotherTag', // Optional, perhaps used in aggregation and filtering.
-	text, // Required!
-	title, // Required!
-	uri, // Required!
-	whatever: 'perhapsAnImageUrl' // Optional, perhaps used when displaying search results.
+const documentToPersist = {
+	aField: 'aTag', // perhaps used in aggregation and filtering.
+	anotherField: 'anotherTag', // perhaps used in aggregation and filtering.
+	text,
+	title,
+	url, // Since this field is supposed to be unique, it's also required, thus it's min property is set to 1 in the document-type
+	whatever: 'perhapsAnImageUrl' // perhaps used when displaying search results.
+}
+collector.persistDocument(
+	documentToPersist, {
+		// Must be identical to a _name in src/main/resources/documentTypes.json
+		documentTypeName: 'myDocumentTypeName'
+	}
+);
+----
+
+==== Update (lookup document _id)
+
+If you want to update a document, rather than creating endless new ones, you have to lookup and provide the document _id.
+
+Let's say you have provided a documentType in which a field named 'url' is unique.
+
+[source,typescript]
+----
+const documentsRes = collector.queryDocuments({
+	count: 1,
+	query: {
+		boolean: {
+			must: {
+				term: {
+					field: 'url',
+					value: documentToPersist.url
+				}
+			}
+		}
+	}
 });
+
+if (documentsRes.total > 1) {
+	throw new Error(`Multiple documents found with url:${documentToPersist.url}! url is supposed to be unique!`);
+} else if (documentsRes.total === 1) {
+	// Provide which document node to update (rather than creating a new document node)
+	documentToPersist._id = documentsRes.hits[0].id;
+}
+
+collector.persistDocument(
+	documentToPersist, {
+		// Must be identical to a _name in src/main/resources/documentTypes.json
+		documentTypeName: 'myDocumentTypeName'
+	}
+);
 ----
+
+==== Read/Delete
 
 The explorer library Collection class currently does not provide any api for reading and deleting documents.
 You may connect to the collection repositories via standard Enonic API's or via other currently undocumented Explorer library functions.
+
+An example of deleting may be found approximately here: https://github.com/enonic/app-explorer/blob/master/src/main/resources/tasks/webcrawl/webcrawl.ts#L493
 
 === Example code
 
