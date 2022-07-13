@@ -40,6 +40,10 @@ app {
 </application>
 ----
 
+== Search data
+
+To be able to show search data you need to have collected it. This is done in collections see <<../collectors.adoc, Collectors>>. The easiest way is to install the explorer app, and crawl a page for data. 
+
 == Exposing search data
 
 The starter contains some examples on how to expose search data. A single Explorer client app can provide multiple ways to expose search data. You should remove the ones you don't want, change or even add the one(s) you want. Common to all the examples is that they are using the <<../api#,Search API>>.

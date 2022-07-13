@@ -4,7 +4,7 @@
 
 == Introduction
 
-Explorer is an enterprise search application that supports collecting, and searching across data from different sources.
+Explorer is an enterprise search application that supports collecting, and searching across data from different sources. Without a license some functionalities are limited.
 
 NOTE: tl;dr - visit the <<start#,getting started section>>.
 
