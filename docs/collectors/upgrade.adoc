@@ -9,6 +9,10 @@ This document explains what is needed to move from
 
 == Development
 
+=== gradle.properties
+
+lib-explorer-4.0.0 requires xpVersion=7.10.0
+
 === Dependencies
 
 In build.gradle you have to bump lib-explorer version to 4.0.0 and include some more lib dependencies. See <<custom/Dependencies#, Dependencies>>
@@ -61,6 +65,11 @@ This prop is untouched:
 == Run
 
 === Task
+
+==== Task Descriptor XML
+
+Name has been replaced by collectionId.
+Language has been added.
 
 ==== persistDocument
 

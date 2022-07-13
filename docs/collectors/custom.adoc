@@ -21,8 +21,18 @@ The starter ships with the essential setup required for any collector:
 
 === Dependencies
 
+==== gradle.properties
+
+.gradle.properties
+[source,properties]
+----
+xpVersion=7.10.0
+----
+
+==== build.gradle
+
 .build.gradle
-[source,java]
+[source,groovy]
 ----
 dependencies {
 	include 'com.enonic.lib:lib-explorer:4.0.0'
@@ -65,7 +75,7 @@ If you only include one, the collectors.json file should still contain an array 
 Each collector needs to have it's own unique library name so react can access it on the window object.
 
 .webpack.config.babel.js
-[source,java]
+[source,javascript]
 ----
 const config = {
 	entry: {
@@ -221,7 +231,7 @@ Call this function whenever a validation error occurs, or a validation error is 
 ==== Example
 
 .src/resources/assets/js/react/Collector.tsx
-[source,tsx]
+[source,typescript]
 ----
 import type {
 	CollectorComponentRef,
@@ -229,7 +239,7 @@ import type {
 } from '/lib/explorer/types/index.d';
 
 import * as React from 'react';
-import {Button, Form, Header, Icon, Table} from 'semantic-ui-react';
+import {Form} from 'semantic-ui-react';
 
 
 type CollectorConfig = {
@@ -375,14 +385,14 @@ In the explorer app there is a page to display Collector status.
 In order for this page to show useful updated information.
 The collector tasks needs to send progress information.
 When your collector task runs
-[source,javascript]
+[source,typescript]
 ----
 collector.start();
 ----
 
 A collector.taskProgressObj will be created automatically. Looking something like this:
 
-[source,javascript]
+[source,typescript]
 ----
 collector.taskProgressObj = {
 	current: 0,
@@ -398,7 +408,7 @@ collector.taskProgressObj = {
 A collector task may have a set or changing number of operations to perform.
 You should keep the progress updated something like this:
 
-[source,javascript]
+[source,typescript]
 ----
 collector.start();
 collector.taskProgressObj.total = initialNumberOfOperations;
@@ -418,7 +428,7 @@ collector.stop();
 
 
 Finally when you collector task calls
-[source,javascript]
+[source,typescript]
 ----
 collector.stop();
 ----
@@ -431,7 +441,7 @@ When a collector task is finished. A journal will be persisted.
 The journal contains information about things that went well, and possible errors.
 Write to the journal by using *addSuccess* or *addError* like this:
 
-[source,javascript]
+[source,typescript]
 ----
 try {
 	// ... do some stuff that could fail ...
@@ -450,7 +460,7 @@ In order to validate and index the information you must specify which documentTy
 
 ==== Create
 
-[source,typecript]
+[source,typescript]
 ----
 const documentToPersist = {
 	aField: 'aTag', // perhaps used in aggregation and filtering.
@@ -459,7 +469,8 @@ const documentToPersist = {
 	title,
 	url, // Since this field is supposed to be unique, it's also required, thus it's min property is set to 1 in the document-type
 	whatever: 'perhapsAnImageUrl' // perhaps used when displaying search results.
-}
+};
+
 collector.persistDocument(
 	documentToPersist, {
 		// Must be identical to a _name in src/main/resources/documentTypes.json
@@ -523,8 +534,8 @@ The complexity of a collector may vary, but as to provide a basic idea, the star
 <task>
 	<description>Collect</description>
 	<form>
-		<input name="name" type="TextLine">
-			<label>Name</label>
+		<input name="collectionId" type="TextLine">
+			<label>Collection ID</label>
 			<occurrences minimum="1" maximum="1"/>
 		</input>
 		<input name="collectorId" type="TextLine">
@@ -543,8 +554,8 @@ The complexity of a collector may vary, but as to provide a basic idea, the star
 </task>
 ----
 
-.src/resources/tasks/collect.es
-[source,javascript]
+.src/resources/tasks/collect.ts
+[source,typescript]
 ----
 import '@enonic/nashorn-polyfills'; <--1-->
 import {Collector} from '/lib/explorer/collector'; <--2-->
@@ -620,7 +631,7 @@ require './Number';
 ----
 
 .webpack.config.babel.js
-[source,java]
+[source,javascript]
 ----
 import path from 'path';
 const WEBPACK_CONFIG = {
