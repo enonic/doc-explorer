@@ -1,5 +1,4 @@
 = Enonic Explorer documentation
-
 :toc: right
 :imagesdir: images
 
