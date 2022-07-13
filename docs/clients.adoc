@@ -1,6 +1,8 @@
 = Search clients
 :toc: right
 
+WARNING: TODO: Usage of the Interface GraphQL API is not documented yet.
+
 == Introduction
 
 Explorers ability to create fully customised search interfaces is the icing on the cake. By default, Explorer does not expose any web APIs, but rather enable developers to access the <<admin/interfaces#, interfaces>> through an internal JavaScript API.
@@ -35,35 +37,24 @@ Common to all solutions is that you have to call the search api, and perhaps man
 Below is an example of how to invoke the search API:
 
 .controller.es
-[source,java]
+[source,typescript]
 ----
-import {search} from '/lib/explorer';
+import {RESPONSE_TYPE_JSON} from '@enonic/js-utils';
+import {makeSchema} from './schemaWithAllDocumentTypes/makeSchema';
+//@ts-ignore
+import {execute} from '/lib/graphql';
+
 
 export function get({
 	params
 }) {
-	const {
-		facetCategories,
-		pages,
-		pagination,
-		hits,
-		removedStopWords,
-		synonymsObj,
-		total = 0
-	} = search({
-		clearCache,
-		//count: 10,
-		facets: {
-			language: params.language,
-			'information-type': params['information-type'],
-			source: params.source
-		},
-		interface: interfaceName,
-		locale,
-		name,
-		page,
-		searchString
-	});
+	const context = {
+		interfaceName: 'myInterfaceName'
+	};
+	return {
+		contentType: RESPONSE_TYPE_JSON,
+		body: JSON.stringify(execute(makeSchema(), query, variables, context))
+	};
 }
 ----
 

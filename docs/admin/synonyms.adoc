@@ -1,4 +1,4 @@
-= Thesauri
+= Synonyms
 :toc: right
 :imagesdir: images
 
@@ -6,7 +6,7 @@
 
 You can have multiple thesauri to be used in various combinations in <<interfaces#,interfaces>>.
 
-image::thesauri.png[Thesauri,768]
+image::synonyms.png[Synonyms,768]
 
 == Synonyms
 
