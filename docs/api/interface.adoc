@@ -1,4 +1,4 @@
-= Document REST API
+= Interface GraphQL API
 :toc: right
 
 WARNING: TODO: Not documented yet.

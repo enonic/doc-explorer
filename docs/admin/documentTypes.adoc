@@ -1,4 +1,4 @@
-= Document REST API
+= Document types
 :toc: right
 
 WARNING: TODO: Not documented yet.

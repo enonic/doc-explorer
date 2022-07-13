@@ -10,11 +10,11 @@ NOTE: tl;dr - visit the <<start#,getting started section>>.
 
 These are the core concepts of Explorer:
 
-* <<admin/schema#, Schema>> represent a common set of fields across different sources
+* <<admin/apiKeys#, API Keys>> configure access to <<api/document#, Document REST API>> and <<api/interface#, Interface GraphQL API>>.
 * <<admin/collections#, Collections>> enable storing data from a specific source.
-* <<collectors#, Collectors>> are pluggable apps that extract and fill data into collections
-* Collectors can be configured and scheduled
-* <<admin/thesauri#, Thesauri>> and <<admin/stopwords#, Stop word>> lists can be created and managed for improved search results
-* <<admin/interfaces#, Search inferfaces>> can be tuned and managed to optimise search results
-
-Finally, explorer provides an <<api#, search API>> that can be used to implement <<clients#, fully customized search interfaces>> for end users.
+* <<collectors#, Collectors>> are pluggable apps that extract and fill data into collections.
+* Collectors can be configured and scheduled.
+* <<admin/documentTypes#, Document types>> define which fields exist and how to index them for searching.
+* <<admin/synonyms#, Synonyms>> and <<admin/stopwords#, Stop word>> lists can be created and managed for improved search results.
+* <<admin/interfaces#, Search inferfaces>> can be tuned and managed to optimise search results.
+* <<clients#, Clients>> create fully customized search interfaces for end users.

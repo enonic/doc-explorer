@@ -9,20 +9,24 @@
       "document": "admin",
       "menuItems": [
         {
-          "title": "Fields",
-          "document": "admin/fields"
+          "title": "API Keys",
+          "document": "admin/apiKeys"
         },
         {
           "title": "Collections",
           "document": "admin/collections"
         },
         {
-          "title": "Thesauri",
-          "document": "admin/thesauri"
+          "title": "Document types",
+          "document": "admin/documentTypes"
         },
         {
           "title": "Stop Words",
           "document": "admin/stopwords"
+        },
+        {
+          "title": "Synonyms",
+          "document": "admin/synonyms"
         },
         {
           "title": "Interfaces",
@@ -41,6 +45,10 @@
         {
           "title": "Custom collectors",
           "document": "collectors/custom"
+        },
+        {
+          "title": "Upgrade a custom collector",
+          "document": "collectors/upgrade"
         }
       ]
     },
@@ -59,12 +67,12 @@
       "document": "api",
       "menuItems": [
         {
-          "title": "Document functions",
+          "title": "Document REST API",
           "document": "api/document"
         },
         {
-          "title": "Search function",
-          "document": "api/search"
+          "title": "Interface GraphQL API",
+          "document": "api/interface"
         }
       ]
     },

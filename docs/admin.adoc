@@ -14,9 +14,7 @@ NOTE: Only users with "Explorer Admin" or "System Admin" roles can access the in
 
 == Overview
 
-* <<admin/fields#,Fields>> enable consistent indexing of specific properties across collections.
 * <<admin/collections#,Collections>> represent the various data sets that are collected and indexed.
 * <<admin/interfaces#,Interfaces>> enable creation and tunining of search interfaces across collections.
 * <<admin/thesauri#,Thesauri>> are lists of synonyms used to expand your search.
 * <<admin/stopwords#,Stop words>> help improve search scoring by eliminating common words.
-
