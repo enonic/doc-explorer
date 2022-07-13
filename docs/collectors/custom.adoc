@@ -1,5 +1,10 @@
 = Building a custom collector
 :toc: right
+:toclevels: 5
+
+== Upgrading
+
+If you are upgrading a collector to lib-explorer-4 / app-explorer-2, see <<upgrade#>>.
 
 == Introduction
 
@@ -67,7 +72,9 @@ dependencies {
 
 IMPORTANT: Remember to use the latest version of the library that is compatible with your version of Explorer and XP.
 
-=== collectors.json
+=== Installation
+
+==== collectors.json
 
 You can include multiple collectors in a single enonic xp application.
 If you only include one, the collectors.json file should still contain an array with a single object entry.
@@ -106,7 +113,7 @@ const config = {
 }]
 ----
 
-=== documentTypes.json
+==== documentTypes.json
 
 In the explorer admin GUI, when you create or edit a collection and select a collector, the option to choose a default document-type is hidden.
 This is because a collector is supposed to provide it's own document-type(s).
@@ -173,20 +180,21 @@ If the document-type _name already exists, it is not overwritten.
 <8> See https://developer.enonic.com/docs/xp/stable/storage/indexing#value_types
 <9> Setting the min property to 1 means the field is a required field.
 
-=== Register (DEPRECATION ERROR)
+==== Deprecations
 
-In lib-explorer-3.0.0/app-explorer-1.5.0 the register function would log a deprecation warning.
-In lib-explorer-4.0.0/app-explorer-2.0.0 the register function will now throw a deprecation error.
+===== Register
 
-Simply remove it from src/main/resources/main.js
+IMPORTANT: The register function is deprecated and will throw an error!
 
-=== Unregister (DEPRECATION WARNING)
+Simply remove it from src/main/resources/main.ts
 
-In lib-explorer-4.0.0/app-explorer-2.0.0 the unregister function is no longer needed and will log a deprecation warning.
+===== Unregister
 
-Simply remove it from src/main/resources/main.js
+WARNING: The unregister function is deprecated and will log a warning.
 
-== Step 2: React form
+Simply remove it from src/main/resources/main.ts
+
+== Step 2: Configuration
 
 The starter also provides the essential build system for the React-based user interface.
 
@@ -205,49 +213,61 @@ Some important ingredients that enable this are:
 In order for your collector's configuration user interface to work in Explorer you must provide a React component.
 Any react component type should be supported, but all examples are functional (since that is the current status quo of react).
 
-The component receives four props from Explorer:
-. collectorConfig - Read only object which is changed by calling setCollectorConfig.
-. explorer - static information like contentTypes, fields and sites
-. setCollectorConfig - setState function used to change the collectorConfig object.
-. setCollectorConfigErrorCount - setState function to change how many validation errors exist.
+==== ref
 
-==== collectorConfig object
+*React.forwardRef* and *React.useImperativeHandle* are used in order for the (child) Collector component to provide callbacks that the (parent) Collection component can run when appropriate.
+
+These callbacks are named afterReset and validate:
+
+* When the *[Reset]* button is clicked: the (parent) Collection component will reset it's state, but whatever state is internal to the (child) Collector component needs to be handled inside it's *afterReset* function.
+* When the *[Save]* button is clicked: the (parent) Collection component will validate it's own input fields, but whatever inputs are provided by the (child) Collector component, should be handeled inside it's own *validate* function.
+
+==== props
+
+The Collector component receives four props from Explorer:
+
+. *collectorConfig* - Read only object which is changed by calling setCollectorConfig.
+. *explorer* - static information like contentTypes, fields and sites
+. *setCollectorConfig* - setState function used to change the collectorConfig object.
+. *setCollectorConfigErrorCount* - setState function to change how many validation errors exist.
+
+
+===== collectorConfig
 
 This object contains whatever configuration options you define in order to control your collector.
 
-==== explorer object
+===== explorer
 
 This object contains information from Explorer about the collector context. The information can be used to make dropdowns in your collectors configuration.
 
-==== setCollectorConfig function
+===== setCollectorConfig
 
 Call this function whenever you need to change some value inside the collectorConfig.
 Typically it's used with onChange events.
 
-==== setCollectorConfigErrorCount
+===== setCollectorConfigErrorCount
 
 Call this function whenever a validation error occurs, or a validation error is resolved.
 
-==== Example
+==== Example code
 
-.src/resources/assets/js/react/Collector.tsx
+I like separation of concerns, so I've split the presentation and state logic into separate files:
+
+* *useUpdateEffect.ts* Handy react hook
+* *useCollectorState.ts* State logic management
+* *Collector.tsx* Presentation code
+
+===== useUpdateEffect.ts
+
+Handy React hook that makes it possible to run an effect only when a state has changed, and avoid running the effect when the state is first initialized.
+
+.src/resources/assets/js/react/useUpdateEffect.ts
 [source,typescript]
 ----
-import type {
-	CollectorComponentRef,
-	CollectorProps
-} from '/lib/explorer/types/index.d';
-
 import * as React from 'react';
-import {Form} from 'semantic-ui-react';
 
 
-type CollectorConfig = {
-	url :string
-}
-
-
-function useUpdateEffect(
+export function useUpdateEffect(
 	effect :React.EffectCallback,
 	deps :React.DependencyList = []
 ) {
@@ -261,102 +281,165 @@ function useUpdateEffect(
 		}
 	}, deps);
 }
+----
+
+===== useCollectorState.ts
+
+State logic management.
+
+.src/resources/assets/js/react/useCollectorState.ts
+[source,typescript]
+----
+import type {
+	CollectorComponentRef,
+	CollectorComponentAfterResetFunction,
+	CollectorComponentValidateFunction
+} from '/lib/explorer/types/index.d';
+import type {CollectorConfig} from '../../../index.d';
+
+
+import * as React from 'react';
+import {useUpdateEffect} from './useUpdateEffect'
+
+
+export function useCollectorState({
+  collectorConfig,
+	ref,
+  setCollectorConfig,
+	setCollectorConfigErrorCount
+} :{
+  collectorConfig :CollectorConfig
+	ref :CollectorComponentRef<CollectorConfig>
+  setCollectorConfig :(param :CollectorConfig|((prevCollectorConfig :CollectorConfig) => CollectorConfig)) => void
+	setCollectorConfigErrorCount :(collectorConfigErrorCount :number) => void
+}) {
+  //──────────────────────────────────────────────────────────────────────────
+  // Avoiding derived state by not using useState, just pointing to where in collectorConfig it can be found:
+  //──────────────────────────────────────────────────────────────────────────
+  const url = collectorConfig	? (collectorConfig.url || '')	: '';
+
+  //──────────────────────────────────────────────────────────────────────────
+  // State internal to the (child) Collector component:
+  //──────────────────────────────────────────────────────────────────────────
+  const [urlError, setUrlError] = React.useState<string>(undefined);
+  const [/*urlVisited*/, setUrlVisited] = React.useState(false);
+
+  //──────────────────────────────────────────────────────────────────────────
+  // Callbacks, should only depend on props, not state
+  //──────────────────────────────────────────────────────────────────────────
+  const validateUrl = (urlToValidate :string) => {
+    const newError = !urlToValidate ? 'Url is required!' : undefined;
+    setUrlError(newError);
+    return !newError;
+  };
+
+  const urlOnChange = React.useCallback((
+    _event :React.ChangeEvent<HTMLInputElement>,
+    {value} : {value :string}
+  ) => {
+    setCollectorConfig(prevCollectorConfig => ({
+      ...prevCollectorConfig,
+      url: value
+    }));
+    validateUrl(value);
+  }, [
+    setCollectorConfig,
+    validateUrl
+  ]);
+
+  const urlOnBlur = React.useCallback(() => {
+    setUrlVisited(true);
+    validateUrl(url);
+  }, [
+    collectorConfig,
+    validateUrl,
+    url
+  ]);
+
+  //──────────────────────────────────────────────────────────────────────────
+  // Updates (changes, not init)
+  //──────────────────────────────────────────────────────────────────────────
+  useUpdateEffect(() => {
+    setCollectorConfigErrorCount(urlError ? 1 : 0);
+  }, [
+    urlError
+  ]);
+
+  //──────────────────────────────────────────────────────────────────────────
+  // Callback to be called by the (parent) Collection component
+  //──────────────────────────────────────────────────────────────────────────
+  const afterReset :CollectorComponentAfterResetFunction = () => {
+    setUrlVisited(false);
+    setUrlError(undefined);
+  };
+
+  const validate = React.useCallback<CollectorComponentValidateFunction<CollectorConfig>>(({
+    url: urlToValidate
+  } :CollectorConfig) => {
+    const newCollectorConfigErrorCount = validateUrl(urlToValidate) ? 0 : 1;
+    return !newCollectorConfigErrorCount;
+  }, [
+    validateUrl
+  ]);
+
+  //──────────────────────────────────────────────────────────────────────────
+  // Make it possible for parent to call these functions
+  //──────────────────────────────────────────────────────────────────────────
+  React.useImperativeHandle(ref, () => ({
+    afterReset,
+    validate
+  }));
+
+  return {
+    url,
+    urlError,
+    urlOnBlur,
+    urlOnChange
+  };
+}
+
+----
+
+===== Collector.tsx
+
+Presentation code.
+
+.src/resources/assets/js/react/Collector.tsx
+[source,typescript]
+----
+import type {
+	CollectorComponentRef,
+	CollectorProps
+} from '/lib/explorer/types/index.d';
+import type {CollectorConfig} from '../../../index.d'
+
+
+import * as React from 'react';
+import {Form} from 'semantic-ui-react';
+import {useCollectorState} from './useCollectorState'
 
 
 export const Collector = React.forwardRef(
 	(
 		{
 			collectorConfig,
-			explorer,
+			//explorer,
 			setCollectorConfig,
 			setCollectorConfigErrorCount
 		} :CollectorProps<CollectorConfig>,
 		ref :CollectorComponentRef<CollectorConfig>
 	) => {
-
-		//──────────────────────────────────────────────────────────────────────────
-		// Avoiding derived state by not using useState, just pointing to where in collectorConfig it can be found:
-		//──────────────────────────────────────────────────────────────────────────
-		const url = collectorConfig	? (collectorConfig.url || '')	: '';
-		const setUrl = (newUrl :string) => setCollectorConfig(prevCollectorConfig => {
-			return {
-				...prevCollectorConfig,
-				url: newUrl
-			};
-		});
-
-		//──────────────────────────────────────────────────────────────────────────
-		// State internal to the (child) Collector component:
-		//──────────────────────────────────────────────────────────────────────────
-		const [urlError, setUrlError] = React.useState<string>(undefined);
-		const [/*urlVisited*/, setUrlVisited] = React.useState(false);
-
-		//──────────────────────────────────────────────────────────────────────────
-		// Callbacks, should only depend on props, not state
-		//──────────────────────────────────────────────────────────────────────────
-		const validateUrl = (urlToValidate :string) => {
-			const newError = !urlToValidate ? 'Url is required!' : undefined;
-			setUrlError(newError);
-			return !newError;
-		});
-
-		const urlOnChange = React.useCallback((
-			_event :React.ChangeEvent<HTMLInputElement>,
-			{value} : {value :string}
-		) => {
-			setCollectorConfig(prevCollectorConfig => ({
-				...prevCollectorConfig,
-				url: value
-			}));
-			validateUrl(value);
-		}, [
-			setCollectorConfig,
-			validateUrl
-		]);
-
-		const urlOnBlur = React.useCallback(() => {
-			setUrlVisited(true);
-			validateUrl(url);
-		}, [
+		const {
+			url,
+			urlError,
+			urlOnBlur,
+			urlOnChange
+		} = useCollectorState({
 			collectorConfig,
-			validateUrl
-			url
-		]);
-
-		//──────────────────────────────────────────────────────────────────────────
-		// Updates (changes, not init)
-		//──────────────────────────────────────────────────────────────────────────
-		useUpdateEffect(() => {
-			setCollectorConfigErrorCount(urlError ? 1 : 0);
-		}, [
-			urlError
-		]);
-
-		//──────────────────────────────────────────────────────────────────────────
-		// Callback to be called by the (parent) Collection component
-		//──────────────────────────────────────────────────────────────────────────
-		const afterReset :CollectorComponentAfterResetFunction = () => {
-			setUrlVisited(false);
-			setUrlError(undefined);
-		};
-
-		const validate = React.useCallback<CollectorComponentValidateFunction<CollectorConfig>>(({
-			url: urlToValidate
-		} :CollectorConfig) => {
-			const newCollectorConfigErrorCount = validateUrl(urlToValidate) ? 0 : 1;
-			return !newCollectorConfigErrorCount;
-		}, [
-			validateUrl
-		]);
-
-		//──────────────────────────────────────────────────────────────────────────
-		// Make it possible for parent to call these functions
-		//──────────────────────────────────────────────────────────────────────────
-		React.useImperativeHandle(ref, () => ({
-			afterReset,
-			validate
-		}));
-
+			ref,
+			setCollectorConfig,
+			setCollectorConfigErrorCount
+		});
 		return <Form>
 			<Form.Input
 				error={urlError}
@@ -372,7 +455,7 @@ export const Collector = React.forwardRef(
 ); // forwardRef
 ----
 
-== Step 3: Collector task
+== Step 3: Task
 
 The actual code to retrieve and return content for indexing is implemented using https://developer.enonic.com/docs/xp/stable/framework/tasks[named tasks].
 
@@ -456,7 +539,7 @@ try {
 When you have collected some information you want to make available for later search you have to persist it.
 This can be done by calling *persistDocument*.
 
-In order to validate and index the information you must specify which documentTypeName the information should match.
+In order to validate and index the information you must specify which *documentTypeName* the information should match.
 
 ==== Create
 
@@ -479,9 +562,9 @@ collector.persistDocument(
 );
 ----
 
-==== Update (lookup document _id)
+==== Update
 
-If you want to update a document, rather than creating endless new ones, you have to lookup and provide the document _id.
+If you want to update a document, rather than creating endless new ones, you have to lookup and provide the document *_id*.
 
 Let's say you have provided a documentType in which a field named 'url' is unique.
 
@@ -524,6 +607,8 @@ You may connect to the collection repositories via standard Enonic API's or via 
 An example of deleting may be found approximately here: https://github.com/enonic/app-explorer/blob/master/src/main/resources/tasks/webcrawl/webcrawl.ts#L493
 
 === Example code
+
+==== collect.xml
 
 The complexity of a collector may vary, but as to provide a basic idea, the starter includes a simple example:
 
