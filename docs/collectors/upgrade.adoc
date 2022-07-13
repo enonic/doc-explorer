@@ -1,40 +1,55 @@
 = Upgrade a custom collector
+:toc: right
+:toclevels: 5
 
 In order to make further development easier and to clean up old tech dept both lib-explorer and app-explorer have gotten new major releases.
 As such there are some breaking changes to the API's.
 
 This document explains what is needed to move from
+
 * lib-explorer-3.x.x to lib-explorer-4.x.x
 * app-explorer-1.5.x to app-explorer-2.x.x
 
 == Development
 
-=== gradle.properties
-
-lib-explorer-4.0.0 requires xpVersion=7.10.0
-
 === Dependencies
 
-In build.gradle you have to bump lib-explorer version to 4.0.0 and include some more lib dependencies. See <<custom/Dependencies#, Dependencies>>
+==== gradle.properties
+
+lib-explorer-4.0.0 (and app-explorer-2.0.0) requires xpVersion=7.10.0
+
+See <<custom#_gradle_properties, custom#_gradle_properties>>.
+
+==== build.gradle
+
+In build.gradle you have to bump lib-explorer version to 4.0.0 and include some more lib dependencies.
+
+See <<custom#_build_gradle, custom#_build_gradle>>.
 
 == Installation
 
 === Document-types
 
-Collectors are now supposed to provide their own documentTypes. See <<custom/documentTypes.json#, documentTypes.json>>
+Collectors are now supposed to provide their own documentTypes.
 
-=== Register (DEPRECATION ERROR)
+See <<custom#_documentTypes_json, custom#_documentTypes_json>>.
 
-In lib-explorer-3.0.0/app-explorer-1.5.0 the register function would log a deprecation warning.
-In lib-explorer-4.0.0/app-explorer-2.0.0 the register function will now throw a deprecation error.
+=== Deprecations
 
-Simply remove it from src/main/resources/main.js
+==== Register
 
-=== Unregister (DEPRECATION WARNING)
+* In lib-explorer-3.0.0/app-explorer-1.5.0 the register function would log a deprecation warning.
+* In lib-explorer-4.0.0/app-explorer-2.0.0 the register function will now throw a deprecation error.
 
-In lib-explorer-4.0.0/app-explorer-2.0.0 the unregister function is no longer needed and will log a deprecation warning.
+IMPORTANT: The register function is deprecated and will throw an error!
 
-Simply remove it from src/main/resources/main.js
+Simply remove it from src/main/resources/main.ts
+
+==== Unregister
+
+WARNING: The unregister function is deprecated and will log a warning.
+
+Simply remove it from src/main/resources/main.ts
 
 == Configuration
 
@@ -45,22 +60,28 @@ The previous way to implement a Collector React Component was strongly hooked to
 The new way uses React.forwardRef and React.useImperativeHandle in order for the (child) Collector component to provide callbacks that the (parent) Collection component can run when appropriate.
 
 These are named afterReset and validate:
-* When the reset button is clicked: the (parent) Collection component will reset it's state, but whatever state is internal to the (child) Collector needs to be handled inside it's afterReset function.
-* When the save button is clicked: the (parent) Collection component will validate it's own input fields, but whatever inputs are provided by the (child) Collector component, should be handeled inside it's own validate function.
+
+* When the *[Reset]* button is clicked: the (parent) Collection component will reset it's state, but whatever state is internal to the (child) Collector component needs to be handled inside it's *afterReset* function.
+* When the *[Save]* button is clicked: the (parent) Collection component will validate it's own input fields, but whatever inputs are provided by the (child) Collector component, should be handeled inside it's own *validate* function.
 
 These props are removed:
-* context object (sort of replaced by collectorConfig)
-* dispatch function (sort of replaced by setCollectorConfig)
-* isFirstRun ref (no longer needed)
-* path string (no longer needed)
+
+* [red]*context* object (sort of replaced by collectorConfig)
+* [red]*dispatch* function (sort of replaced by setCollectorConfig)
+* [red]*isFirstRun* ref (no longer needed)
+* [red]*path* string (no longer needed)
 
 These props are added:
-* collectorConfig (object)
-* setCollectorConfig (setState function)
-* setCollectorConfigErrorCount (setState function)
+
+* [lime]*collectorConfig* (object)
+* [lime]*setCollectorConfig* (setState function)
+* [lime]*setCollectorConfigErrorCount* (setState function)
 
 This prop is untouched:
-* explorer
+
+* [green]*explorer* (object)
+
+See <<custom#_react_component, custom#_react_component>>.
 
 == Run
 
@@ -68,15 +89,23 @@ This prop is untouched:
 
 ==== Task Descriptor XML
 
-Name has been replaced by collectionId.
-Language has been added.
+* [red]*name* has been replaced by [lime]*collectionId*.
+* [lime]*language* has been added.
+
+See <<custom#_collect_xml, custom#_collect_xml>>.
 
 ==== persistDocument
 
-Since collectors now provide their own document-types, you also have to specify documentTypeName when persisting a document.
+===== create
+
+Since collectors now provide their own document-types, you also have to specify *documentTypeName* when persisting a document.
 Just make sure it matches a (lowercased and ascii folded) _name in the src/main/resources/documentTypes.json file.
 
-Since uri is no longer a required parameter to persistDocument, there is no way for a collector instance to automatically figure out which document node to update.
-If you want to update a document, rather than creating endless new ones, you have to lookup and provide the document node _id in your collector task implementation.
+See <<custom#_create, custom#_create>>.
 
-See <<custom/persistDocument#, persistDocument>>
+===== update
+
+Since [red]*uri* is no longer a required parameter to persistDocument, there is no way for a collector instance to automatically figure out which document node to *update*.
+If you want to *update* a document, rather than creating endless new ones, you have to lookup and provide the document node [lime]*_id* in your collector task implementation.
+
+See <<custom#_update, custom#_update>>.
