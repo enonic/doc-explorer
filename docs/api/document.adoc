@@ -1,4 +1,54 @@
 = Document REST API
 :toc: right
 
-WARNING: TODO: Not documented yet.
+//== Introduction
+
+== Setup
+
+=== Authorization
+
+In order to access the *Document REST API* you must first create an <<../admin/apiKeys#, API-Key>>.
+
+Then you must provide that API-key in the *Authorization* header when you do any http request against the API.
+
+For example if you have an API-key with the key "mySecretKey", the Authorization header must look like this:
+
+ Authorization: Explorer-Api-Key mySecretKey
+
+
+=== vhost
+
+I would also recommend setting up a vhost mapping for the Document REST API.
+
+.com.enonic.xp.web.vhost.cfg
+[source,cfg]
+----
+enabled = true
+
+mapping.collectionsApi.host = localhost
+mapping.collectionsApi.source = /collections
+mapping.collectionsApi.target = /webapp/com.enonic.app.explorer/collections/api/v1
+mapping.collectionsApi.idProvider.system = default
+----
+
+== Endpoints
+
+I'm using the vhost configuration above as basis for the example urls below.
+
+I'm also assuming a valid Authorization is provided.
+
+=== collections
+
+The *http://localhost:8080/collections* endpoint show a list of the collections you are allowed to read and write to.
+
+=== collection_name
+
+The *http://localhost:8080/collections/collection/collection_name* endpoint currently only contains a link to the specific collection <<_documents>> endpoint.
+
+=== documents
+
+The *http://localhost:8080/collections/collection/collection_name/documents* endpoint will show the documentation on how to use the *documents* endpoint.
+
+NOTE: It even provides example forms.
+
+TIP: You can use the browsers development tool network tab to inspect the http requests.
