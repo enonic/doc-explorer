@@ -49,7 +49,7 @@ then each word matching a stop word will be removed from the search string.
 
 This all happens before the synonyms stage.
 
-CAUTION: Be careful when adding stop words, it may quicly lead to an empty search string and no search results.
+CAUTION: Be careful when adding stop words, it may quickly lead to an empty search string and no search results.
 
 === Synonyms
 
