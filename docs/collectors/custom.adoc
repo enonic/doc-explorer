@@ -173,11 +173,11 @@ If the document-type _name already exists, it is not overwritten.
 <1> The documentType name must be unique. It's automatically lowercased and ascii-folded to match /^[a-z][a-z0-9_]$/
 <2> If your collector stores "dynamic" data, aka fields it doesn't know about in advance: set addFields to true and persistDocument will automatically try to figure out the correct valueType for them and add them to the installed document-type.
 <3> Deleting a field, can break an interface GraphQL ... on DocumentTypeName query. Simply deactivating it is safe.
-<4> See https://developer.enonic.com/docs/xp/stable/storage/indexing#config_options
+<4> See https://developer.enonic.com/docs/xp/stable/storage/indexing#config_options[Config Options].
 <5> Setting max to 0 means there is no limit on how many values the field can have.
 <6> Setting min to 0 means the field is optional. Setting it to anything larger than 0 means it's a required field.
 <7> The name of a field must be unique and match the following regexp /^[a-z][a-z0-9_]*$/
-<8> See https://developer.enonic.com/docs/xp/stable/storage/indexing#value_types
+<8> See https://developer.enonic.com/docs/xp/stable/storage/indexing#value_types[Value types].
 <9> Setting the min property to 1 means the field is a required field.
 
 ==== Deprecations
