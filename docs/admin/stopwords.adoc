@@ -13,3 +13,12 @@ Typically each language has it's own list of stop-words.
 Stop-words are normally short words that are used a lot in text.
 They can be found in most documents and thus does not provide much value in terms of saying which result should be scored higher than another.
 So it can be a good idea to remove them from the query for a simple and clean scoring.
+
+== How it works
+
+The search string is split, by unicode boundaries, into words,
+then each word matching a stop word will be removed from the search string.
+
+This all happens before the synonyms stage.
+
+CAUTION: Be careful when adding stop words, it may quickly lead to an empty search string and no search results.
