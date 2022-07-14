@@ -42,7 +42,7 @@ If you toggle 'Show all fields', each row will also show:
 
 Each document-type needs to have an unique name.
 
-NOTE: In order to keep API's consistent the name is limitied the regexp /^[a-z][a-z0-9_]*$/.
+NOTE: In order to keep API's consistent the name is limitied to the regexp /^[a-z][a-z0-9_]*$/.
 
 CAUTION: If you try to input a name which is already in use, you will get a form validation error and will be unable to create the document-type.
 
@@ -75,7 +75,7 @@ Below the table there is a button to add new fields.
 
 Each field needs to have a name, which is unique within the document-type.
 
-NOTE: In order to keep API's consistent the name is limitied the regexp /^[a-z][a-z0-9_.]*$/.
+NOTE: In order to keep API's consistent the name is limitied to the regexp /^[a-z][a-z0-9_.]*$/.
 
 TIP: Fields can be nested, a dot '*.*' is used to indicate nesting. For instance you can have a field called: '*person*', which should have the value-type '*set*'. The you can have a nested field called: '*person.name*', with the value-type '*string*'.
 
