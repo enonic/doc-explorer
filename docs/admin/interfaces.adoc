@@ -4,46 +4,57 @@
 
 == Introduction
 
-Your collected data can be exposed by defining search interfaces. Essentially, a search interface allows you to select which collections and thesauri to combine, as well as the ability to tune and boost your search down to field level.
+Your collected data can be exposed by defining search interfaces.
+Essentially, a search interface allows you to select which collections and synonyms to combine,
+as well as the ability to tune and boost your search down to field level.
 
-== Basics
+== Interfaces table
+
+The table will show a list of the interfaces.
+
+Each row represents an interface and will have a button to edit the interface.
+
+By default a row will show:
+
+* The name of the interface
+
+[red]*TODO*
+
+If you toggle 'Show all fields', each row will also show:
+
+* A button to open a dialog to confirm deletion of an interface.
+
+== New/Edit
+
+=== Name
 
 Each interface needs a unique name.
 
-Additionally, you need to specify at least one collection to include in the search.
+NOTE: In order to keep API's consistent the name is limitied to the regexp /^[a-z][a-z0-9_]*$/.
 
-== Filters
+CAUTION: If you try to input a name which is already in use, you will get a form validation error and will be unable to create or rename the interface.
 
-You can define must and mustNot filters to avoid search results that don't meet the required quality.
-For instance it's normally useful that a search result actually has an uri so it can be navigated to.
+=== Collections
 
-image::interface-filters.png[Interface filters,768]
+You need to specify at least one collection to include in the search.
 
-Read more about filters here: https://developer.enonic.com/docs/xp/stable/storage/noql#filters
+=== Fields
 
-== Query
+Select which fields should be searched and adjust the boosting of them.
 
-You may configure a simple fulltext query, or group multiple expressions together using a logic expression.
-Combining a boosted fulltext query, with a stemmed, ngram and synonym query can be a good idea.
+=== Stop-words
 
-image::interface-query.png[Interface query,768]
+The search string is split, by unicode boundaries, into words,
+then each word matching a stop word will be removed from the search string.
 
+This all happens before the synonyms stage.
 
-== Synonyms
+CAUTION: Be careful when adding stop words, it may quicly lead to an empty search string and no search results.
 
-TODO
+=== Synonyms
 
-Each <<synonyms#,synonym>> is stored in a <<thesauri#,thesaurus>>.
+You may select multiple "thesauri" of synonyms to "decorate" the query with.
 
-Learn mode about querying here: https://developer.enonic.com/docs/xp/stable/storage/noql#query_functions
-
-
-== Stop-words
-
-TODO
-
-== Result mapping
-
-Here you can configure which <<fields#,fields>> are provided to the frontend and do some simple data manipulation.
-
-image::interface-mappings.png[Interface mappings,768]
+First any <<#_stop_words, Stop-words>> are moved,
+then the remaining search string is split into words,
+any matching synonyms to those words are added as OR expressions.
