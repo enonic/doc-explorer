@@ -1,21 +1,137 @@
 = Synonyms
 :toc: right
+:toclevels: 5
 :imagesdir: images
 
 == Introduction
 
-You can have multiple thesauri to be used in various combinations in <<interfaces#,interfaces>>.
+You can have multiple *thesauri* to be used in various combinations in <<interfaces#,interfaces>>.
 
-image::synonyms.png[Synonyms,768]
+== Concepts
 
-== Synonyms
+=== Thesauri
 
-A synonym has two parts: From and To.
+In order to manage *synonyms*, you may group them into one or more *thesauri*.
 
-image::synonym.png[Synonym,768]
+=== Thesaurus
 
-//When expand = false
+Each *thesaurus* may contain *synonyms* in one or more *languages/locales*.
 
-The from part is searched and the main query is decorated with the to part.
+=== Languages/Locales
 
-//When expand = true, both the from and to part is searched and the main query is decorated with both parts.
+Explorer uses the same *locales* which are made available by Java.
+
+In addition we've added *zxx* for (non linguistic content / not applicable).
+
+* https://en.wikipedia.org/wiki/ISO_639-2#Special_situations
+* https://en.wikipedia.org/wiki/ISO_639-3#Special_codes
+
+=== Stemming Language
+
+Here's a list of the languages Enonic supports for stemming:
+
+* https://developer.enonic.com/docs/xp/stable/storage/indexing#languages
+
+And some documentation on how it works:
+
+* https://developer.enonic.com/docs/xp/stable/storage/indexing#stemmed
+* https://developer.enonic.com/docs/xp/stable/storage/dsl#stemmed
+* https://developer.enonic.com/docs/xp/stable/storage/noql#stemmed
+
+Explorer is able to match many *locales* down to a specific *stemming language*.
+
+=== Use: From, To, Both
+
+You must select how a synonym is *used*. It may be used in three ways:
+
+1. From (Only used to find which synonyms to apply to the main query, itself is not applied to the main query.)
+2. To (Only used to apply to the main query. Not used when finding synonyms.)
+3. Both (Used to find synonyms, but also added to the main query.)
+
+=== Enabled & Comments
+
+Turning on and off certain synonyms may greatly affect the search results.
+You may supply a comment as to why it's a good idea to keep, or disable a synonym.
+
+== How it works
+
+The combination of all these concepts, makes it possible to create both simple and quite complex thesauri:
+
+=== Single language/dialect
+
+You may setup a thesaurus with just a single language.
+For instance *English [en]*.
+
+Let's say you want to help with some common misspellings.
+You could make a synonym *from*: [red]#artic#, *to*: [green]#arctic#
+
+Or depending upon your data, and/or the focus of your search engine, you may want a "two-way" synonym between *car* and *auto*.
+To achieve that set usage to [green]*both* instead of using [red]*from* and [red]*to*.
+
+=== Multi language & Codes
+
+In your domain language, maybe there are special codes which doesn't really belong to a specific language (and thus shouldn't be stemmed).
+
+For example in the medical world, there's something called ATC codes.
+Let's say you have a search page, which can search and present both Norwegian and English results.
+
+You have the ATC code [blue]#A01AA02#, the Norwegian word [blue]#natriummonofluorofosfat# and the English term [blue]#sodium monofluorophosphate#.
+
+=== Management alternatives
+
+Depending on how you want to manage it, you could either setup a single "complex" thesaurus or multiple "simple" ones.
+
+Both alternatives will give the same results...
+
+==== Alternative A: Multiple simple thesauri
+
+* One thesaurus with two locales *zxx* and *no*, where zxx *from*: [blue]#A01AA02# and no *to*: [blue]#natriummonofluorofosfat#
+* A second thesaurus with two locales *zxx* and *en*, where zxx *from*: [blue]#A01AA02# and en *to*: [blue]#sodium monofluorophosphate#
+* A third thesaurus with two locales *no* and *en*, where no *both*: [blue]#natriummonofluorofosfat# and en *both*: [blue]#sodium monofluorophosphate#
+
+==== Alternative B: Single complex thesaurus
+
+* A single thesaurus with three locales *zxx*, *no* and *en* with zxx *from*: [blue]#A01AA02#, no *both*: [blue]#natriummonofluorofosfat# and en *both*: [blue]#sodium monofluorophosphate#
+
+=== Interface languages parameter
+
+When an *interface* is used to search, it has a *languages* parameter.
+If you leave it empty "all" languages in the *selected thesauri* will be searched and applied (with stemming).
+Supplying a languages parameter will *limit* which languages are used when searching for synonyms to apply.
+
+Given the example above:
+
+languages: ["en"]
+
+* will give 0 synonyms applied (no matter what the search string is).
+
+languages: ["no"]
+
+* will give 0 synonyms applied (no matter what the search string is).
+
+languages: ["zxx"]
+
+* will give 0 synonyms applied (no matter what the search string is).
+
+languages: ["zxx", "en"]
+
+* will apply [blue]#sodium monofluorophosphate# if the search string is [blue]#A01AA02#
+
+languages: ["zxx", "no"]
+
+* will apply [blue]#natriummonofluorofosfat# if the search string is [blue]#A01AA02#
+
+languages: ["en", "no"]
+
+* will apply [blue]#sodium monofluorophosphate# if the search string is [blue]#natriummonofluorofosfat#
+* and [blue]#natriummonofluorofosfat# if the search string is [blue]#sodium monofluorophosphate#
+* if the search string is [blue]#A01AA02#, no synonyms will be applied.
+
+languages: ["zxx", "en", "no"]
+
+* will apply [blue]#sodium monofluorophosphate# if the search string is [blue]#natriummonofluorofosfat#
+* and [blue]#natriummonofluorofosfat# if the search string is [blue]#sodium monofluorophosphate#
+* if the search string is [blue]#A01AA02#, both [blue]#natriummonofluorofosfat# and [blue]#sodium monofluorophosphate# will be applied.
+
+
+//== Abbreviations
