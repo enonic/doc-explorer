@@ -18,3 +18,4 @@ These are the core concepts of Explorer:
 * <<admin/synonyms#, Synonyms>> and <<admin/stopwords#, Stop word>> lists can be created and managed for improved search results.
 * <<admin/interfaces#, Search inferfaces>> can be tuned and managed to optimise search results.
 * <<clients#, Clients>> create fully customized search interfaces for end users.
+* <<upgrading#, Upgrading>>

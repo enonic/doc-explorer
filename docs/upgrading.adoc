@@ -1,0 +1,36 @@
+= Upgrading
+:toc: right
+:toclevels: 5
+
+WARNING: Please make a system dump, or backup every Explorer repo whenever upgrading to a new major release...
+
+When the explorer application is started, it will check if it has to do any data migrations.
+If a migration requires user input, that migration is taken care of by some ui.
+
+== 1.x -> 2.x
+
+After installing Explorer 2.0, you will probably have to wait a while for it to migrate "all" your old data.
+Once that it done, there is also a "manual" step:
+
+=== Synonyms 2.0
+
+In order for "old" synonyms to work in Explorer 2.0, Explorer needs to be told which language(s) the old synonyms where,
+so that it can migrate them and apply stemming at index time.
+
+Go to the Synonyms page and edit your Thesauri.
+First you pick which language(s) that Thesaurus will consist of.
+You may add more languages later.
+
+CAUTION: You may want to make an export of the *thesauri* folder before migrating your Thesauri...
+
+Whatever language(s) you have choosen are now available in the *from* and *to* language dropdowns.
+Once you have filled those in, you can click the *[Migrate]* button, and the magic will happen :)
+Once that's done click the *[Save]* button.
+
+Do the same with all the other Thesauri.
+
+NOTE: Your old Thesauri may have been a "jungle" of multiple languages. Each synonym has a language dropdown, so it's easy to change language on it.
+
+=== Custom Collectors
+
+See <<collectors/upgrade#, Upgrade a custom collector>>
