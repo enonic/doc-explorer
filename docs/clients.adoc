@@ -34,13 +34,13 @@ Perhaps you want to provide a JSON service to be used with a react frontend, or 
 
 Common to all solutions is that you have to call the search api, and perhaps manipulate the result to your liking.
 
-Below is an example of how to invoke the search API:
+Below is an example of how to invoke the search API in a server-side controller:
 
 .controller.es
 [source,typescript]
 ----
 import {RESPONSE_TYPE_JSON} from '@enonic/js-utils';
-import {makeSchema} from './schemaWithAllDocumentTypes/makeSchema';
+import {makeSchema} from '/lib/explorer/interface/graphql/makeSchema';
 //@ts-ignore
 import {execute} from '/lib/graphql';
 
