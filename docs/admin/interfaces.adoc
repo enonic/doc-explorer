@@ -12,17 +12,31 @@ as well as the ability to tune and boost your search down to field level.
 
 The table will show a list of the interfaces.
 
-Each row represents an interface and will have a button to edit the interface.
+Each row represents an interface.
 
 By default a row will show:
 
-* The name of the interface
+* An *[Edit]* button, to configure the interface.
 
-[red]*TODO*
+* The name of the interface.
+
+* How many collection that interface searches.
+
+* A *[Search]* button, to test the interface.
+
+* A *[Copy]* button, in case you want to make a similar interface.
 
 If you toggle 'Show all fields', each row will also show:
 
-* A button to open a dialog to confirm deletion of an interface.
+* Which collections that interface searches.
+
+* Which fields that interface searches.
+
+* Which Synonyms are used.
+
+* Which Stopwords are used.
+
+* A *[Delete]* button to open a dialog to confirm deletion of an interface.
 
 == New/Edit
 
