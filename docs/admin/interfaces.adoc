@@ -55,6 +55,6 @@ CAUTION: Be careful when adding stop words, it may quickly lead to an empty sear
 
 You may select multiple "thesauri" of synonyms to "decorate" the query with.
 
-First any <<#_stop_words, Stop-words>> are moved,
-then the remaining search string is split into words,
-any matching synonyms to those words are added as OR expressions.
+First any <<#_stop_words, Stop-words>> are removed,
+then the remaining search string is used to query for synonyms,
+matches are used to decorate the main query.
