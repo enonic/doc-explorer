@@ -32,7 +32,7 @@ See <<custom#_build_gradle, custom#_build_gradle>>.
 
 Collectors are now supposed to provide their own documentTypes.
 
-See <<custom#_documentTypes_json, custom#_documentTypes_json>>.
+See <<custom#_documenttypes_json, custom#_documentTypes_json>>.
 
 === Deprecations
 
@@ -59,7 +59,7 @@ The previous way to implement a Collector React Component was strongly hooked to
 
 The new way uses React.forwardRef and React.useImperativeHandle in order for the (child) Collector component to provide callbacks that the (parent) Collection component can run when appropriate.
 
-These are named afterReset and validate:
+These are named *afterReset* and *validate*:
 
 * When the *[Reset]* button is clicked: the (parent) Collection component will reset it's state, but whatever state is internal to the (child) Collector component needs to be handled inside it's *afterReset* function.
 * When the *[Save]* button is clicked: the (parent) Collection component will validate it's own input fields, but whatever inputs are provided by the (child) Collector component, should be handeled inside it's own *validate* function.

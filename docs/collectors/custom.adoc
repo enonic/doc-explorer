@@ -118,7 +118,7 @@ const config = {
 In the explorer admin GUI, when you create or edit a collection and select a collector, the option to choose a default document-type is hidden.
 This is because a collector is supposed to provide it's own document-type(s).
 You can do this by including a documentTypes.json file in the src/main/resources folder.
-The json file contains an array of object so you can provide multiple document-types.
+The json file contains an array of objects so you can provide multiple document-types.
 
 Make sure that the _name property is unique.
 You may want to prefix the name to avoid name collision with previously installed document-types.
@@ -131,7 +131,7 @@ If the document-type _name already exists, it is not overwritten.
 [source,json]
 ----
 [{
-	"_name": "myDocumentTypeName", <--1-->
+	"_name": "mydocumenttypename", <--1-->
 	"addFields": false, <--2-->
 	"properties": [{
 		"active": true, <--3-->
@@ -217,7 +217,7 @@ Any react component type should be supported, but all examples are functional (s
 
 *React.forwardRef* and *React.useImperativeHandle* are used in order for the (child) Collector component to provide callbacks that the (parent) Collection component can run when appropriate.
 
-These callbacks are named afterReset and validate:
+These callbacks are named *afterReset* and *validate*:
 
 * When the *[Reset]* button is clicked: the (parent) Collection component will reset it's state, but whatever state is internal to the (child) Collector component needs to be handled inside it's *afterReset* function.
 * When the *[Save]* button is clicked: the (parent) Collection component will validate it's own input fields, but whatever inputs are provided by the (child) Collector component, should be handeled inside it's own *validate* function.
@@ -557,7 +557,7 @@ const documentToPersist = {
 collector.persistDocument(
 	documentToPersist, {
 		// Must be identical to a _name in src/main/resources/documentTypes.json
-		documentTypeName: 'myDocumentTypeName'
+		documentTypeName: 'mydocumenttypename'
 	}
 );
 ----
@@ -594,7 +594,7 @@ if (documentsRes.total > 1) {
 collector.persistDocument(
 	documentToPersist, {
 		// Must be identical to a _name in src/main/resources/documentTypes.json
-		documentTypeName: 'myDocumentTypeName'
+		documentTypeName: 'mydocumenttypename'
 	}
 );
 ----
