@@ -528,9 +528,9 @@ Write to the journal by using *addSuccess* or *addError* like this:
 ----
 try {
 	// ... do some stuff that could fail ...
-	collector.addSuccess({uri: currentUri});
+	collector.addSuccess({message: currentUri});
 } catch (e) {
-	collector.addError({uri: currentUri, message: e.message});
+	collector.addError({message: `uri:${currentUri} error:${e.message}`});
 }
 ----
 

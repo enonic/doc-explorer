@@ -94,6 +94,12 @@ See <<custom#_react_component, custom#_react_component>>.
 
 See <<custom#_collect_xml, custom#_collect_xml>>.
 
+==== Journal
+
+collector.addSuccess() and collector.addError() no longer takes an uri parameter.
+
+See <<custom#_journal, custom#_journal>>.
+
 ==== persistDocument
 
 ===== create
