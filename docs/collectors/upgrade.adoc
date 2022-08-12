@@ -22,7 +22,7 @@ See <<custom#_gradle_properties, custom#_gradle_properties>>.
 
 ==== build.gradle
 
-In build.gradle you have to bump lib-explorer version to 4.0.0 and include some more lib dependencies.
+In build.gradle you have to bump lib-explorer version to 4.0.0.
 
 See <<custom#_build_gradle, custom#_build_gradle>>.
 
