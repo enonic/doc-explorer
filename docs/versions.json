@@ -3,7 +3,7 @@
   "versions": [
     {
       "label": "next",
-      "checkout": "ed7b9e002f8d29e7f8637917acc1ac6e6ebae581"
+      "checkout": "12aaebff48e326891e0be1bc15f95307404d038f"
     },{
       "label": "1.4.0",
       "checkout": "507538dbd76415790803680295aa4a4c7b1be068"
