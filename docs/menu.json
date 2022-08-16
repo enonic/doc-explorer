@@ -60,8 +60,7 @@
       "menuItems": [
         {
           "title": "Document functions",
-          "document": "api/document",
-
+          "document": "api/document"
         },
         {
           "title": "Search function",
