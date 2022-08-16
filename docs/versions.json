@@ -2,13 +2,13 @@
 {
   "versions": [
     {
-      "label": "next (2.0)",
+      "label": "next",
       "checkout": "ed7b9e002f8d29e7f8637917acc1ac6e6ebae581"
     },{
       "label": "1.4",
       "checkout": "507538dbd76415790803680295aa4a4c7b1be068"
     },{
-      "label": "stable (1.5)",
+      "label": "1.5",
       "checkout": "master",
       "latest": true
     }
