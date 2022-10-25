@@ -9,9 +9,8 @@ Add the following into your build file:
 [source,groovy]
 ----
 dependencies {
-	include 'com.enonic.lib:lib-explorer:3.20.1'
+	include 'com.enonic.lib:lib-explorer:3.20.6'
 
-	// Needed by lib-explorer (or lib-util)?
 	include "com.enonic.xp:lib-cluster:${xpVersion}"
 	include "com.enonic.xp:lib-context:${xpVersion}"
 	include "com.enonic.xp:lib-event:${xpVersion}"
@@ -22,6 +21,8 @@ dependencies {
 	include "com.enonic.xp:lib-repo:${xpVersion}"
 }
 ----
+
+IMPORTANT: Version of lib-explorer hardcoded here is just for an example. Make sure that you change this to the latest version of the lib that is compatible with your version of XP.
 
 In your controller, add a require statement:
 
