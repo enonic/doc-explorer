@@ -22,7 +22,8 @@ dependencies {
 }
 ----
 
-IMPORTANT: Version of lib-explorer hardcoded here is just for an example. Make sure that you change this to the latest version of the lib that is compatible with your version of XP.
+IMPORTANT: Remember to use the latest version of the library that is compatible with your version of Explorer and XP.
+
 
 In your controller, add a require statement:
 
