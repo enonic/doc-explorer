@@ -25,7 +25,7 @@ The starter ships with the essential setup required for any collector:
 [source,java]
 ----
 dependencies {
-	include 'com.enonic.lib:lib-explorer:3.20.1'
+	include 'com.enonic.lib:lib-explorer:3.20.6'
 
 	// Needed by lib-explorer (or lib-util)?
 	include "com.enonic.xp:lib-cluster:${xpVersion}"
@@ -39,7 +39,7 @@ dependencies {
 }
 ----
 
-NOTE: Remember to use a version of the library that is equal to or newer than the version of Explorer you are using.
+IMPORTANT: Remember to use the latest version of the library that is compatible with your version of Explorer and XP.
 
 === Collectors.json
 
