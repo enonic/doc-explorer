@@ -1,14 +1,11 @@
 {
   "versions": [
     {
-      "label": "1.5.0",
-      "checkout": "06d5930a29d2a0807fc0706cfb93a1a1456bca38"
-    },{
       "label": "1.4.0",
-      "checkout": "507538dbd76415790803680295aa4a4c7b1be068"
+      "checkout": "507538dbd76415790803680295aa4a4c7b1be068",
     },{
-      "label": "stable",
-      "checkout": "06d5930a29d2a0807fc0706cfb93a1a1456bca38",
+      "label": "1.5.0",
+      "checkout": "55102f6a07d05b12874e09d2766ca5f3b444b54b",
       "latest": true
     },{
       "label": "next",
