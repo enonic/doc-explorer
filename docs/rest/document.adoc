@@ -3,13 +3,13 @@
 .com.enonic.xp.web.vhost.cfg
 [source,cfg]
 ----
-mapping.api.host = localhost
-mapping.api.source = /api
-mapping.api.target = /webapp/com.enonic.app.explorer/api
-mapping.api.idProvider.system = default
+mapping.collectionsApi.host = localhost
+mapping.collectionsApi.source = /collections
+mapping.collectionsApi.target = /webapp/com.enonic.app.explorer/collections/api/v1
+mapping.collectionsApi.idProvider.system = default
 ----
 
-Url: http://localhost:8080/api/v1/collections/<collectionName>/documents
+Url: http://localhost:8080/collections/collection/<collectionName>/documents
 
 == Get
 
@@ -72,7 +72,7 @@ export function get() {
       }),
       sort: 'score DESC'
     },
-    url: `http://localhost:8080/api/v1/collections/${COLLECTION}/documents`,
+    url: `http://localhost:8080/collections/collection/${COLLECTION}/documents`,
   });
 }
 ----
@@ -164,7 +164,7 @@ export function get() {
       requireValid: true,
       partial: false
     },
-    url: `http://localhost:8080/api/v1/collections/${COLLECTION}/documents`,
+    url: `http://localhost:8080/collections/collection/${COLLECTION}/documents`,
   });
 }
 ----
@@ -224,7 +224,7 @@ export function get() {
     params: {
       id: '7b89af94-32a9-4e39-aedb-c553675a3287'
     },
-    url: `http://localhost:8080/api/v1/collections/${COLLECTION}/documents`,
+    url: `http://localhost:8080/collections/collection/${COLLECTION}/documents`,
   });
 }
 ----
