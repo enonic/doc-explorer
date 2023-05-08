@@ -105,19 +105,19 @@ If the document-type _name already exists, it is not overwritten.
 [source,json]
 ----
 [{
-	"_name": "mydocumenttypename", <--1-->
-	"addFields": false, <--2-->
+	"_name": "mydocumenttypename", // <1>
+	"addFields": false, // <2>
 	"properties": [{
-		"active": true, <--3-->
-		"enabled": true, <--4-->
-		"fulltext": true, <--4-->
-		"includeInAllText": true, <--4-->
-		"max": 0, <--5-->
-		"min": 0, <--6-->
-		"name": "text", <--7-->
-		"nGram": true, <--4-->
-		"path": false, <--4-->
-		"valueType": "string" <--8-->
+		"active": true, // <3>
+		"enabled": true, // <4>
+		"fulltext": true, // <4>
+		"includeInAllText": true, // <4>
+		"max": 0, // <5>
+		"min": 0, // <6>
+		"name": "text", // <7>
+		"nGram": true, // <4>
+		"path": false, // <4>
+		"valueType": "string" // <8>
 	},{
 		"active": true,
 		"enabled": true,
@@ -135,7 +135,7 @@ If the document-type _name already exists, it is not overwritten.
 		"fulltext": true,
 		"includeInAllText": false,
 		"max": 0,
-		"min": 1, <--9-->
+		"min": 1, // <9>
 		"name": "url",
 		"nGram": false,
 		"path": false,
@@ -616,49 +616,49 @@ The complexity of a collector may vary, but as to provide a basic idea, the star
 .src/resources/tasks/collect.ts
 [source,typescript]
 ----
-import '@enonic/nashorn-polyfills'; <--1-->
-import {Collector} from '/lib/explorer/collector'; <--2-->
+import '@enonic/nashorn-polyfills'; // <1>
+import {Collector} from '/lib/explorer/collector'; // <2>
 
-export function run({name, collectorId, configJson, language}) { <--3-->
-	const collector = new Collector({name, collectorId, configJson, language}); <--4-->
+export function run({name, collectorId, configJson, language}) { // <3>
+	const collector = new Collector({name, collectorId, configJson, language}); // <4>
 
-	if (!collector.config.uri) { <--5-->
+	if (!collector.config.uri) { // <5>
 		throw new Error('Config is missing required parameter uri!');
 	}
 
-	collector.start(); <--6-->
+	collector.start(); // <6>
 
 	const {
 		uri,
 		object: {
 			someNestedProperty
 		}
-	} = collector.config; <--7-->
+	} = collector.config; // <7>
 
 	while(somethingToDo) {
-		if (collector.shouldStop()) { break; } <--8-->
+		if (collector.shouldStop()) { break; } // <8>
 
 		try {
-			const {text, title} = doSomethingThatMayFail(); <--9-->
+			const {text, title} = doSomethingThatMayFail(); // <9>
 
 			collector.persistDocument({
 				text,
 				title,
 				uri
-			}); <--10-->
+			}); // <10>
 
-			collector.addSuccess({uri}); <--11-->
+			collector.addSuccess({uri}); // <11>
 
 		} catch (e) {
 
-			collector.addError({uri, message: e.message}); <--12-->
+			collector.addError({uri, message: e.message}); // <12>
 
 		}
 	} // while somethingToDo
 
 	// Perhaps delete documents that are no longer found...
 
-	collector.stop(); <--13-->
+	collector.stop(); // <13>
 
 } // export function run
 ----
