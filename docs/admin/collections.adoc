@@ -6,7 +6,7 @@
 
 This is where you configure how and when to collect data into a collection.
 
-In order to do that you first need to install a <<collector#, Collector>>.
+In order to do that you first need to install a <<../collectors#, Collector>>.
 
 You can develop your own collector or install one from https://market.enonic.com/applications[Enonic market].
 
