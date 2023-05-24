@@ -1,83 +1,232 @@
 = Getting Started
-:toc: right
-:imagesdir: images
+:experimental:
+:imagesdir: media/
+:sourcedir: ../
 
-NOTE: Explorer requires Enonic XP in order to run. It can also be tested on a local developer environment.
+Hands-on introduction to get familiar with Enonic Explorer
 
-== Installation
+== Introduction
 
-To get started, simply install Explorer to your XP instance. Explorer is available from https://market.enonic.com/vendors/enonic/explorer[Enonic market].
+During this tutorial you will:
 
-=== Configuration
+* Sign up for a free Enonic account
+* Set up a new solution with Explorer pre-installed
+* Create a new collection and fill it with sample content
+* Learn about Documents and Document types
+* Setting up an interface to search your content
+* Access and query the API directly
 
-To activate scheduling, add the following configuration file.
+== Sign up
 
-WARNING: If you are running an XP cluster, only one of the nodes must have this configuration. Running collector jobs on multiple nodes can trigger race conditions.
+TIP: Developers may also try out Explorer by https://developer.enonic.com/start[installing the Enonic SDK].
 
-.XP_HOME/config/com.enonic.app.explorer.cfg
-[source,java]
-----
-cron = true #Default is false
-----
 
+. Start by signing up for get a free account on https://cloud.enonic.com
++
+. Once you have signed up and verified your account, **create a new Solution**. From the Solutions page, click the btn:[Create] button at the top right. 
++
+Choose  the `Explorer` template, give your solution a name, go with the default values.
++
+TIP: The template ensures that Explorer and all relevant dependencies pre-installed.
 
 == Explorer admin
 
-From the XP admin console, you should now be able to access the <<admin#, explorer admin>>, via a fresh entry in the XP menu. 
-
-image::XPMenuExplorer.png[XPMenuExplorer,318]
-
-NOTE: Only users with the role "system.admin", or "com.enonic.explorer" (created when explorer was installed) can see and access Explorer's admin interface.
-
-image::explorer.png[Sample screenshot from Explorers admin inteface]
-
-
-== Collecting some data
-
-When first installing Explorer there is no data to available for searching.
-
-To get started, lets can use the built-in <<collectors/webcrawler#,Web crawler collector>>.
-
-. Select the `Collections` page from the Explorer Menu.
+Once the environment has booted. From the new solution page, click `Enonic XP Admin -> Launch`.  
 +
-. Click the create button:
+This will take you to the environment's dashboard.
+The Explorer admin can be opened from the top right `XP menu -> Explorer`. 
+
+NOTE: Only users with the role "system.admin", or "com.enonic.explorer" (created when explorer was installed) can see and access the Explorer admin.
+
+The initial view should look something like this:
+
+image::home.png["Explorer start page",1024w ]
+
+The Explorer menu is available from the top left. The main panel gives you an optino to search the indexed documents. But you don't have anything to search, do you? 🤷 
+
+== Collecting data
+
+To get some data to play with, let's use the built-in, very basic <<collectors/webcrawler#,Web crawler collector>> to index the contents of Enonic Market.
+
+. **Create a new Collection** from the Solutions page, click the btn:[Create] button at the bottom right. 
 +
-image::GreenPlus.png[GreenPlus,71]
-. Give the Collection a name, i.e. "Example"
-. Choose the `Web crawler` collector in the collector dropdown menu:
-. Provide a starting URL, for example: https://www.example.com
+* give your new collection a name, i.e. "market"
+* choose `Web crawler` from the collector dropdown menu
+* provide the collector with a starting URL: `\https://market.enonic.com`
+* Skip all other options, and click btn:[Save] at the bottom of the form
 +
-image::NewCollection.png[NewCollection,792]
-. Scroll to the bottom of the page and click `Submit`.
+. Start the collector
 +
-. Your newly created *Collection* should appear in the list of *Collections*.
+The `market` collection should now be available in the list of collections.
 +
-image::CollectionsList.png[CollectionsList,577]
-. Click the green download from cloud icon to the right to start collecting data.
+Click the btn:[Download] icon to the left to start the collector. This will trigger a background job that crawls the website and adds each page as a document in Explorer.
 +
-image::Collect.png[Collect,40]
+TIP: To view the status of the job, visit the `Collections -> Status` page from the Explorer menu.
 +
-WARNING: Be careful not to harass webservers, your ip might become blocked by them.
-. To view the status of the job, select the `Collections Status` page from the Explorer Menu
+image::collector-status.png[CollectorStatus,1039]
+
+TIP: In addition to collectors (code that runs within Enonic), you may also use the <<api/document#,Document API>> to actively inject data to your collection from the outside.
+
+== Documents
+
+Once the collector job has completed, you may click the documents count link which will take you to the `Documents` page. You can easily get to this page via the menu as well.
+
+TIP: `Document` is the term used for a single item within a collection
+
+From the documents page, you may browse and filter all available documents. You can also configure which fields to show. Clicking the leftmost "JSON" icon will reveal the raw data that was indexed for this document.
+
+Do your first search, but typing `explorer` in the search box:
+
+image::documents-search-explorer.png["Search results for explorer",1024w] 
+
+== Document types
+
+In order to optimize your search, you may need to tune how the different fields are indexed. This is managed via `Document types`.
+
+From the `Document types` page, you should see a single entry - `Web page`. This document type was automatically created by the Web crawler collector. This is a so-called "Managed" document type, which means that the collector is responsible for managing and updating the document type - as opposed to a manually registered document type.
+
+If you try editing the document type (using the edit icon on the right hand side), you will be warned that it is managed. Ignore this and go on to see the full document type details:
+
+image::document-type-webpage.png["Webpage document type",1010w] 
+
+A document type may be used across multiple collections, and you may also use multiple document types within a single collection.
+
+TIP: Every document also has a set of common fields like id, collection, createdTime and documentType. These cannot be removed or changed.
+
+== Interfaces
+
+Interfaces are used when you want to select which collections to be exposed, and to manually tune a search. Tuning includes boosting, stemming, synonyms and stopwords. Interfaces can be created and managed directly from the Explorer admin.
+
+TIP: An interface in this context is not an actual user interface, but rather an API. Explorer has a <<api/interface, GraphQL API>>, but the actual end-user search interface must be built on top of this.
+
+. **Create a new interface** by clicking the (+) button in the lower right corner of the `Interfaces` page.
 +
-image::CollectorStatus.png[CollectorStatus,1039]
+* give your interface a name, for instance `myinterface`
+* add the `market` collection
+* set a field boosting for the `title` field. 
++
+It should look something like this:
++
+image::interface-myinterface.png["Showing the form of the new interface",1010w] 
++
+. **Save the changes** to create the interface.
 
+With the interface created, you are now ready to give it a spin!
 
-== Test search
+== API
 
-With some data indexed, you can try running a simple search.
+To try out the API, click the pink btn:[graphQL] icon to the left.
 
-From the main page, use the big search field to see if you get any hits in your recently collected data.
+image::interface-list.png["A list showing a single interface",1010w] 
 
-image::Home.png[Home,606]
+This will take you to an API browser, where you can easily test various queries against the API:
 
-== Next
+image::query-myinterface.png["Query browser",1024w]
 
-You have now successfully setup a collection and filled it with data.
-We now recommend looking into the following:
+It essentially consists of: 
 
-* Visit the <<admin#,Explorer admin docs>>
-* Learn more about <<collectors#, collectors>> and how to build a <<collectors/custom#, custom collector>>
+* query panel (to the left)
+* result panel (to the right)
+* context selector (on top)
+
+Follow these steps to run your first API-powered query:
+
+. Make sure the context is set to `myinterface`
+. Paste this into the query panel:
++
+.Searchstring "explorer"
+[source,GraphQL]
+----
+query{
+	interface {
+    search(searchString: "explorer"){
+      hits{
+        _documentType
+        ... on DocumentType_Webpage {
+          title
+          url
+        }
+      }
+    }
+  }
+}
+----
++
+. Click the pink `play` button.
++
+You should now get a result looking something like this
++
+.Searchstring "explorer"
+[source,GraphQL]
+----
+{
+  "data": {
+    "interface": {
+      "search": {
+        "hits": [
+          {
+            "_documentType": "webpage",
+            "title": "Explorer - Enonic Market",
+            "url": "https://market.enonic.com/vendors/enonic/explorer"
+          },
+          {
+            "_documentType": "webpage",
+            "title": "Extensions and plugins for Enonic XP and Content Studio (CMS)",
+            "url": "https://market.enonic.com/"
+          },
+          {
+            "_documentType": "webpage",
+            "title": "Enonic - Enonic Market",
+            "url": "https://market.enonic.com/vendors/enonic"
+          },
+          {
+            "_documentType": "webpage",
+            "title": "Applications - Enonic Market",
+            "url": "https://market.enonic.com/applications"
+          },
+          {
+            "_documentType": "webpage",
+            "title": "React4xp Lib - Enonic Market",
+            "url": "https://market.enonic.com/vendors/enonic/react4xp-lib"
+          }
+        ]
+      }
+    }
+  }
+}
+----
+
+Explorer is also capable of various aggregations as well. Below we perform a term aggregation search over the title and _documentType fields.
+
+Try it out yourself!
+
+.Search with aggs
+[source,GraphQL]
+----
+query{
+	interface {
+    search(
+      	searchString: "explorer"
+    		aggregations: [
+					{name: "title", terms: {field: "title"}},
+					{name: "documentTypes", terms: {field: "_documentType"}}
+        ]){
+      aggregationsAsJson
+		}
+	}
+}
+----
+
+Back in your Enonic cloud solution, the API enpoint is already exposed publicly via an Ingress. Visit the `Ingresses` section to find the link.   
+
+Visit the <<api/interface#, API pages>> to learn more about the interface API.
+
+== Next up
+
+With the fundamentals covered, we recommend looking into the following areas to learn more:
+
+* Get an overview of the <<admin#,Explorer admin>>
+* Check out the full <<api#, API>>
 * Understand how <<clients#, search clients>> work, and how to build your own
-* Check out the <<api#, Explorer API>>
+* Learn more about <<collectors#, collectors>> and how to build a <<collectors/custom#, custom collector>>
 

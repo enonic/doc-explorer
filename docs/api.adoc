@@ -1,4 +1,10 @@
 = Explorer API
 :toc: right
 
-WARNING: TODO: Not documented yet.
+Explorer provides several different API's for different use cases.
+
+TODO: LInks
+
+* The Document API - a RESTful API for ingesting data via a public endpoint
+* The Interface API - a GraphQL API optimized for building client applications and searching your documents
+* The JavaScript API - for ingesting data via custom collectors

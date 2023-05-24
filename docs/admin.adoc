@@ -4,7 +4,7 @@
 
 == Introduction
 
-The Explorer administrative interface enable search administrators to define and manage how data is collected and then exposed through fine tuned search interfaces.
+The Explorer administrative interface enable search administrators to define and manage how data is collected and then exposed through fine tuned interfaces.
 
 == Access
 

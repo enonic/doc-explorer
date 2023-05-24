@@ -4,18 +4,18 @@
 
 == Introduction
 
-Explorer is an enterprise search application that supports collecting, and searching across data from different sources. Without a license some functionalities are limited.
+Use Explorer to collecting, index and searching data across multiple different sources.
 
 NOTE: tl;dr - visit the <<start#,getting started section>>.
 
+NOTE: Explorer is free, but to access to all features of Explorer, you will need a valid Enonic license
+
 These are the core concepts of Explorer:
 
-* <<admin/apiKeys#, API Keys>> configure access to <<api/document#, Document REST API>> and <<api/interface#, Interface GraphQL API>>.
-* <<admin/collections#, Collections>> enable storing data from a specific source.
-* <<collectors#, Collectors>> are pluggable apps that extract and fill data into collections.
-* Collectors can be configured and scheduled.
-* <<admin/documentTypes#, Document types>> define which fields exist and how to index them for searching.
+* <<admin/api#, API>>Inject data via the <<api/document#, Document REST API>> and access it from the<<api/interface#, Interface GraphQL API>>.
+* <<admin/collections#, Collections>> Each collection may hold a set of data, typically from a specific source.
+* <<collectors#, Collectors>> are Enonic apps that can retrive and fill data into collections, based on events or via scheduling
+* <<admin/documentTypes#, Document types>> define fields and how to index them for search.
 * <<admin/synonyms#, Synonyms>> and <<admin/stopwords#, Stop word>> lists can be created and managed for improved search results.
-* <<admin/interfaces#, Search inferfaces>> can be tuned and managed to optimise search results.
+* <<admin/interfaces#, Search inferfaces>> allow search admins to compose and tune search across collections
 * <<clients#, Clients>> create fully customized search interfaces for end users.
-* <<upgrading#, Upgrading>>
