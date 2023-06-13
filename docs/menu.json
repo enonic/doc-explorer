@@ -36,21 +36,7 @@
     },
     {
       "title": "Collectors",
-      "document": "collectors",
-      "menuItems": [
-        {
-          "title": "Webcrawler collector",
-          "document": "collectors/webcrawler"
-        },
-        {
-          "title": "Custom collectors",
-          "document": "collectors/custom"
-        },
-        {
-          "title": "Upgrade a custom collector",
-          "document": "collectors/upgrade"
-        }
-      ]
+      "document": "collectors"
     },
     {
       "title": "Clients",

@@ -138,7 +138,7 @@ Follow these steps to run your first API-powered query:
 [source,GraphQL]
 ----
 query{
-	interface {
+  interface {
     search(searchString: "explorer"){
       hits{
         _documentType
@@ -203,17 +203,17 @@ Try it out yourself!
 .Search with aggs
 [source,GraphQL]
 ----
-query{
-	interface {
+query {
+  interface {
     search(
-      	searchString: "explorer"
-    		aggregations: [
-					{name: "title", terms: {field: "title"}},
-					{name: "documentTypes", terms: {field: "_documentType"}}
-        ]){
+      searchString: "explorer"
+      aggregations: [
+        {name: "title", terms: {field: "title"}},
+        {name: "documentTypes", terms: {field: "_documentType"}}
+    ]){
       aggregationsAsJson
-		}
-	}
+      }
+   }
 }
 ----
 

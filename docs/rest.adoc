@@ -1,3 +1,0 @@
-= REST API
-
-* <<rest/document>> GET, POST or DELETE documents

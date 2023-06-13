@@ -3,22 +3,59 @@
 
 == Introduction
 
-A collector can be configured to extract data from a specific source, and returns the content to explorer for indexing.
+A collector is essentially an Enonic application that can be configured to fetch data from a specific source and add it to one (or more) collections in Explorer
 
 == Usage
 
 === Install
 
-To make use of a collector, you must first make sure it is installed. Collectors are typically distributed as regular XP applications, but Explorer also ships with a standard collector called <<collectors/webcrawler#, webcrawler>>.
+Collectors are typically distributed as regular XP applications. A single application may contain multiple collectors. As such, the first thing you need to do is install your collector.
 
 === Configure
 
-To make use of a collector, you must first create a collection, then choose the specific collector and configure it.
+Each collector may provide special configuration forms that allow you to tune how it will work for a specific collection.
 
-All items returned from the collector will then be stored and indexed in the specific collection.
+When you create a collection, link your connector to it, and configure it using the form that appears. 
+
+NOTE: A collection may only have a single collector associated with it.
 
 === Run
-For each collection, Explorer will run the specified collector as a background job. The jobs follow the defined schedule of the collection.
+
+Collectors run as background jobs, and may either be executed manually, or via a schedule. When running, the collector will fill the associated collection with documents.
+
+== Webcrawler collector
+
+Explorer ships with a standard collector called `Webcrawler`. This is a basic webcrawler which can be used to index traditional websites or for testing purposes.
+
+The webcrawler currently only stores HTML pages. It will extract text from the HTML document and remove element tags. 
+
+NOTE: Text within <script>, <nav> and <footer> elements will automatically be removed before the document is stored in the collection.
+
+=== Configuration
+
+The webcrawler collector has the following configuration options.
+
+URL:: This is the URL at which the collector will start crawling. For instance `https://market.enonic.com`. Only pages within the specified **domain** will be indexed.
+
+Exclude patterns:: To avoid indexing all pages within a domain, you may specify exclude patterns.
++
+Exclude patterns are specified using regular expressions. The expressions are matched against the start URL domain root.
++
+Example: Ignore all links that start with `/whatever`
++
+    ^/whatever.*$
++
+Example: Ignore pages ending with `.html`
++
+    .html$
++
+TODO: Verify examples and Document format(link?)
+
+User-Agent:: Some webservers handle user-agents differently. Here you can pretend to be a specific browser or robot. If you leave the field empty it will use a default user agent.
+
+Max pages:: Some websites dynamically generate pages. To avoid infinite crawling sessions, you may specify a maximum number of pages to crawl. The default value is 1000.
+
 
 == Custom collectors
-Explorer enables development of custom collectors. Follow these instructions to build your own <<collectors/custom#, custom collector>>.
+
+An exciting feature of Explorer is that you may also build custom collectors. We have created a dedicated https://developer.enonic.com/docs/collector[tutorial for building custom collectors].
