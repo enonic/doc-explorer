@@ -35,20 +35,6 @@
       ]
     },
     {
-      "title": "Collectors",
-      "document": "collectors"
-    },
-    {
-      "title": "Clients",
-      "document": "clients",
-      "menuItems": [
-        {
-          "title": "Client starter",
-          "document": "clients/starter"
-        }
-      ]
-    },
-    {
       "title": "API",
       "document": "api",
       "menuItems": [
@@ -63,14 +49,8 @@
       ]
     },
     {
-      "title": "REST API",
-      "document": "rest",
-      "menuItems": [
-        {
-          "title": "Document endpoint",
-          "document": "rest/document"
-        }
-      ]
+      "title": "Collectors",
+      "document": "collectors"
     }
   ]
 }
