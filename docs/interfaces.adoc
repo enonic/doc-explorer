@@ -1,0 +1,46 @@
+= Interfaces
+:toc: right
+:imagesdir: media
+
+== Introduction
+
+Your collected data can be exposed by defining search interfaces.
+
+Each search interface allows you to select which collections and synonyms to combine,
+as well as the ability to tune and boost your search down to the field level.
+
+== Interface list
+
+From the interface list you may perform regular actions, but it additionally offers two custom actions for `Trying` it out:
+
+image::interface-list.png[Manage interfaces, 768w]
+
+* A *[Search]* button, to test the interface.
+* A *[GraphQL]* button, to test the API directly.
+
+
+== Interface options
+
+When creating, or editing interfaces, these are the available options you may manage:
+
+image::interface-myinterface.png[Manage interfaces, 1010w]
+
+Name:: Each interface needs a unique name, which is also the identifier
++
+NOTE: Once created, the name cannot be changed.
+
+Collections:: You need to specify at least one collection to include in the search.
+
+Fields:: Select which fields should be used when searching and optionally add field boosting.
+
+Stop-words:: The search string is split, by unicode boundaries, into words, then each word matching a stop word will be removed from the search string.
++
+Stop-words are applied before the synonym stage.
++
+CAUTION: Be careful when adding stop words, it may quickly lead to an empty search string and no search results.
+
+Synonyms:: Optionally add one ore more thesauri. They will be used to "decorate" the query, and hopefully provide better results.
++
+First any <<#_stop_words, Stop-words>> are removed,
+then the remaining search string is used to query for synonyms,
+matches are used to decorate the main query.

@@ -1,0 +1,35 @@
+= GraphQL Search API
+:toc: right
+:toclevels: 4
+
+== Endpoint
+
+The API is by default available on http://localhost:8080/webapp/com.enonic.app.explorer/api/graphql
+
+=== Production deployment
+
+Use https://developer.enonic.com/docs/xp/stable/deployment/vhosts[vhosts] to deploy the API on a custom domain/URL.
+
+.com.enonic.xp.web.vhost.cfg
+[source,cfg]
+----
+enabled = true
+
+mapping.interfaceApi.host = company.com
+mapping.interfaceApi.source = /search-api
+mapping.interfaceApi.target = /webapp/com.enonic.app.explorer/api/graphql
+----
+
+=== Security
+
+Access to the API requires that you create and submit a <<keys#, valid API key>> in the HTTP request header.
+
+== GraphQL browser
+
+The API is self-documented, and can be accessed directly using the Query tester in Explorer Admin
+
+To test the public endpoint directly, we recommend using a tool like a browser extension like https://chrome.google.com/webstore/detail/altair-graphql-client/flnheeellpciglgpaodhkhmapeljopja[the Altair GraphQL client]. 
+
+== Usage
+
+TODO: Example queries

@@ -1,0 +1,66 @@
+= Collections
+:toc: right
+:imagesdir: media
+
+== Introduction
+
+Use collections to gather and manage <<documents#, documents>>. Documents can be injected externally through the API, or activedly fetched by a collector.
+
+image::collections-menu.png[Available menu items for collections, 450w]
+
+
+== Collection form
+
+When creating and editing a collection, these are the common fiels of a collector and their purpose.
+
+image::collection-form.png[Showing the form for creating a new collection, 1024w]
+
+Name:: Specify a unique name for the collection. This name is also an identifier, and cannot be changed once the collection has been saved.
+
+Default language:: Optionally specify a default language for the collection. This will be used to optimize indexing and search in the collection through the use of stemming.
+
+Collector:: Optionally select a collector. Collectors are background jobs that are used to fetch data from external sources, and add them as <<documents#, documents>> to this collection.
++
+TIP: You can build your own custom collector or find existing collectors on https://market.enonic.com/applications[Enonic Market].
+
+
+=== Collector config
+
+If you selected a collector, it will optionally present you with configuration options through a new set of form fields.
+
+The fields will be custom to the specific collector.
+
+=== Collector schedule
+
+image::scheduling.png[Scheduling interface,768]
+
+If you selected a collector, you may optionally define schedule(s) to automatically run the collector.
+
+NOTE: Consider that the scheduler should be allowed to finish before it is triggered again. Only one instance of the collector will be running at a time.
+
+
+== Status
+
+Status is a sub-item in the Collections menu. Status will be visible if there are any collectors actively running.
+
+image::status.png[Progress of currently running collectors,1024]
+
+== Journal
+
+Journal shows the history of completed collector jobs and their result.
+
+image::journal.png[List of completed collector jobs,1024]
+
+== Notifications
+
+Optionally add e-mails to notify users about collector related events.
+
+image::journal.png[List of completed collector jobs,1024]
+
+NOTE: For the e-mail notification to work, your Enonic XP deployment must be configured with an e-mail gateway.
+
+== Schedule
+
+The schedule provides a global view of all collector jobs scheduled to run. This helps you plan execution and resource management optimally.
+
+image::TODO.png[Calendar view of collector schedules,1024w]

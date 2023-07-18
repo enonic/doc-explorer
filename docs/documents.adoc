@@ -1,0 +1,31 @@
+= Documents
+:toc: right
+:imagesdir: media
+
+== Introduction
+
+Each indexed item in Explorer is called a `Document`. The document will have a specific <<doctypes#, Document Type>>, and be stored in a specific <<collections#, Collection>>.
+
+== Document browser
+
+From the Documents page, you may instantly access all available document, search and filter the list to get the results you are looking for.
+
+image::documents.png[Browse and filter across all indexed documents, 1024w]
+
+The default view shows standard fields like `ID`, `Collection`, `Document type` and `Language` of each document. Additionally, clicking the `JSON` icon will display the raw document.
+
+
+=== Search
+
+Use the search options to filter the available documents, and show the fields you are looking for.
+
+image::documents-filter.png[Search result with custom fields, 1024w]
+
+The following filtering options are available:
+
+Search text:: Free text search field
+AND/OR toggle:: String search mode
+Collections filter:: Select collections to include
+Document types filter:: Select document types to include
+Columns:: Add columns to the result view
+Count:: Number of items in the result view 

@@ -1,0 +1,24 @@
+= Stop words
+:toc: right
+:imagesdir: media
+
+== Introduction
+
+For any given language or topic, stop-words are typically short words that occur frequently in texts.
+
+They are found in most documents and thus do not provide much value in terms of saying which result should be scored higher than another.
+
+As such, it can be a good idea to remove them from queries improve scoring.
+
+== How it works
+
+image::stopwords.png[List of stopwords,1024w]
+
+The search string is split, by unicode boundaries, into words.
+Each word matching a stop word is then removed from the search string.
+
+This all happens before the synonyms stage.
+
+You can have multiple stop-word lists and use them in various combinations via <<interfaces#, interfaces>>.
+
+CAUTION: Be careful when adding stop words, it may quickly lead to an empty search string and no search results.

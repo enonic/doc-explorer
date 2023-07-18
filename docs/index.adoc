@@ -4,18 +4,14 @@
 
 == Introduction
 
-Use Explorer to collecting, index and searching data across multiple different sources.
+Collect, index and search across multiple different datasources with Explorer.
 
 NOTE: tl;dr - visit the <<start#,getting started section>>.
 
-NOTE: Explorer is free, but to access to all features of Explorer, you will need a valid Enonic license
-
 These are the core concepts of Explorer:
 
-* <<admin/api#, API>>Inject data via the <<api/document#, Document REST API>> and access it from the<<api/interface#, Interface GraphQL API>>.
-* <<admin/collections#, Collections>> Each collection may hold a set of data, typically from a specific source.
+* <<collections#, Collections>> Each collection may hold a set of data, typically from a specific source.
 * <<collectors#, Collectors>> are Enonic apps that can retrive and fill data into collections, based on events or via scheduling
-* <<admin/documentTypes#, Document types>> define fields and how to index them for search.
-* <<admin/synonyms#, Synonyms>> and <<admin/stopwords#, Stop word>> lists can be created and managed for improved search results.
-* <<admin/interfaces#, Search inferfaces>> allow search admins to compose and tune search across collections
-* <<clients#, Clients>> create fully customized search interfaces for end users.
+* <<doctypes#, Document types>> define fields and how to index them for search.
+* <<synonyms#, Synonyms>> and <<stopwords#, Stop word>> lists can be created and managed for improved search results.
+* <<interfaces#, Inferfaces>> - Allows search admins to compose and tune search across collections

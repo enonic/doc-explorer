@@ -1,8 +1,0 @@
-= Explorer API
-:toc: right
-
-Explorer provides two different API's for different use cases.
-
-* The <<api/document#, Document API>> - RESTful API for ingesting data via a public endpoint
-* The <<api/interface#, Interface API>> - GraphQL API optimized for building client applications and search front-ends.
-* A JavaScript API - for ingesting data via custom collectors

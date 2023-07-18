@@ -1,20 +1,51 @@
-= Explorer admin UI
+= Explorer Admin
 :toc: right
-:imagesdir: images
+:imagesdir: media/
 
 == Introduction
 
 The Explorer administrative interface enable search administrators to define and manage how data is collected and then exposed through fine tuned interfaces.
 
 == Access
-
-When <<install#, installed>>, the Explorer admin interface can be accessed by logging into your XP admin console. You will find it by browsing the XP launcher menu.
+From the Enonic XP admin interface: Click `XP meny -> Explorer`. This will launch the Explorer Admin interface. 
 
 NOTE: Only users with "Explorer Admin" or "System Admin" roles can access the interface.
 
-== Overview
+== Home page
 
-* <<admin/collections#,Collections>> represent the various data sets that are collected and indexed.
-* <<admin/interfaces#,Interfaces>> enable creation and tunining of search interfaces across collections.
-* <<admin/thesauri#,Thesauri>> are lists of synonyms used to expand your search.
-* <<admin/stopwords#,Stop words>> help improve search scoring by eliminating common words.
+The Explorer home page provides the ability to quickly search across all of your indexed documents.
+
+image::home.png[Explorer home page,1024w]
+
+== Navigation
+
+From the top bar, you can access the Explorer menu to navigate across the various pages of the Explorer Admin. 
+
+image::menu.png[Explorer menu expanded,350w]
+
+Additionally, the top bar will have information about your installed license (unlock additional features), as well as current user and the conventional XP menu on the right hand side.
+
+== Actions
+
+image::list.png[Sample list of entities,1024w]
+
+The different Explorer pages provide an entity list view. From here you can perform various actions.
+
+=== Create
+
+image::plus.png[Green plus create icon,67]
+
+When supported, a big green `+` icon at the bottom right of the page enables you to crate new entities.
+
+=== Standard actions
+image::actions.png[Sample list of entities,768w]
+
+From the right hand side of each entry in the list,  perform standard actions like `Edit`,`Copy` and `Delete` by clicking the respective action icon.
+
+=== Custom actions
+
+Selected entities support custom actions. Such actions are listed on the left hand side. 
+
+image::custom-actions.png[Custom actions listed on the left hand side,340w]
+
+In the above example, one entity supports the `Collect` action while the other does not.

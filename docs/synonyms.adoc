@@ -1,19 +1,16 @@
 = Synonyms
 :toc: right
-:toclevels: 5
-:imagesdir: images
+:imagesdir: media
 
 == Introduction
 
-You can have multiple *thesauri* to be used in various combinations in <<interfaces#,interfaces>>.
+Use synonyms to improve search results. This is especially helpful when working with domain specific texts. For instance, when a user searches `fish`, but the search actually searches both `fish` and  `salmon`.
 
 == Concepts
 
-=== Thesauri
+=== Thesaurus
 
 In order to manage *synonyms*, you may group them into one or more *thesauri*.
-
-=== Thesaurus
 
 Each *thesaurus* may contain *synonyms* in one or more *languages/locales*.
 
@@ -38,7 +35,7 @@ And some documentation on how it works:
 * https://developer.enonic.com/docs/xp/stable/storage/dsl#stemmed
 * https://developer.enonic.com/docs/xp/stable/storage/noql#stemmed
 
-Explorer is able to match many *locales* down to a specific *stemming language*.
+Explorer is able to match multiple *locales* down to a specific *stemming language*.
 
 === Use: From, To, Both
 

@@ -6,51 +6,47 @@
     },
     {
       "title": "Admin",
-      "document": "admin",
-      "menuItems": [
-        {
-          "title": "API Keys",
-          "document": "admin/apiKeys"
-        },
-        {
-          "title": "Collections",
-          "document": "admin/collections"
-        },
-        {
-          "title": "Document types",
-          "document": "admin/documentTypes"
-        },
-        {
-          "title": "Stop Words",
-          "document": "admin/stopwords"
-        },
-        {
-          "title": "Synonyms",
-          "document": "admin/synonyms"
-        },
-        {
-          "title": "Interfaces",
-          "document": "admin/interfaces"
-        }
-      ]
+      "document": "admin"
     },
     {
-      "title": "API",
-      "document": "api",
-      "menuItems": [
-        {
-          "title": "Document REST API",
-          "document": "api/document"
-        },
-        {
-          "title": "Interface GraphQL API",
-          "document": "api/interface"
-        }
-      ]
+      "title": "Collections",
+      "document": "collections"
+    },
+    {
+      "title": "Documents",
+      "document": "documents"
+    },
+    {
+      "title": "Document types",
+      "document": "doctypes"
+    },
+    {
+      "title": "Stop Words",
+      "document": "stopwords"
+    },
+    {
+      "title": "Synonyms",
+      "document": "synonyms"
+    },
+    {
+      "title": "Interfaces",
+      "document": "interfaces"
+    },
+    {
+      "title": "API Keys",
+      "document": "keys"
     },
     {
       "title": "Collectors",
       "document": "collectors"
+    },
+    {
+      "title": "GraphQL API",
+      "document": "graphql"
+    },
+    {
+      "title": "Ingest API",
+      "document": "ingest"
     }
   ]
 }

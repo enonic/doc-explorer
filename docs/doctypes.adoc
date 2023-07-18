@@ -1,0 +1,96 @@
+= Document types
+:toc: right
+:imagesdir: media
+
+== Introduction
+
+In Explorer data is organized into <<collections#, Collections>>.
+Each collection may contain a number of <<documents#, documents>>.
+Each document may have fields with values.
+
+Each document, must have a specific document-type.
+
+The document types controls the indexing, on a per field level, as well as optional validation rules.
+
+NOTE: A single collection may have documents with different document types.
+
+== Document types list
+
+The table will show a list of the document-types.
+
+image::doctypes.png[Browse and manage document types, 1024w]
+
+Each row represents a document-type and will have a button to edit the document-type.
+
+
+== Settings
+
+When creating a new document type, you must define the basic settings:
+
+image::doctype-new.png[Initial doctype configuration, 1000w]
+
+Name:: A unique name which is also the identifier. The name may only contain a strictly limited set of characters.
++
+WARNING: The name cannot be changed after a document-type is created. Deleting a document type after clients have started using it will be a breaking change in the GraphQL API. To prevent breaking the API, a document type can rather be disabled.
+
+Add fields automatically:: Enable this option if you want the document type to be dynamic. If enabled, whenever a document is created or updated it will automatically detect new fields, determine a <<#_value_type, Value type>> for the field and add it to the document-type.
+
+== Fields
+
+Once a document type has been created, you may manage it's fields.
+
+image::doctype-fields.png[List of document type fields, 1000w]
+
+Each row represents a field and will have a button to edit the field, or add new fields.
+
+
+=== Field form
+
+Name:: Each field must have a unique name within the document-type.
+
+WARNING: The name cannot be changed after a field is created. Deleting a field after clients have started using it will be a breaking change in the GraphQL API. To prevent breaking the API, a field can rather be disabled.
+
+Value type:: Each field can have a specific value type. The value type determines the default indexing. For instance the value type `String` will automatically be indexed and optimized for text search:
++
+Visit the Enonic XP https://developer.enonic.com/docs/xp/stable/storage/indexing#value_types^[Value types] documentation for more details.
+
+Min:: 0 means the field is optional. Setting it to anything larger than 0 means it's a required field.
+
+NOTE: The "Min" option is only enforced if documents are created with validateOccurrences=true.
+
+Max:: 0 means there is no limit on how many values the field can have.
++
+NOTE: This option is only enforced when validateOccurrences=true, it's disabled by default.
+
+===== Indexing
+
+See https://developer.enonic.com/docs/xp/stable/storage/indexing#config_options[Config Options].
+
+===== Include in _alltext
+
+See https://developer.enonic.com/docs/xp/stable/storage/indexing#config_options[Config Options].
+
+===== Fulltext
+
+See https://developer.enonic.com/docs/xp/stable/storage/indexing#config_options[Config Options].
+
+===== Ngram
+
+See https://developer.enonic.com/docs/xp/stable/storage/indexing#config_options[Config Options].
+
+===== Path
+
+See https://developer.enonic.com/docs/xp/stable/storage/indexing#config_options[Config Options].
+
+===== Active
+
+In the <<graphql#, GraphQL API>>, one may use a field name inside https://graphql.org/learn/queries/#inline-fragments[Inline fragments].
+
+WARNING: If you [red]*delete* a field that is in use that way, the GraphQL query will no longer validate and throw an [red]*error* rather than returning the field without a value.
+
+TIP: Instead of deleting a field, you can [lime]*disable* it. Then the field should simply return null, rather than causing a GraphQL query schema validation error.
+
+== Nested fields
+
+Fields can also be nested. A dot '*.*' is used to indicate nesting. For instance: `person.name`. In this case, you may not create a field called `person`, as person will be reserved for nested fields.
+
