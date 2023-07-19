@@ -8,8 +8,7 @@ Use collections to gather and manage <<documents#, documents>>. Documents can be
 
 image::collections-menu.png[Available menu items for collections, 450w]
 
-
-== Collection form
+== Options
 
 When creating and editing a collection, these are the common fiels of a collector and their purpose.
 
@@ -37,6 +36,12 @@ image::scheduling.png[Scheduling interface,768]
 If you selected a collector, you may optionally define schedule(s) to automatically run the collector.
 
 NOTE: Consider that the scheduler should be allowed to finish before it is triggered again. Only one instance of the collector will be running at a time.
+
+=== Run collector manually
+
+image::custom-actions.png[Custom actions listed on the left hand side,340w]
+
+From the collections list view: Clicking the `Collect` icon will manually trigger the collector job.
 
 
 == Status

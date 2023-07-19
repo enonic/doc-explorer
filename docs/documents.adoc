@@ -6,7 +6,7 @@
 
 Each indexed item in Explorer is called a `Document`. The document will have a specific <<doctypes#, Document Type>>, and be stored in a specific <<collections#, Collection>>.
 
-== Document browser
+== Browser
 
 From the Documents page, you may instantly access all available document, search and filter the list to get the results you are looking for.
 

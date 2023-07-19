@@ -4,14 +4,15 @@
 
 WARNING: Make sure you have snapshots, or a backup of your Explorer data available before upgrading.
 
-When the explorer application starts, it will check if it has to do any data migrations.
+When the explorer application starts, it will automatically check if migration steps are required.
+
 Any migrations that requires user input will be initiated via UI.
 
 == From 1.x -> 2.x
 
 After installing Explorer 2.0, it will automatically initiate a migration of all of your old data.
 
-When the automated upgrade is complete, a "manual" step will follow
+When the automated upgrade is complete, a manual step will follow
 
 === Synonyms 2.0
 
