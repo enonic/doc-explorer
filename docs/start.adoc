@@ -229,9 +229,9 @@ query {
 
 === Live API
 
-Back in the Enonic Console, the API enpoint has already been exposed publicly via an Ingress. Visit the `Solution .-> Ingresses` section and find the link on the Ingress called `Explorer API`.   
+Back in the Enonic Console, the API enpoint has already been exposed publicly via an Ingress. Visit the `Solution -> Ingresses` section and find the link on the Ingress called `Explorer API`.   
 
-Visit the <<api#, API pages>> to learn more.
+Visit the <<graphql#, Graphql API>> or <<ingest#, Ingest API>> pages to learn more.
 
 == Next up
 

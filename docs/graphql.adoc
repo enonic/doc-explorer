@@ -4,7 +4,9 @@
 
 == Endpoint
 
-The API is by default available on http://localhost:8080/webapp/com.enonic.app.explorer/api/graphql
+The API is by default location is   
+
+    http://localhost:8080/webapp/com.enonic.app.explorer/api/graphql
 
 === Production deployment
 
@@ -15,10 +17,12 @@ Use https://developer.enonic.com/docs/xp/stable/deployment/vhosts[vhosts] to dep
 ----
 enabled = true
 
-mapping.interfaceApi.host = company.com
-mapping.interfaceApi.source = /search-api
-mapping.interfaceApi.target = /webapp/com.enonic.app.explorer/api/graphql
+mapping.explorerApi.host = company.com
+mapping.explorerApi.source = /search-api
+mapping.explorerApi.target = /webapp/com.enonic.app.explorer/api/graphql
 ----
+
+In the above example, the API will be available on `company.com/search-api`
 
 === Security
 

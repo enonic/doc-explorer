@@ -13,21 +13,21 @@ Collectors are typically distributed as regular XP applications. A single applic
 
 === Configure
 
-Each collector may provide special configuration forms that allow you to tune how it will work for a specific collection.
-
 When you create a collection, link your connector to it, and configure it using the form that appears. 
+
+Each collector may provide special configuration forms that allow you to tune how it will work for a specific <<collections, collection>>.
 
 NOTE: A collection may only have a single collector associated with it.
 
 === Run
 
-Collectors run as background jobs, and may either be executed manually, or via a schedule. When running, the collector will fill the associated collection with documents.
+Collectors run as background jobs, and may either be executed manually, or via a schedule. When running, the collector will (hopefully) fill the associated collection with documents.
 
 == Webcrawler collector
 
-Explorer ships with a standard collector called `Webcrawler`. This is a basic webcrawler which can be used to index traditional websites or for testing purposes.
+Explorer ships with a standard collector called `Webcrawler`. This is a simple webcrawler which can be used to index traditional server-side rendered websites, or simply used for testing purposes.
 
-The webcrawler currently only stores HTML pages. It will extract text from the HTML document and remove element tags. 
+The webcrawler only processes HTML pages. It will extract text from the HTML document and remove all element tags.
 
 NOTE: Text within <script>, <nav> and <footer> elements will automatically be removed before the document is stored in the collection.
 
@@ -58,4 +58,4 @@ Max pages:: Some websites dynamically generate pages. To avoid infinite crawling
 
 == Custom collectors
 
-An exciting feature of Explorer is that you may also build custom collectors. We have created a dedicated https://developer.enonic.com/docs/collector[tutorial for building custom collectors].
+An exciting feature of Explorer is that you may also build custom collectors. We have created a dedicated https://developer.enonic.com/docs/collector[starter-kit and tutorial for building custom collectors].

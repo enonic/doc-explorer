@@ -16,12 +16,12 @@ Use https://developer.enonic.com/docs/xp/stable/deployment/vhosts[vhosts] to dep
 .com.enonic.xp.web.vhost.cfg
 [source,cfg]
 ----
-mapping.collectionsApi.host = docs.mycompany.com
-mapping.collectionsApi.source = /
-mapping.collectionsApi.target = /webapp/com.enonic.app.explorer/api/v1/documents
+mapping.ingestApi.host = company.com
+mapping.ingestApi.source = /ingest
+mapping.ingestApi.target = /webapp/com.enonic.app.explorer/api/v1/documents
 ----
 
-Using the vhost configuration above, the API will be available on `docs.mycompany.com`
+Using the vhost configuration above, the API will be available on `company.com/ingest`
 
 === Security
 

@@ -4,22 +4,25 @@
 
 == Introduction
 
-Your collected data can be exposed by defining search interfaces.
+The purpose of Explorer is to enable search across multiple data sources.
 
-Each search interface allows you to select which collections and synonyms to combine,
-as well as the ability to tune and boost your search down to the field level.
+When you have collected documented, you may explose them by defining a `search interface` - or just interface for short.
+
+An interface allows you to select which collections and synonyms to combine, as well as the ability to tune and boost your search down to the field level.
 
 == Interface list
 
-From the interface list you may perform regular actions, but it additionally offers two custom actions for `Trying` it out:
-
 image::interface-list.png[Manage interfaces, 768w]
 
-* A *[Search]* button, to test the interface.
-* A *[GraphQL]* button, to test the API directly.
+From the interface list view, you may perform regular actions. 
+
+Additionally, it offers two custom actions for `Trying` out the interface:
+
+* A *[Magnifying glass]* button, to test the interface.
+* A *[GraphQL]* button, to test the API.
 
 
-== Interface options
+== Options
 
 When creating, or editing interfaces, these are the available options you may manage:
 
@@ -31,11 +34,13 @@ NOTE: Once created, the name cannot be changed.
 
 Collections:: You need to specify at least one collection to include in the search.
 
-Fields:: Select which fields should be used when searching and optionally add field boosting.
-
-Stop-words:: The search string is split, by unicode boundaries, into words, then each word matching a stop word will be removed from the search string.
+Boosting:: By default, the _alltext field is used when performing text searches. Here, you may add specific fields and boosting options to tune your search results.
 +
-Stop-words are applied before the synonym stage.
+`Field boosting` means matches in the specified field will get a higher (or lower) priority when calculating the document scoring.
++
+`Term boosting` allows you to boost a specific value within a field.
+
+Stop-words:: The search string is split, by unicode boundaries, into words, then each word matching a stop word will be removed from the search string. Stop-words are applied before the synonym stage.
 +
 CAUTION: Be careful when adding stop words, it may quickly lead to an empty search string and no search results.
 

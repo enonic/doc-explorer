@@ -44,53 +44,46 @@ image::doctype-fields.png[List of document type fields, 1000w]
 Each row represents a field and will have a button to edit the field, or add new fields.
 
 
-=== Field form
+=== Fields
 
 Name:: Each field must have a unique name within the document-type.
-
-WARNING: The name cannot be changed after a field is created. Deleting a field after clients have started using it will be a breaking change in the GraphQL API. To prevent breaking the API, a field can rather be disabled.
-
-Value type:: Each field can have a specific value type. The value type determines the default indexing. For instance the value type `String` will automatically be indexed and optimized for text search:
 +
-Visit the Enonic XP https://developer.enonic.com/docs/xp/stable/storage/indexing#value_types^[Value types] documentation for more details.
+WARNING: The name cannot be changed after a field is created. Deleting a field after clients have started using it will be a breaking change in the GraphQL API. To prevent breaking the API, a field can rather be disabled.
++
+Fields can also be nested. A dot '*.*' is used to indicate nesting. For instance: `person.name`. In this case, the field `person` will be reserved for nesting, and can no longer be used for indexing.
+
+Value type:: Each field must have a specific value type. The value type enables field validation, and default indexing options. 
++
+The value types are: `Boolean`, `Double`, `geoPoint`, `instant`, `localDate`, `localDateTime`, `localTime`,`long`, `set` and `string`. 
++
+NOTE: Value type validation is only enforced if documents are created with validateOccurrences=true.
++
+Visit the Enonic XP https://developer.enonic.com/docs/xp/stable/storage/indexing#value_types^[Value types] documentation for more details on value types and indexing.
 
 Min:: 0 means the field is optional. Setting it to anything larger than 0 means it's a required field.
-
++
 NOTE: The "Min" option is only enforced if documents are created with validateOccurrences=true.
 
 Max:: 0 means there is no limit on how many values the field can have.
 +
-NOTE: This option is only enforced when validateOccurrences=true, it's disabled by default.
+NOTE: The "Max" option is only enforced if documents are created with validateOccurrences=true.
 
-===== Indexing
+Indexing:: Enable in order to search this specific field. Enabled by default.
++
+NOTE: For details on all indexing options, see https://developer.enonic.com/docs/xp/stable/storage/indexing#config_options[Config Options].
 
-See https://developer.enonic.com/docs/xp/stable/storage/indexing#config_options[Config Options].
+Include in alltext:: When enabled, the value of this field will be included in the system defined _alltext field. _alltext typically aggregates all string values in a document, and is the default field used when searching.
 
-===== Include in _alltext
+Fulltext:: When enabled, the field value will be analyzed and enabled for general text search.
 
-See https://developer.enonic.com/docs/xp/stable/storage/indexing#config_options[Config Options].
+Ngram:: When enabled, the field value will be analyzed and enabled for ngram search. Ngram is typically used for autocompletion, and "starts with" types of search.
 
-===== Fulltext
+Path:: When enabled, the field value will be analyzed and enabled for path search. Paths are strings with / separators.
 
-See https://developer.enonic.com/docs/xp/stable/storage/indexing#config_options[Config Options].
+Active:: Deleting a field will potentially break the strongly typed <<graphql#, GraphQL API>>. Deactivating will not break the schema, but simply return empty values for the field instead.
 
-===== Ngram
+== Updating document types
 
-See https://developer.enonic.com/docs/xp/stable/storage/indexing#config_options[Config Options].
+When a document type is in use (one or more documents exists), it is still possible to modify and update the document type.
 
-===== Path
-
-See https://developer.enonic.com/docs/xp/stable/storage/indexing#config_options[Config Options].
-
-===== Active
-
-In the <<graphql#, GraphQL API>>, one may use a field name inside https://graphql.org/learn/queries/#inline-fragments[Inline fragments].
-
-WARNING: If you [red]*delete* a field that is in use that way, the GraphQL query will no longer validate and throw an [red]*error* rather than returning the field without a value.
-
-TIP: Instead of deleting a field, you can [lime]*disable* it. Then the field should simply return null, rather than causing a GraphQL query schema validation error.
-
-== Nested fields
-
-Fields can also be nested. A dot '*.*' is used to indicate nesting. For instance: `person.name`. In this case, you may not create a field called `person`, as person will be reserved for nested fields.
-
+After saving your changes to the document type, all documents will automatically be re-indexed based on the new document type definition.
