@@ -1,5 +1,4 @@
 = Enonic Explorer documentation
-include::variables.adoc[]
 :toc: right
 :imagesdir: images
 
