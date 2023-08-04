@@ -1,0 +1,52 @@
+{
+  "menuItems": [
+    {
+      "title": "Getting started",
+      "document": "start"
+    },
+    {
+      "title": "Admin",
+      "document": "admin"
+    },
+    {
+      "title": "Collections",
+      "document": "collections"
+    },
+    {
+      "title": "Documents",
+      "document": "documents"
+    },
+    {
+      "title": "Document types",
+      "document": "doctypes"
+    },
+    {
+      "title": "Stop Words",
+      "document": "stopwords"
+    },
+    {
+      "title": "Synonyms",
+      "document": "synonyms"
+    },
+    {
+      "title": "Interfaces",
+      "document": "interfaces"
+    },
+    {
+      "title": "API Keys",
+      "document": "keys"
+    },
+    {
+      "title": "Collectors",
+      "document": "collectors"
+    },
+    {
+      "title": "GraphQL API",
+      "document": "graphql"
+    },
+    {
+      "title": "Ingest API",
+      "document": "ingest"
+    }
+  ]
+}
