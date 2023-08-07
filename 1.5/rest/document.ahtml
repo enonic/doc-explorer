@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>Interfaces</title>
+<title>REST API Document</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,133 +436,506 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Interfaces</h1>
+<h1>REST API Document</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#interface_list">Interface list</a></li>
-<li><a href="#options">Options</a></li>
+<li><a href="#get">Get</a>
+<ul class="sectlevel2">
+<li><a href="#headers">Headers</a></li>
+<li><a href="#parameters">Parameters</a></li>
+<li><a href="#example">Example</a></li>
+<li><a href="#sample_response">Sample response</a></li>
+</ul>
+</li>
+<li><a href="#post">Post</a>
+<ul class="sectlevel2">
+<li><a href="#headers_2">Headers</a></li>
+<li><a href="#parameters_2">Parameters</a></li>
+<li><a href="#example_2">Example</a></li>
+<li><a href="#sample_response_2">Sample response</a></li>
+</ul>
+</li>
+<li><a href="#delete">Delete</a>
+<ul class="sectlevel2">
+<li><a href="#headers_3">Headers</a></li>
+<li><a href="#parameters_3">Parameters</a></li>
+<li><a href="#example_3">Example</a></li>
+<li><a href="#sample_response_3">Sample response</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
+<div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>The purpose of Explorer is to enable search across multiple data sources.</p>
-</div>
-<div class="paragraph">
-<p>When you have collected documented, you may explose them by defining a <code>search interface</code> - or just interface for short.</p>
-</div>
-<div class="paragraph">
-<p>An interface allows you to select which collections and synonyms to combine, as well as the ability to tune and boost your search down to the field level.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="interface_list"><a class="link" href="#interface_list">Interface list</a></h2>
-<div class="sectionbody">
-<div class="imageblock">
+<div class="listingblock">
+<div class="title">com.enonic.xp.web.vhost.cfg</div>
 <div class="content">
-<img src="media/interface-list.png" alt="Manage interfaces" width="768w">
+<pre class="highlight"><code class="language-cfg" data-lang="cfg">mapping.api.host = localhost
+mapping.api.source = /api
+mapping.api.target = /webapp/com.enonic.app.explorer/api
+mapping.api.idProvider.system = default</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>From the interface list view, you may perform regular actions.</p>
-</div>
-<div class="paragraph">
-<p>Additionally, it offers two custom actions for <code>Trying</code> out the interface:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>A <strong>[Magnifying glass]</strong> button, to test the interface.</p>
-</li>
-<li>
-<p>A <strong>[GraphQL]</strong> button, to test the API.</p>
-</li>
-</ul>
+<p>Url: <a href="http://localhost:8080/api/v1/collections/&lt;collectionName&gt;/documents" class="bare">http://localhost:8080/api/v1/collections/&lt;collectionName&gt;/documents</a></p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="options"><a class="link" href="#options">Options</a></h2>
+<h2 id="get"><a class="link" href="#get">Get</a></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>When creating, or editing interfaces, these are the available options you may manage:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="media/interface-myinterface.png" alt="Manage interfaces" width="1010w">
-</div>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Name</dt>
-<dd>
-<p>Each interface needs a unique name, which is also the identifier</p>
-<div class="admonitionblock note">
-<table>
+<div class="sect2">
+<h3 id="headers"><a class="link" href="#headers">Headers</a></h3>
+<table class="tableblock frame-none grid-none stretch">
+<colgroup>
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 97%;">
+</colgroup>
+<thead>
 <tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Once created, the name cannot be changed.
-</td>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Attributes</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Details</th>
 </tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Accept</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">application/json</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>What MIME-type the client wants in the response</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Content-Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;required&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">application/json</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>What type of data is sent in the request body</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authorization</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;required&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explorer-Api-Key password</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>A valid API key (password) for the collection you want to get documents from.</p>
+</div></div></td>
+</tr>
+</tbody>
 </table>
 </div>
-</dd>
-<dt class="hdlist1">Collections</dt>
-<dd>
-<p>You need to specify at least one collection to include in the search.</p>
-</dd>
-<dt class="hdlist1">Boosting</dt>
-<dd>
-<p>By default, the _alltext field is used when performing text searches. Here, you may add specific fields and boosting options to tune your search results.</p>
-<div class="paragraph">
-<p><code>Field boosting</code> means matches in the specified field will get a higher (or lower) priority when calculating the document scoring.</p>
-</div>
-<div class="paragraph">
-<p><code>Term boosting</code> allows you to boost a specific value within a field.</p>
-</div>
-</dd>
-<dt class="hdlist1">Stop-words</dt>
-<dd>
-<p>The search string is split, by unicode boundaries, into words, then each word matching a stop word will be removed from the search string. Stop-words are applied before the synonym stage.</p>
-<div class="admonitionblock caution">
-<table>
+<div class="sect2">
+<h3 id="parameters"><a class="link" href="#parameters">Parameters</a></h3>
+<table class="tableblock frame-none grid-none stretch">
+<colgroup>
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 96%;">
+</colgroup>
+<thead>
 <tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-Be careful when adding stop words, it may quickly lead to an empty search string and no search results.
-</td>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Attributes</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Details</th>
 </tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Id of document to get. May supply multiple. Will be converted into a query filter on the serverside.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">count</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>How many documents to get.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">start</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Start index (used for paging).</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">filters</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JSON</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">{}</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Query filters. See documentation <a href="https://developer.enonic.com/docs/xp/stable/storage/filters" class="bare">https://developer.enonic.com/docs/xp/stable/storage/filters</a></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">query</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JSON</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">{}</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Query expression. Keep in mind that filters are usually more quicker. See documentation. <a href="https://developer.enonic.com/docs/xp/stable/storage/noql" class="bare">https://developer.enonic.com/docs/xp/stable/storage/noql</a></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sort</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">score DESC</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Sorting expression.</p>
+</div></div></td>
+</tr>
+</tbody>
 </table>
 </div>
-</dd>
-<dt class="hdlist1">Synonyms</dt>
-<dd>
-<p>Optionally add one ore more thesauri. They will be used to "decorate" the query, and hopefully provide better results.</p>
-<div class="paragraph">
-<p>First any <a href="#_stop_words">Stop-words</a> are removed,
-then the remaining search string is used to query for synonyms,
-matches are used to decorate the main query.</p>
+<div class="sect2">
+<h3 id="example"><a class="link" href="#example">Example</a></h3>
+<div class="listingblock">
+<div class="title">Requesting in some controller</div>
+<div class="content">
+<pre class="highlight"><code class="language-js" data-lang="js">import {request} from '/lib/http-client';
+
+const COLLECTION = 'collectionName';
+const AUTHORIZATION = 'Explorer-Api-Key apiKey';
+
+export function get() {
+  const response = request({
+    contentType: 'application/json'
+    headers: {
+      'Accept': 'application/json',
+      'Authorization': AUTHORIZATION
+    },
+    method: 'GET',
+    params: {
+      count: 2,
+      start: 0,
+      filters: JSON.stringify({
+        boolean: {
+          must: {
+            exists: {
+              field: 'url'
+            }
+          }
+        }
+      }),
+      sort: 'score DESC'
+    },
+    url: `http://localhost:8080/api/v1/collections/${COLLECTION}/documents`,
+  });
+}</code></pre>
 </div>
-</dd>
-</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sample_response"><a class="link" href="#sample_response">Sample response</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">[
+  { "_id": "7b89af94-32a9-4e39-aedb-c553675a3287" },
+  { "_id": "2dec6e83-3cad-426a-ab7d-c7dabd3592f0" },
+]</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="post"><a class="link" href="#post">Post</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="headers_2"><a class="link" href="#headers_2">Headers</a></h3>
+<table class="tableblock frame-none grid-none stretch">
+<colgroup>
+<col style="width: 0.99%;">
+<col style="width: 0.99%;">
+<col style="width: 0.99%;">
+<col style="width: 0.99%;">
+<col style="width: 96.04%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Attributes</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Details</th>
+<th class="tableblock halign-left valign-top">Accept</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">application/json</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">What MIME-type the client wants in the response</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Content-Type</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>&lt;required&gt;</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">application/json</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">What type of data is sent in the request body</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authorization</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;required&gt;</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Explorer-Api-Key password</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="parameters_2"><a class="link" href="#parameters_2">Parameters</a></h3>
+<table class="tableblock frame-none grid-none stretch">
+<colgroup>
+<col style="width: 0.99%;">
+<col style="width: 0.99%;">
+<col style="width: 0.99%;">
+<col style="width: 0.99%;">
+<col style="width: 96.04%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Attributes</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">requireValid</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The data has to be valid, according to the field types, to be created or updated. If requireValid=true and the data is not strictly valid, an error will be returned.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">partial</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>When true, values are only added or updated. Unprovided values are not removed.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="example_2"><a class="link" href="#example_2">Example</a></h3>
+<div class="listingblock">
+<div class="title">Requesting in some controller</div>
+<div class="content">
+<pre class="highlight"><code class="language-js" data-lang="js">import {request} from '/lib/http-client';
+
+const COLLECTION = 'collectionName';
+const AUTHORIZATION = 'Explorer-Api-Key apiKey';
+
+export function get() {
+  const response = request({
+    body: [{
+	available: true,
+	count: -999999999999999,
+	date: '2021-01-01',
+	datetime: '2021-01-01T00:00:00',
+	instant: '2021-01-01T00:00:00Z',
+	location: '59.9090442,10.7423389',
+	price: -999999999999999.9,
+	time: '00:00:00',
+	language: 'english',
+	text: 'This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission.',
+	title: 'Example Domain',
+	url: 'https://www.example.com'
+},{
+	available: false,
+	count: 999999999999999,
+	date: '2021-12-31',
+	datetime: '2021-12-31T23:59:59',
+	instant: '2021-12-31T23:59:59Z',
+	location: [
+		59.9090442,
+		10.7423389
+	],
+	price: 999999999999999.9,
+	time: '23:59:59',
+	language: 'english',
+	text: 'Whatever',
+	title: 'Whatever',
+	url: 'https://www.whatever.com'
+}],
+    contentType: 'application/json'
+    headers: {
+      'Accept': 'application/json',
+      'Authorization': AUTHORIZATION
+    },
+    method: 'POST',
+    params: {
+      requireValid: true,
+      partial: false
+    },
+    url: `http://localhost:8080/api/v1/collections/${COLLECTION}/documents`,
+  });
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sample_response_2"><a class="link" href="#sample_response_2">Sample response</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">[
+  { "_id": "7b89af94-32a9-4e39-aedb-c553675a3287" },
+  { "_id": "2dec6e83-3cad-426a-ab7d-c7dabd3592f0" },
+]</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="delete"><a class="link" href="#delete">Delete</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="headers_3"><a class="link" href="#headers_3">Headers</a></h3>
+<table class="tableblock frame-none grid-none stretch">
+<colgroup>
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 97%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Attributes</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Accept</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">application/json</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>What MIME-type the client wants in the response</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Content-Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">application/json</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>What type of data is sent in the request body</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authorization</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;required&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explorer-Api-Key password</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>A valid API key (password) for the collection you want to get documents from.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="parameters_3"><a class="link" href="#parameters_3">Parameters</a></h3>
+<table class="tableblock frame-none grid-none stretch">
+<colgroup>
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 97%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Attributes</th>
+<th class="tableblock halign-left valign-top">Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;required&gt;</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Id of document to delete. May supply multiple.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="example_3"><a class="link" href="#example_3">Example</a></h3>
+<div class="listingblock">
+<div class="title">Requesting in some controller</div>
+<div class="content">
+<pre class="highlight"><code class="language-js" data-lang="js">import {request} from '/lib/http-client';
+
+const COLLECTION = 'collectionName';
+const AUTHORIZATION = 'Explorer-Api-Key apiKey';
+
+export function get() {
+  const response = request({
+    contentType: 'application/json'
+    headers: {
+      'Accept': 'application/json',
+      'Authorization': AUTHORIZATION
+    },
+    method: 'DELETE',
+    params: {
+      id: '7b89af94-32a9-4e39-aedb-c553675a3287'
+    },
+    url: `http://localhost:8080/api/v1/collections/${COLLECTION}/documents`,
+  });
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sample_response_3"><a class="link" href="#sample_response_3">Sample response</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">[
+  { "_id": "7b89af94-32a9-4e39-aedb-c553675a3287" },
+]</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-08-07 10:55:56 UTC
+Last updated 2023-08-07 10:55:55 UTC
 </div>
 </div>
 </body>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>Interfaces</title>
+<title>Explorer admin UI</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,13 +436,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Interfaces</h1>
+<h1>Explorer admin UI</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#interface_list">Interface list</a></li>
-<li><a href="#options">Options</a></li>
+<li><a href="#access">Access</a></li>
+<li><a href="#overview">Overview</a></li>
 </ul>
 </div>
 </div>
@@ -451,58 +451,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The purpose of Explorer is to enable search across multiple data sources.</p>
-</div>
-<div class="paragraph">
-<p>When you have collected documented, you may explose them by defining a <code>search interface</code> - or just interface for short.</p>
-</div>
-<div class="paragraph">
-<p>An interface allows you to select which collections and synonyms to combine, as well as the ability to tune and boost your search down to the field level.</p>
+<p>The Explorer administrative interface enable search administrators to define and manage how data is collected and then exposed through fine tuned search interfaces.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="interface_list"><a class="link" href="#interface_list">Interface list</a></h2>
-<div class="sectionbody">
-<div class="imageblock">
-<div class="content">
-<img src="media/interface-list.png" alt="Manage interfaces" width="768w">
-</div>
-</div>
-<div class="paragraph">
-<p>From the interface list view, you may perform regular actions.</p>
-</div>
-<div class="paragraph">
-<p>Additionally, it offers two custom actions for <code>Trying</code> out the interface:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>A <strong>[Magnifying glass]</strong> button, to test the interface.</p>
-</li>
-<li>
-<p>A <strong>[GraphQL]</strong> button, to test the API.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="options"><a class="link" href="#options">Options</a></h2>
+<h2 id="access"><a class="link" href="#access">Access</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>When creating, or editing interfaces, these are the available options you may manage:</p>
+<p>When <a href="install.ahtml">installed</a>, the Explorer admin interface can be accessed by logging into your XP admin console. You will find it by browsing the XP launcher menu.</p>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="media/interface-myinterface.png" alt="Manage interfaces" width="1010w">
-</div>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Name</dt>
-<dd>
-<p>Each interface needs a unique name, which is also the identifier</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -510,59 +468,41 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Once created, the name cannot be changed.
+Only users with "Explorer Admin" or "System Admin" roles can access the interface.
 </td>
 </tr>
 </table>
 </div>
-</dd>
-<dt class="hdlist1">Collections</dt>
-<dd>
-<p>You need to specify at least one collection to include in the search.</p>
-</dd>
-<dt class="hdlist1">Boosting</dt>
-<dd>
-<p>By default, the _alltext field is used when performing text searches. Here, you may add specific fields and boosting options to tune your search results.</p>
-<div class="paragraph">
-<p><code>Field boosting</code> means matches in the specified field will get a higher (or lower) priority when calculating the document scoring.</p>
 </div>
-<div class="paragraph">
-<p><code>Term boosting</code> allows you to boost a specific value within a field.</p>
 </div>
-</dd>
-<dt class="hdlist1">Stop-words</dt>
-<dd>
-<p>The search string is split, by unicode boundaries, into words, then each word matching a stop word will be removed from the search string. Stop-words are applied before the synonym stage.</p>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-Be careful when adding stop words, it may quickly lead to an empty search string and no search results.
-</td>
-</tr>
-</table>
-</div>
-</dd>
-<dt class="hdlist1">Synonyms</dt>
-<dd>
-<p>Optionally add one ore more thesauri. They will be used to "decorate" the query, and hopefully provide better results.</p>
-<div class="paragraph">
-<p>First any <a href="#_stop_words">Stop-words</a> are removed,
-then the remaining search string is used to query for synonyms,
-matches are used to decorate the main query.</p>
-</div>
-</dd>
-</dl>
+<div class="sect1">
+<h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="admin/fields.ahtml">Fields</a> enable consistent indexing of specific properties across collections.</p>
+</li>
+<li>
+<p><a href="admin/collections.ahtml">Collections</a> represent the various data sets that are collected and indexed.</p>
+</li>
+<li>
+<p><a href="admin/interfaces.ahtml">Interfaces</a> enable creation and tunining of search interfaces across collections.</p>
+</li>
+<li>
+<p><a href="admin/thesauri.ahtml">Thesauri</a> are lists of synonyms used to expand your search.</p>
+</li>
+<li>
+<p><a href="admin/stopwords.ahtml">Stop words</a> help improve search scoring by eliminating common words.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-08-07 10:55:56 UTC
+Last updated 2023-08-07 10:55:39 UTC
 </div>
 </div>
 </body>

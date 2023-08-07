@@ -441,8 +441,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#interface_list">Interface list</a></li>
-<li><a href="#options">Options</a></li>
+<li><a href="#basics">Basics</a></li>
+<li><a href="#filters">Filters</a></li>
+<li><a href="#query">Query</a></li>
+<li><a href="#synonyms">Synonyms</a></li>
+<li><a href="#stop_words">Stop-words</a></li>
+<li><a href="#result_mapping">Result mapping</a></li>
 </ul>
 </div>
 </div>
@@ -451,118 +455,91 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The purpose of Explorer is to enable search across multiple data sources.</p>
-</div>
-<div class="paragraph">
-<p>When you have collected documented, you may explose them by defining a <code>search interface</code> - or just interface for short.</p>
-</div>
-<div class="paragraph">
-<p>An interface allows you to select which collections and synonyms to combine, as well as the ability to tune and boost your search down to the field level.</p>
+<p>Your collected data can be exposed by defining search interfaces. Essentially, a search interface allows you to select which collections and thesauri to combine, as well as the ability to tune and boost your search down to field level.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="interface_list"><a class="link" href="#interface_list">Interface list</a></h2>
+<h2 id="basics"><a class="link" href="#basics">Basics</a></h2>
 <div class="sectionbody">
-<div class="imageblock">
-<div class="content">
-<img src="media/interface-list.png" alt="Manage interfaces" width="768w">
-</div>
+<div class="paragraph">
+<p>Each interface needs a unique name.</p>
 </div>
 <div class="paragraph">
-<p>From the interface list view, you may perform regular actions.</p>
-</div>
-<div class="paragraph">
-<p>Additionally, it offers two custom actions for <code>Trying</code> out the interface:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>A <strong>[Magnifying glass]</strong> button, to test the interface.</p>
-</li>
-<li>
-<p>A <strong>[GraphQL]</strong> button, to test the API.</p>
-</li>
-</ul>
+<p>Additionally, you need to specify at least one collection to include in the search.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="options"><a class="link" href="#options">Options</a></h2>
+<h2 id="filters"><a class="link" href="#filters">Filters</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>When creating, or editing interfaces, these are the available options you may manage:</p>
+<p>You can define must and mustNot filters to avoid search results that don&#8217;t meet the required quality.
+For instance it&#8217;s normally useful that a search result actually has an uri so it can be navigated to.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/interface-myinterface.png" alt="Manage interfaces" width="1010w">
+<img src="images/interface-filters.png" alt="Interface filters" width="768">
 </div>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Name</dt>
-<dd>
-<p>Each interface needs a unique name, which is also the identifier</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Once created, the name cannot be changed.
-</td>
-</tr>
-</table>
-</div>
-</dd>
-<dt class="hdlist1">Collections</dt>
-<dd>
-<p>You need to specify at least one collection to include in the search.</p>
-</dd>
-<dt class="hdlist1">Boosting</dt>
-<dd>
-<p>By default, the _alltext field is used when performing text searches. Here, you may add specific fields and boosting options to tune your search results.</p>
-<div class="paragraph">
-<p><code>Field boosting</code> means matches in the specified field will get a higher (or lower) priority when calculating the document scoring.</p>
 </div>
 <div class="paragraph">
-<p><code>Term boosting</code> allows you to boost a specific value within a field.</p>
+<p>Read more about filters here: <a href="https://developer.enonic.com/docs/xp/stable/storage/noql#filters" class="bare">https://developer.enonic.com/docs/xp/stable/storage/noql#filters</a></p>
 </div>
-</dd>
-<dt class="hdlist1">Stop-words</dt>
-<dd>
-<p>The search string is split, by unicode boundaries, into words, then each word matching a stop word will be removed from the search string. Stop-words are applied before the synonym stage.</p>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-Be careful when adding stop words, it may quickly lead to an empty search string and no search results.
-</td>
-</tr>
-</table>
 </div>
-</dd>
-<dt class="hdlist1">Synonyms</dt>
-<dd>
-<p>Optionally add one ore more thesauri. They will be used to "decorate" the query, and hopefully provide better results.</p>
+</div>
+<div class="sect1">
+<h2 id="query"><a class="link" href="#query">Query</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>First any <a href="#_stop_words">Stop-words</a> are removed,
-then the remaining search string is used to query for synonyms,
-matches are used to decorate the main query.</p>
+<p>You may configure a simple fulltext query, or group multiple expressions together using a logic expression.
+Combining a boosted fulltext query, with a stemmed, ngram and synonym query can be a good idea.</p>
 </div>
-</dd>
-</dl>
+<div class="imageblock">
+<div class="content">
+<img src="images/interface-query.png" alt="Interface query" width="768">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="synonyms"><a class="link" href="#synonyms">Synonyms</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TODO</p>
+</div>
+<div class="paragraph">
+<p>Each <a href="synonyms.ahtml">synonym</a> is stored in a <a href="thesauri.ahtml">thesaurus</a>.</p>
+</div>
+<div class="paragraph">
+<p>Learn mode about querying here: <a href="https://developer.enonic.com/docs/xp/stable/storage/noql#query_functions" class="bare">https://developer.enonic.com/docs/xp/stable/storage/noql#query_functions</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="stop_words"><a class="link" href="#stop_words">Stop-words</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="result_mapping"><a class="link" href="#result_mapping">Result mapping</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here you can configure which <a href="fields.ahtml">fields</a> are provided to the frontend and do some simple data manipulation.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/interface-mappings.png" alt="Interface mappings" width="768">
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-08-07 10:55:56 UTC
+Last updated 2023-08-07 10:55:55 UTC
 </div>
 </div>
 </body>

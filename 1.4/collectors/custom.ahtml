@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>Interfaces</title>
+<title>Building a custom collector</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,13 +436,31 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Interfaces</h1>
+<h1>Building a custom collector</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#interface_list">Interface list</a></li>
-<li><a href="#options">Options</a></li>
+<li><a href="#step_1_create_application">Step 1: Create application</a>
+<ul class="sectlevel2">
+<li><a href="#dependencies">Dependencies</a></li>
+<li><a href="#register_unregister">Register / Unregister</a></li>
+</ul>
+</li>
+<li><a href="#step_2_react_form">Step 2: React form</a>
+<ul class="sectlevel2">
+<li><a href="#react_component">React component</a></li>
+</ul>
+</li>
+<li><a href="#step_3_collector_task">Step 3: Collector task</a>
+<ul class="sectlevel2">
+<li><a href="#progress_reporting">Progress reporting</a></li>
+<li><a href="#journal">Journal</a></li>
+<li><a href="#crud">CRUD</a></li>
+<li><a href="#example_code">Example code</a></li>
+</ul>
+</li>
+<li><a href="#step_4_install_and_test">Step 4: Install and test</a></li>
 </ul>
 </div>
 </div>
@@ -451,58 +469,49 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The purpose of Explorer is to enable search across multiple data sources.</p>
-</div>
-<div class="paragraph">
-<p>When you have collected documented, you may explose them by defining a <code>search interface</code> - or just interface for short.</p>
-</div>
-<div class="paragraph">
-<p>An interface allows you to select which collections and synonyms to combine, as well as the ability to tune and boost your search down to the field level.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="interface_list"><a class="link" href="#interface_list">Interface list</a></h2>
-<div class="sectionbody">
-<div class="imageblock">
-<div class="content">
-<img src="media/interface-list.png" alt="Manage interfaces" width="768w">
-</div>
-</div>
-<div class="paragraph">
-<p>From the interface list view, you may perform regular actions.</p>
-</div>
-<div class="paragraph">
-<p>Additionally, it offers two custom actions for <code>Trying</code> out the interface:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>A <strong>[Magnifying glass]</strong> button, to test the interface.</p>
-</li>
-<li>
-<p>A <strong>[GraphQL]</strong> button, to test the API.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="options"><a class="link" href="#options">Options</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>When creating, or editing interfaces, these are the available options you may manage:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="media/interface-myinterface.png" alt="Manage interfaces" width="1010w">
-</div>
+<p>Collectors are implemented as standard XP applications. They essentially consist of two main components:</p>
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1">Name</dt>
+<dt class="hdlist1">Form</dt>
 <dd>
-<p>Each interface needs a unique name, which is also the identifier</p>
+<p>A React based user interface that enable search administrators to instruct the collector in it&#8217;s specific activities.</p>
+</dd>
+<dt class="hdlist1">Task</dt>
+<dd>
+<p>Code that performs the actual retrieval of content for indexing.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>This section will guide you through the basic steps of building your own custom collector.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="step_1_create_application"><a class="link" href="#step_1_create_application">Step 1: Create application</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use Enonic CLI to create an application based on the vanilla starter:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>enonic project create -r starter-explorer-collector</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The starter ships with the essential setup required for any collector:</p>
+</div>
+<div class="sect2">
+<h3 id="dependencies"><a class="link" href="#dependencies">Dependencies</a></h3>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">dependencies {
+	include 'com.enonic.lib:lib-explorer:2.2.1'
+}</code></pre>
+</div>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -510,59 +519,491 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Once created, the name cannot be changed.
+Remember to use a version of the library that is equal to or newer than the version of Explorer you are using.
 </td>
 </tr>
 </table>
 </div>
-</dd>
-<dt class="hdlist1">Collections</dt>
-<dd>
-<p>You need to specify at least one collection to include in the search.</p>
-</dd>
-<dt class="hdlist1">Boosting</dt>
-<dd>
-<p>By default, the _alltext field is used when performing text searches. Here, you may add specific fields and boosting options to tune your search results.</p>
+</div>
+<div class="sect2">
+<h3 id="register_unregister"><a class="link" href="#register_unregister">Register / Unregister</a></h3>
 <div class="paragraph">
-<p><code>Field boosting</code> means matches in the specified field will get a higher (or lower) priority when calculating the document scoring.</p>
+<p>In order for Explorer to detect available collectors, each collector needs to register, and unregister itself:</p>
+</div>
+<div class="listingblock">
+<div class="title">main.es</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">import {register, unregister} from '/lib/explorer';
+
+register({
+	appName: app.name,
+	collectTaskName: 'collect',
+	configAssetPath: 'react/Collector.esm.js',
+	displayName: 'My collector'
+});
+
+__.disposer(() =&gt; {
+	unregister({
+		appName: app.name,
+		collectTaskName: 'collect'
+	});
+});</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="step_2_react_form"><a class="link" href="#step_2_react_form">Step 2: React form</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The starter also provides the essential build system for the React-based user interface.</p>
 </div>
 <div class="paragraph">
-<p><code>Term boosting</code> allows you to boost a specific value within a field.</p>
+<p>Some important ingredients that enable this are:</p>
 </div>
-</dd>
-<dt class="hdlist1">Stop-words</dt>
-<dd>
-<p>The search string is split, by unicode boundaries, into words, then each word matching a stop word will be removed from the search string. Stop-words are applied before the synonym stage.</p>
-<div class="admonitionblock caution">
+<div class="ulist">
+<ul>
+<li>
+<p>node-gradle-plugin</p>
+</li>
+<li>
+<p>webpack</p>
+</li>
+<li>
+<p>babel</p>
+</li>
+<li>
+<p>node_modules</p>
+<div class="ulist">
+<ul>
+<li>
+<p>@enonic/semantic-ui-react-form</p>
+</li>
+<li>
+<p>@enonic/webpack-esm-assets</p>
+</li>
+<li>
+<p>@enonic/webpack-server-side-js</p>
+</li>
+<li>
+<p>get-value</p>
+</li>
+<li>
+<p>semantic-ui-react</p>
+</li>
+<li>
+<p>set-value</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="react_component"><a class="link" href="#react_component">React component</a></h3>
+<div class="paragraph">
+<p>In order for your collector&#8217;s configuration user interface to work in Explorer you must provide a React component.
+Any react component type should be supported, but all examples are functional (since that is the current status quo of react).</p>
+</div>
+<div class="paragraph">
+<p>The component receives five props from Explorer:
+. context - Read only object which are change via dispatching actions to its state reducer.
+. dispatch - Function to send actions to the state reducer.
+. explorer - static information like contentTypes, fields and sites
+. isFirstRun - Use this to only do things once during initialization of your form. (And not on every render)
+. path - Where your form is located in the context object.</p>
+</div>
+<div class="sect3">
+<h4 id="context_object"><a class="link" href="#context_object">context object</a></h4>
+<div class="paragraph">
+<p>This object contains a lot of data used to maintain state by semantic-ui-react-form.
+In most cases knowing about its values property should be enough.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="dispatch_function"><a class="link" href="#dispatch_function">dispatch function</a></h4>
+<div class="paragraph">
+<p>You can import various reducer actions from semantic-ui-react-form and send the to the reducer using the dispatch function.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="explorer_object"><a class="link" href="#explorer_object">explorer object</a></h4>
+<div class="paragraph">
+<p>This object contains information from Explorer about the collector context. The information can be used to make dropdowns in your collectors configuration.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="isfirstrun"><a class="link" href="#isfirstrun">isFirstRun</a></h4>
+<div class="paragraph">
+<p>This is a React ref object whose .current property is initialized to true. If you have any code that should only run once on initialization of you collector component, you can use this object to achieve this. Here is some example code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">import getIn from 'get-value';
+
+export const Collector = ({
+	context,
+	isFirstRun,
+	path
+}) =&gt; {
+	let initialValues = getIn(context.values, path);
+	if (isFirstRun.current) {
+		isFirstRun.current = false; // Make sure the code block never runs again.
+		if (!initialValues) {
+			initialValues = {
+				aProperty: 'defaultValueForProperty',
+			}
+		}
+	} // if isFirstRun
+} // Collector</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can read more about React ref objects here: <a href="https://reactjs.org/docs/hooks-reference.html#useref" class="bare">https://reactjs.org/docs/hooks-reference.html#useref</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="path"><a class="link" href="#path">path</a></h4>
+<div class="paragraph">
+<p>Use to this to fetch your form values and also when dispatching actions to the state reducer.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="example"><a class="link" href="#example">Example</a></h4>
+<div class="listingblock">
+<div class="title">src/resources/assets/js/react/Collector.jsx</div>
+<div class="content">
+<pre class="highlight"><code class="language-jsx" data-lang="jsx">import getIn from 'get-value';
+import setIn from 'set-value';
+import {Button, Form, Header, Icon, Table} from 'semantic-ui-react';
+import {
+	setError,
+	setSchema,
+	setValue,
+	setVisited,
+	DeleteItemButton,
+	Form as EnonicForm,
+	Input,
+	InsertButton,
+	List,
+	MoveDownButton,
+	MoveUpButton,
+	SetValueButton
+} from 'semantic-ui-react-form';
+
+function required(value) {
+	return value ? undefined : 'Required!';
+}
+
+const SCHEMA = {
+	uri: (v) =&gt; required(v)
+};
+
+export const Collector = (props) =&gt; {
+	const {
+		context,
+		dispatch,
+		explorer,
+		isFirstRun,
+		path
+	} = props;
+	let initialValues = getIn(context.values, path);
+	if (isFirstRun.current) {
+		//console.debug('isFirstRun');
+		isFirstRun.current = false;
+		dispatch(setSchema({path, schema: SCHEMA}));
+		if (!initialValues) {
+			initialValues = {
+				uri: ''
+			};
+			dispatch(setValue({path, value: initialValues}));
+		}
+		return &lt;EnonicForm
+			initialValues={initialValues}
+			onChange={(values) =&gt; {
+				//console.debug('Collector onChange values', values);
+				dispatch(setValue({path, value: values}));
+			}}
+			schema={SCHEMA}
+		&gt;
+			&lt;Form as='div'&gt;
+				&lt;Form.Field&gt;
+					&lt;Input
+						fluid
+						label='Uri'
+						path='uri'
+					/&gt;
+				&lt;/Form.Field&gt;
+			&lt;/Form&gt;
+		&lt;/EnonicForm&gt;;
+};</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="step_3_collector_task"><a class="link" href="#step_3_collector_task">Step 3: Collector task</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The actual code to retrieve and return content for indexing is implemented using <a href="https://developer.enonic.com/docs/xp/stable/framework/tasks">named tasks</a>.</p>
+</div>
+<div class="paragraph">
+<p>The most important parts of a collector are:</p>
+</div>
+<div class="sect2">
+<h3 id="progress_reporting"><a class="link" href="#progress_reporting">Progress reporting</a></h3>
+<div class="paragraph">
+<p>In the explorer app there is a page to display Collector status.
+In order for this page to show useful updated information.
+The collector tasks needs to send progress information.
+When your collector task runs</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">collector.start();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A collector.taskProgressObj will be created automatically. Looking something like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">collector.taskProgressObj = {
+	current: 0,
+	info: {
+		name: 'Example',
+		message: 'Initializing...',
+		startTime: '2020...'
+	},
+	total: 1 // So it appears there is something to do.
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A collector task may have a set or changing number of operations to perform.
+You should keep the progress updated something like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">collector.start();
+collector.taskProgressObj.total = initialNumberOfOperations;
+while(somethingToDo) {
+	collector.taskProgressObj.info.uri = currentUri;
+	collector.taskProgressObj.info.message = 'Some useful information';
+	collector.progress(); // This will update task progress. So it can be seen.
+
+	// ... do stuff ...
+
+	collector.taskProgressObj.total += foundSomeMoreOperationsToPerform;
+
+	collector.taskProgressObj.current += 1;
+}
+collector.stop();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Finally when you collector task calls</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">collector.stop();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It will set current = total and a nice info.message = <code>Finished with ${x} errors.</code>;</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="journal"><a class="link" href="#journal">Journal</a></h3>
+<div class="paragraph">
+<p>When a collector task is finished. A journal will be persisted.
+The journal contains information about things that went well, and possible errors.
+Write to the journal by using <strong>addSuccess</strong> or <strong>addError</strong> like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">try {
+	// ... do some stuff that could fail ...
+	collector.addSuccess({uri: currentUri});
+} catch (e) {
+	collector.addError({uri: currentUri, message: e.message});
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="crud"><a class="link" href="#crud">CRUD</a></h3>
+<div class="paragraph">
+<p>When you have collected some information you want to make available for later search you have to persist it.
+This can be done by calling <strong>persistDocument</strong> like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">collector.persistDocument({
+	aField: 'aTag', // Optional, perhaps used in aggregation and filtering.
+	anotherField: 'anotherTag', // Optional, perhaps used in aggregation and filtering.
+	text, // Required!
+	title, // Required!
+	uri, // Required!
+	whatever: 'perhapsAnImageUrl' // Optional, perhaps used when displaying search results.
+});</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The explorer library Collection class currently does not provide any api for reading and deleting documents.
+You may connect to the collection repositories via standard Enonic API&#8217;s or via other currently undocumented Explorer library functions.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="example_code"><a class="link" href="#example_code">Example code</a></h3>
+<div class="paragraph">
+<p>The complexity of a collector may vary, but as to provide a basic idea, the starter includes a simple example:</p>
+</div>
+<div class="listingblock">
+<div class="title">src/resources/tasks/collect.xml</div>
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;task&gt;
+	&lt;description&gt;Collect&lt;/description&gt;
+	&lt;form&gt;
+		&lt;input name="name" type="TextLine"&gt;
+			&lt;label&gt;Name&lt;/label&gt;
+			&lt;occurrences minimum="1" maximum="1"/&gt;
+		&lt;/input&gt;
+		&lt;input name="collectorId" type="TextLine"&gt;
+			&lt;label&gt;Collector ID&lt;/label&gt;
+			&lt;occurrences minimum="1" maximum="1"/&gt;
+		&lt;/input&gt;
+		&lt;input name="configJson" type="TextLine"&gt;
+			&lt;label&gt;Config JSON&lt;/label&gt;
+			&lt;occurrences minimum="1" maximum="1"/&gt;
+		&lt;/input&gt;
+	&lt;/form&gt;
+&lt;/task&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">src/resources/tasks/collect.es</div>
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">import {Collector} from '/lib/explorer/collector'; <i class="conum" data-value="1"></i><b>(1)</b>
+
+export function run({name, collectorId, configJson}) { <i class="conum" data-value="2"></i><b>(2)</b>
+	const collector = new Collector({name, collectorId, configJson}); <i class="conum" data-value="3"></i><b>(3)</b>
+
+	if (!collector.config.uri) { <i class="conum" data-value="4"></i><b>(4)</b>
+		throw new Error('Config is missing required parameter uri!');
+	}
+
+	collector.start(); <i class="conum" data-value="5"></i><b>(5)</b>
+
+	const {
+		uri,
+		object: {
+			someNestedProperty
+		}
+	} = collector.config; <i class="conum" data-value="6"></i><b>(6)</b>
+
+	while(somethingToDo) {
+		if (collector.shouldStop()) { break; } <i class="conum" data-value="7"></i><b>(7)</b>
+
+		try {
+			const {text, title} = doSomethingThatMayFail(); <i class="conum" data-value="8"></i><b>(8)</b>
+
+			collector.persistDocument({
+				text,
+				title,
+				uri
+			}); <i class="conum" data-value="9"></i><b>(9)</b>
+
+			collector.addSuccess({uri}); <i class="conum" data-value="10"></i><b>(10)</b>
+
+		} catch (e) {
+
+			collector.addError({uri, message: e.message}); <i class="conum" data-value="11"></i><b>(11)</b>
+
+		}
+	} // while somethingToDo
+
+	// Perhaps delete documents that are no longer found...
+
+	collector.stop(); <i class="conum" data-value="12"></i><b>(12)</b>
+
+} // export function run</code></pre>
+</div>
+</div>
+<div class="colist arabic">
 <table>
 <tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-Be careful when adding stop words, it may quickly lead to an empty search string and no search results.
-</td>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Import the Collector class</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The collect task gets passed three named parameters.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Construct a Collector instance.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Validate the configuration object.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Start the collector. Sets startTime and more.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Fetch configuration properties you need from the collector.config object.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Check if someone has clicked the STOP button.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>This is where you collect the data you want to persist.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>Persist the collected data.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="10"></i><b>10</b></td>
+<td>Make a journal entry that collecting data from uri was a success.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="11"></i><b>11</b></td>
+<td>Make a journal entry that an error prevented collecting data from uri.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="12"></i><b>12</b></td>
+<td>Stop the collector. Sets endTime and more.</td>
 </tr>
 </table>
 </div>
-</dd>
-<dt class="hdlist1">Synonyms</dt>
-<dd>
-<p>Optionally add one ore more thesauri. They will be used to "decorate" the query, and hopefully provide better results.</p>
-<div class="paragraph">
-<p>First any <a href="#_stop_words">Stop-words</a> are removed,
-then the remaining search string is used to query for synonyms,
-matches are used to decorate the main query.</p>
 </div>
-</dd>
-</dl>
+</div>
+</div>
+<div class="sect1">
+<h2 id="step_4_install_and_test"><a class="link" href="#step_4_install_and_test">Step 4: Install and test</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When you have built your collector application.
+Install the jar file on the Enonic XP server where you have Explorer installed.
+Then create a collection using your collector, and click collect to see what happens.
+It is a good idea to run locally first and keep an eye on the Enonic XP server log.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-08-07 10:55:56 UTC
+Last updated 2023-08-07 10:55:39 UTC
 </div>
 </div>
 </body>

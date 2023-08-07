@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>Interfaces</title>
+<title>Search clients</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,13 +436,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Interfaces</h1>
+<h1>Search clients</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#interface_list">Interface list</a></li>
-<li><a href="#options">Options</a></li>
+<li><a href="#search_apps">Search apps</a></li>
+<li><a href="#using_the_explorer_client_starter">Using the Explorer Client starter</a></li>
+<li><a href="#using_the_search_api">Using the search API</a></li>
+<li><a href="#site_integration">Site integration</a>
+<ul class="sectlevel2">
+<li><a href="#custom_selector">Custom selector</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -451,118 +457,157 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The purpose of Explorer is to enable search across multiple data sources.</p>
-</div>
-<div class="paragraph">
-<p>When you have collected documented, you may explose them by defining a <code>search interface</code> - or just interface for short.</p>
-</div>
-<div class="paragraph">
-<p>An interface allows you to select which collections and synonyms to combine, as well as the ability to tune and boost your search down to the field level.</p>
+<p>Explorers ability to create fully customised search interfaces is the icing on the cake. By default, Explorer does not expose any web APIs, but rather enable developers to access the <a href="admin/interfaces.ahtml">interfaces</a> through an internal JavaScript API.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="interface_list"><a class="link" href="#interface_list">Interface list</a></h2>
+<h2 id="search_apps"><a class="link" href="#search_apps">Search apps</a></h2>
 <div class="sectionbody">
-<div class="imageblock">
+<div class="paragraph">
+<p>There are numerous ways of exposing your search data from Explorer, but they all start with the development of a custom XP application.</p>
+</div>
+<div class="paragraph">
+<p>The application will use Explorers API, and then offers a solution to exposing the data. Here are the most common approaches:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Server pages</dt>
+<dd>
+<p>Search interface and results delivered as good old web pages.</p>
+</dd>
+<dt class="hdlist1">RESTful API</dt>
+<dd>
+<p>Exposes your search interface through a RESTful API of your preferred format and style, to be consumed by any client. This may also be secured as required.</p>
+</dd>
+<dt class="hdlist1">GraphQL API</dt>
+<dd>
+<p>Exposes your search interface through graphQL. Check out Enonic&#8217;s GraphQL library for more details. The API may be secured according to your requirements.</p>
+</dd>
+<dt class="hdlist1">API and front-end</dt>
+<dd>
+<p>Finally, you may combine the above, and have your app deliver both the API and front-end clients through XP as desired.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using_the_explorer_client_starter"><a class="link" href="#using_the_explorer_client_starter">Using the Explorer Client starter</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here&#8217;s a tutorial on how to use the <a href="clients/starter.ahtml">Explorer Client starter</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using_the_search_api"><a class="link" href="#using_the_search_api">Using the search API</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are numerous ways to return a search result.</p>
+</div>
+<div class="paragraph">
+<p>Perhaps you want to provide a JSON service to be used with a react frontend, or do a static HTML page by rendering server-side.</p>
+</div>
+<div class="paragraph">
+<p>Common to all solutions is that you have to call the search api, and perhaps manipulate the result to your liking.</p>
+</div>
+<div class="paragraph">
+<p>Below is an example of how to invoke the search API:</p>
+</div>
+<div class="listingblock">
+<div class="title">controller.es</div>
 <div class="content">
-<img src="media/interface-list.png" alt="Manage interfaces" width="768w">
+<pre class="highlight"><code class="language-java" data-lang="java">import {search} from '/lib/explorer';
+
+export function get({
+	params
+}) {
+	const {
+		facetCategories,
+		pages,
+		pagination,
+		hits,
+		removedStopWords,
+		synonymsObj,
+		total = 0
+	} = search({
+		clearCache,
+		//count: 10,
+		facets: {
+			language: params.language,
+			'information-type': params['information-type'],
+			source: params.source
+		},
+		interface: interfaceName,
+		locale,
+		name,
+		page,
+		searchString
+	});
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="site_integration"><a class="link" href="#site_integration">Site integration</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When integrating search in a site, it may be practical to enable editors to select which interface to use in the search.</p>
+</div>
+<div class="paragraph">
+<p>A custom selector may be a practical solution to this.</p>
+</div>
+<div class="sect2">
+<h3 id="custom_selector"><a class="link" href="#custom_selector">Custom selector</a></h3>
+<div class="paragraph">
+<p>Explorer&#8217;s API provides a service that can be used by a custom selector in any site application.</p>
+</div>
+<div class="paragraph">
+<p>TODO: Confirm service is part of library</p>
+</div>
+<div class="listingblock">
+<div class="title">controller.xml</div>
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;input name="interface" type="CustomSelector"&gt;
+	&lt;label&gt;Interface&lt;/label&gt;
+	&lt;occurrences minimum="1" maximum="1"/&gt;
+	&lt;config&gt;
+		&lt;service&gt;interfaceSelector&lt;/service&gt;
+	&lt;/config&gt;
+&lt;/input&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>From the interface list view, you may perform regular actions.</p>
-</div>
-<div class="paragraph">
-<p>Additionally, it offers two custom actions for <code>Trying</code> out the interface:</p>
+<p>The service can currently only be accessed with any of these roles:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>A <strong>[Magnifying glass]</strong> button, to test the interface.</p>
+<p>Content Manager Administrator (cms.admin)</p>
 </li>
 <li>
-<p>A <strong>[GraphQL]</strong> button, to test the API.</p>
+<p>Content Manager App (cms.cm.app)</p>
+</li>
+<li>
+<p>Content Manager Expert (cms.expert)</p>
+</li>
+<li>
+<p>Administrator (system.admin)</p>
+</li>
+<li>
+<p>Administration Console Login (system.admin.login)</p>
 </li>
 </ul>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="options"><a class="link" href="#options">Options</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>When creating, or editing interfaces, these are the available options you may manage:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="media/interface-myinterface.png" alt="Manage interfaces" width="1010w">
-</div>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Name</dt>
-<dd>
-<p>Each interface needs a unique name, which is also the identifier</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Once created, the name cannot be changed.
-</td>
-</tr>
-</table>
-</div>
-</dd>
-<dt class="hdlist1">Collections</dt>
-<dd>
-<p>You need to specify at least one collection to include in the search.</p>
-</dd>
-<dt class="hdlist1">Boosting</dt>
-<dd>
-<p>By default, the _alltext field is used when performing text searches. Here, you may add specific fields and boosting options to tune your search results.</p>
-<div class="paragraph">
-<p><code>Field boosting</code> means matches in the specified field will get a higher (or lower) priority when calculating the document scoring.</p>
-</div>
-<div class="paragraph">
-<p><code>Term boosting</code> allows you to boost a specific value within a field.</p>
-</div>
-</dd>
-<dt class="hdlist1">Stop-words</dt>
-<dd>
-<p>The search string is split, by unicode boundaries, into words, then each word matching a stop word will be removed from the search string. Stop-words are applied before the synonym stage.</p>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-Be careful when adding stop words, it may quickly lead to an empty search string and no search results.
-</td>
-</tr>
-</table>
-</div>
-</dd>
-<dt class="hdlist1">Synonyms</dt>
-<dd>
-<p>Optionally add one ore more thesauri. They will be used to "decorate" the query, and hopefully provide better results.</p>
-<div class="paragraph">
-<p>First any <a href="#_stop_words">Stop-words</a> are removed,
-then the remaining search string is used to query for synonyms,
-matches are used to decorate the main query.</p>
-</div>
-</dd>
-</dl>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-08-07 10:55:56 UTC
+Last updated 2023-08-07 10:55:55 UTC
 </div>
 </div>
 </body>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>Interfaces</title>
+<title>Getting Started</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,73 +436,25 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Interfaces</h1>
+<h1>Getting Started</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#interface_list">Interface list</a></li>
-<li><a href="#options">Options</a></li>
+<li><a href="#installation">Installation</a>
+<ul class="sectlevel2">
+<li><a href="#configuration">Configuration</a></li>
+</ul>
+</li>
+<li><a href="#explorer_admin">Explorer admin</a></li>
+<li><a href="#collecting_some_data">Collecting some data</a></li>
+<li><a href="#test_search">Test search</a></li>
+<li><a href="#next">Next</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
+<div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>The purpose of Explorer is to enable search across multiple data sources.</p>
-</div>
-<div class="paragraph">
-<p>When you have collected documented, you may explose them by defining a <code>search interface</code> - or just interface for short.</p>
-</div>
-<div class="paragraph">
-<p>An interface allows you to select which collections and synonyms to combine, as well as the ability to tune and boost your search down to the field level.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="interface_list"><a class="link" href="#interface_list">Interface list</a></h2>
-<div class="sectionbody">
-<div class="imageblock">
-<div class="content">
-<img src="media/interface-list.png" alt="Manage interfaces" width="768w">
-</div>
-</div>
-<div class="paragraph">
-<p>From the interface list view, you may perform regular actions.</p>
-</div>
-<div class="paragraph">
-<p>Additionally, it offers two custom actions for <code>Trying</code> out the interface:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>A <strong>[Magnifying glass]</strong> button, to test the interface.</p>
-</li>
-<li>
-<p>A <strong>[GraphQL]</strong> button, to test the API.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="options"><a class="link" href="#options">Options</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>When creating, or editing interfaces, these are the available options you may manage:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="media/interface-myinterface.png" alt="Manage interfaces" width="1010w">
-</div>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Name</dt>
-<dd>
-<p>Each interface needs a unique name, which is also the identifier</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -510,59 +462,199 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Once created, the name cannot be changed.
+Explorer requires Enonic XP in order to run. It can also be tested on a local developer environment.
 </td>
 </tr>
 </table>
 </div>
-</dd>
-<dt class="hdlist1">Collections</dt>
-<dd>
-<p>You need to specify at least one collection to include in the search.</p>
-</dd>
-<dt class="hdlist1">Boosting</dt>
-<dd>
-<p>By default, the _alltext field is used when performing text searches. Here, you may add specific fields and boosting options to tune your search results.</p>
-<div class="paragraph">
-<p><code>Field boosting</code> means matches in the specified field will get a higher (or lower) priority when calculating the document scoring.</p>
 </div>
-<div class="paragraph">
-<p><code>Term boosting</code> allows you to boost a specific value within a field.</p>
 </div>
-</dd>
-<dt class="hdlist1">Stop-words</dt>
-<dd>
-<p>The search string is split, by unicode boundaries, into words, then each word matching a stop word will be removed from the search string. Stop-words are applied before the synonym stage.</p>
-<div class="admonitionblock caution">
+<div class="sect1">
+<h2 id="installation"><a class="link" href="#installation">Installation</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To get started, simply install Explorer to your XP instance. Explorer is available from <a href="https://market.enonic.com/vendors/enonic/explorer">Enonic market</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="configuration"><a class="link" href="#configuration">Configuration</a></h3>
+<div class="paragraph">
+<p>To activate scheduling, add the following configuration file.</p>
+</div>
+<div class="admonitionblock warning">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
+<i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-Be careful when adding stop words, it may quickly lead to an empty search string and no search results.
+If you are running an XP cluster, only one of the nodes must have this configuration. Running collector jobs on multiple nodes can trigger race conditions.
 </td>
 </tr>
 </table>
 </div>
-</dd>
-<dt class="hdlist1">Synonyms</dt>
-<dd>
-<p>Optionally add one ore more thesauri. They will be used to "decorate" the query, and hopefully provide better results.</p>
-<div class="paragraph">
-<p>First any <a href="#_stop_words">Stop-words</a> are removed,
-then the remaining search string is used to query for synonyms,
-matches are used to decorate the main query.</p>
+<div class="listingblock">
+<div class="title">XP_HOME/config/com.enonic.app.explorer.cfg</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">cron = true #Default is false</code></pre>
 </div>
-</dd>
-</dl>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="explorer_admin"><a class="link" href="#explorer_admin">Explorer admin</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>From the XP admin console, you should now be able to access the <a href="admin.ahtml">explorer admin</a>, via a fresh entry in the XP menu.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/XPMenuExplorer.png" alt="XPMenuExplorer" width="318">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Only users with the role "system.admin", or "com.enonic.explorer" (created when explorer was installed) can see and access Explorer&#8217;s admin interface.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/explorer.png" alt="Sample screenshot from Explorers admin inteface">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="collecting_some_data"><a class="link" href="#collecting_some_data">Collecting some data</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When first installing Explorer there is no data to available for searching.</p>
+</div>
+<div class="paragraph">
+<p>To get started, lets can use the built-in <a href="collectors/webcrawler.ahtml">Web crawler collector</a>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Select the <code>Collections</code> page from the Explorer Menu.</p>
+</li>
+<li>
+<p>Click the create button:</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/GreenPlus.png" alt="GreenPlus" width="71">
+</div>
+</div>
+</li>
+<li>
+<p>Give the Collection a name, i.e. "Example"</p>
+</li>
+<li>
+<p>Choose the <code>Web crawler</code> collector in the collector dropdown menu:</p>
+</li>
+<li>
+<p>Provide a starting URL, for example: <a href="https://www.example.com" class="bare">https://www.example.com</a></p>
+<div class="imageblock">
+<div class="content">
+<img src="images/NewCollection.png" alt="NewCollection" width="792">
+</div>
+</div>
+</li>
+<li>
+<p>Scroll to the bottom of the page and click <code>Submit</code>.</p>
+</li>
+<li>
+<p>Your newly created <strong>Collection</strong> should appear in the list of <strong>Collections</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/CollectionsList.png" alt="CollectionsList" width="577">
+</div>
+</div>
+</li>
+<li>
+<p>Click the green download from cloud icon to the right to start collecting data.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/Collect.png" alt="Collect" width="40">
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Be careful not to harass webservers, your ip might become blocked by them.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>To view the status of the job, select the <code>Collections Status</code> page from the Explorer Menu</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/CollectorStatus.png" alt="CollectorStatus" width="1039">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="test_search"><a class="link" href="#test_search">Test search</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With some data indexed, you can try running a simple search.</p>
+</div>
+<div class="paragraph">
+<p>From the main page, use the big search field to see if you get any hits in your recently collected data.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Home.png" alt="Home" width="606">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="next"><a class="link" href="#next">Next</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You have now successfully setup a collection and filled it with data.
+We now recommend looking into the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Visit the <a href="admin.ahtml">Explorer admin docs</a></p>
+</li>
+<li>
+<p>Learn more about <a href="collectors.ahtml">collectors</a> and how to build a <a href="collectors/custom.ahtml">custom collector</a></p>
+</li>
+<li>
+<p>Understand how <a href="clients.ahtml">search clients</a> work, and how to build your own</p>
+</li>
+<li>
+<p>Check out the <a href="api.ahtml">Explorer API</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-08-07 10:55:56 UTC
+Last updated 2023-08-07 10:55:55 UTC
 </div>
 </div>
 </body>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>Interfaces</title>
+<title>Explorer Client starter</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,133 +436,95 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Interfaces</h1>
+<h1>Explorer Client starter</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#interface_list">Interface list</a></li>
-<li><a href="#options">Options</a></li>
+<li><a href="#inital_setup">Inital Setup</a>
+<ul class="sectlevel2">
+<li><a href="#create_project">Create project</a></li>
+<li><a href="#naming">Naming</a></li>
+</ul>
+</li>
+<li><a href="#exposing_search_data">Exposing search data</a>
+<ul class="sectlevel2">
+<li><a href="#server_pages_html">Server Pages (html)</a></li>
+<li><a href="#service_json_api">Service (JSON API)</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
+<h2 id="inital_setup"><a class="link" href="#inital_setup">Inital Setup</a></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>The purpose of Explorer is to enable search across multiple data sources.</p>
+<div class="sect2">
+<h3 id="create_project"><a class="link" href="#create_project">Create project</a></h3>
+<div class="listingblock">
+<div class="content">
+<pre>enonic project create -r starter-explorer-client</pre>
 </div>
-<div class="paragraph">
-<p>When you have collected documented, you may explose them by defining a <code>search interface</code> - or just interface for short.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="naming"><a class="link" href="#naming">Naming</a></h3>
 <div class="paragraph">
-<p>An interface allows you to select which collections and synonyms to combine, as well as the ability to tune and boost your search down to the field level.</p>
+<p>Your new project should have a good name. Here are some places where you should update the code to reflect what you prefer:</p>
+</div>
+<div class="listingblock">
+<div class="title">gradle.properties</div>
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">projectName=starter
+appName=com.enonic.app.explorer.client.starter
+rootProjectName=app-explorer-client-starter</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="highlight"><code class="language-gradle" data-lang="gradle">app {
+  displayName = 'Change me in build.gradle'
+  vendorName = 'Enonic AS'
+  vendorUrl = 'http://enonic.com'
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">src/main/resources/application.xml</div>
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;application&gt;
+    &lt;description&gt;Change me in src/main/resources/application.xml&lt;/description&gt;
+&lt;/application&gt;</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="interface_list"><a class="link" href="#interface_list">Interface list</a></h2>
-<div class="sectionbody">
-<div class="imageblock">
-<div class="content">
-<img src="media/interface-list.png" alt="Manage interfaces" width="768w">
-</div>
-</div>
-<div class="paragraph">
-<p>From the interface list view, you may perform regular actions.</p>
-</div>
-<div class="paragraph">
-<p>Additionally, it offers two custom actions for <code>Trying</code> out the interface:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>A <strong>[Magnifying glass]</strong> button, to test the interface.</p>
-</li>
-<li>
-<p>A <strong>[GraphQL]</strong> button, to test the API.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="options"><a class="link" href="#options">Options</a></h2>
+<h2 id="exposing_search_data"><a class="link" href="#exposing_search_data">Exposing search data</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>When creating, or editing interfaces, these are the available options you may manage:</p>
+<p>The starter contains some examples on how to expose search data. A single Explorer client app can provide multiple ways to expose search data. You should remove the ones you don&#8217;t want, change or even add the one(s) you want. Common to all the examples is that they are using the <a href="../api.ahtml">Search API</a>.</p>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="media/interface-myinterface.png" alt="Manage interfaces" width="1010w">
-</div>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Name</dt>
-<dd>
-<p>Each interface needs a unique name, which is also the identifier</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Once created, the name cannot be changed.
-</td>
-</tr>
-</table>
-</div>
-</dd>
-<dt class="hdlist1">Collections</dt>
-<dd>
-<p>You need to specify at least one collection to include in the search.</p>
-</dd>
-<dt class="hdlist1">Boosting</dt>
-<dd>
-<p>By default, the _alltext field is used when performing text searches. Here, you may add specific fields and boosting options to tune your search results.</p>
+<div class="sect2">
+<h3 id="server_pages_html"><a class="link" href="#server_pages_html">Server Pages (html)</a></h3>
 <div class="paragraph">
-<p><code>Field boosting</code> means matches in the specified field will get a higher (or lower) priority when calculating the document scoring.</p>
+<p>There is a simple example in src/main/resources/site/pages/searchPage on how to implement a server page that exposes search data. Notice that the example fetches two configuration variables: queryParamName and interfaceName. It does that in a "smart" way, by first looking at the page config, then falling back to content type, x-data and finally site config.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="service_json_api"><a class="link" href="#service_json_api">Service (JSON API)</a></h3>
 <div class="paragraph">
-<p><code>Term boosting</code> allows you to boost a specific value within a field.</p>
+<p>There is a simple example in src/main/resources/services/searchDefaultInterface on how to expose all the data provided by the search API as a JSON.</p>
 </div>
-</dd>
-<dt class="hdlist1">Stop-words</dt>
-<dd>
-<p>The search string is split, by unicode boundaries, into words, then each word matching a stop word will be removed from the search string. Stop-words are applied before the synonym stage.</p>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-Be careful when adding stop words, it may quickly lead to an empty search string and no search results.
-</td>
-</tr>
-</table>
-</div>
-</dd>
-<dt class="hdlist1">Synonyms</dt>
-<dd>
-<p>Optionally add one ore more thesauri. They will be used to "decorate" the query, and hopefully provide better results.</p>
-<div class="paragraph">
-<p>First any <a href="#_stop_words">Stop-words</a> are removed,
-then the remaining search string is used to query for synonyms,
-matches are used to decorate the main query.</p>
-</div>
-</dd>
-</dl>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-08-07 10:55:56 UTC
+Last updated 2023-08-07 10:55:55 UTC
 </div>
 </div>
 </body>

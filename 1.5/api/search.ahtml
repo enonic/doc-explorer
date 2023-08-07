@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>Interfaces</title>
+<title>Search</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,133 +436,567 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Interfaces</h1>
+<h1>Search</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#interface_list">Interface list</a></li>
-<li><a href="#options">Options</a></li>
+<li><a href="#description">Description</a></li>
+<li><a href="#parameters">Parameters</a></li>
+<li><a href="#returns">Returns</a></li>
+<li><a href="#example">Example</a></li>
+<li><a href="#sample_response">Sample response</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
+<h2 id="description"><a class="link" href="#description">Description</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The purpose of Explorer is to enable search across multiple data sources.</p>
-</div>
-<div class="paragraph">
-<p>When you have collected documented, you may explose them by defining a <code>search interface</code> - or just interface for short.</p>
-</div>
-<div class="paragraph">
-<p>An interface allows you to select which collections and synonyms to combine, as well as the ability to tune and boost your search down to the field level.</p>
+<p>Uses an explorer interface to search and returns scored results.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="interface_list"><a class="link" href="#interface_list">Interface list</a></h2>
+<h2 id="parameters"><a class="link" href="#parameters">Parameters</a></h2>
 <div class="sectionbody">
-<div class="imageblock">
+<table class="tableblock frame-none grid-none stretch">
+<colgroup>
+<col style="width: 0.99%;">
+<col style="width: 0.99%;">
+<col style="width: 0.99%;">
+<col style="width: 0.99%;">
+<col style="width: 96.04%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Attributes</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">clearCache</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Clear all server-side caches</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">count</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>How many results to return.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">facets</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Which facets in facet categories to filter on.</p>
+</div>
+<table class="tableblock frame-ends grid-none stretch">
+<caption class="title">Properties</caption>
+<colgroup>
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 96%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Attributes</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">categoryA</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array.&lt;string&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>List of active facets in facet category named categoryA to filter on.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">categoryB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array.&lt;string&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>List of active facets in facet category named categoryB to filter on.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">interface</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;required&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">undefined</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Which explorer interface to use.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">locale</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">from HTTP request or server default</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Which locale to return search results in (may require translated localization files).</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">q</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Which request parameter contains the searchString.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">page</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Which page of search results to return. Takes count into account.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">searchString</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;required&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">''</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The actual terms you want to find. Typically what a user types into a text input.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="returns"><a class="link" href="#returns">Returns</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-none grid-none stretch">
+<colgroup>
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 98%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">count</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">number</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>How many results was returned.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">expand</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Whether or not synonym expansion was used. When false only searches the from field and adds from the to field. When true searches both from and to fields and adds from both to and from fields.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">facetCategories</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Information needed to render facets on a webpage.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array.&lt;object&gt;</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The search results based on explorer interface configuration.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pages</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">number</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>How many pages there are (for the current search).</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pagination</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array.&lt;object&gt;</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Information needed to render a paginator on a webpage.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">params</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Which parameters the search function was passed or defaulted to.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">removedStopWords</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array.&lt;string&gt;</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Which stop-words was removed before querying.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">synonymsObj</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>What synonyms where found and added based on the initial search string.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">total</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">number</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>How many search results are there in total.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="example"><a class="link" href="#example">Example</a></h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">Executing a search in service controller</div>
 <div class="content">
-<img src="media/interface-list.png" alt="Manage interfaces" width="768w">
+<pre class="highlight"><code class="language-js" data-lang="js">import {search} from '/lib/explorer';           <i class="conum" data-value="1"></i><b>(1)</b>
+
+export const get = ({                           <i class="conum" data-value="2"></i><b>(2)</b>
+  params: {                                     <i class="conum" data-value="3"></i><b>(3)</b>
+    count = 10,                                 <i class="conum" data-value="4"></i><b>(4)</b>
+    q: searchString = ''                        <i class="conum" data-value="5"></i><b>(5)</b>
+  } = {}                                        <i class="conum" data-value="6"></i><b>(6)</b>
+}) =&gt; ({                                        <i class="conum" data-value="7"></i><b>(7)</b>
+  body: search({                                <i class="conum" data-value="8"></i><b>(8)</b>
+    count,                                      <i class="conum" data-value="9"></i><b>(9)</b>
+    interface: 'default',                       <i class="conum" data-value="10"></i><b>(10)</b>
+    //name: 'q',                                <i class="conum" data-value="11"></i><b>(11)</b>
+    searchString                                <i class="conum" data-value="12"></i><b>(12)</b>
+  }),
+  contentType: 'application/json;charset=utf-8' <i class="conum" data-value="13"></i><b>(13)</b>
+});</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>From the interface list view, you may perform regular actions.</p>
-</div>
-<div class="paragraph">
-<p>Additionally, it offers two custom actions for <code>Trying</code> out the interface:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>A <strong>[Magnifying glass]</strong> button, to test the interface.</p>
-</li>
-<li>
-<p>A <strong>[GraphQL]</strong> button, to test the API.</p>
-</li>
-</ul>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Import search function from explorer library.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Export a function to handle HTTP get requests.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Use ECMAScript deconstruction to pluck the request parameters we want.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Pluck the count parameter and default to 10 if it&#8217;s not passed.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Pluck the q parameter and default to 10 if it&#8217;s not passed and store in a variable called searchString.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>If no parameters are passed default to an empty object so deconstruction to default values still work.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>Let the exported get function return a response object.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>Store the result of the search function in the response object body property.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>Pass on the count variable as a parameter to the search function.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="10"></i><b>10</b></td>
+<td>Hardcode that the search function is executed using the interface named default.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="11"></i><b>11</b></td>
+<td>Here we could change which request parameter contains the searchString.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="12"></i><b>12</b></td>
+<td>Pass on the searchString variable as a parameter to the search function.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="13"></i><b>13</b></td>
+<td>Since the response body property is a pure Javascript object just return it as UTF-8 encoded json.</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="options"><a class="link" href="#options">Options</a></h2>
+<h2 id="sample_response"><a class="link" href="#sample_response">Sample response</a></h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>When creating, or editing interfaces, these are the available options you may manage:</p>
-</div>
-<div class="imageblock">
+<div class="listingblock">
 <div class="content">
-<img src="media/interface-myinterface.png" alt="Manage interfaces" width="1010w">
+<pre class="highlight"><code class="language-json" data-lang="json">{
+	"params": {              <i class="conum" data-value="1"></i><b>(1)</b>
+		"count": 1,
+		"facets": {},
+		"interface": "default",
+		"locale": "en",
+		"name": "q",
+		"searchString": "test or not",
+		"start": 0
+	},
+	"count": 1,              <i class="conum" data-value="2"></i><b>(2)</b>
+	"expand": false,         <i class="conum" data-value="3"></i><b>(3)</b>
+	"pages": 19,             <i class="conum" data-value="4"></i><b>(4)</b>
+	"total": 19,             <i class="conum" data-value="5"></i><b>(5)</b>
+	"removedStopWords": [    <i class="conum" data-value="6"></i><b>(6)</b>
+		"or",
+		"not"
+	],
+	"synonymsObj": {         <i class="conum" data-value="7"></i><b>(7)</b>
+		"Example synonyms": {  <i class="conum" data-value="8"></i><b>(8)</b>
+			"test": {            <i class="conum" data-value="9"></i><b>(9)</b>
+				"score": 3.862200975418091,
+				"to": [            <i class="conum" data-value="10"></i><b>(10)</b>
+					"expression",
+					"term"
+				]
+			}
+		}
+	},
+	"hits": [                <i class="conum" data-value="11"></i><b>(11)</b>
+		{
+			"title": "Request a demo of Enonic XP - Enonic",
+			"text": "… TimelineCareersContact us Enonic MarketEnonic DiscussEnonic SupportDemo requestSubmit your details below to get a 5 days &lt;b&gt;test&lt;/b&gt; drive in the cloud.
+ 		Email (to send you trial links)  Name I consent to receive communications in digital channels about…",
+		"href": "https://www.enonic.com/try-now"
+	}
+	],
+	"facetCategories": [     <i class="conum" data-value="12"></i><b>(12)</b>
+		{
+			"activeCount": 0,                           <i class="conum" data-value="13"></i><b>(13)</b>
+			"clearHref": "?",                           <i class="conum" data-value="14"></i><b>(14)</b>
+			"href": "?language=English&amp;language=Norsk", <i class="conum" data-value="15"></i><b>(15)</b>
+			"inactiveCount": 2,                         <i class="conum" data-value="16"></i><b>(16)</b>
+			"name": "Language",                         <i class="conum" data-value="17"></i><b>(17)</b>
+			"facets": [                                 <i class="conum" data-value="18"></i><b>(18)</b>
+				{
+					"href": "?language=English",            <i class="conum" data-value="19"></i><b>(19)</b>
+					"name": "English",                      <i class="conum" data-value="20"></i><b>(20)</b>
+					"removeHref": "?",                      <i class="conum" data-value="21"></i><b>(21)</b>
+					"count": 0                              <i class="conum" data-value="22"></i><b>(22)</b>
+				},
+				{
+					"href": "?language=Norsk",
+					"name": "Norsk",
+					"removeHref": "?",
+					"count": 0
+				}
+			]
+		}
+	],
+	"pagination": [          <i class="conum" data-value="23"></i><b>(23)</b>
+		{
+			"text": "1"               <i class="conum" data-value="24"></i><b>(24)</b>
+		},
+		{
+			"href": "?q=test&amp;page=2", <i class="conum" data-value="25"></i><b>(25)</b>
+			"text": "2"
+		},
+		{
+			"href": "?q=test&amp;page=3",
+			"text": "3"
+		},
+		{
+			"href": "?q=test&amp;page=4",
+			"text": "4"
+		},
+		{
+			"href": "?q=test&amp;page=5",
+			"text": "5"
+		},
+		{
+			"href": "?q=test&amp;page=6",
+			"text": "6"
+		},
+		{
+			"href": "?q=test&amp;page=7",
+			"text": "7"
+		},
+		{
+			"href": "?q=test&amp;page=8",
+			"text": "8"
+		},
+		{
+			"href": "?q=test&amp;page=9",
+			"text": "9"
+		},
+		{
+			"href": "?q=test&amp;page=10",
+			"text": "10"
+		},
+		{
+			"href": "?q=test&amp;page=2",
+			"text": "Next"            <i class="conum" data-value="26"></i><b>(26)</b>
+		},
+		{
+			"href": "?q=test&amp;page=19",
+			"text": "Last"
+		}
+	]
+}</code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Name</dt>
-<dd>
-<p>Each interface needs a unique name, which is also the identifier</p>
-<div class="admonitionblock note">
+<div class="colist arabic">
 <table>
 <tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Once created, the name cannot be changed.
-</td>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Which parameters the search function was passed or defaulted to.</td>
 </tr>
-</table>
-</div>
-</dd>
-<dt class="hdlist1">Collections</dt>
-<dd>
-<p>You need to specify at least one collection to include in the search.</p>
-</dd>
-<dt class="hdlist1">Boosting</dt>
-<dd>
-<p>By default, the _alltext field is used when performing text searches. Here, you may add specific fields and boosting options to tune your search results.</p>
-<div class="paragraph">
-<p><code>Field boosting</code> means matches in the specified field will get a higher (or lower) priority when calculating the document scoring.</p>
-</div>
-<div class="paragraph">
-<p><code>Term boosting</code> allows you to boost a specific value within a field.</p>
-</div>
-</dd>
-<dt class="hdlist1">Stop-words</dt>
-<dd>
-<p>The search string is split, by unicode boundaries, into words, then each word matching a stop word will be removed from the search string. Stop-words are applied before the synonym stage.</p>
-<div class="admonitionblock caution">
-<table>
 <tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-Be careful when adding stop words, it may quickly lead to an empty search string and no search results.
-</td>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>How many results was returned.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Whether or not synonym expansion was used. When false only searches the from field and adds from the to field. When true searches both from and to fields and adds from both to and from fields.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>How many pages there are.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>How many results there are in total.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>Which stop-words was removed before querying the interface.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>What synonyms where found and added based on the initial search string.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>Thesaurus name (in which thesaurus was the synonyms found).</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>Synonym name (which synonym was found based on the search string).</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="10"></i><b>10</b></td>
+<td>List of synonyms added when querying the interface.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="11"></i><b>11</b></td>
+<td>The actual search results in this page.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="12"></i><b>12</b></td>
+<td>How many results would there be with various facets. Based on advanced aggregated filter queries.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="13"></i><b>13</b></td>
+<td>How many facets are activated in this category.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="14"></i><b>14</b></td>
+<td>Url query to use to clear all filters in current category.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="15"></i><b>15</b></td>
+<td>Url query to use to activate all filters in current category.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="16"></i><b>16</b></td>
+<td>How many facets are NOT activated in this category.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="17"></i><b>17</b></td>
+<td>The name of the current facet category.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="18"></i><b>18</b></td>
+<td>List of facets in this category.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="19"></i><b>19</b></td>
+<td>Url query to use to activate this facet filter.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="20"></i><b>20</b></td>
+<td>Name of the current facet.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="21"></i><b>21</b></td>
+<td>Url query to use to inactivate this facet filter.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="22"></i><b>22</b></td>
+<td>How many results there would be if this facet filter was activated.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="23"></i><b>23</b></td>
+<td>Information needed to render a paginator on a webpage.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="24"></i><b>24</b></td>
+<td>A good text to use when rendering a paginator on a webpage.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="25"></i><b>25</b></td>
+<td>Url query to use to go to that page.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="26"></i><b>26</b></td>
+<td>This text can be localized.</td>
 </tr>
 </table>
-</div>
-</dd>
-<dt class="hdlist1">Synonyms</dt>
-<dd>
-<p>Optionally add one ore more thesauri. They will be used to "decorate" the query, and hopefully provide better results.</p>
-<div class="paragraph">
-<p>First any <a href="#_stop_words">Stop-words</a> are removed,
-then the remaining search string is used to query for synonyms,
-matches are used to decorate the main query.</p>
-</div>
-</dd>
-</dl>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-08-07 10:55:56 UTC
+Last updated 2023-08-07 10:55:55 UTC
 </div>
 </div>
 </body>

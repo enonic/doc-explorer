@@ -1,11 +1,11 @@
 {
   "versions": [
     {
-      "label": "1.4.0",
+      "label": "1.4",
       "checkout": "507538dbd76415790803680295aa4a4c7b1be068"
     },
     {
-      "label": "1.5.0",
+      "label": "1.5",
       "checkout": "1.5",
       "latest": true
     },
