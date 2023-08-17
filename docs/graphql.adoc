@@ -4,7 +4,7 @@
 
 == Endpoint
 
-The API is by default location is   
+The API's default location is:   
 
     http://localhost:8080/webapp/com.enonic.app.explorer/api/graphql
 

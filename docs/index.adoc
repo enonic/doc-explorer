@@ -6,7 +6,7 @@
 
 Collect, index and search across multiple different datasources with Explorer.
 
-NOTE: tl;dr - visit the <<start#,getting started section>>.
+NOTE: tl;dr - visit the <<start#,getting started>> section.
 
 These are the core concepts of Explorer:
 

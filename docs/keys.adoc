@@ -64,5 +64,10 @@ the header can be set clicking the top icon in the left hand menu panel.
 
 image::headers.png[Adding headers in GraphQL client,544w]
 
+=== Ingest Client
+
+The Ingest API comes with a handy user interface, simply add the API key at the top of the form, and it will automatically work for all API methods. 
+
+image::rest-client.png[Adding headers in REST client,768]
 
 

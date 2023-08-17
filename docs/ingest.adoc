@@ -1,13 +1,14 @@
 = Ingest API
+:imagesdir: media 
 :toc: right
 
-A simple HTTP API to Create, Read, Update and Delete documents
+A REST style api to create, read, update and delete documents. Use this to update documents in your collection(s) externally.
 
 == Endpoint
 
 The API's default location is:
 
-  localhost:8080/webapp/com.enonic.app.explorer/api/v1/documents
+  localhost:8080/webapp/com.enonic.app.explorer/api/v2/documents
 
 === Production deployment
 
@@ -18,18 +19,16 @@ Use https://developer.enonic.com/docs/xp/stable/deployment/vhosts[vhosts] to dep
 ----
 mapping.ingestApi.host = company.com
 mapping.ingestApi.source = /ingest
-mapping.ingestApi.target = /webapp/com.enonic.app.explorer/api/v1/documents
+mapping.ingestApi.target = /webapp/com.enonic.app.explorer/api/v2/documents
 ----
 
 Using the vhost configuration above, the API will be available on `company.com/ingest`
 
-=== Security
+=== Headers
 
-Access to the API requires that you create and submit a <<keys#, valid API key>> in the HTTP request header.
+The API requires that you <<keys#, create and submit a valid API key>> in the HTTP request header.
 
-== Headers
-
-Each request must contain the following headers:
+TODO: What about cty+accept?
 
 [%header,cols="1%,1%,1%,97%a"]
 [frame="none"]
@@ -38,259 +37,53 @@ Each request must contain the following headers:
 | Name          | Attributes | Value                     | Details
 | Accept        | <optional> | application/json          | What MIME-type the client wants in the response
 | Content-Type  | <required> | application/json          | What type of data is sent in the request body
-| Authorization | <required> | Explorer-Api-Key password | A valid API key (password) for the collection you want to get documents from.
+| Authorization | <required> | Explorer-Api-Key XXXX | A valid API key for the collection you want to get documents from.
 |===
 
+== API documentation
 
+The API is documented through the bundled user interface aka client.
 
-== GET
+Visit the API URL to give it a spin:
 
-Used to query for documents in a specific collection.
+image::rest-client.png[REST client,768]
 
-=== Usage
+Use the client by following the steps below:
 
-TODO: Usage example with cURL
+=== Common variables
 
-https://www.elastic.co/guide/en/elasticsearch/reference/current/query-filter-context.html#query-filter-context-ex
+Specify the API key, and the collection to access. These values will automatically be applied to the different operations. 
 
-.Elasticsearch documentation example
-[source,bash]
+=== Bulk operations
+
+You may perform the following bulk operations:
+
+* Get
+* Create or Modify
+* Delete
+
+=== Single operations
+
+Using a document's URL you may perform the following operations:
+
+* Get
+* Patch - TODO? Modify?
+* Delete
+
+== Usage examples
+
+Below are some examples of using the API via cURL:
+
+.Bulk get documents with id = 1 and 2
+[source,GraphQL]
 ----
-bash:~ tsi$ curl -X GET "localhost:9200/_search?pretty" -H 'Content-Type: application/json' -d'
-> {
->   "query": { 
->     "bool": { 
->       "must": [
->         { "match": { "title":   "Search"        }},
->         { "match": { "content": "Elasticsearch" }}
->       ],
->       "filter": [ 
->         { "term":  { "status": "published" }},
->         { "range": { "publish_date": { "gte": "2015-01-01" }}}
->       ]
->     }
->   }
-> }
-> '
-----
-
-.Testing a cURL example 
-[source,bash]
-----
-FILTER='{ "query":
-           "query {
-              alpha {
-                param1
-                param2
-              }
-            } "
-         }'
-curl \
--H "Accept: application/json" \
--H "Authorization: Explorer-Api-Key mykey"\
- http://localhost:8080/webapp/com.enonic.app.explorer/documents/api/v1?collection=mycollection&count=2&start=0 | jq
+curl -XGET "http://localhost:8080/webapp/com.enonic.app.explorer/api/v2/documents/{collection}?id=1&id=2&returnMetadata=false" -H "authorization:Explorer-Api-Key {apikey}"
 ----
 
-.TODO: Remove after converting to cURL
-[source,js]
+.Delete a single document
+[source,cmd]
 ----
-import {request} from '/lib/http-client';
-
-const COLLECTION = 'collectionName';
-const AUTHORIZATION = 'Explorer-Api-Key apiKey';
-
-export function get() {
-  const response = request({
-    contentType: 'application/json'
-    headers: {
-      'Accept': 'application/json',
-      'Authorization': AUTHORIZATION
-    },
-    method: 'GET',
-    params: {
-      collection: 'mycollection',
-      count: 2,
-      start: 0,
-      filters: JSON.stringify({
-        boolean: {
-          must: {
-            exists: {
-              field: 'url'
-            }
-          }
-        }
-      }),
-      sort: 'score DESC'
-    },
-    url: `http://localhost:8080/webapp/com.enonic.app.explorer/documents/api/v1`,
-  });
-}
+curl -XDELETE "http://localhost:8080/webapp/com.enonic.app.explorer/api/v2/documents/{collection}/{documentId}" -H "authorization:Explorer-Api-Key {apiKey}"
 ----
 
-.Sample response
-[source,json]
-----
-[
-  { "_id": "7b89af94-32a9-4e39-aedb-c553675a3287" },
-  { "_id": "2dec6e83-3cad-426a-ab7d-c7dabd3592f0" },
-]
-----
-
-
-
-=== Parameters
-
-[%header,cols="1%,1%,1%,1%,96%a"]
-[frame="none"]
-[grid="none"]
-|===
-| Name         | Type    | Attributes | Default    | Details
-| collection   | String  | <required> |            | Name of the collection to access (only one collection is supported)
-| id           | String  | <optional> |            | Id of document to get. May supply multiple. Will be converted into a query filter on the serverside.
-| count        | Integer | <optional> | 10         | How many documents to get.
-| start        | Integer | <optional> | 0          | Start index (used for paging).
-| filters      | JSON    | <optional> | {}         | Query filters. See documentation https://developer.enonic.com/docs/xp/stable/storage/filters
-| query        | JSON    | <optional> | {}         | Query expression. Keep in mind that filters are usually more quicker. See documentation. https://developer.enonic.com/docs/xp/stable/storage/noql
-| sort         | String  | <optional> | score DESC | Sorting expression.
-|===
-
-
-== POST
-
-Create or update documents in the specified collection
-
-=== Usage
-
-.TODO: Remove after converting to cURL
-[source,js]
-----
-import {request} from '/lib/http-client';
-
-const COLLECTION = 'collectionName';
-const AUTHORIZATION = 'Explorer-Api-Key apiKey';
-
-export function get() {
-  const response = request({
-    body: [{
-	available: true,
-	count: -999999999999999,
-	date: '2021-01-01',
-	datetime: '2021-01-01T00:00:00',
-	instant: '2021-01-01T00:00:00Z',
-	location: '59.9090442,10.7423389',
-	price: -999999999999999.9,
-	time: '00:00:00',
-	language: 'english',
-	text: 'This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission.',
-	title: 'Example Domain',
-	url: 'https://www.example.com'
-},{
-	available: false,
-	count: 999999999999999,
-	date: '2021-12-31',
-	datetime: '2021-12-31T23:59:59',
-	instant: '2021-12-31T23:59:59Z',
-	location: [
-		59.9090442,
-		10.7423389
-	],
-	price: 999999999999999.9,
-	time: '23:59:59',
-	language: 'english',
-	text: 'Whatever',
-	title: 'Whatever',
-	url: 'https://www.whatever.com'
-}],
-    contentType: 'application/json'
-    headers: {
-      'Accept': 'application/json',
-      'Authorization': AUTHORIZATION
-    },
-    method: 'POST',
-    params: {
-      collection: 'mycollection',
-      requireValid: true,
-      partial: false
-    },
-    url: `http://localhost:8080/webapp/com.enonic.app.explorer/documents/api/v1`,
-  });
-}
-----
-
-.Sample response
-[source,json]
-----
-[
-  { "_id": "7b89af94-32a9-4e39-aedb-c553675a3287" },
-  { "_id": "2dec6e83-3cad-426a-ab7d-c7dabd3592f0" },
-]
-----
-
-
-=== Parameters
-
-[%header,cols="1%,1%,1%,1%,97%a"]
-[frame="none"]
-[grid="none"]
-|===
-| Name         | Type    | Attributes | Default    | Details
-| collection   | String  | <required> |            | Name of the collection in which to create the document
-| requireValid | String  | <optional> | true       | The data has to be valid, according to the field types, to be created or updated. If requireValid=true and the data is not strictly valid, an error will be returned.
-| partial      | String  | <optional> | false      | When true, values are only added or updated. Unprovided values are not removed.
-|===
-
-
-
-
-== DELETE
-
-Remove documents from the specified collection
-
-=== Usage
-
-.TODO: Convert to cURL
-[source,js]
-----
-import {request} from '/lib/http-client';
-
-const COLLECTION = 'collectionName';
-const AUTHORIZATION = 'Explorer-Api-Key apiKey';
-
-export function get() {
-  const response = request({
-    contentType: 'application/json'
-    headers: {
-      'Accept': 'application/json',
-      'Authorization': AUTHORIZATION
-    },
-    method: 'DELETE',
-    params: {
-      collection: 'mycollection',
-      id: '7b89af94-32a9-4e39-aedb-c553675a3287'
-    },
-    url: `http://localhost:8080/webapp/com.enonic.app.explorer/documents/api/v1`,
-  });
-}
-----
-
-.Sample response
-[source,json]
-----
-[
-  { "_id": "7b89af94-32a9-4e39-aedb-c553675a3287" },
-]
-----
-
-
-=== Parameters
-
-[%header,cols="1%,1%,1%,97%a"]
-[frame="none"]
-[grid="none"]
-|===
-| Name         | Type    | Attributes | Details
-| collection   | String  | <required> | Name of the collection where the document exists
-| id           | String  | <required> | Id of document to delete. May supply multiple.
-|===
-
-
+TIP: Visit the API endpoint with your browser for a complete set of documentation.

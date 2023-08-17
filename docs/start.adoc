@@ -31,7 +31,7 @@ TIP: The template ensures that Explorer and all relevant dependencies are pre-in
 
 == Explorer admin
 
-Once the environment has booted. From the new solution page, click `Admin -> btn:[Launch]`.  
+Once the environment has booted. From the new solution page, click `Admin -> btn:[Launch]`.
 
 This will take you to the environment dashboard.
 
@@ -51,9 +51,9 @@ From the main panel you can search the indexed documents - bu sadly there is not
 
 To get some data to play with, let's use the built-in, simple <<collectors/webcrawler#,Web crawler collector>> to fetch content from Enonic Market.
 
-. **Create a new Collection**. `Collections -> btn:[+]`. The Create button can be found at the bottom right. 
+. **Create a new Collection**. `Collections -> btn:[+]`. The Create button (Green +) can be found at the bottom right hand of the page. 
 +
-* Give your new collection a name, i.e. "market"
+* Give your new collection a name, i.e. `market`.
 * choose `Web crawler` from the collector dropdown menu
 * provide the collector with a starting URL: `\https://market.enonic.com`
 * Skip all other options, and click btn:[Save] at the bottom of the form
@@ -69,7 +69,7 @@ To view the status of the job, visit the `Collections -> Status` page from the E
 +
 image::collector-status.png[CollectorStatus,1039]
 
-TIP: In addition to using collectors (jobs that runs within Enonic XP), you may also inject data externally via the <<ingest#,Ingest API>>.
+TIP: In addition to using collectors (jobs that runs within Enonic), you may also inject data externally through the <<ingest#,Ingest API>>.
 
 == Documents
 
@@ -77,9 +77,9 @@ TIP: In addition to using collectors (jobs that runs within Enonic XP), you may 
 
 Once the collector job has completed, clicking the `document count` will take you to the `Documents` page. 
 
-NOTE: You can easily get to this page via the Explorer menu as well.
+NOTE: The `Documents` page is available from the Explorer menu as well.
 
-From the Documents page, you may browse and filter all available documents. You can also configure which fields to show. Clicking the leftmost "JSON" icon will reveal the raw data that was indexed for this document.
+From the Documents page, you may browse and filter all available documents. You can also configure which fields to show. Clicking the leftmost `JSON` icon will reveal the raw data that was indexed for this document.
 
 Peform your your first search by typing `explorer` in the search box:
 
@@ -87,11 +87,11 @@ image::documents-search-explorer.png["Search results for explorer",1024w]
 
 == Document types
 
-In order to optimize your search, you may need to tune how the different fields are indexed. This is managed via `Document types`.
+In order to optimize your search, you may need to tune how the different fields are indexed. Indexing is managed via `Document types`.
 
 From the `Document types` page, you should see a single entry - `Web page`. 
 
-This specific document type, which was automatically created by the `Web crawler collector`, is a so-called "Managed" document type. This means that the collector is responsible for the life cycle of the document type - as opposed to a manually created document type.
+This specific document type, which was automatically created by the `Web crawler collector`, is called a managed document type. This means that the collector is responsible for the life cycle of the document type - as opposed to a manually created document type.
 
 If you try editing the document type (using the edit icon on the right hand side), you will be warned that it is managed. Ignore this and go on to see the full document type details:
 
@@ -99,7 +99,7 @@ image::document-type-webpage.png["Webpage document type",1010w]
 
 A document type may be used across multiple collections, and you may also use multiple document types within a single collection.
 
-TIP: Every document also has a set of common meta-fields like id, collection, createdTime and documentType. These are automatically generated and cannot be removed or changed.
+TIP: Every document also has a set of common meta-fields like id, collection, createdTime and documentType. These cannot be removed or changed.
 
 == Interfaces
 
@@ -107,7 +107,7 @@ Interfaces are used to manually tune your search results. Tuning includes boosti
 
 Like collections and document types, Interfaces are created and managed directly from the Explorer admin.
 
-TIP: An interface in this context is not the actual user interface, but rather an API. Explorer provide a <<graphql#, GraphQL API>>. The actual end-user UX must be built on top of this.
+TIP: An interface in this context is not the actual user interface, but refers to the API. Explorer provide a <<graphql#, GraphQL API>> which is optimized for searching your documents. The actual end-user UX must be built on top of this.
 
 . **Create a new interface** by clicking `Interfaces -> btn:[+]`.
 +

@@ -3,17 +3,17 @@
 
 == Introduction
 
-A collector is essentially an Enonic application that can be configured to fetch data from a specific source and add it to one (or more) collections in Explorer
+A collector is essentially an Enonic application that can be configured to fetch data from a specific source and add it to one (or more) Explorer collections.
 
 == Usage
 
 === Install
 
-Collectors are typically distributed as regular XP applications. A single application may contain multiple collectors. As such, the first thing you need to do is install your collector.
+Collectors are typically distributed as regular XP applications. A single application may contain multiple collectors. As such, the first thing you need to do is install the app.
 
 === Configure
 
-When you create a collection, link your connector to it, and configure it using the form that appears. 
+When you create a collection, select the collector, and configure it using the form that appears.
 
 Each collector may provide special configuration forms that allow you to tune how it will work for a specific <<collections, collection>>.
 
@@ -23,11 +23,11 @@ NOTE: A collection may only have a single collector associated with it.
 
 Collectors run as background jobs, and may either be executed manually, or via a schedule. When running, the collector will (hopefully) fill the associated collection with documents.
 
-== Webcrawler collector
+== The Webcrawler collector
 
 Explorer ships with a standard collector called `Webcrawler`. This is a simple webcrawler which can be used to index traditional server-side rendered websites, or simply used for testing purposes.
 
-The webcrawler only processes HTML pages. It will extract text from the HTML document and remove all element tags.
+The webcrawler only processes HTML pages. It will extract text from the HTML document, effectively removing any element tags.
 
 NOTE: Text within <script>, <nav> and <footer> elements will automatically be removed before the document is stored in the collection.
 
@@ -55,7 +55,6 @@ User-Agent:: Some webservers handle user-agents differently. Here you can preten
 
 Max pages:: Some websites dynamically generate pages. To avoid infinite crawling sessions, you may specify a maximum number of pages to crawl. The default value is 1000.
 
-
 == Custom collectors
 
-An exciting feature of Explorer is that you may also build custom collectors. We have created a dedicated https://developer.enonic.com/docs/collector[starter-kit and tutorial for building custom collectors].
+An exciting feature of Explorer is that you may also build your own collectors. We prepared a dedicated https://developer.enonic.com/docs/collector[starter-kit and tutorial for building custom collectors] to give you a flying start.
