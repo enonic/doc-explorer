@@ -443,28 +443,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#endpoint">Endpoint</a>
 <ul class="sectlevel2">
 <li><a href="#production_deployment">Production deployment</a></li>
-<li><a href="#security">Security</a></li>
-</ul>
-</li>
 <li><a href="#headers">Headers</a></li>
-<li><a href="#get">GET</a>
-<ul class="sectlevel2">
-<li><a href="#usage">Usage</a></li>
-<li><a href="#parameters">Parameters</a></li>
 </ul>
 </li>
-<li><a href="#post">POST</a>
+<li><a href="#api_documentation">API documentation</a>
 <ul class="sectlevel2">
-<li><a href="#usage_2">Usage</a></li>
-<li><a href="#parameters_2">Parameters</a></li>
+<li><a href="#common_variables">Common variables</a></li>
+<li><a href="#bulk_operations">Bulk operations</a></li>
+<li><a href="#single_operations">Single operations</a></li>
 </ul>
 </li>
-<li><a href="#delete">DELETE</a>
-<ul class="sectlevel2">
-<li><a href="#usage_3">Usage</a></li>
-<li><a href="#parameters_3">Parameters</a></li>
-</ul>
-</li>
+<li><a href="#usage_examples">Usage examples</a></li>
 </ul>
 </div>
 </div>
@@ -472,7 +461,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>A simple HTTP API to Create, Read, Update and Delete documents</p>
+<p>A REST style api to create, read, update and delete documents. Use this to update documents in your collection(s) externally.</p>
 </div>
 </div>
 </div>
@@ -484,7 +473,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>localhost:8080/webapp/com.enonic.app.explorer/api/v1/documents</pre>
+<pre>localhost:8080/webapp/com.enonic.app.explorer/api/v2/documents</pre>
 </div>
 </div>
 <div class="sect2">
@@ -497,7 +486,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <pre class="highlight"><code class="language-cfg" data-lang="cfg">mapping.ingestApi.host = company.com
 mapping.ingestApi.source = /ingest
-mapping.ingestApi.target = /webapp/com.enonic.app.explorer/api/v1/documents</code></pre>
+mapping.ingestApi.target = /webapp/com.enonic.app.explorer/api/v2/documents</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -505,18 +494,12 @@ mapping.ingestApi.target = /webapp/com.enonic.app.explorer/api/v1/documents</cod
 </div>
 </div>
 <div class="sect2">
-<h3 id="security"><a class="link" href="#security">Security</a></h3>
+<h3 id="headers"><a class="link" href="#headers">Headers</a></h3>
 <div class="paragraph">
-<p>Access to the API requires that you create and submit a <a href="keys.ahtml">valid API key</a> in the HTTP request header.</p>
+<p>The API requires that you <a href="keys.ahtml">create and submit a valid API key</a> in the HTTP request header.</p>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="headers"><a class="link" href="#headers">Headers</a></h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>Each request must contain the following headers:</p>
+<p>TODO: What about cty+accept?</p>
 </div>
 <table class="tableblock frame-none grid-none stretch">
 <colgroup>
@@ -553,194 +536,9 @@ mapping.ingestApi.target = /webapp/com.enonic.app.explorer/api/v1/documents</cod
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Authorization</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;required&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Explorer-Api-Key password</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explorer-Api-Key XXXX</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>A valid API key (password) for the collection you want to get documents from.</p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="sect1">
-<h2 id="get"><a class="link" href="#get">GET</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Used to query for documents in a specific collection.</p>
-</div>
-<div class="sect2">
-<h3 id="usage"><a class="link" href="#usage">Usage</a></h3>
-<div class="paragraph">
-<p>TODO: Usage example with cURL</p>
-</div>
-<div class="paragraph">
-<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-filter-context.html#query-filter-context-ex" class="bare">https://www.elastic.co/guide/en/elasticsearch/reference/current/query-filter-context.html#query-filter-context-ex</a></p>
-</div>
-<div class="listingblock">
-<div class="title">Elasticsearch documentation example</div>
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">bash:~ tsi$ curl -X GET "localhost:9200/_search?pretty" -H 'Content-Type: application/json' -d'
-&gt; {
-&gt;   "query": {
-&gt;     "bool": {
-&gt;       "must": [
-&gt;         { "match": { "title":   "Search"        }},
-&gt;         { "match": { "content": "Elasticsearch" }}
-&gt;       ],
-&gt;       "filter": [
-&gt;         { "term":  { "status": "published" }},
-&gt;         { "range": { "publish_date": { "gte": "2015-01-01" }}}
-&gt;       ]
-&gt;     }
-&gt;   }
-&gt; }
-&gt; '</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Testing a cURL example</div>
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">FILTER='{ "query":
-           "query {
-              alpha {
-                param1
-                param2
-              }
-            } "
-         }'
-curl \
--H "Accept: application/json" \
--H "Authorization: Explorer-Api-Key mykey"\
- http://localhost:8080/webapp/com.enonic.app.explorer/documents/api/v1?collection=mycollection&amp;count=2&amp;start=0 | jq</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">TODO: Remove after converting to cURL</div>
-<div class="content">
-<pre class="highlight"><code class="language-js" data-lang="js">import {request} from '/lib/http-client';
-
-const COLLECTION = 'collectionName';
-const AUTHORIZATION = 'Explorer-Api-Key apiKey';
-
-export function get() {
-  const response = request({
-    contentType: 'application/json'
-    headers: {
-      'Accept': 'application/json',
-      'Authorization': AUTHORIZATION
-    },
-    method: 'GET',
-    params: {
-      collection: 'mycollection',
-      count: 2,
-      start: 0,
-      filters: JSON.stringify({
-        boolean: {
-          must: {
-            exists: {
-              field: 'url'
-            }
-          }
-        }
-      }),
-      sort: 'score DESC'
-    },
-    url: `http://localhost:8080/webapp/com.enonic.app.explorer/documents/api/v1`,
-  });
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Sample response</div>
-<div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">[
-  { "_id": "7b89af94-32a9-4e39-aedb-c553675a3287" },
-  { "_id": "2dec6e83-3cad-426a-ab7d-c7dabd3592f0" },
-]</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="parameters"><a class="link" href="#parameters">Parameters</a></h3>
-<table class="tableblock frame-none grid-none stretch">
-<colgroup>
-<col style="width: 1%;">
-<col style="width: 1%;">
-<col style="width: 1%;">
-<col style="width: 1%;">
-<col style="width: 96%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Attributes</th>
-<th class="tableblock halign-left valign-top">Default</th>
-<th class="tableblock halign-left valign-top">Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">collection</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;required&gt;</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Name of the collection to access (only one collection is supported)</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Id of document to get. May supply multiple. Will be converted into a query filter on the serverside.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">count</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>How many documents to get.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">start</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Integer</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Start index (used for paging).</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">filters</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JSON</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">{}</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Query filters. See documentation <a href="https://developer.enonic.com/docs/xp/stable/storage/filters" class="bare">https://developer.enonic.com/docs/xp/stable/storage/filters</a></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">query</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JSON</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">{}</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Query expression. Keep in mind that filters are usually more quicker. See documentation. <a href="https://developer.enonic.com/docs/xp/stable/storage/noql" class="bare">https://developer.enonic.com/docs/xp/stable/storage/noql</a></p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">sort</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">score DESC</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Sorting expression.</p>
+<p>A valid API key for the collection you want to get documents from.</p>
 </div></div></td>
 </tr>
 </tbody>
@@ -749,208 +547,96 @@ export function get() {
 </div>
 </div>
 <div class="sect1">
-<h2 id="post"><a class="link" href="#post">POST</a></h2>
+<h2 id="api_documentation"><a class="link" href="#api_documentation">API documentation</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Create or update documents in the specified collection</p>
+<p>The API is documented through the bundled user interface aka client.</p>
+</div>
+<div class="paragraph">
+<p>Visit the API URL to give it a spin:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/rest-client.png" alt="REST client" width="768">
+</div>
+</div>
+<div class="paragraph">
+<p>Use the client by following the steps below:</p>
 </div>
 <div class="sect2">
-<h3 id="usage_2"><a class="link" href="#usage_2">Usage</a></h3>
-<div class="listingblock">
-<div class="title">TODO: Remove after converting to cURL</div>
-<div class="content">
-<pre class="highlight"><code class="language-js" data-lang="js">import {request} from '/lib/http-client';
-
-const COLLECTION = 'collectionName';
-const AUTHORIZATION = 'Explorer-Api-Key apiKey';
-
-export function get() {
-  const response = request({
-    body: [{
-	available: true,
-	count: -999999999999999,
-	date: '2021-01-01',
-	datetime: '2021-01-01T00:00:00',
-	instant: '2021-01-01T00:00:00Z',
-	location: '59.9090442,10.7423389',
-	price: -999999999999999.9,
-	time: '00:00:00',
-	language: 'english',
-	text: 'This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission.',
-	title: 'Example Domain',
-	url: 'https://www.example.com'
-},{
-	available: false,
-	count: 999999999999999,
-	date: '2021-12-31',
-	datetime: '2021-12-31T23:59:59',
-	instant: '2021-12-31T23:59:59Z',
-	location: [
-		59.9090442,
-		10.7423389
-	],
-	price: 999999999999999.9,
-	time: '23:59:59',
-	language: 'english',
-	text: 'Whatever',
-	title: 'Whatever',
-	url: 'https://www.whatever.com'
-}],
-    contentType: 'application/json'
-    headers: {
-      'Accept': 'application/json',
-      'Authorization': AUTHORIZATION
-    },
-    method: 'POST',
-    params: {
-      collection: 'mycollection',
-      requireValid: true,
-      partial: false
-    },
-    url: `http://localhost:8080/webapp/com.enonic.app.explorer/documents/api/v1`,
-  });
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Sample response</div>
-<div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">[
-  { "_id": "7b89af94-32a9-4e39-aedb-c553675a3287" },
-  { "_id": "2dec6e83-3cad-426a-ab7d-c7dabd3592f0" },
-]</code></pre>
-</div>
+<h3 id="common_variables"><a class="link" href="#common_variables">Common variables</a></h3>
+<div class="paragraph">
+<p>Specify the API key, and the collection to access. These values will automatically be applied to the different operations.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="parameters_2"><a class="link" href="#parameters_2">Parameters</a></h3>
-<table class="tableblock frame-none grid-none stretch">
-<colgroup>
-<col style="width: 0.99%;">
-<col style="width: 0.99%;">
-<col style="width: 0.99%;">
-<col style="width: 0.99%;">
-<col style="width: 96.04%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Attributes</th>
-<th class="tableblock halign-left valign-top">Default</th>
-<th class="tableblock halign-left valign-top">Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">collection</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;required&gt;</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Name of the collection in which to create the document</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">requireValid</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The data has to be valid, according to the field types, to be created or updated. If requireValid=true and the data is not strictly valid, an error will be returned.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">partial</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>When true, values are only added or updated. Unprovided values are not removed.</p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
+<h3 id="bulk_operations"><a class="link" href="#bulk_operations">Bulk operations</a></h3>
+<div class="paragraph">
+<p>You may perform the following bulk operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Get</p>
+</li>
+<li>
+<p>Create or Modify</p>
+</li>
+<li>
+<p>Delete</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="single_operations"><a class="link" href="#single_operations">Single operations</a></h3>
+<div class="paragraph">
+<p>Using a document&#8217;s URL you may perform the following operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Get</p>
+</li>
+<li>
+<p>Patch - TODO? Modify?</p>
+</li>
+<li>
+<p>Delete</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="delete"><a class="link" href="#delete">DELETE</a></h2>
+<h2 id="usage_examples"><a class="link" href="#usage_examples">Usage examples</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Remove documents from the specified collection</p>
+<p>Below are some examples of using the API via cURL:</p>
 </div>
-<div class="sect2">
-<h3 id="usage_3"><a class="link" href="#usage_3">Usage</a></h3>
 <div class="listingblock">
-<div class="title">TODO: Convert to cURL</div>
+<div class="title">Bulk get documents with id = 1 and 2</div>
 <div class="content">
-<pre class="highlight"><code class="language-js" data-lang="js">import {request} from '/lib/http-client';
-
-const COLLECTION = 'collectionName';
-const AUTHORIZATION = 'Explorer-Api-Key apiKey';
-
-export function get() {
-  const response = request({
-    contentType: 'application/json'
-    headers: {
-      'Accept': 'application/json',
-      'Authorization': AUTHORIZATION
-    },
-    method: 'DELETE',
-    params: {
-      collection: 'mycollection',
-      id: '7b89af94-32a9-4e39-aedb-c553675a3287'
-    },
-    url: `http://localhost:8080/webapp/com.enonic.app.explorer/documents/api/v1`,
-  });
-}</code></pre>
+<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">curl -XGET "http://localhost:8080/webapp/com.enonic.app.explorer/api/v2/documents/{collection}?id=1&amp;id=2&amp;returnMetadata=false" -H "authorization:Explorer-Api-Key {apikey}"</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Sample response</div>
+<div class="title">Delete a single document</div>
 <div class="content">
-<pre class="highlight"><code class="language-json" data-lang="json">[
-  { "_id": "7b89af94-32a9-4e39-aedb-c553675a3287" },
-]</code></pre>
+<pre class="highlight"><code class="language-cmd" data-lang="cmd">curl -XDELETE "http://localhost:8080/webapp/com.enonic.app.explorer/api/v2/documents/{collection}/{documentId}" -H "authorization:Explorer-Api-Key {apiKey}"</code></pre>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="parameters_3"><a class="link" href="#parameters_3">Parameters</a></h3>
-<table class="tableblock frame-none grid-none stretch">
-<colgroup>
-<col style="width: 1%;">
-<col style="width: 1%;">
-<col style="width: 1%;">
-<col style="width: 97%;">
-</colgroup>
-<thead>
+<div class="admonitionblock tip">
+<table>
 <tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Attributes</th>
-<th class="tableblock halign-left valign-top">Details</th>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Visit the API endpoint with your browser for a complete set of documentation.
+</td>
 </tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">collection</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;required&gt;</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Name of the collection where the document exists</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;required&gt;</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Id of document to delete. May supply multiple.</p>
-</div></div></td>
-</tr>
-</tbody>
 </table>
 </div>
 </div>
@@ -958,7 +644,7 @@ export function get() {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-08-07 10:55:56 UTC
+Last updated 2023-08-17 07:13:11 UTC
 </div>
 </div>
 </body>

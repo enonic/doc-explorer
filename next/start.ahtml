@@ -585,11 +585,11 @@ Only users with the role <code>system.admin</code>, or <code>com.enonic.explorer
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>Create a new Collection</strong>. <code>Collections &#8594; <b class="button">+</b></code>. The Create button can be found at the bottom right.</p>
+<p><strong>Create a new Collection</strong>. <code>Collections &#8594; <b class="button">+</b></code>. The Create button (Green +) can be found at the bottom right hand of the page.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Give your new collection a name, i.e. "market"</p>
+<p>Give your new collection a name, i.e. <code>market</code>.</p>
 </li>
 <li>
 <p>choose <code>Web crawler</code> from the collector dropdown menu</p>
@@ -634,7 +634,7 @@ Only users with the role <code>system.admin</code>, or <code>com.enonic.explorer
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-In addition to using collectors (jobs that runs within Enonic XP), you may also inject data externally via the <a href="ingest.ahtml">Ingest API</a>.
+In addition to using collectors (jobs that runs within Enonic), you may also inject data externally through the <a href="ingest.ahtml">Ingest API</a>.
 </td>
 </tr>
 </table>
@@ -657,13 +657,13 @@ In addition to using collectors (jobs that runs within Enonic XP), you may also 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-You can easily get to this page via the Explorer menu as well.
+The <code>Documents</code> page is available from the Explorer menu as well.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>From the Documents page, you may browse and filter all available documents. You can also configure which fields to show. Clicking the leftmost "JSON" icon will reveal the raw data that was indexed for this document.</p>
+<p>From the Documents page, you may browse and filter all available documents. You can also configure which fields to show. Clicking the leftmost <code>JSON</code> icon will reveal the raw data that was indexed for this document.</p>
 </div>
 <div class="paragraph">
 <p>Peform your your first search by typing <code>explorer</code> in the search box:</p>
@@ -679,13 +679,13 @@ You can easily get to this page via the Explorer menu as well.
 <h2 id="document_types"><a class="link" href="#document_types">Document types</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order to optimize your search, you may need to tune how the different fields are indexed. This is managed via <code>Document types</code>.</p>
+<p>In order to optimize your search, you may need to tune how the different fields are indexed. Indexing is managed via <code>Document types</code>.</p>
 </div>
 <div class="paragraph">
 <p>From the <code>Document types</code> page, you should see a single entry - <code>Web page</code>.</p>
 </div>
 <div class="paragraph">
-<p>This specific document type, which was automatically created by the <code>Web crawler collector</code>, is a so-called "Managed" document type. This means that the collector is responsible for the life cycle of the document type - as opposed to a manually created document type.</p>
+<p>This specific document type, which was automatically created by the <code>Web crawler collector</code>, is called a managed document type. This means that the collector is responsible for the life cycle of the document type - as opposed to a manually created document type.</p>
 </div>
 <div class="paragraph">
 <p>If you try editing the document type (using the edit icon on the right hand side), you will be warned that it is managed. Ignore this and go on to see the full document type details:</p>
@@ -705,7 +705,7 @@ You can easily get to this page via the Explorer menu as well.
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Every document also has a set of common meta-fields like id, collection, createdTime and documentType. These are automatically generated and cannot be removed or changed.
+Every document also has a set of common meta-fields like id, collection, createdTime and documentType. These cannot be removed or changed.
 </td>
 </tr>
 </table>
@@ -728,7 +728,7 @@ Every document also has a set of common meta-fields like id, collection, created
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-An interface in this context is not the actual user interface, but rather an API. Explorer provide a <a href="graphql.ahtml">GraphQL API</a>. The actual end-user UX must be built on top of this.
+An interface in this context is not the actual user interface, but refers to the API. Explorer provide a <a href="graphql.ahtml">GraphQL API</a> which is optimized for searching your documents. The actual end-user UX must be built on top of this.
 </td>
 </tr>
 </table>
@@ -936,7 +936,7 @@ An interface in this context is not the actual user interface, but rather an API
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-08-07 10:55:56 UTC
+Last updated 2023-08-17 07:13:11 UTC
 </div>
 </div>
 </body>

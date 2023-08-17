@@ -448,7 +448,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#run">Run</a></li>
 </ul>
 </li>
-<li><a href="#webcrawler_collector">Webcrawler collector</a>
+<li><a href="#the_webcrawler_collector">The Webcrawler collector</a>
 <ul class="sectlevel2">
 <li><a href="#configuration">Configuration</a></li>
 </ul>
@@ -462,7 +462,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A collector is essentially an Enonic application that can be configured to fetch data from a specific source and add it to one (or more) collections in Explorer</p>
+<p>A collector is essentially an Enonic application that can be configured to fetch data from a specific source and add it to one (or more) Explorer collections.</p>
 </div>
 </div>
 </div>
@@ -472,13 +472,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect2">
 <h3 id="install"><a class="link" href="#install">Install</a></h3>
 <div class="paragraph">
-<p>Collectors are typically distributed as regular XP applications. A single application may contain multiple collectors. As such, the first thing you need to do is install your collector.</p>
+<p>Collectors are typically distributed as regular XP applications. A single application may contain multiple collectors. As such, the first thing you need to do is install the app.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="configure"><a class="link" href="#configure">Configure</a></h3>
 <div class="paragraph">
-<p>When you create a collection, link your connector to it, and configure it using the form that appears.</p>
+<p>When you create a collection, select the collector, and configure it using the form that appears.</p>
 </div>
 <div class="paragraph">
 <p>Each collector may provide special configuration forms that allow you to tune how it will work for a specific <a href="#collections">collection</a>.</p>
@@ -505,13 +505,13 @@ A collection may only have a single collector associated with it.
 </div>
 </div>
 <div class="sect1">
-<h2 id="webcrawler_collector"><a class="link" href="#webcrawler_collector">Webcrawler collector</a></h2>
+<h2 id="the_webcrawler_collector"><a class="link" href="#the_webcrawler_collector">The Webcrawler collector</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Explorer ships with a standard collector called <code>Webcrawler</code>. This is a simple webcrawler which can be used to index traditional server-side rendered websites, or simply used for testing purposes.</p>
 </div>
 <div class="paragraph">
-<p>The webcrawler only processes HTML pages. It will extract text from the HTML document and remove all element tags.</p>
+<p>The webcrawler only processes HTML pages. It will extract text from the HTML document, effectively removing any element tags.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -579,14 +579,14 @@ Text within &lt;script&gt;, &lt;nav&gt; and &lt;footer&gt; elements will automat
 <h2 id="custom_collectors"><a class="link" href="#custom_collectors">Custom collectors</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>An exciting feature of Explorer is that you may also build custom collectors. We have created a dedicated <a href="https://developer.enonic.com/docs/collector">starter-kit and tutorial for building custom collectors</a>.</p>
+<p>An exciting feature of Explorer is that you may also build your own collectors. We prepared a dedicated <a href="https://developer.enonic.com/docs/collector">starter-kit and tutorial for building custom collectors</a> to give you a flying start.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-08-07 10:55:56 UTC
+Last updated 2023-08-17 07:13:11 UTC
 </div>
 </div>
 </body>

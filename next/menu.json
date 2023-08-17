@@ -37,16 +37,16 @@
       "document": "keys"
     },
     {
-      "title": "Collectors",
-      "document": "collectors"
-    },
-    {
       "title": "GraphQL API",
       "document": "graphql"
     },
     {
       "title": "Ingest API",
       "document": "ingest"
+    },
+    {
+      "title": "Collectors",
+      "document": "collectors"
     }
   ]
 }
