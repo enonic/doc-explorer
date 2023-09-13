@@ -1,0 +1,381 @@
+= Collector JavaScript API
+:toc: right
+:imagesdir: media
+
+== Introduction
+
+The collector JS API is provided via the `lib-explorer` dependency. It provides everything you need in order to work with collections and documents.
+
+== Usage
+Add the following to your `build.gradle` file:
+
+[source,groovy]
+----
+dependencies {
+  include "com.enonic.lib:lib-explorer:4.x.x"
+}
+----
+
+In your task controller, add a require statement:
+
+[source,TypeScript]
+----
+import {Collector} from '/lib/explorer';
+----
+
+Create the Collector object within the run function. The paramers are automatically passed to the task from Explorer.
+
+[source,TypeScript]
+----
+export function run({
+	collectionId,
+	collectorId,
+	configJson,
+	language
+}) {
+	const collector = new Collector<CollectorConfig>({
+		collectionId, collectorId, configJson, language
+	});
+----
+
+You are now ready to use the API.
+
+== Constructor
+
+Constructor for the Collector class.
+
+TODO:
+* Throws if any of the parameters are missing or invalid.
+* Gets information about the Collection.
+* Parses the configJson and provides the result via the config property.
+
+[.lead]
+Parameters
+
+An object with the following keys and their values:
+
+[%header,cols="1%,1%,98%a"]
+[frame="none"]
+[grid="none"]
+|===
+| Name | Kind | Details
+| collectionId | string | Id of the collection to use
+| collectorId | string | Id of the collector (i.e. `com.example.app:collector`)
+| configJson | object | The collector configuration
+| language | string | a valid locale
+|===
+
+[.lead]
+Returns
+
+Collector object
+
+== Methods
+
+These are the available methods of the Collector object
+
+=== start
+
+TODO
+* Stores a startTime timestamp used in duration calculations.
+* Reports an initial progress via lib-task.
+* Creates a new collection repo (if needed).
+* Persists information that the collector is running (so it can't be run twice in parallel, but can be stopped).
+* Sets up a journal to write state information to.
+
+
+[.lead]
+Parameters
+
+*None*
+
+[.lead]
+Returns
+
+*Void*
+
+[.lead]
+Examples
+
+.Calling the start method
+[source,TypeScript]
+----
+collector.start();
+----
+
+=== queryDocuments()
+
+This method makes is possible to query the exisiting documents in the collection.
+Useful to find the document id to modify an existing document, rather than creating a new one.
+
+
+[.lead]
+Parameters
+
+*None*
+
+[.lead]
+Returns
+
+*Void*
+
+[.lead]
+Examples
+
+.Calling the start method
+[source,TypeScript]
+----
+collector.start();
+----
+
+=== persistDocument()
+
+This method will create or modify a document, based on its parameters.
+If can also extend a documentType and validate against it.
+
+[.lead]
+Parameters
+
+*None*
+
+[.lead]
+Returns
+
+*Void*
+
+[.lead]
+Examples
+
+.Calling the start method
+[source,TypeScript]
+----
+collector.start();
+----
+
+=== deleteDocument()
+
+This method makes it possible to delete one or more documents from the collection.
+
+
+[.lead]
+Parameters
+
+*None*
+
+[.lead]
+Returns
+
+*Void*
+
+[.lead]
+Examples
+
+.Calling the start method
+[source,TypeScript]
+----
+collector.start();
+----
+
+.Sample response
+[source,JSON]
+----
+SOME JSON
+----
+
+
+=== getDocumentNode()
+
+This method makes it possible to get one ore more documents from the collection.
+
+
+[.lead]
+Parameters
+
+*None*
+
+[.lead]
+Returns
+
+*Void*
+
+[.lead]
+Examples
+
+.Calling the start method
+[source,TypeScript]
+----
+collector.start();
+----
+
+
+=== shouldStop()
+
+This method checks whether the STOP button has be clicked in the Explorer Admin GUI.
+
+Useful to finish gracefully, for instance by breaking loops.
+
+
+[.lead]
+Parameters
+
+*None*
+
+[.lead]
+Returns
+
+*Void*
+
+[.lead]
+Examples
+
+.Calling the start method
+[source,TypeScript]
+----
+collector.start();
+----
+
+=== addSuccess()
+
+Adds a success to the journal.
+
+
+[.lead]
+Parameters
+
+*None*
+
+[.lead]
+Returns
+
+*Void*
+
+[.lead]
+Examples
+
+.Calling the start method
+[source,TypeScript]
+----
+collector.start();
+----
+
+
+=== addInformation()
+
+Adds useful information to the journal.
+
+
+
+[.lead]
+Parameters
+
+*None*
+
+[.lead]
+Returns
+
+*Void*
+
+[.lead]
+Examples
+
+.Calling the start method
+[source,TypeScript]
+----
+collector.start();
+----
+
+=== addWarning()
+
+Adds a warning to the journal.
+
+
+[.lead]
+Parameters
+
+*None*
+
+[.lead]
+Returns
+
+*Void*
+
+[.lead]
+Examples
+
+.Calling the start method
+[source,TypeScript]
+----
+collector.start();
+----
+
+
+
+=== addError()
+
+Adds an error to the journal.
+
+
+
+[.lead]
+Parameters
+
+*None*
+
+[.lead]
+Returns
+
+*Void*
+
+[.lead]
+Examples
+
+.Calling the start method
+[source,TypeScript]
+----
+collector.start();
+----
+
+=== stop()
+
+This method:
+
+* Persists the journal to the journal repo.
+* Sends emails if notifications are configured on the Explorer Admin GUI.
+* Persists information that the collector has failed or finished (so it can be started again).
+
+
+[.lead]
+Parameters
+
+*None*
+
+[.lead]
+Returns
+
+*Void*
+
+[.lead]
+Examples
+
+.Calling the start method
+[source,TypeScript]
+----
+collector.start();
+----
+
+== Objects
+
+=== Collector
+
+The Collector class provides useful methods in order to:
+
+TGODO
+
+=== Properties
+
+==== config
+
+Any configuration passed in via configJson is available as a javascript object via the config property.
+
+== Methods
+

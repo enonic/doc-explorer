@@ -47,6 +47,10 @@
     {
       "title": "Collectors",
       "document": "collectors"
+    },
+    {
+      "title": "Collector API",
+      "document": "lib-explorer"
     }
   ]
 }
