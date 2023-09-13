@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>Interfaces</title>
+<title>Collector JavaScript API</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,17 +436,35 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Interfaces</h1>
+<h1>Collector JavaScript API</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#basics">Basics</a></li>
-<li><a href="#filters">Filters</a></li>
-<li><a href="#query">Query</a></li>
-<li><a href="#synonyms">Synonyms</a></li>
-<li><a href="#stop_words">Stop-words</a></li>
-<li><a href="#result_mapping">Result mapping</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#constructor">Constructor</a></li>
+<li><a href="#methods">Methods</a>
+<ul class="sectlevel2">
+<li><a href="#start">start</a></li>
+<li><a href="#querydocuments">queryDocuments()</a></li>
+<li><a href="#persistdocument">persistDocument()</a></li>
+<li><a href="#deletedocument">deleteDocument()</a></li>
+<li><a href="#getdocumentnode">getDocumentNode()</a></li>
+<li><a href="#shouldstop">shouldStop()</a></li>
+<li><a href="#addsuccess">addSuccess()</a></li>
+<li><a href="#addinformation">addInformation()</a></li>
+<li><a href="#addwarning">addWarning()</a></li>
+<li><a href="#adderror">addError()</a></li>
+<li><a href="#stop">stop()</a></li>
+</ul>
+</li>
+<li><a href="#objects">Objects</a>
+<ul class="sectlevel2">
+<li><a href="#collector">Collector</a></li>
+<li><a href="#properties">Properties</a></li>
+</ul>
+</li>
+<li><a href="#methods_2">Methods</a></li>
 </ul>
 </div>
 </div>
@@ -455,91 +473,489 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Your collected data can be exposed by defining search interfaces. Essentially, a search interface allows you to select which collections and thesauri to combine, as well as the ability to tune and boost your search down to field level.</p>
+<p>The collector JS API is provided via the <code>lib-explorer</code> dependency. It provides everything you need in order to work with collections and documents.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="basics"><a class="link" href="#basics">Basics</a></h2>
+<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Each interface needs a unique name.</p>
+<p>Add the following to your <code>build.gradle</code> file:</p>
 </div>
-<div class="paragraph">
-<p>Additionally, you need to specify at least one collection to include in the search.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="filters"><a class="link" href="#filters">Filters</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>You can define must and mustNot filters to avoid search results that don&#8217;t meet the required quality.
-For instance it&#8217;s normally useful that a search result actually has an uri so it can be navigated to.</p>
-</div>
-<div class="imageblock">
+<div class="listingblock">
 <div class="content">
-<img src="images/interface-filters.png" alt="Interface filters" width="768">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">dependencies {
+  include "com.enonic.lib:lib-explorer:4.x.x"
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Read more about filters here: <a href="https://developer.enonic.com/docs/xp/stable/storage/noql#filters" class="bare">https://developer.enonic.com/docs/xp/stable/storage/noql#filters</a></p>
+<p>In your task controller, add a require statement:</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="query"><a class="link" href="#query">Query</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>You may configure a simple fulltext query, or group multiple expressions together using a logic expression.
-Combining a boosted fulltext query, with a ngram and synonym query can be a good idea.</p>
-</div>
-<div class="imageblock">
+<div class="listingblock">
 <div class="content">
-<img src="images/interface-query.png" alt="Interface query" width="768">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import {Collector} from '/lib/explorer';</code></pre>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="synonyms"><a class="link" href="#synonyms">Synonyms</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>TODO</p>
 </div>
 <div class="paragraph">
-<p>Each <a href="synonyms.ahtml">synonym</a> is stored in a <a href="thesauri.ahtml">thesaurus</a>.</p>
+<p>Create the Collector object within the run function. The paramers are automatically passed to the task from Explorer.</p>
 </div>
-<div class="paragraph">
-<p>Learn mode about querying here: <a href="https://developer.enonic.com/docs/xp/stable/storage/noql#query_functions" class="bare">https://developer.enonic.com/docs/xp/stable/storage/noql#query_functions</a></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="stop_words"><a class="link" href="#stop_words">Stop-words</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>TODO</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="result_mapping"><a class="link" href="#result_mapping">Result mapping</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Here you can configure which <a href="fields.ahtml">fields</a> are provided to the frontend and do some simple data manipulation.</p>
-</div>
-<div class="imageblock">
+<div class="listingblock">
 <div class="content">
-<img src="images/interface-mappings.png" alt="Interface mappings" width="768">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">export function run({
+	collectionId,
+	collectorId,
+	configJson,
+	language
+}) {
+	const collector = new Collector&lt;CollectorConfig&gt;({
+		collectionId, collectorId, configJson, language
+	});</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>You are now ready to use the API.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="constructor"><a class="link" href="#constructor">Constructor</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Constructor for the Collector class.</p>
+</div>
+<div class="paragraph">
+<p>TODO:
+* Throws if any of the parameters are missing or invalid.
+* Gets information about the Collection.
+* Parses the configJson and provides the result via the config property.</p>
+</div>
+<div class="paragraph lead">
+<p>Parameters</p>
+</div>
+<div class="paragraph">
+<p>An object with the following keys and their values:</p>
+</div>
+<table class="tableblock frame-none grid-none stretch">
+<colgroup>
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 98%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Kind</th>
+<th class="tableblock halign-left valign-top">Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectionId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Id of the collection to use</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectorId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Id of the collector (i.e. <code>com.example.app:collector</code>)</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">configJson</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The collector configuration</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">language</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>a valid locale</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph lead">
+<p>Returns</p>
+</div>
+<div class="paragraph">
+<p>Collector object</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="methods"><a class="link" href="#methods">Methods</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>These are the available methods of the Collector object</p>
+</div>
+<div class="sect2">
+<h3 id="start"><a class="link" href="#start">start</a></h3>
+<div class="paragraph">
+<p>TODO
+* Stores a startTime timestamp used in duration calculations.
+* Reports an initial progress via lib-task.
+* Creates a new collection repo (if needed).
+* Persists information that the collector is running (so it can&#8217;t be run twice in parallel, but can be stopped).
+* Sets up a journal to write state information to.</p>
+</div>
+<div class="paragraph lead">
+<p>Parameters</p>
+</div>
+<div class="paragraph">
+<p><strong>None</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Returns</p>
+</div>
+<div class="paragraph">
+<p><strong>Void</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Examples</p>
+</div>
+<div class="listingblock">
+<div class="title">Calling the start method</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">collector.start();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="querydocuments"><a class="link" href="#querydocuments">queryDocuments()</a></h3>
+<div class="paragraph">
+<p>This method makes is possible to query the exisiting documents in the collection.
+Useful to find the document id to modify an existing document, rather than creating a new one.</p>
+</div>
+<div class="paragraph lead">
+<p>Parameters</p>
+</div>
+<div class="paragraph">
+<p><strong>None</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Returns</p>
+</div>
+<div class="paragraph">
+<p><strong>Void</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Examples</p>
+</div>
+<div class="listingblock">
+<div class="title">Calling the start method</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">collector.start();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="persistdocument"><a class="link" href="#persistdocument">persistDocument()</a></h3>
+<div class="paragraph">
+<p>This method will create or modify a document, based on its parameters.
+If can also extend a documentType and validate against it.</p>
+</div>
+<div class="paragraph lead">
+<p>Parameters</p>
+</div>
+<div class="paragraph">
+<p><strong>None</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Returns</p>
+</div>
+<div class="paragraph">
+<p><strong>Void</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Examples</p>
+</div>
+<div class="listingblock">
+<div class="title">Calling the start method</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">collector.start();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deletedocument"><a class="link" href="#deletedocument">deleteDocument()</a></h3>
+<div class="paragraph">
+<p>This method makes it possible to delete one or more documents from the collection.</p>
+</div>
+<div class="paragraph lead">
+<p>Parameters</p>
+</div>
+<div class="paragraph">
+<p><strong>None</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Returns</p>
+</div>
+<div class="paragraph">
+<p><strong>Void</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Examples</p>
+</div>
+<div class="listingblock">
+<div class="title">Calling the start method</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">collector.start();</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample response</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">SOME JSON</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="getdocumentnode"><a class="link" href="#getdocumentnode">getDocumentNode()</a></h3>
+<div class="paragraph">
+<p>This method makes it possible to get one ore more documents from the collection.</p>
+</div>
+<div class="paragraph lead">
+<p>Parameters</p>
+</div>
+<div class="paragraph">
+<p><strong>None</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Returns</p>
+</div>
+<div class="paragraph">
+<p><strong>Void</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Examples</p>
+</div>
+<div class="listingblock">
+<div class="title">Calling the start method</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">collector.start();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="shouldstop"><a class="link" href="#shouldstop">shouldStop()</a></h3>
+<div class="paragraph">
+<p>This method checks whether the STOP button has be clicked in the Explorer Admin GUI.</p>
+</div>
+<div class="paragraph">
+<p>Useful to finish gracefully, for instance by breaking loops.</p>
+</div>
+<div class="paragraph lead">
+<p>Parameters</p>
+</div>
+<div class="paragraph">
+<p><strong>None</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Returns</p>
+</div>
+<div class="paragraph">
+<p><strong>Void</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Examples</p>
+</div>
+<div class="listingblock">
+<div class="title">Calling the start method</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">collector.start();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="addsuccess"><a class="link" href="#addsuccess">addSuccess()</a></h3>
+<div class="paragraph">
+<p>Adds a success to the journal.</p>
+</div>
+<div class="paragraph lead">
+<p>Parameters</p>
+</div>
+<div class="paragraph">
+<p><strong>None</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Returns</p>
+</div>
+<div class="paragraph">
+<p><strong>Void</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Examples</p>
+</div>
+<div class="listingblock">
+<div class="title">Calling the start method</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">collector.start();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="addinformation"><a class="link" href="#addinformation">addInformation()</a></h3>
+<div class="paragraph">
+<p>Adds useful information to the journal.</p>
+</div>
+<div class="paragraph lead">
+<p>Parameters</p>
+</div>
+<div class="paragraph">
+<p><strong>None</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Returns</p>
+</div>
+<div class="paragraph">
+<p><strong>Void</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Examples</p>
+</div>
+<div class="listingblock">
+<div class="title">Calling the start method</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">collector.start();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="addwarning"><a class="link" href="#addwarning">addWarning()</a></h3>
+<div class="paragraph">
+<p>Adds a warning to the journal.</p>
+</div>
+<div class="paragraph lead">
+<p>Parameters</p>
+</div>
+<div class="paragraph">
+<p><strong>None</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Returns</p>
+</div>
+<div class="paragraph">
+<p><strong>Void</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Examples</p>
+</div>
+<div class="listingblock">
+<div class="title">Calling the start method</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">collector.start();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adderror"><a class="link" href="#adderror">addError()</a></h3>
+<div class="paragraph">
+<p>Adds an error to the journal.</p>
+</div>
+<div class="paragraph lead">
+<p>Parameters</p>
+</div>
+<div class="paragraph">
+<p><strong>None</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Returns</p>
+</div>
+<div class="paragraph">
+<p><strong>Void</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Examples</p>
+</div>
+<div class="listingblock">
+<div class="title">Calling the start method</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">collector.start();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="stop"><a class="link" href="#stop">stop()</a></h3>
+<div class="paragraph">
+<p>This method:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Persists the journal to the journal repo.</p>
+</li>
+<li>
+<p>Sends emails if notifications are configured on the Explorer Admin GUI.</p>
+</li>
+<li>
+<p>Persists information that the collector has failed or finished (so it can be started again).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph lead">
+<p>Parameters</p>
+</div>
+<div class="paragraph">
+<p><strong>None</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Returns</p>
+</div>
+<div class="paragraph">
+<p><strong>Void</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Examples</p>
+</div>
+<div class="listingblock">
+<div class="title">Calling the start method</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">collector.start();</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="objects"><a class="link" href="#objects">Objects</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="collector"><a class="link" href="#collector">Collector</a></h3>
+<div class="paragraph">
+<p>The Collector class provides useful methods in order to:</p>
+</div>
+<div class="paragraph">
+<p>TGODO</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="properties"><a class="link" href="#properties">Properties</a></h3>
+<div class="sect3">
+<h4 id="config"><a class="link" href="#config">config</a></h4>
+<div class="paragraph">
+<p>Any configuration passed in via configJson is available as a javascript object via the config property.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="methods_2"><a class="link" href="#methods_2">Methods</a></h2>
+<div class="sectionbody">
+
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-13 12:41:48 UTC
+Last updated 2023-09-13 12:42:10 UTC
 </div>
 </div>
 </body>
