@@ -252,10 +252,10 @@ Returns the persisted document
 [.lead]
 Examples
 
-.Calling the persisteDocument method
+.Calling the persistDocument method
 [source,TypeScript]
 ----
-const document = collector.persisteDocument({
+const document = collector.persistDocument({
 	text: `This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission.
 
 More information...`,
