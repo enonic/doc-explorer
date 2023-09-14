@@ -822,8 +822,7 @@ Useful to find the document id to modify an existing document, rather than creat
 <div class="sect2">
 <h3 id="persistdocument"><a class="link" href="#persistdocument">persistDocument</a></h3>
 <div class="paragraph">
-<p>This method will create or modify a document, based on its parameters.
-If can also extend a documentType and validate against it.</p>
+<p>This method will create or modify a document, based on its parameters. It can also extend a documentType and validate against it.</p>
 </div>
 <div class="paragraph lead">
 <p>Parameters</p>
@@ -1443,7 +1442,7 @@ log.info('Document persisted:%s', JSON.stringify(document, null, 4));</code></pr
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-14 09:24:56 UTC
+Last updated 2023-09-14 09:25:56 UTC
 </div>
 </div>
 </body>
