@@ -760,7 +760,7 @@ Useful to find the document id to modify an existing document, rather than creat
 <div class="title">Calling the queryDocuments method</div>
 <div class="content">
 <pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">collector.queryDocuments({
-	start: 0,
+    start: 0,
     count: 2,
     query: "startTime &gt; instant('2016-10-11T14:38:54.454Z')",
     filters: {
@@ -1443,7 +1443,7 @@ log.info('Document persisted:%s', JSON.stringify(document, null, 4));</code></pr
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-14 09:23:17 UTC
+Last updated 2023-09-14 09:24:56 UTC
 </div>
 </div>
 </body>
