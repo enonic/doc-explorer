@@ -206,8 +206,7 @@ collector.queryDocuments({
 
 === persistDocument
 
-This method will create or modify a document, based on its parameters.
-If can also extend a documentType and validate against it.
+This method will create or modify a document, based on its parameters. It can also extend a documentType and validate against it.
 
 [.lead]
 Parameters
