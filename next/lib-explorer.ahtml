@@ -458,13 +458,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#stop">stop</a></li>
 </ul>
 </li>
-<li><a href="#objects">Objects</a>
-<ul class="sectlevel2">
-<li><a href="#collector">Collector</a></li>
-<li><a href="#properties">Properties</a></li>
-</ul>
-</li>
-<li><a href="#methods_2">Methods</a></li>
 </ul>
 </div>
 </div>
@@ -1410,39 +1403,10 @@ log.info('Document persisted:%s', JSON.stringify(document, null, 4));</code></pr
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="objects"><a class="link" href="#objects">Objects</a></h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="collector"><a class="link" href="#collector">Collector</a></h3>
-<div class="paragraph">
-<p>The Collector class provides useful methods in order to:</p>
-</div>
-<div class="paragraph">
-<p>TGODO</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="properties"><a class="link" href="#properties">Properties</a></h3>
-<div class="sect3">
-<h4 id="config"><a class="link" href="#config">config</a></h4>
-<div class="paragraph">
-<p>Any configuration passed in via configJson is available as a javascript object via the config property.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="methods_2"><a class="link" href="#methods_2">Methods</a></h2>
-<div class="sectionbody">
-
-</div>
-</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-14 10:08:57 UTC
+Last updated 2023-09-14 10:11:13 UTC
 </div>
 </div>
 </body>
