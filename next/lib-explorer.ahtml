@@ -954,9 +954,9 @@ Useful to find the document id to modify an existing document, rather than creat
 <p>Examples</p>
 </div>
 <div class="listingblock">
-<div class="title">Calling the persisteDocument method</div>
+<div class="title">Calling the persistDocument method</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">const document = collector.persisteDocument({
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">const document = collector.persistDocument({
 	text: `This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission.
 
 More information...`,
@@ -1442,7 +1442,7 @@ log.info('Document persisted:%s', JSON.stringify(document, null, 4));</code></pr
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-14 09:25:56 UTC
+Last updated 2023-09-14 10:08:57 UTC
 </div>
 </div>
 </body>
