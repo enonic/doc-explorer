@@ -20,7 +20,7 @@ In your task controller, add a require statement:
 
 [source,TypeScript]
 ----
-import {Collector} from '/lib/explorer';
+import { Collector } from '/lib/explorer';
 ----
 
 Create the Collector object within the run function. The paramers are automatically passed to the task from Explorer.
@@ -36,6 +36,8 @@ export function run({
 	const collector = new Collector<CollectorConfig>({
 		collectionId, collectorId, configJson, language
 	});
+	// ...
+}
 ----
 
 You are now ready to use the API.
@@ -44,7 +46,9 @@ You are now ready to use the API.
 
 Constructor for the Collector class.
 
-TODO:
+[.lead]
+Description
+
 * Throws if any of the parameters are missing or invalid.
 * Gets information about the Collection.
 * Parses the configJson and provides the result via the config property.
@@ -76,13 +80,14 @@ These are the available methods of the Collector object
 
 === start
 
-TODO
+[.lead]
+Description
+
 * Stores a startTime timestamp used in duration calculations.
 * Reports an initial progress via lib-task.
 * Creates a new collection repo (if needed).
 * Persists information that the collector is running (so it can't be run twice in parallel, but can be stopped).
 * Sets up a journal to write state information to.
-
 
 [.lead]
 Parameters
@@ -103,7 +108,7 @@ Examples
 collector.start();
 ----
 
-=== queryDocuments()
+=== queryDocuments
 
 This method makes is possible to query the exisiting documents in the collection.
 Useful to find the document id to modify an existing document, rather than creating a new one.
@@ -112,23 +117,94 @@ Useful to find the document id to modify an existing document, rather than creat
 [.lead]
 Parameters
 
-*None*
+An object with the following keys and their values:
+
+[%header,cols="1%,1%,1%,98%a"]
+[frame="none"]
+[grid="none"]
+|===
+| Name | Type | Attributes | Details
+| start | number | optional | Start index used for paging - default: 0
+| count | number | optional | Number of content to fetch, used for paging - default: 10
+| query | string/object | | Query string or DSL expression.
+| filters | object | optional | Query filters
+| sort | string/object | optional | Sorting string or DSL expression. Default: '_score DESC'
+| aggregations | object | optional | Aggregations config
+| highlight | object | optional | Highlighting config
+| explain | boolean | optional | If set to `true`, score calculation explanation will be included in result.
+|===
 
 [.lead]
 Returns
 
-*Void*
+*object* : stats, hits and if requested, aggregations
 
 [.lead]
 Examples
 
-.Calling the start method
+.Calling the queryDocuments method
 [source,TypeScript]
 ----
-collector.start();
+collector.queryDocuments({
+	start: 0,
+    count: 2,
+    query: "startTime > instant('2016-10-11T14:38:54.454Z')",
+    filters: {
+        boolean: {
+            must: [
+                {
+                    exists: {
+                        field: "modifiedTime"
+                    }
+                },
+                {
+                    exists: {
+                        field: "other"
+                    }
+                }
+            ],
+            mustNot: {
+                hasValue: {
+                    field: "myField",
+                    values: [
+                        "cheese",
+                        "fish",
+                        "onion"
+                    ]
+                }
+            }
+        },
+        notExists: {
+            field: "unwantedField"
+        },
+        ids: {
+            values: ["id1", "id2"]
+        }
+    },
+    sort: "duration DESC",
+});
 ----
 
-=== persistDocument()
+.Sample response
+[source,js]
+----
+{
+    "total": 12902,
+    "count": 2,
+    "hits": [
+        {
+            "id": "b186d24f-ac38-42ca-a6db-1c1bda6c6c26",
+            "score": 1.2300000190734863
+        },
+        {
+            "id": "350ba4a6-589c-498b-8af0-f183850e1120",
+            "score": 1.399999976158142
+        }
+    ],
+}
+----
+
+=== persistDocument
 
 This method will create or modify a document, based on its parameters.
 If can also extend a documentType and validate against it.
@@ -136,85 +212,193 @@ If can also extend a documentType and validate against it.
 [.lead]
 Parameters
 
-*None*
+[%header,cols="1%,1%,98%a"]
+[frame="none"]
+[grid="none"]
+|===
+| Name | Kind | Details
+| document | object | The document to persist
+| options | object | Options to use when persisting the document
+|===
 
 [.lead]
-Returns
+Document object
 
-*Void*
+[%header,cols="1%,1%,1%,98%a"]
+[frame="none"]
+[grid="none"]
+|===
+| Name | Kind | Attributes | Details
+| _id | string | <optional> | Id of an exisiting document to modify
+| _name | string | <optional> | Name of an exisiting document to modify
+| _parentPath | string | <optional> | Parentpath of an exisiting document to modify - default: '/'
+| ...rest | any | <optional> | Any other properties of the document to persist
+|===
+
+[.lead]
+Options object
+
+[%header,cols="1%,1%,1%,98%a"]
+[frame="none"]
+[grid="none"]
+|===
+| Name | Kind | Attributes | Details
+| boolRequireValid | boolean | <optional> | Whether a document must validate in order to be created or modified - default: false
+| documentTypeName | string | <required> | Which documentType to use for indexing and validate against
+|===
+
+[.lead]
+Returns the persisted document
 
 [.lead]
 Examples
 
-.Calling the start method
+.Calling the persisteDocument method
 [source,TypeScript]
 ----
-collector.start();
+const document = collector.persisteDocument({
+	text: `This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission.
+
+More information...`,
+	title: 'Example Domain',
+	url: 'https://example.com/'
+}, {
+	boolRequireValid: true,
+	documentTypeName: 'my_document_type'
+});
+log.info('Document persisted:%s', JSON.stringify(document, null, 4));
 ----
 
-=== deleteDocument()
+=== deleteDocument
 
 This method makes it possible to delete one or more documents from the collection.
-
 
 [.lead]
 Parameters
 
-*None*
+[%header,cols="1%,1%,98%a"]
+[frame="none"]
+[grid="none"]
+|===
+| Name | Kind | Details
+| keys | string \| Array.<string> | Document keys to delete. Each argument could be an id or a path. Prefer the usage of ID rather than paths.
+|===
 
 [.lead]
 Returns
 
-*Void*
+*Array.<string>* : The list of keys that were actually deleted.
 
 [.lead]
 Examples
 
-.Calling the start method
+.Deleting a single document
 [source,TypeScript]
 ----
-collector.start();
+const deletedId = collector.deleteDocument('9aba4116-a219-4ccf-9f7a-17dc1486f82e');
 ----
 
 .Sample response
 [source,JSON]
 ----
-SOME JSON
+'9aba4116-a219-4ccf-9f7a-17dc1486f82e'
 ----
 
+.Deleting multiple documents
+[source,TypeScript]
+----
+const deletedIds = collector.deleteDocument(
+	'9aba4116-a219-4ccf-9f7a-17dc1486f82e',
+	'1f5fd4b6-1bfa-4a5b-adde-5241982ea200'
+);
+----
 
-=== getDocumentNode()
+.Sample response
+[source,JSON]
+----
+[
+	'9aba4116-a219-4ccf-9f7a-17dc1486f82e',
+	'1f5fd4b6-1bfa-4a5b-adde-5241982ea200'
+]
+----
+
+=== getDocumentNode
 
 This method makes it possible to get one ore more documents from the collection.
-
 
 [.lead]
 Parameters
 
-*None*
+[%header,cols="1%,1%,98%a"]
+[frame="none"]
+[grid="none"]
+|===
+| Name | Kind | Details
+| keys | string \| Array.<string> | Document keys to get. Each argument could be an id or a path. Prefer the usage of ID rather than paths.
+|===
 
 [.lead]
 Returns
 
-*Void*
+*Object | Array<Object>* : One or more gotten documents.
 
 [.lead]
 Examples
 
-.Calling the start method
+.Getting a single document
 [source,TypeScript]
 ----
-collector.start();
+const node = collector.getDocumentNode('9aba4116-a219-4ccf-9f7a-17dc1486f82e');
 ----
 
+.Sample response
+[source,JSON]
+----
+{
+	_id: '9aba4116-a219-4ccf-9f7a-17dc1486f82e',
+	_name: '9aba4116-a219-4ccf-9f7a-17dc1486f82e',
+	_path: '/9aba4116-a219-4ccf-9f7a-17dc1486f82e',
+	text: `This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission. More information...`,
+	title: 'Example Domain',
+	url: 'https://example.com/'
+}
+----
 
-=== shouldStop()
+.Getting a multiple documents
+[source,TypeScript]
+----
+const node = collector.getDocumentNode(
+	'9aba4116-a219-4ccf-9f7a-17dc1486f82e',
+	'1f5fd4b6-1bfa-4a5b-adde-5241982ea200'
+);
+----
+
+.Sample response
+[source,JSON]
+----
+[{
+	_id: '9aba4116-a219-4ccf-9f7a-17dc1486f82e',
+	_name: '9aba4116-a219-4ccf-9f7a-17dc1486f82e',
+	_path: '/9aba4116-a219-4ccf-9f7a-17dc1486f82e',
+	text: `This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission. More information...`,
+	title: 'Example Domain',
+	url: 'https://example.com/'
+}, {
+	_id: '1f5fd4b6-1bfa-4a5b-adde-5241982ea200',
+	_name: '1f5fd4b6-1bfa-4a5b-adde-5241982ea200',
+	_path: '/1f5fd4b6-1bfa-4a5b-adde-5241982ea200',
+	text: `fnord`,
+	title: 'Fnord',
+	url: 'https://fnord.com/'
+}]
+----
+
+=== shouldStop
 
 This method checks whether the STOP button has be clicked in the Explorer Admin GUI.
 
 Useful to finish gracefully, for instance by breaking loops.
 
-
 [.lead]
 Parameters
 
@@ -223,26 +407,35 @@ Parameters
 [.lead]
 Returns
 
-*Void*
+*Boolean* : Whether the STOP button has been clicked.
 
 [.lead]
 Examples
 
-.Calling the start method
+.Calling the shouldStop method
 [source,TypeScript]
 ----
-collector.start();
+while (!collector.shouldStop() && moreToDo) {
+	// do something
+}
 ----
 
-=== addSuccess()
+=== addSuccess
 
 Adds a success to the journal.
 
-
 [.lead]
 Parameters
 
-*None*
+An object with the following keys and their values:
+
+[%header,cols="1%,1%,98%a"]
+[frame="none"]
+[grid="none"]
+|===
+| Name | Kind | Details
+| message | string | The success message to add to the journal
+|===
 
 [.lead]
 Returns
@@ -252,23 +445,30 @@ Returns
 [.lead]
 Examples
 
-.Calling the start method
+.Calling the addSuccess method
 [source,TypeScript]
 ----
-collector.start();
+collector.addSuccess({
+	message: `The document scraped from ${url} was persisted successfully :)`
+});
 ----
 
-
-=== addInformation()
+=== addInformation
 
 Adds useful information to the journal.
 
-
-
 [.lead]
 Parameters
 
-*None*
+An object with the following keys and their values:
+
+[%header,cols="1%,1%,98%a"]
+[frame="none"]
+[grid="none"]
+|===
+| Name | Kind | Details
+| message | string | The information message to add to the journal
+|===
 
 [.lead]
 Returns
@@ -278,21 +478,28 @@ Returns
 [.lead]
 Examples
 
-.Calling the start method
+.Calling the addInformation method
 [source,TypeScript]
 ----
-collector.start();
+collector.addInformation({
+	message: `While scraping ${url} something interesting was found.`
+});
 ----
 
-=== addWarning()
+=== addWarning
 
 Adds a warning to the journal.
 
-
 [.lead]
 Parameters
 
-*None*
+[%header,cols="1%,1%,98%a"]
+[frame="none"]
+[grid="none"]
+|===
+| Name | Kind | Details
+| message | string | The warning message to add to the journal
+|===
 
 [.lead]
 Returns
@@ -302,24 +509,28 @@ Returns
 [.lead]
 Examples
 
-.Calling the start method
+.Calling the addWarning method
 [source,TypeScript]
 ----
-collector.start();
+collector.addWarning({
+	message: `${url} isn't available today`
+});
 ----
 
-
-
-=== addError()
+=== addError
 
 Adds an error to the journal.
 
-
-
 [.lead]
 Parameters
 
-*None*
+[%header,cols="1%,1%,98%a"]
+[frame="none"]
+[grid="none"]
+|===
+| Name | Kind | Details
+| message | string | The error message to add to the journal
+|===
 
 [.lead]
 Returns
@@ -329,15 +540,22 @@ Returns
 [.lead]
 Examples
 
-.Calling the start method
+.Calling the addError method
 [source,TypeScript]
 ----
-collector.start();
+try {
+	// do something that fails
+} catch (e) {
+	collector.addError({
+		message: `It's a real problem that ${url} isn't available :(`
+	});
+}
 ----
 
-=== stop()
+=== stop
 
-This method:
+[.lead]
+Description
 
 * Persists the journal to the journal repo.
 * Sends emails if notifications are configured on the Explorer Admin GUI.
@@ -357,10 +575,10 @@ Returns
 [.lead]
 Examples
 
-.Calling the start method
+.Calling the stop method
 [source,TypeScript]
 ----
-collector.start();
+collector.stop();
 ----
 
 == Objects
