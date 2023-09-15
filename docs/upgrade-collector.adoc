@@ -8,7 +8,7 @@ As such there are some breaking changes to the API's.
 This document explains what is needed to move from
 
 * lib-explorer-3.x.x to lib-explorer-4.x.x
-* app-explorer-1.5.x to app-explorer-2.x.x
+* app-explorer-1.5.x to app-explorer-4.x.x
 
 == Development
 
@@ -16,7 +16,7 @@ This document explains what is needed to move from
 
 ==== gradle.properties
 
-lib-explorer-4.0.0 (and app-explorer-2.0.0) requires xpVersion=7.10.0
+lib-explorer-4.0.0 (and app-explorer-4.0.0) requires xpVersion=7.12.2
 
 See <<custom#_gradle_properties, custom#_gradle_properties>>.
 
@@ -39,7 +39,7 @@ See <<custom#_documenttypes_json, custom#_documentTypes_json>>.
 ==== Register
 
 * In lib-explorer-3.0.0/app-explorer-1.5.0 the register function would log a deprecation warning.
-* In lib-explorer-4.0.0/app-explorer-2.0.0 the register function will now throw a deprecation error.
+* In lib-explorer-4.0.0/app-explorer-4.0.0 the register function will now throw a deprecation error.
 
 IMPORTANT: The register function is deprecated and will throw an error!
 

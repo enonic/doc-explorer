@@ -8,15 +8,15 @@ When the explorer application starts, it will automatically check if migration s
 
 Any migrations that requires user input will be initiated via UI.
 
-== From 1.x -> 2.x
+== From 1.x -> 4.x
 
-After installing Explorer 2.0, it will automatically initiate a migration of all of your old data.
+After installing Explorer 4.0, it will automatically initiate a migration of all of your old data.
 
 When the automated upgrade is complete, a manual step will follow
 
-=== Synonyms 2.0
+=== Synonyms 4.0
 
-In order for the legacy synonyms to work in Explorer 2.0, Explorer needs to know which language(s) the old synonyms are written in. This is needed to apply optimal stemming at index time.
+In order for the legacy synonyms to work in Explorer 4.0, Explorer needs to know which language(s) the old synonyms are written in. This is needed to apply optimal stemming at index time.
 
 . Go to the Synonyms page and edit your Thesauri.
 First you pick which language(s) that Thesaurus will consist of. You may add more languages later.
