@@ -518,8 +518,11 @@ As such there are some breaking changes to the API&#8217;s.</p>
 <div class="paragraph">
 <p>lib-explorer-4.0.0 (and app-explorer-4.0.0) requires xpVersion=7.12.2</p>
 </div>
-<div class="paragraph">
-<p>See <a href="custom.ahtml#_gradle_properties">custom#_gradle_properties</a>.</p>
+<div class="listingblock">
+<div class="title">gradle.properties</div>
+<div class="content">
+<pre class="highlight"><code class="language-properties" data-lang="properties">xpVersion=7.12.2</code></pre>
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -527,8 +530,13 @@ As such there are some breaking changes to the API&#8217;s.</p>
 <div class="paragraph">
 <p>In build.gradle you have to bump lib-explorer version to 4.0.0.</p>
 </div>
-<div class="paragraph">
-<p>See <a href="custom.ahtml#_build_gradle">custom#_build_gradle</a>.</p>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">dependencies {
+  include "com.enonic.lib:lib-explorer:4.x.x"
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -543,7 +551,7 @@ As such there are some breaking changes to the API&#8217;s.</p>
 <p>Collectors are now supposed to provide their own documentTypes.</p>
 </div>
 <div class="paragraph">
-<p>See <a href="custom.ahtml#_documenttypes_json">custom#_documentTypes_json</a>.</p>
+<p>See <a href="https://developer.enonic.com/docs/collector/stable/doctype">Managed document types</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -725,7 +733,7 @@ The old syntax is still supported, but might be removed in a future release.
 </ul>
 </div>
 <div class="paragraph">
-<p>See <a href="custom.ahtml#_react_component">custom#_react_component</a>.</p>
+<p>See <a href="https://developer.enonic.com/docs/collector/stable/form">Collector form</a>.</p>
 </div>
 </div>
 </div>
@@ -748,7 +756,7 @@ The old syntax is still supported, but might be removed in a future release.
 </ul>
 </div>
 <div class="paragraph">
-<p>See <a href="custom.ahtml#_collect_xml">custom#_collect_xml</a>.</p>
+<p>See <a href="https://developer.enonic.com/docs/collector/stable/task#task_schema">Task schema</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -757,7 +765,7 @@ The old syntax is still supported, but might be removed in a future release.
 <p>collector.addSuccess() and collector.addError() no longer takes an uri parameter.</p>
 </div>
 <div class="paragraph">
-<p>See <a href="custom.ahtml#_journal">custom#_journal</a>.</p>
+<p>See <a href="lib-explorer.ahtml#addsuccess">addSuccess</a>, <a href="lib-explorer.ahtml#addinformation">addInformation</a>, <a href="lib-explorer.ahtml#addwarning">addWarning</a> and <a href="lib-explorer.ahtml#adderror">addError</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -769,7 +777,7 @@ The old syntax is still supported, but might be removed in a future release.
 Just make sure it matches a (lowercased and ascii folded) _name in the src/main/resources/documentTypes.json file.</p>
 </div>
 <div class="paragraph">
-<p>See <a href="custom.ahtml#_create">custom#_create</a>.</p>
+<p>See <a href="lib-explorer.ahtml#persistdocument">persistDocument</a>.</p>
 </div>
 </div>
 <div class="sect4">
@@ -779,7 +787,7 @@ Just make sure it matches a (lowercased and ascii folded) _name in the src/main/
 If you want to <strong>update</strong> a document, rather than creating endless new ones, you have to lookup and provide the document node <strong class="lime">_id</strong> in your collector task implementation.</p>
 </div>
 <div class="paragraph">
-<p>See <a href="custom.ahtml#_update">custom#_update</a>.</p>
+<p>See <a href="lib-explorer.ahtml#querydocuments">queryDocuments</a> and <a href="lib-explorer.ahtml#persistdocument">persistDocument</a>.</p>
 </div>
 </div>
 </div>
@@ -789,7 +797,7 @@ If you want to <strong>update</strong> a document, rather than creating endless 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-15 10:08:17 UTC
+Last updated 2023-09-15 10:20:08 UTC
 </div>
 </div>
 </body>
