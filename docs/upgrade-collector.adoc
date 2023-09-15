@@ -18,13 +18,23 @@ This document explains what is needed to move from
 
 lib-explorer-4.0.0 (and app-explorer-4.0.0) requires xpVersion=7.12.2
 
-See <<custom#_gradle_properties, custom#_gradle_properties>>.
+.gradle.properties
+[source,properties]
+----
+xpVersion=7.12.2
+----
 
 ==== build.gradle
 
 In build.gradle you have to bump lib-explorer version to 4.0.0.
 
-See <<custom#_build_gradle, custom#_build_gradle>>.
+.build.gradle
+[source,groovy]
+----
+dependencies {
+  include "com.enonic.lib:lib-explorer:4.x.x"
+}
+----
 
 == Installation
 
@@ -32,7 +42,7 @@ See <<custom#_build_gradle, custom#_build_gradle>>.
 
 Collectors are now supposed to provide their own documentTypes.
 
-See <<custom#_documenttypes_json, custom#_documentTypes_json>>.
+See https://developer.enonic.com/docs/collector/stable/doctype[Managed document types].
 
 === Deprecations
 
@@ -102,7 +112,7 @@ This prop is untouched:
 
 * [green]*explorer* (object)
 
-See <<custom#_react_component, custom#_react_component>>.
+See https://developer.enonic.com/docs/collector/stable/form[Collector form].
 
 == Run
 
@@ -113,13 +123,13 @@ See <<custom#_react_component, custom#_react_component>>.
 * [red]*name* has been replaced by [lime]*collectionId*.
 * [lime]*language* has been added.
 
-See <<custom#_collect_xml, custom#_collect_xml>>.
+See https://developer.enonic.com/docs/collector/stable/task#task_schema[Task schema].
 
 ==== Journal
 
 collector.addSuccess() and collector.addError() no longer takes an uri parameter.
 
-See <<custom#_journal, custom#_journal>>.
+See <<lib-explorer#addsuccess, addSuccess>>, <<lib-explorer#addinformation, addInformation>>, <<lib-explorer#addwarning, addWarning>> and <<lib-explorer#adderror, addError>>.
 
 ==== persistDocument
 
@@ -128,11 +138,11 @@ See <<custom#_journal, custom#_journal>>.
 Since collectors now provide their own document-types, you also have to specify *documentTypeName* when persisting a document.
 Just make sure it matches a (lowercased and ascii folded) _name in the src/main/resources/documentTypes.json file.
 
-See <<custom#_create, custom#_create>>.
+See <<lib-explorer#persistdocument, persistDocument>>.
 
 ===== update
 
 Since [red]*uri* is no longer a required parameter to persistDocument, there is no way for a collector instance to automatically figure out which document node to *update*.
 If you want to *update* a document, rather than creating endless new ones, you have to lookup and provide the document node [lime]*_id* in your collector task implementation.
 
-See <<custom#_update, custom#_update>>.
+See <<lib-explorer#querydocuments, queryDocuments>> and <<lib-explorer#persistdocument, persistDocument>>.
