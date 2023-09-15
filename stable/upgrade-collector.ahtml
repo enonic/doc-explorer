@@ -501,7 +501,7 @@ As such there are some breaking changes to the API&#8217;s.</p>
 <p>lib-explorer-3.x.x to lib-explorer-4.x.x</p>
 </li>
 <li>
-<p>app-explorer-1.5.x to app-explorer-2.x.x</p>
+<p>app-explorer-1.5.x to app-explorer-4.x.x</p>
 </li>
 </ul>
 </div>
@@ -515,7 +515,7 @@ As such there are some breaking changes to the API&#8217;s.</p>
 <div class="sect3">
 <h4 id="gradle_properties"><a class="link" href="#gradle_properties">gradle.properties</a></h4>
 <div class="paragraph">
-<p>lib-explorer-4.0.0 (and app-explorer-2.0.0) requires xpVersion=7.10.0</p>
+<p>lib-explorer-4.0.0 (and app-explorer-4.0.0) requires xpVersion=7.12.2</p>
 </div>
 <div class="paragraph">
 <p>See <a href="custom.ahtml#_gradle_properties">custom#_gradle_properties</a>.</p>
@@ -555,7 +555,7 @@ As such there are some breaking changes to the API&#8217;s.</p>
 <p>In lib-explorer-3.0.0/app-explorer-1.5.0 the register function would log a deprecation warning.</p>
 </li>
 <li>
-<p>In lib-explorer-4.0.0/app-explorer-2.0.0 the register function will now throw a deprecation error.</p>
+<p>In lib-explorer-4.0.0/app-explorer-4.0.0 the register function will now throw a deprecation error.</p>
 </li>
 </ul>
 </div>
@@ -730,7 +730,7 @@ If you want to <strong>update</strong> a document, rather than creating endless 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-15 08:34:02 UTC
+Last updated 2023-09-15 08:43:35 UTC
 </div>
 </div>
 </body>

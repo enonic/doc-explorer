@@ -440,9 +440,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#from_1_x_2_x">From 1.x &#8594; 2.x</a>
+<li><a href="#from_1_x_4_x">From 1.x &#8594; 4.x</a>
 <ul class="sectlevel2">
-<li><a href="#synonyms_2_0">Synonyms 2.0</a></li>
+<li><a href="#synonyms_4_0">Synonyms 4.0</a></li>
 <li><a href="#upgrading_collectors">Upgrading collectors</a></li>
 </ul>
 </li>
@@ -473,18 +473,18 @@ Make sure you have snapshots, or a backup of your Explorer data available before
 </div>
 </div>
 <div class="sect1">
-<h2 id="from_1_x_2_x"><a class="link" href="#from_1_x_2_x">From 1.x &#8594; 2.x</a></h2>
+<h2 id="from_1_x_4_x"><a class="link" href="#from_1_x_4_x">From 1.x &#8594; 4.x</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>After installing Explorer 2.0, it will automatically initiate a migration of all of your old data.</p>
+<p>After installing Explorer 4.0, it will automatically initiate a migration of all of your old data.</p>
 </div>
 <div class="paragraph">
 <p>When the automated upgrade is complete, a manual step will follow</p>
 </div>
 <div class="sect2">
-<h3 id="synonyms_2_0"><a class="link" href="#synonyms_2_0">Synonyms 2.0</a></h3>
+<h3 id="synonyms_4_0"><a class="link" href="#synonyms_4_0">Synonyms 4.0</a></h3>
 <div class="paragraph">
-<p>In order for the legacy synonyms to work in Explorer 2.0, Explorer needs to know which language(s) the old synonyms are written in. This is needed to apply optimal stemming at index time.</p>
+<p>In order for the legacy synonyms to work in Explorer 4.0, Explorer needs to know which language(s) the old synonyms are written in. This is needed to apply optimal stemming at index time.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -528,7 +528,7 @@ Your old Thesauri may have been a "jungle" of multiple languages. Each synonym h
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-15 08:34:02 UTC
+Last updated 2023-09-15 08:43:35 UTC
 </div>
 </div>
 </body>
