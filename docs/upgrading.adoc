@@ -32,4 +32,4 @@ NOTE: Your old Thesauri may have been a "jungle" of multiple languages. Each syn
 
 === Upgrading collectors
 
-We have created a dedicated document with details on how to <<collectors/upgrade#, upgrade a custom collector>>.
+We have created a dedicated document with details on how to <<upgrade-collector#, upgrade a custom collector>>.

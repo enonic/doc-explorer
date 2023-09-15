@@ -51,6 +51,16 @@
     {
       "title": "Collector API",
       "document": "lib-explorer"
+    },
+    {
+      "title": "Upgrading",
+      "document": "upgrading",
+      "menuItems": [
+        {
+          "title": "Upgrading Collector",
+          "document": "upgrade-collector"
+        }
+      ]
     }
   ]
 }
