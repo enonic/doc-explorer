@@ -466,7 +466,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The collector JS API is provided via the <code>lib-explorer</code> dependency. It provides everything you need in order to work with collections and documents.</p>
+<p>The collector JS API can be accessed via Enonic applicatoins. It is provisioned via the <code>lib-explorer</code> dependency. Similar to the ingest API, the collector API provides everything you need to work with collections and documents.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<strong>Building your own collector?</strong> Check out the <a href="https://developer.enonic.com/docs/collector">collector starter tutorial</a>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -1406,7 +1418,7 @@ log.info('Document persisted:%s', JSON.stringify(document, null, 4));</code></pr
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-14 10:11:13 UTC
+Last updated 2023-09-15 06:17:43 UTC
 </div>
 </div>
 </body>

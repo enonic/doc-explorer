@@ -33,6 +33,10 @@
       "document": "interfaces"
     },
     {
+      "title": "Collectors",
+      "document": "collectors"
+    },
+    {
       "title": "API Keys",
       "document": "keys"
     },
@@ -43,10 +47,6 @@
     {
       "title": "Ingest API",
       "document": "ingest"
-    },
-    {
-      "title": "Collectors",
-      "document": "collectors"
     },
     {
       "title": "Collector API",
