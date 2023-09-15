@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>Ingest API</title>
+<title>Synonyms</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,215 +436,299 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Ingest API</h1>
+<h1>Synonyms</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#endpoint">Endpoint</a>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#concepts">Concepts</a>
 <ul class="sectlevel2">
-<li><a href="#production_deployment">Production deployment</a></li>
-<li><a href="#headers">Headers</a></li>
+<li><a href="#thesaurus">Thesaurus</a></li>
+<li><a href="#languageslocales">Languages/Locales</a></li>
+<li><a href="#stemming_language">Stemming Language</a></li>
+<li><a href="#use_from_to_both">Use: From, To, Both</a></li>
+<li><a href="#enabled_comments">Enabled &amp; Comments</a></li>
 </ul>
 </li>
-<li><a href="#api_documentation">API documentation</a>
+<li><a href="#how_it_works">How it works</a>
 <ul class="sectlevel2">
-<li><a href="#common_variables">Common variables</a></li>
-<li><a href="#bulk_operations">Bulk operations</a></li>
-<li><a href="#single_operations">Single operations</a></li>
+<li><a href="#single_languagedialect">Single language/dialect</a></li>
+<li><a href="#multi_language_codes">Multi language &amp; Codes</a></li>
+<li><a href="#management_alternatives">Management alternatives</a></li>
+<li><a href="#interface_languages_parameter">Interface languages parameter</a></li>
 </ul>
 </li>
-<li><a href="#usage_examples">Usage examples</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div id="preamble">
+<div class="sect1">
+<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A REST style api to create, read, update and delete documents. Use this to update documents in your collection(s) externally.</p>
+<p>Use synonyms to improve search results. This is especially helpful when working with domain specific texts. For instance, when a user searches <code>fish</code>, but the search actually searches both <code>fish</code> and  <code>salmon</code>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="endpoint"><a class="link" href="#endpoint">Endpoint</a></h2>
+<h2 id="concepts"><a class="link" href="#concepts">Concepts</a></h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="thesaurus"><a class="link" href="#thesaurus">Thesaurus</a></h3>
 <div class="paragraph">
-<p>The API&#8217;s default location is:</p>
+<p>In order to manage <strong>synonyms</strong>, you may group them into one or more <strong>thesauri</strong>.</p>
 </div>
-<div class="literalblock">
-<div class="content">
-<pre>localhost:8080/webapp/com.enonic.app.explorer/api/v2/documents</pre>
+<div class="paragraph">
+<p>Each <strong>thesaurus</strong> may contain <strong>synonyms</strong> in one or more <strong>languages/locales</strong>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="production_deployment"><a class="link" href="#production_deployment">Production deployment</a></h3>
+<h3 id="languageslocales"><a class="link" href="#languageslocales">Languages/Locales</a></h3>
 <div class="paragraph">
-<p>Use <a href="https://developer.enonic.com/docs/xp/stable/deployment/vhosts">vhosts</a> to deploy the API on a custom domain/URL.</p>
-</div>
-<div class="listingblock">
-<div class="title">com.enonic.xp.web.vhost.cfg</div>
-<div class="content">
-<pre class="highlight"><code class="language-cfg" data-lang="cfg">mapping.ingestApi.host = company.com
-mapping.ingestApi.source = /ingest
-mapping.ingestApi.target = /webapp/com.enonic.app.explorer/api/v2/documents</code></pre>
-</div>
+<p>Explorer uses the same <strong>locales</strong> which are made available by Java.</p>
 </div>
 <div class="paragraph">
-<p>Using the vhost configuration above, the API will be available on <code>company.com/ingest</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="headers"><a class="link" href="#headers">Headers</a></h3>
-<div class="paragraph">
-<p>The API requires that you <a href="keys.ahtml">create and submit a valid API key</a> in the HTTP request header.</p>
-</div>
-<div class="paragraph">
-<p>TODO: What about cty+accept?</p>
-</div>
-<table class="tableblock frame-none grid-none stretch">
-<colgroup>
-<col style="width: 1%;">
-<col style="width: 1%;">
-<col style="width: 1%;">
-<col style="width: 97%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Attributes</th>
-<th class="tableblock halign-left valign-top">Value</th>
-<th class="tableblock halign-left valign-top">Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Accept</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">application/json</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>What MIME-type the client wants in the response</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Content-Type</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;required&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">application/json</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>What type of data is sent in the request body</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Authorization</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;required&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Explorer-Api-Key XXXX</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>A valid API key for the collection you want to get documents from.</p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="api_documentation"><a class="link" href="#api_documentation">API documentation</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The API is documented through the bundled user interface aka client.</p>
-</div>
-<div class="paragraph">
-<p>Visit the API URL to give it a spin:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="media/rest-client.png" alt="REST client" width="768">
-</div>
-</div>
-<div class="paragraph">
-<p>Use the client by following the steps below:</p>
-</div>
-<div class="sect2">
-<h3 id="common_variables"><a class="link" href="#common_variables">Common variables</a></h3>
-<div class="paragraph">
-<p>Specify the API key, and the collection to access. These values will automatically be applied to the different operations.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="bulk_operations"><a class="link" href="#bulk_operations">Bulk operations</a></h3>
-<div class="paragraph">
-<p>You may perform the following bulk operations:</p>
+<p>In addition we&#8217;ve added <strong>zxx</strong> for (non linguistic content / not applicable).</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Get</p>
+<p><a href="https://en.wikipedia.org/wiki/ISO_639-2#Special_situations" class="bare">https://en.wikipedia.org/wiki/ISO_639-2#Special_situations</a></p>
 </li>
 <li>
-<p>Create or Modify</p>
-</li>
-<li>
-<p>Delete</p>
+<p><a href="https://en.wikipedia.org/wiki/ISO_639-3#Special_codes" class="bare">https://en.wikipedia.org/wiki/ISO_639-3#Special_codes</a></p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="single_operations"><a class="link" href="#single_operations">Single operations</a></h3>
+<h3 id="stemming_language"><a class="link" href="#stemming_language">Stemming Language</a></h3>
 <div class="paragraph">
-<p>Using a document&#8217;s URL you may perform the following operations:</p>
+<p>Here&#8217;s a list of the languages Enonic supports for stemming:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Get</p>
-</li>
-<li>
-<p>Patch - TODO? Modify?</p>
-</li>
-<li>
-<p>Delete</p>
+<p><a href="https://developer.enonic.com/docs/xp/stable/storage/indexing#languages" class="bare">https://developer.enonic.com/docs/xp/stable/storage/indexing#languages</a></p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>And some documentation on how it works:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://developer.enonic.com/docs/xp/stable/storage/indexing#stemmed" class="bare">https://developer.enonic.com/docs/xp/stable/storage/indexing#stemmed</a></p>
+</li>
+<li>
+<p><a href="https://developer.enonic.com/docs/xp/stable/storage/dsl#stemmed" class="bare">https://developer.enonic.com/docs/xp/stable/storage/dsl#stemmed</a></p>
+</li>
+<li>
+<p><a href="https://developer.enonic.com/docs/xp/stable/storage/noql#stemmed" class="bare">https://developer.enonic.com/docs/xp/stable/storage/noql#stemmed</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Explorer is able to match multiple <strong>locales</strong> down to a specific <strong>stemming language</strong>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use_from_to_both"><a class="link" href="#use_from_to_both">Use: From, To, Both</a></h3>
+<div class="paragraph">
+<p>You must select how a synonym is <strong>used</strong>. It may be used in three ways:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>From (Only used to find which synonyms to apply to the main query, itself is not applied to the main query.)</p>
+</li>
+<li>
+<p>To (Only used to apply to the main query. Not used when finding synonyms.)</p>
+</li>
+<li>
+<p>Both (Used to find synonyms, but also added to the main query.)</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enabled_comments"><a class="link" href="#enabled_comments">Enabled &amp; Comments</a></h3>
+<div class="paragraph">
+<p>Turning on and off certain synonyms may greatly affect the search results.
+You may supply a comment as to why it&#8217;s a good idea to keep, or disable a synonym.</p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="usage_examples"><a class="link" href="#usage_examples">Usage examples</a></h2>
+<h2 id="how_it_works"><a class="link" href="#how_it_works">How it works</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Below are some examples of using the API via cURL:</p>
+<p>The combination of all these concepts, makes it possible to create both simple and quite complex thesauri:</p>
 </div>
-<div class="listingblock">
-<div class="title">Bulk get documents with id = 1 and 2</div>
-<div class="content">
-<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">curl -XGET "http://localhost:8080/webapp/com.enonic.app.explorer/api/v2/documents/{collection}?id=1&amp;id=2&amp;returnMetadata=false" -H "authorization:Explorer-Api-Key {apikey}"</code></pre>
+<div class="sect2">
+<h3 id="single_languagedialect"><a class="link" href="#single_languagedialect">Single language/dialect</a></h3>
+<div class="paragraph">
+<p>You may setup a thesaurus with just a single language.
+For instance <strong>English [en]</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s say you want to help with some common misspellings.
+You could make a synonym <strong>from</strong>: <span class="red">artic</span>, <strong>to</strong>: <span class="green">arctic</span></p>
+</div>
+<div class="paragraph">
+<p>Or depending upon your data, and/or the focus of your search engine, you may want a "two-way" synonym between <strong>car</strong> and <strong>auto</strong>.
+To achieve that set usage to <strong class="green">both</strong> instead of using <strong class="red">from</strong> and <strong class="red">to</strong>.</p>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">Delete a single document</div>
-<div class="content">
-<pre class="highlight"><code class="language-cmd" data-lang="cmd">curl -XDELETE "http://localhost:8080/webapp/com.enonic.app.explorer/api/v2/documents/{collection}/{documentId}" -H "authorization:Explorer-Api-Key {apiKey}"</code></pre>
+<div class="sect2">
+<h3 id="multi_language_codes"><a class="link" href="#multi_language_codes">Multi language &amp; Codes</a></h3>
+<div class="paragraph">
+<p>In your domain language, maybe there are special codes which doesn&#8217;t really belong to a specific language (and thus shouldn&#8217;t be stemmed).</p>
+</div>
+<div class="paragraph">
+<p>For example in the medical world, there&#8217;s something called ATC codes.
+Let&#8217;s say you have a search page, which can search and present both Norwegian and English results.</p>
+</div>
+<div class="paragraph">
+<p>You have the ATC code <span class="blue">A01AA02</span>, the Norwegian word <span class="blue">natriummonofluorofosfat</span> and the English term <span class="blue">sodium monofluorophosphate</span>.</p>
 </div>
 </div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-Visit the API endpoint with your browser for a complete set of documentation.
-</td>
-</tr>
-</table>
+<div class="sect2">
+<h3 id="management_alternatives"><a class="link" href="#management_alternatives">Management alternatives</a></h3>
+<div class="paragraph">
+<p>Depending on how you want to manage it, you could either setup a single "complex" thesaurus or multiple "simple" ones.</p>
+</div>
+<div class="paragraph">
+<p>Both alternatives will give the same results&#8230;&#8203;</p>
+</div>
+<div class="sect3">
+<h4 id="alternative_a_multiple_simple_thesauri"><a class="link" href="#alternative_a_multiple_simple_thesauri">Alternative A: Multiple simple thesauri</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>One thesaurus with two locales <strong>zxx</strong> and <strong>no</strong>, where zxx <strong>from</strong>: <span class="blue">A01AA02</span> and no <strong>to</strong>: <span class="blue">natriummonofluorofosfat</span></p>
+</li>
+<li>
+<p>A second thesaurus with two locales <strong>zxx</strong> and <strong>en</strong>, where zxx <strong>from</strong>: <span class="blue">A01AA02</span> and en <strong>to</strong>: <span class="blue">sodium monofluorophosphate</span></p>
+</li>
+<li>
+<p>A third thesaurus with two locales <strong>no</strong> and <strong>en</strong>, where no <strong>both</strong>: <span class="blue">natriummonofluorofosfat</span> and en <strong>both</strong>: <span class="blue">sodium monofluorophosphate</span></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="alternative_b_single_complex_thesaurus"><a class="link" href="#alternative_b_single_complex_thesaurus">Alternative B: Single complex thesaurus</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>A single thesaurus with three locales <strong>zxx</strong>, <strong>no</strong> and <strong>en</strong> with zxx <strong>from</strong>: <span class="blue">A01AA02</span>, no <strong>both</strong>: <span class="blue">natriummonofluorofosfat</span> and en <strong>both</strong>: <span class="blue">sodium monofluorophosphate</span></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="interface_languages_parameter"><a class="link" href="#interface_languages_parameter">Interface languages parameter</a></h3>
+<div class="paragraph">
+<p>When an <strong>interface</strong> is used to search, it has a <strong>languages</strong> parameter.
+If you leave it empty "all" languages in the <strong>selected thesauri</strong> will be searched and applied (with stemming).
+Supplying a languages parameter will <strong>limit</strong> which languages are used when searching for synonyms to apply.</p>
+</div>
+<div class="paragraph">
+<p>Given the example above:</p>
+</div>
+<div class="paragraph">
+<p>languages: ["en"]</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>will give 0 synonyms applied (no matter what the search string is).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>languages: ["no"]</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>will give 0 synonyms applied (no matter what the search string is).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>languages: ["zxx"]</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>will give 0 synonyms applied (no matter what the search string is).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>languages: ["zxx", "en"]</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>will apply <span class="blue">sodium monofluorophosphate</span> if the search string is <span class="blue">A01AA02</span></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>languages: ["zxx", "no"]</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>will apply <span class="blue">natriummonofluorofosfat</span> if the search string is <span class="blue">A01AA02</span></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>languages: ["en", "no"]</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>will apply <span class="blue">sodium monofluorophosphate</span> if the search string is <span class="blue">natriummonofluorofosfat</span></p>
+</li>
+<li>
+<p>and <span class="blue">natriummonofluorofosfat</span> if the search string is <span class="blue">sodium monofluorophosphate</span></p>
+</li>
+<li>
+<p>if the search string is <span class="blue">A01AA02</span>, no synonyms will be applied.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>languages: ["zxx", "en", "no"]</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>will apply <span class="blue">sodium monofluorophosphate</span> if the search string is <span class="blue">natriummonofluorofosfat</span></p>
+</li>
+<li>
+<p>and <span class="blue">natriummonofluorofosfat</span> if the search string is <span class="blue">sodium monofluorophosphate</span></p>
+</li>
+<li>
+<p>if the search string is <span class="blue">A01AA02</span>, both <span class="blue">natriummonofluorofosfat</span> and <span class="blue">sodium monofluorophosphate</span> will be applied.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-15 06:17:43 UTC
+Last updated 2023-09-15 08:34:02 UTC
 </div>
 </div>
 </body>

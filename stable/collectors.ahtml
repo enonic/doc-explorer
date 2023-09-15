@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>Synonyms</title>
+<title>Collectors</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,28 +436,24 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Synonyms</h1>
+<h1>Collectors</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#concepts">Concepts</a>
+<li><a href="#usage">Usage</a>
 <ul class="sectlevel2">
-<li><a href="#thesaurus">Thesaurus</a></li>
-<li><a href="#languageslocales">Languages/Locales</a></li>
-<li><a href="#stemming_language">Stemming Language</a></li>
-<li><a href="#use_from_to_both">Use: From, To, Both</a></li>
-<li><a href="#enabled_comments">Enabled &amp; Comments</a></li>
+<li><a href="#install">Install</a></li>
+<li><a href="#configure">Configure</a></li>
+<li><a href="#run">Run</a></li>
 </ul>
 </li>
-<li><a href="#how_it_works">How it works</a>
+<li><a href="#the_webcrawler_collector">The Webcrawler collector</a>
 <ul class="sectlevel2">
-<li><a href="#single_languagedialect">Single language/dialect</a></li>
-<li><a href="#multi_language_codes">Multi language &amp; Codes</a></li>
-<li><a href="#management_alternatives">Management alternatives</a></li>
-<li><a href="#interface_languages_parameter">Interface languages parameter</a></li>
+<li><a href="#configuration">Configuration</a></li>
 </ul>
 </li>
+<li><a href="#custom_collectors">Custom collectors</a></li>
 </ul>
 </div>
 </div>
@@ -466,269 +462,131 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Use synonyms to improve search results. This is especially helpful when working with domain specific texts. For instance, when a user searches <code>fish</code>, but the search actually searches both <code>fish</code> and  <code>salmon</code>.</p>
+<p>A collector is essentially an Enonic application that can be configured to fetch data from a specific source and add it to one (or more) Explorer collections.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="concepts"><a class="link" href="#concepts">Concepts</a></h2>
+<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="thesaurus"><a class="link" href="#thesaurus">Thesaurus</a></h3>
+<h3 id="install"><a class="link" href="#install">Install</a></h3>
 <div class="paragraph">
-<p>In order to manage <strong>synonyms</strong>, you may group them into one or more <strong>thesauri</strong>.</p>
-</div>
-<div class="paragraph">
-<p>Each <strong>thesaurus</strong> may contain <strong>synonyms</strong> in one or more <strong>languages/locales</strong>.</p>
+<p>Collectors are typically distributed as regular XP applications. A single application may contain multiple collectors. As such, the first thing you need to do is install the app.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="languageslocales"><a class="link" href="#languageslocales">Languages/Locales</a></h3>
+<h3 id="configure"><a class="link" href="#configure">Configure</a></h3>
 <div class="paragraph">
-<p>Explorer uses the same <strong>locales</strong> which are made available by Java.</p>
+<p>When you create a collection, select the collector, and configure it using the form that appears.</p>
 </div>
 <div class="paragraph">
-<p>In addition we&#8217;ve added <strong>zxx</strong> for (non linguistic content / not applicable).</p>
+<p>Each collector may provide special configuration forms that allow you to tune how it will work for a specific <a href="#collections">collection</a>.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://en.wikipedia.org/wiki/ISO_639-2#Special_situations" class="bare">https://en.wikipedia.org/wiki/ISO_639-2#Special_situations</a></p>
-</li>
-<li>
-<p><a href="https://en.wikipedia.org/wiki/ISO_639-3#Special_codes" class="bare">https://en.wikipedia.org/wiki/ISO_639-3#Special_codes</a></p>
-</li>
-</ul>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+A collection may only have a single collector associated with it.
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
-<h3 id="stemming_language"><a class="link" href="#stemming_language">Stemming Language</a></h3>
+<h3 id="run"><a class="link" href="#run">Run</a></h3>
 <div class="paragraph">
-<p>Here&#8217;s a list of the languages Enonic supports for stemming:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://developer.enonic.com/docs/xp/stable/storage/indexing#languages" class="bare">https://developer.enonic.com/docs/xp/stable/storage/indexing#languages</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>And some documentation on how it works:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://developer.enonic.com/docs/xp/stable/storage/indexing#stemmed" class="bare">https://developer.enonic.com/docs/xp/stable/storage/indexing#stemmed</a></p>
-</li>
-<li>
-<p><a href="https://developer.enonic.com/docs/xp/stable/storage/dsl#stemmed" class="bare">https://developer.enonic.com/docs/xp/stable/storage/dsl#stemmed</a></p>
-</li>
-<li>
-<p><a href="https://developer.enonic.com/docs/xp/stable/storage/noql#stemmed" class="bare">https://developer.enonic.com/docs/xp/stable/storage/noql#stemmed</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Explorer is able to match multiple <strong>locales</strong> down to a specific <strong>stemming language</strong>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="use_from_to_both"><a class="link" href="#use_from_to_both">Use: From, To, Both</a></h3>
-<div class="paragraph">
-<p>You must select how a synonym is <strong>used</strong>. It may be used in three ways:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>From (Only used to find which synonyms to apply to the main query, itself is not applied to the main query.)</p>
-</li>
-<li>
-<p>To (Only used to apply to the main query. Not used when finding synonyms.)</p>
-</li>
-<li>
-<p>Both (Used to find synonyms, but also added to the main query.)</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="enabled_comments"><a class="link" href="#enabled_comments">Enabled &amp; Comments</a></h3>
-<div class="paragraph">
-<p>Turning on and off certain synonyms may greatly affect the search results.
-You may supply a comment as to why it&#8217;s a good idea to keep, or disable a synonym.</p>
+<p>Collectors run as background jobs, and may either be executed manually, or via a schedule. When running, the collector will (hopefully) fill the associated collection with documents.</p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="how_it_works"><a class="link" href="#how_it_works">How it works</a></h2>
+<h2 id="the_webcrawler_collector"><a class="link" href="#the_webcrawler_collector">The Webcrawler collector</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The combination of all these concepts, makes it possible to create both simple and quite complex thesauri:</p>
+<p>Explorer ships with a standard collector called <code>Webcrawler</code>. This is a simple webcrawler which can be used to index traditional server-side rendered websites, or simply used for testing purposes.</p>
+</div>
+<div class="paragraph">
+<p>The webcrawler only processes HTML pages. It will extract text from the HTML document, effectively removing any element tags.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Text within &lt;script&gt;, &lt;nav&gt; and &lt;footer&gt; elements will automatically be removed before the document is stored in the collection.
+</td>
+</tr>
+</table>
 </div>
 <div class="sect2">
-<h3 id="single_languagedialect"><a class="link" href="#single_languagedialect">Single language/dialect</a></h3>
+<h3 id="configuration"><a class="link" href="#configuration">Configuration</a></h3>
 <div class="paragraph">
-<p>You may setup a thesaurus with just a single language.
-For instance <strong>English [en]</strong>.</p>
+<p>The webcrawler collector has the following configuration options.</p>
 </div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">URL</dt>
+<dd>
+<p>This is the URL at which the collector will start crawling. For instance <code><a href="https://market.enonic.com" class="bare">https://market.enonic.com</a></code>. Only pages within the specified <strong>domain</strong> will be indexed.</p>
+</dd>
+<dt class="hdlist1">Exclude patterns</dt>
+<dd>
+<p>To avoid indexing all pages within a domain, you may specify exclude patterns.</p>
 <div class="paragraph">
-<p>Let&#8217;s say you want to help with some common misspellings.
-You could make a synonym <strong>from</strong>: <span class="red">artic</span>, <strong>to</strong>: <span class="green">arctic</span></p>
-</div>
-<div class="paragraph">
-<p>Or depending upon your data, and/or the focus of your search engine, you may want a "two-way" synonym between <strong>car</strong> and <strong>auto</strong>.
-To achieve that set usage to <strong class="green">both</strong> instead of using <strong class="red">from</strong> and <strong class="red">to</strong>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="multi_language_codes"><a class="link" href="#multi_language_codes">Multi language &amp; Codes</a></h3>
-<div class="paragraph">
-<p>In your domain language, maybe there are special codes which doesn&#8217;t really belong to a specific language (and thus shouldn&#8217;t be stemmed).</p>
+<p>Exclude patterns are specified using regular expressions. The expressions are matched against the start URL domain root.</p>
 </div>
 <div class="paragraph">
-<p>For example in the medical world, there&#8217;s something called ATC codes.
-Let&#8217;s say you have a search page, which can search and present both Norwegian and English results.</p>
+<p>Example: Ignore all links that start with <code>/whatever</code></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>^/whatever.*$</pre>
+</div>
 </div>
 <div class="paragraph">
-<p>You have the ATC code <span class="blue">A01AA02</span>, the Norwegian word <span class="blue">natriummonofluorofosfat</span> and the English term <span class="blue">sodium monofluorophosphate</span>.</p>
+<p>Example: Ignore pages ending with <code>.html</code></p>
 </div>
+<div class="literalblock">
+<div class="content">
+<pre>.html$</pre>
 </div>
-<div class="sect2">
-<h3 id="management_alternatives"><a class="link" href="#management_alternatives">Management alternatives</a></h3>
-<div class="paragraph">
-<p>Depending on how you want to manage it, you could either setup a single "complex" thesaurus or multiple "simple" ones.</p>
-</div>
-<div class="paragraph">
-<p>Both alternatives will give the same results&#8230;&#8203;</p>
-</div>
-<div class="sect3">
-<h4 id="alternative_a_multiple_simple_thesauri"><a class="link" href="#alternative_a_multiple_simple_thesauri">Alternative A: Multiple simple thesauri</a></h4>
-<div class="ulist">
-<ul>
-<li>
-<p>One thesaurus with two locales <strong>zxx</strong> and <strong>no</strong>, where zxx <strong>from</strong>: <span class="blue">A01AA02</span> and no <strong>to</strong>: <span class="blue">natriummonofluorofosfat</span></p>
-</li>
-<li>
-<p>A second thesaurus with two locales <strong>zxx</strong> and <strong>en</strong>, where zxx <strong>from</strong>: <span class="blue">A01AA02</span> and en <strong>to</strong>: <span class="blue">sodium monofluorophosphate</span></p>
-</li>
-<li>
-<p>A third thesaurus with two locales <strong>no</strong> and <strong>en</strong>, where no <strong>both</strong>: <span class="blue">natriummonofluorofosfat</span> and en <strong>both</strong>: <span class="blue">sodium monofluorophosphate</span></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="alternative_b_single_complex_thesaurus"><a class="link" href="#alternative_b_single_complex_thesaurus">Alternative B: Single complex thesaurus</a></h4>
-<div class="ulist">
-<ul>
-<li>
-<p>A single thesaurus with three locales <strong>zxx</strong>, <strong>no</strong> and <strong>en</strong> with zxx <strong>from</strong>: <span class="blue">A01AA02</span>, no <strong>both</strong>: <span class="blue">natriummonofluorofosfat</span> and en <strong>both</strong>: <span class="blue">sodium monofluorophosphate</span></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="interface_languages_parameter"><a class="link" href="#interface_languages_parameter">Interface languages parameter</a></h3>
-<div class="paragraph">
-<p>When an <strong>interface</strong> is used to search, it has a <strong>languages</strong> parameter.
-If you leave it empty "all" languages in the <strong>selected thesauri</strong> will be searched and applied (with stemming).
-Supplying a languages parameter will <strong>limit</strong> which languages are used when searching for synonyms to apply.</p>
 </div>
 <div class="paragraph">
-<p>Given the example above:</p>
+<p>TODO: Verify examples and Document format(link?)</p>
 </div>
+</dd>
+<dt class="hdlist1">User-Agent</dt>
+<dd>
+<p>Some webservers handle user-agents differently. Here you can pretend to be a specific browser or robot. If you leave the field empty it will use a default user agent.</p>
+</dd>
+<dt class="hdlist1">Max pages</dt>
+<dd>
+<p>Some websites dynamically generate pages. To avoid infinite crawling sessions, you may specify a maximum number of pages to crawl. The default value is 1000.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="custom_collectors"><a class="link" href="#custom_collectors">Custom collectors</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>languages: ["en"]</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>will give 0 synonyms applied (no matter what the search string is).</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>languages: ["no"]</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>will give 0 synonyms applied (no matter what the search string is).</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>languages: ["zxx"]</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>will give 0 synonyms applied (no matter what the search string is).</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>languages: ["zxx", "en"]</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>will apply <span class="blue">sodium monofluorophosphate</span> if the search string is <span class="blue">A01AA02</span></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>languages: ["zxx", "no"]</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>will apply <span class="blue">natriummonofluorofosfat</span> if the search string is <span class="blue">A01AA02</span></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>languages: ["en", "no"]</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>will apply <span class="blue">sodium monofluorophosphate</span> if the search string is <span class="blue">natriummonofluorofosfat</span></p>
-</li>
-<li>
-<p>and <span class="blue">natriummonofluorofosfat</span> if the search string is <span class="blue">sodium monofluorophosphate</span></p>
-</li>
-<li>
-<p>if the search string is <span class="blue">A01AA02</span>, no synonyms will be applied.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>languages: ["zxx", "en", "no"]</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>will apply <span class="blue">sodium monofluorophosphate</span> if the search string is <span class="blue">natriummonofluorofosfat</span></p>
-</li>
-<li>
-<p>and <span class="blue">natriummonofluorofosfat</span> if the search string is <span class="blue">sodium monofluorophosphate</span></p>
-</li>
-<li>
-<p>if the search string is <span class="blue">A01AA02</span>, both <span class="blue">natriummonofluorofosfat</span> and <span class="blue">sodium monofluorophosphate</span> will be applied.</p>
-</li>
-</ul>
-</div>
+<p>An exciting feature of Explorer is that you may also build your own collectors. We prepared a dedicated <a href="https://developer.enonic.com/docs/collector">starter-kit and tutorial for building custom collectors</a> to give you a flying start.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-15 06:17:43 UTC
+Last updated 2023-09-15 08:34:02 UTC
 </div>
 </div>
 </body>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>Upgrading</title>
+<title>Enonic Explorer documentation</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,73 +436,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Upgrading</h1>
+<h1>Enonic Explorer documentation</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#from_1_x_2_x">From 1.x &#8594; 2.x</a>
-<ul class="sectlevel2">
-<li><a href="#synonyms_2_0">Synonyms 2.0</a></li>
-<li><a href="#upgrading_collectors">Upgrading collectors</a></li>
-</ul>
-</li>
+<li><a href="#introduction">Introduction</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-Make sure you have snapshots, or a backup of your Explorer data available before upgrading.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>When the explorer application starts, it will automatically check if migration steps are required.</p>
-</div>
-<div class="paragraph">
-<p>Any migrations that requires user input will be initiated via UI.</p>
-</div>
-</div>
-</div>
 <div class="sect1">
-<h2 id="from_1_x_2_x"><a class="link" href="#from_1_x_2_x">From 1.x &#8594; 2.x</a></h2>
+<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>After installing Explorer 2.0, it will automatically initiate a migration of all of your old data.</p>
-</div>
-<div class="paragraph">
-<p>When the automated upgrade is complete, a manual step will follow</p>
-</div>
-<div class="sect2">
-<h3 id="synonyms_2_0"><a class="link" href="#synonyms_2_0">Synonyms 2.0</a></h3>
-<div class="paragraph">
-<p>In order for the legacy synonyms to work in Explorer 2.0, Explorer needs to know which language(s) the old synonyms are written in. This is needed to apply optimal stemming at index time.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Go to the Synonyms page and edit your Thesauri.
-First you pick which language(s) that Thesaurus will consist of. You may add more languages later.</p>
-<div class="paragraph">
-<p>Whatever language(s) you have choosen are now available in the <strong>from</strong> and <strong>to</strong> language dropdowns.</p>
-</div>
-<div class="paragraph">
-<p>Once you have filled those in, you can click btn:[Migrate], and the magic will happen :)
-Once that&#8217;s done click the <strong>[Save]</strong> button.</p>
-</div>
-</li>
-<li>
-<p>Repeat this step for each Thesauri until they are all migrated.</p>
-</li>
-</ol>
+<p>Collect, index and search across multiple different datasources with Explorer.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -511,24 +458,39 @@ Once that&#8217;s done click the <strong>[Save]</strong> button.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Your old Thesauri may have been a "jungle" of multiple languages. Each synonym has a language dropdown, so it&#8217;s easy to change language on it.
+tl;dr - visit the <a href="start.ahtml">getting started</a> section.
 </td>
 </tr>
 </table>
 </div>
-</div>
-<div class="sect2">
-<h3 id="upgrading_collectors"><a class="link" href="#upgrading_collectors">Upgrading collectors</a></h3>
 <div class="paragraph">
-<p>We have created a dedicated document with details on how to <a href="collectors/upgrade.ahtml">upgrade a custom collector</a>.</p>
+<p>These are the core concepts of Explorer:</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="collections.ahtml">Collections</a> Each collection may hold a set of data, typically from a specific source.</p>
+</li>
+<li>
+<p><a href="collectors.ahtml">Collectors</a> are Enonic apps that can retrive and fill data into collections, based on events or via scheduling</p>
+</li>
+<li>
+<p><a href="doctypes.ahtml">Document types</a> define fields and how to index them for search.</p>
+</li>
+<li>
+<p><a href="synonyms.ahtml">Synonyms</a> and <a href="stopwords.ahtml">Stop word</a> lists can be created and managed for improved search results.</p>
+</li>
+<li>
+<p><a href="interfaces.ahtml">Inferfaces</a> - Allows search admins to compose and tune search across collections</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-15 06:17:43 UTC
+Last updated 2023-09-15 08:34:02 UTC
 </div>
 </div>
 </body>

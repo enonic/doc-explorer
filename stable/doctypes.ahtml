@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>Stop words</title>
+<title>Document types</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,12 +436,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Stop words</h1>
+<h1>Document types</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#how_it_works">How it works</a></li>
+<li><a href="#document_types_list">Document types list</a></li>
+<li><a href="#settings">Settings</a></li>
+<li><a href="#fields">Fields</a>
+<ul class="sectlevel2">
+<li><a href="#fields_2">Fields</a></li>
+</ul>
+</li>
+<li><a href="#updating_document_types">Updating document types</a></li>
 </ul>
 </div>
 </div>
@@ -450,52 +457,230 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For any given language or topic, stop-words are typically short words that occur frequently in texts.</p>
+<p>In Explorer data is organized into <a href="collections.ahtml">Collections</a>.
+Each collection may contain a number of <a href="documents.ahtml">documents</a>.
+Each document may have fields with values.</p>
 </div>
 <div class="paragraph">
-<p>They are found in most documents and thus do not provide much value in terms of saying which result should be scored higher than another.</p>
+<p>Each document, must have a specific document-type.</p>
 </div>
 <div class="paragraph">
-<p>As such, it can be a good idea to remove them from queries improve scoring.</p>
+<p>The document types controls the indexing, on a per field level, as well as optional validation rules.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="how_it_works"><a class="link" href="#how_it_works">How it works</a></h2>
-<div class="sectionbody">
-<div class="imageblock">
-<div class="content">
-<img src="media/stopwords.png" alt="List of stopwords" width="1024w">
-</div>
-</div>
-<div class="paragraph">
-<p>The search string is split, by unicode boundaries, into words.
-Each word matching a stop word is then removed from the search string.</p>
-</div>
-<div class="paragraph">
-<p>This all happens before the synonyms stage.</p>
-</div>
-<div class="paragraph">
-<p>You can have multiple stop-word lists and use them in various combinations via <a href="interfaces.ahtml">interfaces</a>.</p>
-</div>
-<div class="admonitionblock caution">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Be careful when adding stop words, it may quickly lead to an empty search string and no search results.
+A single collection may have documents with different document types.
 </td>
 </tr>
 </table>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="document_types_list"><a class="link" href="#document_types_list">Document types list</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The table will show a list of the document-types.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/doctypes.png" alt="Browse and manage document types" width="1024w">
+</div>
+</div>
+<div class="paragraph">
+<p>Each row represents a document-type and will have a button to edit the document-type.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="settings"><a class="link" href="#settings">Settings</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When creating a new document type, you must define the basic settings:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/doctype-new.png" alt="Initial doctype configuration" width="1000w">
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Name</dt>
+<dd>
+<p>A unique name which is also the identifier. The name may only contain a strictly limited set of characters.</p>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+The name cannot be changed after a document-type is created. Deleting a document type after clients have started using it will be a breaking change in the GraphQL API. To prevent breaking the API, a document type can rather be disabled.
+</td>
+</tr>
+</table>
+</div>
+</dd>
+<dt class="hdlist1">Add fields automatically</dt>
+<dd>
+<p>Enable this option if you want the document type to be dynamic. If enabled, whenever a document is created or updated it will automatically detect new fields, determine a <a href="#_value_type">Value type</a> for the field and add it to the document-type.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="fields"><a class="link" href="#fields">Fields</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once a document type has been created, you may manage it&#8217;s fields.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/doctype-fields.png" alt="List of document type fields" width="1000w">
+</div>
+</div>
+<div class="paragraph">
+<p>Each row represents a field and will have a button to edit the field, or add new fields.</p>
+</div>
+<div class="sect2">
+<h3 id="fields_2"><a class="link" href="#fields_2">Fields</a></h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Name</dt>
+<dd>
+<p>Each field must have a unique name within the document-type.</p>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+The name cannot be changed after a field is created. Deleting a field after clients have started using it will be a breaking change in the GraphQL API. To prevent breaking the API, a field can rather be disabled.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Fields can also be nested. A dot '<strong>.</strong>' is used to indicate nesting. For instance: <code>person.name</code>. In this case, the field <code>person</code> will be reserved for nesting, and can no longer be used for indexing.</p>
+</div>
+</dd>
+<dt class="hdlist1">Value type</dt>
+<dd>
+<p>Each field must have a specific value type. The value type enables field validation, and default indexing options.</p>
+<div class="paragraph">
+<p>The value types are: <code>Boolean</code>, <code>Double</code>, <code>geoPoint</code>, <code>instant</code>, <code>localDate</code>, <code>localDateTime</code>, <code>localTime</code>,<code>long</code>, <code>set</code> and <code>string</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Value type validation is only enforced if documents are created with validateOccurrences=true.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Visit the Enonic XP <a href="https://developer.enonic.com/docs/xp/stable/storage/indexing#value_types^">Value types</a> documentation for more details on value types and indexing.</p>
+</div>
+</dd>
+<dt class="hdlist1">Min</dt>
+<dd>
+<p>0 means the field is optional. Setting it to anything larger than 0 means it&#8217;s a required field.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The "Min" option is only enforced if documents are created with validateOccurrences=true.
+</td>
+</tr>
+</table>
+</div>
+</dd>
+<dt class="hdlist1">Max</dt>
+<dd>
+<p>0 means there is no limit on how many values the field can have.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The "Max" option is only enforced if documents are created with validateOccurrences=true.
+</td>
+</tr>
+</table>
+</div>
+</dd>
+<dt class="hdlist1">Indexing</dt>
+<dd>
+<p>Enable in order to search this specific field. Enabled by default.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For details on all indexing options, see <a href="https://developer.enonic.com/docs/xp/stable/storage/indexing#config_options">Config Options</a>.
+</td>
+</tr>
+</table>
+</div>
+</dd>
+<dt class="hdlist1">Include in alltext</dt>
+<dd>
+<p>When enabled, the value of this field will be included in the system defined _alltext field. _alltext typically aggregates all string values in a document, and is the default field used when searching.</p>
+</dd>
+<dt class="hdlist1">Fulltext</dt>
+<dd>
+<p>When enabled, the field value will be analyzed and enabled for general text search.</p>
+</dd>
+<dt class="hdlist1">Ngram</dt>
+<dd>
+<p>When enabled, the field value will be analyzed and enabled for ngram search. Ngram is typically used for autocompletion, and "starts with" types of search.</p>
+</dd>
+<dt class="hdlist1">Path</dt>
+<dd>
+<p>When enabled, the field value will be analyzed and enabled for path search. Paths are strings with / separators.</p>
+</dd>
+<dt class="hdlist1">Active</dt>
+<dd>
+<p>Deleting a field will potentially break the strongly typed <a href="graphql.ahtml">GraphQL API</a>. Deactivating will not break the schema, but simply return empty values for the field instead.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="updating_document_types"><a class="link" href="#updating_document_types">Updating document types</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When a document type is in use (one or more documents exists), it is still possible to modify and update the document type.</p>
+</div>
+<div class="paragraph">
+<p>After saving your changes to the document type, all documents will automatically be re-indexed based on the new document type definition.</p>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-15 06:17:43 UTC
+Last updated 2023-09-15 08:34:02 UTC
 </div>
 </div>
 </body>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>Document types</title>
+<title>Collector JavaScript API</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,19 +436,28 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Document types</h1>
+<h1>Collector JavaScript API</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#document_types_list">Document types list</a></li>
-<li><a href="#settings">Settings</a></li>
-<li><a href="#fields">Fields</a>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#constructor">Constructor</a></li>
+<li><a href="#methods">Methods</a>
 <ul class="sectlevel2">
-<li><a href="#fields_2">Fields</a></li>
+<li><a href="#start">start</a></li>
+<li><a href="#querydocuments">queryDocuments</a></li>
+<li><a href="#persistdocument">persistDocument</a></li>
+<li><a href="#deletedocument">deleteDocument</a></li>
+<li><a href="#getdocumentnode">getDocumentNode</a></li>
+<li><a href="#shouldstop">shouldStop</a></li>
+<li><a href="#addsuccess">addSuccess</a></li>
+<li><a href="#addinformation">addInformation</a></li>
+<li><a href="#addwarning">addWarning</a></li>
+<li><a href="#adderror">addError</a></li>
+<li><a href="#stop">stop</a></li>
 </ul>
 </li>
-<li><a href="#updating_document_types">Updating document types</a></li>
 </ul>
 </div>
 </div>
@@ -457,15 +466,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In Explorer data is organized into <a href="collections.ahtml">Collections</a>.
-Each collection may contain a number of <a href="documents.ahtml">documents</a>.
-Each document may have fields with values.</p>
-</div>
-<div class="paragraph">
-<p>Each document, must have a specific document-type.</p>
-</div>
-<div class="paragraph">
-<p>The document types controls the indexing, on a per field level, as well as optional validation rules.</p>
+<p>The collector JS API can be accessed via Enonic applicatoins. It is provisioned via the <code>lib-explorer</code> dependency. Similar to the ingest API, the collector API provides everything you need to work with collections and documents.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -474,7 +475,7 @@ Each document may have fields with values.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-A single collection may have documents with different document types.
+<strong>Building your own collector?</strong> Check out the <a href="https://developer.enonic.com/docs/collector">collector starter tutorial</a>
 </td>
 </tr>
 </table>
@@ -482,205 +483,942 @@ A single collection may have documents with different document types.
 </div>
 </div>
 <div class="sect1">
-<h2 id="document_types_list"><a class="link" href="#document_types_list">Document types list</a></h2>
+<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The table will show a list of the document-types.</p>
+<p>Add the following to your <code>build.gradle</code> file:</p>
 </div>
-<div class="imageblock">
+<div class="listingblock">
 <div class="content">
-<img src="media/doctypes.png" alt="Browse and manage document types" width="1024w">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">dependencies {
+  include "com.enonic.lib:lib-explorer:4.x.x"
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Each row represents a document-type and will have a button to edit the document-type.</p>
+<p>In your task controller, add a require statement:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import { Collector } from '/lib/explorer';</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Create the Collector object within the run function. The paramers are automatically passed to the task from Explorer.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">export function run({
+	collectionId,
+	collectorId,
+	configJson,
+	language
+}) {
+	const collector = new Collector&lt;CollectorConfig&gt;({
+		collectionId, collectorId, configJson, language
+	});
+	// ...
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You are now ready to use the API.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="settings"><a class="link" href="#settings">Settings</a></h2>
+<h2 id="constructor"><a class="link" href="#constructor">Constructor</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>When creating a new document type, you must define the basic settings:</p>
+<p>Constructor for the Collector class.</p>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="media/doctype-new.png" alt="Initial doctype configuration" width="1000w">
+<div class="paragraph lead">
+<p>Description</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>Throws if any of the parameters are missing or invalid.</p>
+</li>
+<li>
+<p>Gets information about the Collection.</p>
+</li>
+<li>
+<p>Parses the configJson and provides the result via the config property.</p>
+</li>
+</ul>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Name</dt>
-<dd>
-<p>A unique name which is also the identifier. The name may only contain a strictly limited set of characters.</p>
-<div class="admonitionblock warning">
-<table>
+<div class="paragraph lead">
+<p>Parameters</p>
+</div>
+<div class="paragraph">
+<p>An object with the following keys and their values:</p>
+</div>
+<table class="tableblock frame-none grid-none stretch">
+<colgroup>
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 98%;">
+</colgroup>
+<thead>
 <tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-The name cannot be changed after a document-type is created. Deleting a document type after clients have started using it will be a breaking change in the GraphQL API. To prevent breaking the API, a document type can rather be disabled.
-</td>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Kind</th>
+<th class="tableblock halign-left valign-top">Details</th>
 </tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectionId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Id of the collection to use</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">collectorId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Id of the collector (i.e. <code>com.example.app:collector</code>)</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">configJson</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The collector configuration</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">language</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>a valid locale</p>
+</div></div></td>
+</tr>
+</tbody>
 </table>
+<div class="paragraph lead">
+<p>Returns</p>
 </div>
-</dd>
-<dt class="hdlist1">Add fields automatically</dt>
-<dd>
-<p>Enable this option if you want the document type to be dynamic. If enabled, whenever a document is created or updated it will automatically detect new fields, determine a <a href="#_value_type">Value type</a> for the field and add it to the document-type.</p>
-</dd>
-</dl>
+<div class="paragraph">
+<p>Collector object</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="fields"><a class="link" href="#fields">Fields</a></h2>
+<h2 id="methods"><a class="link" href="#methods">Methods</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Once a document type has been created, you may manage it&#8217;s fields.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="media/doctype-fields.png" alt="List of document type fields" width="1000w">
-</div>
-</div>
-<div class="paragraph">
-<p>Each row represents a field and will have a button to edit the field, or add new fields.</p>
+<p>These are the available methods of the Collector object</p>
 </div>
 <div class="sect2">
-<h3 id="fields_2"><a class="link" href="#fields_2">Fields</a></h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Name</dt>
-<dd>
-<p>Each field must have a unique name within the document-type.</p>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-The name cannot be changed after a field is created. Deleting a field after clients have started using it will be a breaking change in the GraphQL API. To prevent breaking the API, a field can rather be disabled.
-</td>
-</tr>
-</table>
+<h3 id="start"><a class="link" href="#start">start</a></h3>
+<div class="paragraph lead">
+<p>Description</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Stores a startTime timestamp used in duration calculations.</p>
+</li>
+<li>
+<p>Reports an initial progress via lib-task.</p>
+</li>
+<li>
+<p>Creates a new collection repo (if needed).</p>
+</li>
+<li>
+<p>Persists information that the collector is running (so it can&#8217;t be run twice in parallel, but can be stopped).</p>
+</li>
+<li>
+<p>Sets up a journal to write state information to.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph lead">
+<p>Parameters</p>
 </div>
 <div class="paragraph">
-<p>Fields can also be nested. A dot '<strong>.</strong>' is used to indicate nesting. For instance: <code>person.name</code>. In this case, the field <code>person</code> will be reserved for nesting, and can no longer be used for indexing.</p>
+<p><strong>None</strong></p>
 </div>
-</dd>
-<dt class="hdlist1">Value type</dt>
-<dd>
-<p>Each field must have a specific value type. The value type enables field validation, and default indexing options.</p>
-<div class="paragraph">
-<p>The value types are: <code>Boolean</code>, <code>Double</code>, <code>geoPoint</code>, <code>instant</code>, <code>localDate</code>, <code>localDateTime</code>, <code>localTime</code>,<code>long</code>, <code>set</code> and <code>string</code>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Value type validation is only enforced if documents are created with validateOccurrences=true.
-</td>
-</tr>
-</table>
+<div class="paragraph lead">
+<p>Returns</p>
 </div>
 <div class="paragraph">
-<p>Visit the Enonic XP <a href="https://developer.enonic.com/docs/xp/stable/storage/indexing#value_types^">Value types</a> documentation for more details on value types and indexing.</p>
+<p><strong>Void</strong></p>
 </div>
-</dd>
-<dt class="hdlist1">Min</dt>
-<dd>
-<p>0 means the field is optional. Setting it to anything larger than 0 means it&#8217;s a required field.</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The "Min" option is only enforced if documents are created with validateOccurrences=true.
-</td>
-</tr>
-</table>
+<div class="paragraph lead">
+<p>Examples</p>
 </div>
-</dd>
-<dt class="hdlist1">Max</dt>
-<dd>
-<p>0 means there is no limit on how many values the field can have.</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The "Max" option is only enforced if documents are created with validateOccurrences=true.
-</td>
-</tr>
-</table>
-</div>
-</dd>
-<dt class="hdlist1">Indexing</dt>
-<dd>
-<p>Enable in order to search this specific field. Enabled by default.</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-For details on all indexing options, see <a href="https://developer.enonic.com/docs/xp/stable/storage/indexing#config_options">Config Options</a>.
-</td>
-</tr>
-</table>
-</div>
-</dd>
-<dt class="hdlist1">Include in alltext</dt>
-<dd>
-<p>When enabled, the value of this field will be included in the system defined _alltext field. _alltext typically aggregates all string values in a document, and is the default field used when searching.</p>
-</dd>
-<dt class="hdlist1">Fulltext</dt>
-<dd>
-<p>When enabled, the field value will be analyzed and enabled for general text search.</p>
-</dd>
-<dt class="hdlist1">Ngram</dt>
-<dd>
-<p>When enabled, the field value will be analyzed and enabled for ngram search. Ngram is typically used for autocompletion, and "starts with" types of search.</p>
-</dd>
-<dt class="hdlist1">Path</dt>
-<dd>
-<p>When enabled, the field value will be analyzed and enabled for path search. Paths are strings with / separators.</p>
-</dd>
-<dt class="hdlist1">Active</dt>
-<dd>
-<p>Deleting a field will potentially break the strongly typed <a href="graphql.ahtml">GraphQL API</a>. Deactivating will not break the schema, but simply return empty values for the field instead.</p>
-</dd>
-</dl>
+<div class="listingblock">
+<div class="title">Calling the start method</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">collector.start();</code></pre>
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="updating_document_types"><a class="link" href="#updating_document_types">Updating document types</a></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="querydocuments"><a class="link" href="#querydocuments">queryDocuments</a></h3>
 <div class="paragraph">
-<p>When a document type is in use (one or more documents exists), it is still possible to modify and update the document type.</p>
+<p>This method makes is possible to query the exisiting documents in the collection.
+Useful to find the document id to modify an existing document, rather than creating a new one.</p>
+</div>
+<div class="paragraph lead">
+<p>Parameters</p>
 </div>
 <div class="paragraph">
-<p>After saving your changes to the document type, all documents will automatically be re-indexed based on the new document type definition.</p>
+<p>An object with the following keys and their values:</p>
+</div>
+<table class="tableblock frame-none grid-none stretch">
+<colgroup>
+<col style="width: 0.99%;">
+<col style="width: 0.99%;">
+<col style="width: 0.99%;">
+<col style="width: 97.03%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Attributes</th>
+<th class="tableblock halign-left valign-top">Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">start</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Start index used for paging - default: 0</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">count</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">number</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Number of content to fetch, used for paging - default: 10</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">query</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string/object</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Query string or DSL expression.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">filters</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Query filters</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sort</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string/object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Sorting string or DSL expression. Default: '_score DESC'</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">aggregations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Aggregations config</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">highlight</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Highlighting config</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">explain</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>If set to <code>true</code>, score calculation explanation will be included in result.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph lead">
+<p>Returns</p>
+</div>
+<div class="paragraph">
+<p><strong>object</strong> : stats, hits and if requested, aggregations</p>
+</div>
+<div class="paragraph lead">
+<p>Examples</p>
+</div>
+<div class="listingblock">
+<div class="title">Calling the queryDocuments method</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">collector.queryDocuments({
+    start: 0,
+    count: 2,
+    query: "startTime &gt; instant('2016-10-11T14:38:54.454Z')",
+    filters: {
+        boolean: {
+            must: [
+                {
+                    exists: {
+                        field: "modifiedTime"
+                    }
+                },
+                {
+                    exists: {
+                        field: "other"
+                    }
+                }
+            ],
+            mustNot: {
+                hasValue: {
+                    field: "myField",
+                    values: [
+                        "cheese",
+                        "fish",
+                        "onion"
+                    ]
+                }
+            }
+        },
+        notExists: {
+            field: "unwantedField"
+        },
+        ids: {
+            values: ["id1", "id2"]
+        }
+    },
+    sort: "duration DESC",
+});</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample response</div>
+<div class="content">
+<pre class="highlight"><code class="language-js" data-lang="js">{
+    "total": 12902,
+    "count": 2,
+    "hits": [
+        {
+            "id": "b186d24f-ac38-42ca-a6db-1c1bda6c6c26",
+            "score": 1.2300000190734863
+        },
+        {
+            "id": "350ba4a6-589c-498b-8af0-f183850e1120",
+            "score": 1.399999976158142
+        }
+    ],
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="persistdocument"><a class="link" href="#persistdocument">persistDocument</a></h3>
+<div class="paragraph">
+<p>This method will create or modify a document, based on its parameters. It can also extend a documentType and validate against it.</p>
+</div>
+<div class="paragraph lead">
+<p>Parameters</p>
+</div>
+<table class="tableblock frame-none grid-none stretch">
+<colgroup>
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 98%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Kind</th>
+<th class="tableblock halign-left valign-top">Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">document</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The document to persist</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">options</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Options to use when persisting the document</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph lead">
+<p>Document object</p>
+</div>
+<table class="tableblock frame-none grid-none stretch">
+<colgroup>
+<col style="width: 0.99%;">
+<col style="width: 0.99%;">
+<col style="width: 0.99%;">
+<col style="width: 97.03%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Kind</th>
+<th class="tableblock halign-left valign-top">Attributes</th>
+<th class="tableblock halign-left valign-top">Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">_id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Id of an exisiting document to modify</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">_name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Name of an exisiting document to modify</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">_parentPath</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Parentpath of an exisiting document to modify - default: '/'</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8230;&#8203;rest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">any</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Any other properties of the document to persist</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph lead">
+<p>Options object</p>
+</div>
+<table class="tableblock frame-none grid-none stretch">
+<colgroup>
+<col style="width: 0.99%;">
+<col style="width: 0.99%;">
+<col style="width: 0.99%;">
+<col style="width: 97.03%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Kind</th>
+<th class="tableblock halign-left valign-top">Attributes</th>
+<th class="tableblock halign-left valign-top">Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolRequireValid</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Whether a document must validate in order to be created or modified - default: false</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">documentTypeName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;required&gt;</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Which documentType to use for indexing and validate against</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph lead">
+<p>Returns the persisted document</p>
+</div>
+<div class="paragraph lead">
+<p>Examples</p>
+</div>
+<div class="listingblock">
+<div class="title">Calling the persistDocument method</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">const document = collector.persistDocument({
+	text: `This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission.
+
+More information...`,
+	title: 'Example Domain',
+	url: 'https://example.com/'
+}, {
+	boolRequireValid: true,
+	documentTypeName: 'my_document_type'
+});
+log.info('Document persisted:%s', JSON.stringify(document, null, 4));</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deletedocument"><a class="link" href="#deletedocument">deleteDocument</a></h3>
+<div class="paragraph">
+<p>This method makes it possible to delete one or more documents from the collection.</p>
+</div>
+<div class="paragraph lead">
+<p>Parameters</p>
+</div>
+<table class="tableblock frame-none grid-none stretch">
+<colgroup>
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 98%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Kind</th>
+<th class="tableblock halign-left valign-top">Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keys</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string | Array.&lt;string&gt;</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Document keys to delete. Each argument could be an id or a path. Prefer the usage of ID rather than paths.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph lead">
+<p>Returns</p>
+</div>
+<div class="paragraph">
+<p><strong>Array.&lt;string&gt;</strong> : The list of keys that were actually deleted.</p>
+</div>
+<div class="paragraph lead">
+<p>Examples</p>
+</div>
+<div class="listingblock">
+<div class="title">Deleting a single document</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">const deletedId = collector.deleteDocument('9aba4116-a219-4ccf-9f7a-17dc1486f82e');</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample response</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">'9aba4116-a219-4ccf-9f7a-17dc1486f82e'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Deleting multiple documents</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">const deletedIds = collector.deleteDocument(
+	'9aba4116-a219-4ccf-9f7a-17dc1486f82e',
+	'1f5fd4b6-1bfa-4a5b-adde-5241982ea200'
+);</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample response</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">[
+	'9aba4116-a219-4ccf-9f7a-17dc1486f82e',
+	'1f5fd4b6-1bfa-4a5b-adde-5241982ea200'
+]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="getdocumentnode"><a class="link" href="#getdocumentnode">getDocumentNode</a></h3>
+<div class="paragraph">
+<p>This method makes it possible to get one ore more documents from the collection.</p>
+</div>
+<div class="paragraph lead">
+<p>Parameters</p>
+</div>
+<table class="tableblock frame-none grid-none stretch">
+<colgroup>
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 98%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Kind</th>
+<th class="tableblock halign-left valign-top">Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keys</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string | Array.&lt;string&gt;</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Document keys to get. Each argument could be an id or a path. Prefer the usage of ID rather than paths.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph lead">
+<p>Returns</p>
+</div>
+<div class="paragraph">
+<p><strong>Object | Array&lt;Object&gt;</strong> : One or more gotten documents.</p>
+</div>
+<div class="paragraph lead">
+<p>Examples</p>
+</div>
+<div class="listingblock">
+<div class="title">Getting a single document</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">const node = collector.getDocumentNode('9aba4116-a219-4ccf-9f7a-17dc1486f82e');</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample response</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
+	_id: '9aba4116-a219-4ccf-9f7a-17dc1486f82e',
+	_name: '9aba4116-a219-4ccf-9f7a-17dc1486f82e',
+	_path: '/9aba4116-a219-4ccf-9f7a-17dc1486f82e',
+	text: `This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission. More information...`,
+	title: 'Example Domain',
+	url: 'https://example.com/'
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Getting a multiple documents</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">const node = collector.getDocumentNode(
+	'9aba4116-a219-4ccf-9f7a-17dc1486f82e',
+	'1f5fd4b6-1bfa-4a5b-adde-5241982ea200'
+);</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample response</div>
+<div class="content">
+<pre class="highlight"><code class="language-JSON" data-lang="JSON">[{
+	_id: '9aba4116-a219-4ccf-9f7a-17dc1486f82e',
+	_name: '9aba4116-a219-4ccf-9f7a-17dc1486f82e',
+	_path: '/9aba4116-a219-4ccf-9f7a-17dc1486f82e',
+	text: `This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission. More information...`,
+	title: 'Example Domain',
+	url: 'https://example.com/'
+}, {
+	_id: '1f5fd4b6-1bfa-4a5b-adde-5241982ea200',
+	_name: '1f5fd4b6-1bfa-4a5b-adde-5241982ea200',
+	_path: '/1f5fd4b6-1bfa-4a5b-adde-5241982ea200',
+	text: `fnord`,
+	title: 'Fnord',
+	url: 'https://fnord.com/'
+}]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="shouldstop"><a class="link" href="#shouldstop">shouldStop</a></h3>
+<div class="paragraph">
+<p>This method checks whether the STOP button has be clicked in the Explorer Admin GUI.</p>
+</div>
+<div class="paragraph">
+<p>Useful to finish gracefully, for instance by breaking loops.</p>
+</div>
+<div class="paragraph lead">
+<p>Parameters</p>
+</div>
+<div class="paragraph">
+<p><strong>None</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Returns</p>
+</div>
+<div class="paragraph">
+<p><strong>Boolean</strong> : Whether the STOP button has been clicked.</p>
+</div>
+<div class="paragraph lead">
+<p>Examples</p>
+</div>
+<div class="listingblock">
+<div class="title">Calling the shouldStop method</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">while (!collector.shouldStop() &amp;&amp; moreToDo) {
+	// do something
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="addsuccess"><a class="link" href="#addsuccess">addSuccess</a></h3>
+<div class="paragraph">
+<p>Adds a success to the journal.</p>
+</div>
+<div class="paragraph lead">
+<p>Parameters</p>
+</div>
+<div class="paragraph">
+<p>An object with the following keys and their values:</p>
+</div>
+<table class="tableblock frame-none grid-none stretch">
+<colgroup>
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 98%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Kind</th>
+<th class="tableblock halign-left valign-top">Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The success message to add to the journal</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph lead">
+<p>Returns</p>
+</div>
+<div class="paragraph">
+<p><strong>Void</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Examples</p>
+</div>
+<div class="listingblock">
+<div class="title">Calling the addSuccess method</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">collector.addSuccess({
+	message: `The document scraped from ${url} was persisted successfully :)`
+});</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="addinformation"><a class="link" href="#addinformation">addInformation</a></h3>
+<div class="paragraph">
+<p>Adds useful information to the journal.</p>
+</div>
+<div class="paragraph lead">
+<p>Parameters</p>
+</div>
+<div class="paragraph">
+<p>An object with the following keys and their values:</p>
+</div>
+<table class="tableblock frame-none grid-none stretch">
+<colgroup>
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 98%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Kind</th>
+<th class="tableblock halign-left valign-top">Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The information message to add to the journal</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph lead">
+<p>Returns</p>
+</div>
+<div class="paragraph">
+<p><strong>Void</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Examples</p>
+</div>
+<div class="listingblock">
+<div class="title">Calling the addInformation method</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">collector.addInformation({
+	message: `While scraping ${url} something interesting was found.`
+});</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="addwarning"><a class="link" href="#addwarning">addWarning</a></h3>
+<div class="paragraph">
+<p>Adds a warning to the journal.</p>
+</div>
+<div class="paragraph lead">
+<p>Parameters</p>
+</div>
+<table class="tableblock frame-none grid-none stretch">
+<colgroup>
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 98%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Kind</th>
+<th class="tableblock halign-left valign-top">Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The warning message to add to the journal</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph lead">
+<p>Returns</p>
+</div>
+<div class="paragraph">
+<p><strong>Void</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Examples</p>
+</div>
+<div class="listingblock">
+<div class="title">Calling the addWarning method</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">collector.addWarning({
+	message: `${url} isn't available today`
+});</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adderror"><a class="link" href="#adderror">addError</a></h3>
+<div class="paragraph">
+<p>Adds an error to the journal.</p>
+</div>
+<div class="paragraph lead">
+<p>Parameters</p>
+</div>
+<table class="tableblock frame-none grid-none stretch">
+<colgroup>
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 98%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Kind</th>
+<th class="tableblock halign-left valign-top">Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">message</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The error message to add to the journal</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph lead">
+<p>Returns</p>
+</div>
+<div class="paragraph">
+<p><strong>Void</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Examples</p>
+</div>
+<div class="listingblock">
+<div class="title">Calling the addError method</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">try {
+	// do something that fails
+} catch (e) {
+	collector.addError({
+		message: `It's a real problem that ${url} isn't available :(`
+	});
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="stop"><a class="link" href="#stop">stop</a></h3>
+<div class="paragraph lead">
+<p>Description</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Persists the journal to the journal repo.</p>
+</li>
+<li>
+<p>Sends emails if notifications are configured on the Explorer Admin GUI.</p>
+</li>
+<li>
+<p>Persists information that the collector has failed or finished (so it can be started again).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph lead">
+<p>Parameters</p>
+</div>
+<div class="paragraph">
+<p><strong>None</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Returns</p>
+</div>
+<div class="paragraph">
+<p><strong>Void</strong></p>
+</div>
+<div class="paragraph lead">
+<p>Examples</p>
+</div>
+<div class="listingblock">
+<div class="title">Calling the stop method</div>
+<div class="content">
+<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">collector.stop();</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-15 06:17:43 UTC
+Last updated 2023-09-15 08:34:02 UTC
 </div>
 </div>
 </body>

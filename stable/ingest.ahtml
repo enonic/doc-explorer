@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>Getting Started</title>
+<title>Ingest API</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,23 +436,24 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Getting Started</h1>
+<h1>Ingest API</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#sign_up">Sign up</a></li>
-<li><a href="#explorer_admin">Explorer admin</a></li>
-<li><a href="#collecting_data">Collecting data</a></li>
-<li><a href="#documents">Documents</a></li>
-<li><a href="#document_types">Document types</a></li>
-<li><a href="#interfaces">Interfaces</a></li>
-<li><a href="#graphql_api">GraphQL API</a>
+<li><a href="#endpoint">Endpoint</a>
 <ul class="sectlevel2">
-<li><a href="#live_api">Live API</a></li>
+<li><a href="#production_deployment">Production deployment</a></li>
+<li><a href="#headers">Headers</a></li>
 </ul>
 </li>
-<li><a href="#next_up">Next up</a></li>
+<li><a href="#api_documentation">API documentation</a>
+<ul class="sectlevel2">
+<li><a href="#common_variables">Common variables</a></li>
+<li><a href="#bulk_operations">Bulk operations</a></li>
+<li><a href="#single_operations">Single operations</a></li>
+</ul>
+</li>
+<li><a href="#usage_examples">Usage examples</a></li>
 </ul>
 </div>
 </div>
@@ -460,483 +461,190 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Hands-on introduction to get familiar with Enonic Explorer</p>
+<p>A REST style api to create, read, update and delete documents. Use this to update documents in your collection(s) externally.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
+<h2 id="endpoint"><a class="link" href="#endpoint">Endpoint</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>During this tutorial you will:</p>
+<p>The API&#8217;s default location is:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Sign up for a free Enonic account</p>
-</li>
-<li>
-<p>Set up a new solution with Explorer pre-installed</p>
-</li>
-<li>
-<p>Create a new collection and fill it with sample content</p>
-</li>
-<li>
-<p>Learn about Documents and Document types</p>
-</li>
-<li>
-<p>Create an interface to search your content</p>
-</li>
-<li>
-<p>Access and query the API directly</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="sign_up"><a class="link" href="#sign_up">Sign up</a></h2>
-<div class="sectionbody">
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-Developers may also run Explorer locally by <a href="https://developer.enonic.com/start">setting up the Enonic SDK</a>, and then <a href="https://market.enonic.com/vendors/enonic/explorer">installing Explorer from Enonic Market</a>.
-</td>
-</tr>
-</table>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Start by signing up for get a free account on <a href="https://console.enonic.com" class="bare">https://console.enonic.com</a></p>
-</li>
-<li>
-<p><strong>Create a new Solution</strong>. <code>Solutions &#8594; <b class="button">Create</b></code>.</p>
-<div class="paragraph">
-<p>Choose  the <code>Explorer</code> template. Give your solution a name, go with the default values.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-The template ensures that Explorer and all relevant dependencies are pre-installed.
-</td>
-</tr>
-</table>
-</div>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="explorer_admin"><a class="link" href="#explorer_admin">Explorer admin</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Once the environment has booted. From the new solution page, click <code>Admin &#8594; <b class="button">Launch</b></code>.</p>
-</div>
-<div class="paragraph">
-<p>This will take you to the environment dashboard.</p>
-</div>
-<div class="paragraph">
-<p>Launch the Explorer admin from the top right <code>XP menu &#8594; Explorer</code>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Only users with the role <code>system.admin</code>, or <code>com.enonic.explorer</code> (created when Explorer was installed) can see and access the Explorer admin.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The initial view should look something like this:</p>
-</div>
-<div class="imageblock">
+<div class="literalblock">
 <div class="content">
-<img src="media/home.png" alt="Explorer start page" width="1024w">
-</div>
-</div>
-<div class="paragraph">
-<p>The Explorer menu is available from the top left.</p>
-</div>
-<div class="paragraph">
-<p>From the main panel you can search the indexed documents - bu sadly there is nothing to search yet. 🤷</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="collecting_data"><a class="link" href="#collecting_data">Collecting data</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To get some data to play with, let&#8217;s use the built-in, simple <a href="collectors/webcrawler.ahtml">Web crawler collector</a> to fetch content from Enonic Market.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><strong>Create a new Collection</strong>. <code>Collections &#8594; <b class="button">+</b></code>. The Create button (Green +) can be found at the bottom right hand of the page.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Give your new collection a name, i.e. <code>market</code>.</p>
-</li>
-<li>
-<p>choose <code>Web crawler</code> from the collector dropdown menu</p>
-</li>
-<li>
-<p>provide the collector with a starting URL: <code>https://market.enonic.com</code></p>
-</li>
-<li>
-<p>Skip all other options, and click <b class="button">Save</b> at the bottom of the form</p>
-</li>
-<li>
-<p>The <code>market</code> collection should now be visible on the Collections page.</p>
-<div class="imageblock">
-<div class="content">
-<img src="media/collection-market.png" alt="Showing the market collection in the list" width="1024w">
-</div>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Collect content</strong></p>
-<div class="paragraph">
-<p>Click the <b class="button">Download</b> icon to the left to start the collector. This will trigger a background job that crawls the website and adds each page as a document in Explorer.</p>
-</div>
-<div class="paragraph">
-<p>To view the status of the job, visit the <code>Collections &#8594; Status</code> page from the Explorer menu.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="media/collector-status.png" alt="CollectorStatus" width="1039">
-</div>
-</div>
-</li>
-</ol>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-In addition to using collectors (jobs that runs within Enonic), you may also inject data externally through the <a href="ingest.ahtml">Ingest API</a>.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="documents"><a class="link" href="#documents">Documents</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><code>Document</code> is the term used for a single item within a collection</p>
-</div>
-<div class="paragraph">
-<p>Once the collector job has completed, clicking the <code>document count</code> will take you to the <code>Documents</code> page.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The <code>Documents</code> page is available from the Explorer menu as well.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>From the Documents page, you may browse and filter all available documents. You can also configure which fields to show. Clicking the leftmost <code>JSON</code> icon will reveal the raw data that was indexed for this document.</p>
-</div>
-<div class="paragraph">
-<p>Peform your your first search by typing <code>explorer</code> in the search box:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="media/documents-search-explorer.png" alt="Search results for explorer" width="1024w">
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="document_types"><a class="link" href="#document_types">Document types</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In order to optimize your search, you may need to tune how the different fields are indexed. Indexing is managed via <code>Document types</code>.</p>
-</div>
-<div class="paragraph">
-<p>From the <code>Document types</code> page, you should see a single entry - <code>Web page</code>.</p>
-</div>
-<div class="paragraph">
-<p>This specific document type, which was automatically created by the <code>Web crawler collector</code>, is called a managed document type. This means that the collector is responsible for the life cycle of the document type - as opposed to a manually created document type.</p>
-</div>
-<div class="paragraph">
-<p>If you try editing the document type (using the edit icon on the right hand side), you will be warned that it is managed. Ignore this and go on to see the full document type details:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="media/document-type-webpage.png" alt="Webpage document type" width="1010w">
-</div>
-</div>
-<div class="paragraph">
-<p>A document type may be used across multiple collections, and you may also use multiple document types within a single collection.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-Every document also has a set of common meta-fields like id, collection, createdTime and documentType. These cannot be removed or changed.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="interfaces"><a class="link" href="#interfaces">Interfaces</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Interfaces are used to manually tune your search results. Tuning includes boosting, stemming, synonyms and stopwords, as well as selecting which collections to search.</p>
-</div>
-<div class="paragraph">
-<p>Like collections and document types, Interfaces are created and managed directly from the Explorer admin.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-An interface in this context is not the actual user interface, but refers to the API. Explorer provide a <a href="graphql.ahtml">GraphQL API</a> which is optimized for searching your documents. The actual end-user UX must be built on top of this.
-</td>
-</tr>
-</table>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><strong>Create a new interface</strong> by clicking <code>Interfaces &#8594; <b class="button">+</b></code>.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>give your interface a name, for instance <code>myinterface</code></p>
-</li>
-<li>
-<p>add the <code>market</code> collection</p>
-</li>
-<li>
-<p>set a field boosting for the <code>title</code> field.</p>
-<div class="paragraph">
-<p>It should look something like this:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="media/interface-myinterface.png" alt="Showing the form of the new interface" width="1010w">
-</div>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Save the changes</strong> to create the interface.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>With the interface created, you are now ready to give it a spin!</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="graphql_api"><a class="link" href="#graphql_api">GraphQL API</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To try out the API, click the pink <b class="button">graphQL</b> icon to the left.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="media/interface-list.png" alt="A list showing a single interface" width="1010w">
-</div>
-</div>
-<div class="paragraph">
-<p>This will take you to an API browser, where you can easily test various queries against the API:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="media/query-myinterface.png" alt="Query browser" width="1024w">
-</div>
-</div>
-<div class="paragraph">
-<p>It essentially consists of:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>context selector (on top)</p>
-</li>
-<li>
-<p>query panel (to the left)</p>
-</li>
-<li>
-<p>result panel (to the right)</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Follow these steps to run your first API-powered query:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Make sure the context (Dropdown at the top of the page) is set to <code>myinterface</code></p>
-</li>
-<li>
-<p>Paste the following into the query panel:</p>
-<div class="listingblock">
-<div class="title">Searchstring "explorer"</div>
-<div class="content">
-<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">query{
-  interface {
-    search(searchString: "explorer"){
-      hits{
-        _documentType
-        ... on DocumentType_Webpage {
-          title
-          url
-        }
-      }
-    }
-  }
-}</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Click the pink <code>play</code> button.</p>
-<div class="paragraph">
-<p>You should now get a result looking something like this</p>
-</div>
-<div class="listingblock">
-<div class="title">Searchstring "explorer"</div>
-<div class="content">
-<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">{
-  "data": {
-    "interface": {
-      "search": {
-        "hits": [
-          {
-            "_documentType": "webpage",
-            "title": "Explorer - Enonic Market",
-            "url": "https://market.enonic.com/vendors/enonic/explorer"
-          },
-          {
-            "_documentType": "webpage",
-            "title": "Extensions and plugins for Enonic XP and Content Studio (CMS)",
-            "url": "https://market.enonic.com/"
-          },
-          {
-            "_documentType": "webpage",
-            "title": "Enonic - Enonic Market",
-            "url": "https://market.enonic.com/vendors/enonic"
-          },
-          {
-            "_documentType": "webpage",
-            "title": "Applications - Enonic Market",
-            "url": "https://market.enonic.com/applications"
-          },
-          {
-            "_documentType": "webpage",
-            "title": "React4xp Lib - Enonic Market",
-            "url": "https://market.enonic.com/vendors/enonic/react4xp-lib"
-          }
-        ]
-      }
-    }
-  }
-}</code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Explorer is also capable of various aggregations as well. Below we perform a term aggregation search over the title and _documentType fields.</p>
-</div>
-<div class="paragraph">
-<p>Try it out yourself!</p>
-</div>
-<div class="listingblock">
-<div class="title">Search with aggs</div>
-<div class="content">
-<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">query {
-  interface {
-    search(
-      searchString: "explorer"
-      aggregations: [
-        {name: "title", terms: {field: "title"}},
-        {name: "documentTypes", terms: {field: "_documentType"}}
-    ]){
-      aggregationsAsJson
-      }
-   }
-}</code></pre>
+<pre>localhost:8080/webapp/com.enonic.app.explorer/api/v2/documents</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="live_api"><a class="link" href="#live_api">Live API</a></h3>
+<h3 id="production_deployment"><a class="link" href="#production_deployment">Production deployment</a></h3>
 <div class="paragraph">
-<p>Back in the Enonic Console, the API enpoint has already been exposed publicly via an Ingress. Visit the <code>Solution &#8594; Ingresses</code> section and find the link on the Ingress called <code>Explorer API</code>.</p>
+<p>Use <a href="https://developer.enonic.com/docs/xp/stable/deployment/vhosts">vhosts</a> to deploy the API on a custom domain/URL.</p>
+</div>
+<div class="listingblock">
+<div class="title">com.enonic.xp.web.vhost.cfg</div>
+<div class="content">
+<pre class="highlight"><code class="language-cfg" data-lang="cfg">mapping.ingestApi.host = company.com
+mapping.ingestApi.source = /ingest
+mapping.ingestApi.target = /webapp/com.enonic.app.explorer/api/v2/documents</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>Visit the <a href="graphql.ahtml">Graphql API</a> or <a href="ingest.ahtml">Ingest API</a> pages to learn more.</p>
+<p>Using the vhost configuration above, the API will be available on <code>company.com/ingest</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="headers"><a class="link" href="#headers">Headers</a></h3>
+<div class="paragraph">
+<p>The API requires that you <a href="keys.ahtml">create and submit a valid API key</a> in the HTTP request header.</p>
+</div>
+<div class="paragraph">
+<p>TODO: What about cty+accept?</p>
+</div>
+<table class="tableblock frame-none grid-none stretch">
+<colgroup>
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 97%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Attributes</th>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Accept</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">application/json</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>What MIME-type the client wants in the response</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Content-Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;required&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">application/json</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>What type of data is sent in the request body</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Authorization</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;required&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explorer-Api-Key XXXX</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>A valid API key for the collection you want to get documents from.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="api_documentation"><a class="link" href="#api_documentation">API documentation</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The API is documented through the bundled user interface aka client.</p>
+</div>
+<div class="paragraph">
+<p>Visit the API URL to give it a spin:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/rest-client.png" alt="REST client" width="768">
+</div>
+</div>
+<div class="paragraph">
+<p>Use the client by following the steps below:</p>
+</div>
+<div class="sect2">
+<h3 id="common_variables"><a class="link" href="#common_variables">Common variables</a></h3>
+<div class="paragraph">
+<p>Specify the API key, and the collection to access. These values will automatically be applied to the different operations.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="bulk_operations"><a class="link" href="#bulk_operations">Bulk operations</a></h3>
+<div class="paragraph">
+<p>You may perform the following bulk operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Get</p>
+</li>
+<li>
+<p>Create or Modify</p>
+</li>
+<li>
+<p>Delete</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="single_operations"><a class="link" href="#single_operations">Single operations</a></h3>
+<div class="paragraph">
+<p>Using a document&#8217;s URL you may perform the following operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Get</p>
+</li>
+<li>
+<p>Patch - TODO? Modify?</p>
+</li>
+<li>
+<p>Delete</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="next_up"><a class="link" href="#next_up">Next up</a></h2>
+<h2 id="usage_examples"><a class="link" href="#usage_examples">Usage examples</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>With the fundamentals covered, we recommend looking into the following areas to learn more:</p>
+<p>Below are some examples of using the API via cURL:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Get an overview of the <a href="admin.ahtml">Explorer admin</a></p>
-</li>
-<li>
-<p>Learn more about <a href="collectors.ahtml">collectors</a>.</p>
-</li>
-</ul>
+<div class="listingblock">
+<div class="title">Bulk get documents with id = 1 and 2</div>
+<div class="content">
+<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">curl -XGET "http://localhost:8080/webapp/com.enonic.app.explorer/api/v2/documents/{collection}?id=1&amp;id=2&amp;returnMetadata=false" -H "authorization:Explorer-Api-Key {apikey}"</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Delete a single document</div>
+<div class="content">
+<pre class="highlight"><code class="language-cmd" data-lang="cmd">curl -XDELETE "http://localhost:8080/webapp/com.enonic.app.explorer/api/v2/documents/{collection}/{documentId}" -H "authorization:Explorer-Api-Key {apiKey}"</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Visit the API endpoint with your browser for a complete set of documentation.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-15 06:17:43 UTC
+Last updated 2023-09-15 08:34:02 UTC
 </div>
 </div>
 </body>

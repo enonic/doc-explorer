@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>Collector JavaScript API</title>
+<title>Getting Started</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,37 +436,117 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Collector JavaScript API</h1>
+<h1>Getting Started</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#usage">Usage</a></li>
-<li><a href="#constructor">Constructor</a></li>
-<li><a href="#methods">Methods</a>
+<li><a href="#sign_up">Sign up</a></li>
+<li><a href="#explorer_admin">Explorer admin</a></li>
+<li><a href="#collecting_data">Collecting data</a></li>
+<li><a href="#documents">Documents</a></li>
+<li><a href="#document_types">Document types</a></li>
+<li><a href="#interfaces">Interfaces</a></li>
+<li><a href="#graphql_api">GraphQL API</a>
 <ul class="sectlevel2">
-<li><a href="#start">start</a></li>
-<li><a href="#querydocuments">queryDocuments</a></li>
-<li><a href="#persistdocument">persistDocument</a></li>
-<li><a href="#deletedocument">deleteDocument</a></li>
-<li><a href="#getdocumentnode">getDocumentNode</a></li>
-<li><a href="#shouldstop">shouldStop</a></li>
-<li><a href="#addsuccess">addSuccess</a></li>
-<li><a href="#addinformation">addInformation</a></li>
-<li><a href="#addwarning">addWarning</a></li>
-<li><a href="#adderror">addError</a></li>
-<li><a href="#stop">stop</a></li>
+<li><a href="#live_api">Live API</a></li>
 </ul>
 </li>
+<li><a href="#next_up">Next up</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Hands-on introduction to get familiar with Enonic Explorer</p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The collector JS API can be accessed via Enonic applicatoins. It is provisioned via the <code>lib-explorer</code> dependency. Similar to the ingest API, the collector API provides everything you need to work with collections and documents.</p>
+<p>During this tutorial you will:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Sign up for a free Enonic account</p>
+</li>
+<li>
+<p>Set up a new solution with Explorer pre-installed</p>
+</li>
+<li>
+<p>Create a new collection and fill it with sample content</p>
+</li>
+<li>
+<p>Learn about Documents and Document types</p>
+</li>
+<li>
+<p>Create an interface to search your content</p>
+</li>
+<li>
+<p>Access and query the API directly</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sign_up"><a class="link" href="#sign_up">Sign up</a></h2>
+<div class="sectionbody">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Developers may also run Explorer locally by <a href="https://developer.enonic.com/start">setting up the Enonic SDK</a>, and then <a href="https://market.enonic.com/vendors/enonic/explorer">installing Explorer from Enonic Market</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Start by signing up for get a free account on <a href="https://console.enonic.com" class="bare">https://console.enonic.com</a></p>
+</li>
+<li>
+<p><strong>Create a new Solution</strong>. <code>Solutions &#8594; <b class="button">Create</b></code>.</p>
+<div class="paragraph">
+<p>Choose  the <code>Explorer</code> template. Give your solution a name, go with the default values.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The template ensures that Explorer and all relevant dependencies are pre-installed.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="explorer_admin"><a class="link" href="#explorer_admin">Explorer admin</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once the environment has booted. From the new solution page, click <code>Admin &#8594; <b class="button">Launch</b></code>.</p>
+</div>
+<div class="paragraph">
+<p>This will take you to the environment dashboard.</p>
+</div>
+<div class="paragraph">
+<p>Launch the Explorer admin from the top right <code>XP menu &#8594; Explorer</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -475,7 +555,86 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<strong>Building your own collector?</strong> Check out the <a href="https://developer.enonic.com/docs/collector">collector starter tutorial</a>
+Only users with the role <code>system.admin</code>, or <code>com.enonic.explorer</code> (created when Explorer was installed) can see and access the Explorer admin.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The initial view should look something like this:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/home.png" alt="Explorer start page" width="1024w">
+</div>
+</div>
+<div class="paragraph">
+<p>The Explorer menu is available from the top left.</p>
+</div>
+<div class="paragraph">
+<p>From the main panel you can search the indexed documents - bu sadly there is nothing to search yet. 🤷</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="collecting_data"><a class="link" href="#collecting_data">Collecting data</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To get some data to play with, let&#8217;s use the built-in, simple <a href="collectors/webcrawler.ahtml">Web crawler collector</a> to fetch content from Enonic Market.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Create a new Collection</strong>. <code>Collections &#8594; <b class="button">+</b></code>. The Create button (Green +) can be found at the bottom right hand of the page.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Give your new collection a name, i.e. <code>market</code>.</p>
+</li>
+<li>
+<p>choose <code>Web crawler</code> from the collector dropdown menu</p>
+</li>
+<li>
+<p>provide the collector with a starting URL: <code>https://market.enonic.com</code></p>
+</li>
+<li>
+<p>Skip all other options, and click <b class="button">Save</b> at the bottom of the form</p>
+</li>
+<li>
+<p>The <code>market</code> collection should now be visible on the Collections page.</p>
+<div class="imageblock">
+<div class="content">
+<img src="media/collection-market.png" alt="Showing the market collection in the list" width="1024w">
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Collect content</strong></p>
+<div class="paragraph">
+<p>Click the <b class="button">Download</b> icon to the left to start the collector. This will trigger a background job that crawls the website and adds each page as a document in Explorer.</p>
+</div>
+<div class="paragraph">
+<p>To view the status of the job, visit the <code>Collections &#8594; Status</code> page from the Explorer menu.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/collector-status.png" alt="CollectorStatus" width="1039">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+In addition to using collectors (jobs that runs within Enonic), you may also inject data externally through the <a href="ingest.ahtml">Ingest API</a>.
 </td>
 </tr>
 </table>
@@ -483,942 +642,301 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1">
-<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
+<h2 id="documents"><a class="link" href="#documents">Documents</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Add the following to your <code>build.gradle</code> file:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">dependencies {
-  include "com.enonic.lib:lib-explorer:4.x.x"
-}</code></pre>
-</div>
+<p><code>Document</code> is the term used for a single item within a collection</p>
 </div>
 <div class="paragraph">
-<p>In your task controller, add a require statement:</p>
+<p>Once the collector job has completed, clicking the <code>document count</code> will take you to the <code>Documents</code> page.</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">import { Collector } from '/lib/explorer';</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Create the Collector object within the run function. The paramers are automatically passed to the task from Explorer.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">export function run({
-	collectionId,
-	collectorId,
-	configJson,
-	language
-}) {
-	const collector = new Collector&lt;CollectorConfig&gt;({
-		collectionId, collectorId, configJson, language
-	});
-	// ...
-}</code></pre>
-</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <code>Documents</code> page is available from the Explorer menu as well.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>You are now ready to use the API.</p>
+<p>From the Documents page, you may browse and filter all available documents. You can also configure which fields to show. Clicking the leftmost <code>JSON</code> icon will reveal the raw data that was indexed for this document.</p>
+</div>
+<div class="paragraph">
+<p>Peform your your first search by typing <code>explorer</code> in the search box:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/documents-search-explorer.png" alt="Search results for explorer" width="1024w">
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="constructor"><a class="link" href="#constructor">Constructor</a></h2>
+<h2 id="document_types"><a class="link" href="#document_types">Document types</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Constructor for the Collector class.</p>
-</div>
-<div class="paragraph lead">
-<p>Description</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Throws if any of the parameters are missing or invalid.</p>
-</li>
-<li>
-<p>Gets information about the Collection.</p>
-</li>
-<li>
-<p>Parses the configJson and provides the result via the config property.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph lead">
-<p>Parameters</p>
+<p>In order to optimize your search, you may need to tune how the different fields are indexed. Indexing is managed via <code>Document types</code>.</p>
 </div>
 <div class="paragraph">
-<p>An object with the following keys and their values:</p>
+<p>From the <code>Document types</code> page, you should see a single entry - <code>Web page</code>.</p>
 </div>
-<table class="tableblock frame-none grid-none stretch">
-<colgroup>
-<col style="width: 1%;">
-<col style="width: 1%;">
-<col style="width: 98%;">
-</colgroup>
-<thead>
+<div class="paragraph">
+<p>This specific document type, which was automatically created by the <code>Web crawler collector</code>, is called a managed document type. This means that the collector is responsible for the life cycle of the document type - as opposed to a manually created document type.</p>
+</div>
+<div class="paragraph">
+<p>If you try editing the document type (using the edit icon on the right hand side), you will be warned that it is managed. Ignore this and go on to see the full document type details:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/document-type-webpage.png" alt="Webpage document type" width="1010w">
+</div>
+</div>
+<div class="paragraph">
+<p>A document type may be used across multiple collections, and you may also use multiple document types within a single collection.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
 <tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Kind</th>
-<th class="tableblock halign-left valign-top">Details</th>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Every document also has a set of common meta-fields like id, collection, createdTime and documentType. These cannot be removed or changed.
+</td>
 </tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">collectionId</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Id of the collection to use</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">collectorId</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Id of the collector (i.e. <code>com.example.app:collector</code>)</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">configJson</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The collector configuration</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">language</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>a valid locale</p>
-</div></div></td>
-</tr>
-</tbody>
 </table>
-<div class="paragraph lead">
-<p>Returns</p>
-</div>
-<div class="paragraph">
-<p>Collector object</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="methods"><a class="link" href="#methods">Methods</a></h2>
+<h2 id="interfaces"><a class="link" href="#interfaces">Interfaces</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>These are the available methods of the Collector object</p>
+<p>Interfaces are used to manually tune your search results. Tuning includes boosting, stemming, synonyms and stopwords, as well as selecting which collections to search.</p>
 </div>
-<div class="sect2">
-<h3 id="start"><a class="link" href="#start">start</a></h3>
-<div class="paragraph lead">
-<p>Description</p>
+<div class="paragraph">
+<p>Like collections and document types, Interfaces are created and managed directly from the Explorer admin.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+An interface in this context is not the actual user interface, but refers to the API. Explorer provide a <a href="graphql.ahtml">GraphQL API</a> which is optimized for searching your documents. The actual end-user UX must be built on top of this.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Create a new interface</strong> by clicking <code>Interfaces &#8594; <b class="button">+</b></code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>give your interface a name, for instance <code>myinterface</code></p>
+</li>
+<li>
+<p>add the <code>market</code> collection</p>
+</li>
+<li>
+<p>set a field boosting for the <code>title</code> field.</p>
+<div class="paragraph">
+<p>It should look something like this:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/interface-myinterface.png" alt="Showing the form of the new interface" width="1010w">
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Save the changes</strong> to create the interface.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>With the interface created, you are now ready to give it a spin!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="graphql_api"><a class="link" href="#graphql_api">GraphQL API</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To try out the API, click the pink <b class="button">graphQL</b> icon to the left.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/interface-list.png" alt="A list showing a single interface" width="1010w">
+</div>
+</div>
+<div class="paragraph">
+<p>This will take you to an API browser, where you can easily test various queries against the API:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/query-myinterface.png" alt="Query browser" width="1024w">
+</div>
+</div>
+<div class="paragraph">
+<p>It essentially consists of:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Stores a startTime timestamp used in duration calculations.</p>
+<p>context selector (on top)</p>
 </li>
 <li>
-<p>Reports an initial progress via lib-task.</p>
+<p>query panel (to the left)</p>
 </li>
 <li>
-<p>Creates a new collection repo (if needed).</p>
-</li>
-<li>
-<p>Persists information that the collector is running (so it can&#8217;t be run twice in parallel, but can be stopped).</p>
-</li>
-<li>
-<p>Sets up a journal to write state information to.</p>
+<p>result panel (to the right)</p>
 </li>
 </ul>
 </div>
-<div class="paragraph lead">
-<p>Parameters</p>
-</div>
 <div class="paragraph">
-<p><strong>None</strong></p>
+<p>Follow these steps to run your first API-powered query:</p>
 </div>
-<div class="paragraph lead">
-<p>Returns</p>
-</div>
-<div class="paragraph">
-<p><strong>Void</strong></p>
-</div>
-<div class="paragraph lead">
-<p>Examples</p>
-</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Make sure the context (Dropdown at the top of the page) is set to <code>myinterface</code></p>
+</li>
+<li>
+<p>Paste the following into the query panel:</p>
 <div class="listingblock">
-<div class="title">Calling the start method</div>
+<div class="title">Searchstring "explorer"</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">collector.start();</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="querydocuments"><a class="link" href="#querydocuments">queryDocuments</a></h3>
-<div class="paragraph">
-<p>This method makes is possible to query the exisiting documents in the collection.
-Useful to find the document id to modify an existing document, rather than creating a new one.</p>
-</div>
-<div class="paragraph lead">
-<p>Parameters</p>
-</div>
-<div class="paragraph">
-<p>An object with the following keys and their values:</p>
-</div>
-<table class="tableblock frame-none grid-none stretch">
-<colgroup>
-<col style="width: 0.99%;">
-<col style="width: 0.99%;">
-<col style="width: 0.99%;">
-<col style="width: 97.03%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Attributes</th>
-<th class="tableblock halign-left valign-top">Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">start</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">number</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Start index used for paging - default: 0</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">count</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">number</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Number of content to fetch, used for paging - default: 10</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">query</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string/object</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Query string or DSL expression.</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">filters</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Query filters</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">sort</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string/object</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Sorting string or DSL expression. Default: '_score DESC'</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">aggregations</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Aggregations config</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">highlight</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Highlighting config</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">explain</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">optional</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>If set to <code>true</code>, score calculation explanation will be included in result.</p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph lead">
-<p>Returns</p>
-</div>
-<div class="paragraph">
-<p><strong>object</strong> : stats, hits and if requested, aggregations</p>
-</div>
-<div class="paragraph lead">
-<p>Examples</p>
-</div>
-<div class="listingblock">
-<div class="title">Calling the queryDocuments method</div>
-<div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">collector.queryDocuments({
-    start: 0,
-    count: 2,
-    query: "startTime &gt; instant('2016-10-11T14:38:54.454Z')",
-    filters: {
-        boolean: {
-            must: [
-                {
-                    exists: {
-                        field: "modifiedTime"
-                    }
-                },
-                {
-                    exists: {
-                        field: "other"
-                    }
-                }
-            ],
-            mustNot: {
-                hasValue: {
-                    field: "myField",
-                    values: [
-                        "cheese",
-                        "fish",
-                        "onion"
-                    ]
-                }
-            }
-        },
-        notExists: {
-            field: "unwantedField"
-        },
-        ids: {
-            values: ["id1", "id2"]
+<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">query{
+  interface {
+    search(searchString: "explorer"){
+      hits{
+        _documentType
+        ... on DocumentType_Webpage {
+          title
+          url
         }
-    },
-    sort: "duration DESC",
-});</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Sample response</div>
-<div class="content">
-<pre class="highlight"><code class="language-js" data-lang="js">{
-    "total": 12902,
-    "count": 2,
-    "hits": [
-        {
-            "id": "b186d24f-ac38-42ca-a6db-1c1bda6c6c26",
-            "score": 1.2300000190734863
-        },
-        {
-            "id": "350ba4a6-589c-498b-8af0-f183850e1120",
-            "score": 1.399999976158142
-        }
-    ],
+      }
+    }
+  }
 }</code></pre>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="persistdocument"><a class="link" href="#persistdocument">persistDocument</a></h3>
+</li>
+<li>
+<p>Click the pink <code>play</code> button.</p>
 <div class="paragraph">
-<p>This method will create or modify a document, based on its parameters. It can also extend a documentType and validate against it.</p>
-</div>
-<div class="paragraph lead">
-<p>Parameters</p>
-</div>
-<table class="tableblock frame-none grid-none stretch">
-<colgroup>
-<col style="width: 1%;">
-<col style="width: 1%;">
-<col style="width: 98%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Kind</th>
-<th class="tableblock halign-left valign-top">Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">document</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The document to persist</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">options</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Options to use when persisting the document</p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph lead">
-<p>Document object</p>
-</div>
-<table class="tableblock frame-none grid-none stretch">
-<colgroup>
-<col style="width: 0.99%;">
-<col style="width: 0.99%;">
-<col style="width: 0.99%;">
-<col style="width: 97.03%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Kind</th>
-<th class="tableblock halign-left valign-top">Attributes</th>
-<th class="tableblock halign-left valign-top">Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">_id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Id of an exisiting document to modify</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">_name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Name of an exisiting document to modify</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">_parentPath</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Parentpath of an exisiting document to modify - default: '/'</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&#8230;&#8203;rest</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">any</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Any other properties of the document to persist</p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph lead">
-<p>Options object</p>
-</div>
-<table class="tableblock frame-none grid-none stretch">
-<colgroup>
-<col style="width: 0.99%;">
-<col style="width: 0.99%;">
-<col style="width: 0.99%;">
-<col style="width: 97.03%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Kind</th>
-<th class="tableblock halign-left valign-top">Attributes</th>
-<th class="tableblock halign-left valign-top">Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">boolRequireValid</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Whether a document must validate in order to be created or modified - default: false</p>
-</div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">documentTypeName</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;required&gt;</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Which documentType to use for indexing and validate against</p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph lead">
-<p>Returns the persisted document</p>
-</div>
-<div class="paragraph lead">
-<p>Examples</p>
+<p>You should now get a result looking something like this</p>
 </div>
 <div class="listingblock">
-<div class="title">Calling the persistDocument method</div>
+<div class="title">Searchstring "explorer"</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">const document = collector.persistDocument({
-	text: `This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission.
-
-More information...`,
-	title: 'Example Domain',
-	url: 'https://example.com/'
-}, {
-	boolRequireValid: true,
-	documentTypeName: 'my_document_type'
-});
-log.info('Document persisted:%s', JSON.stringify(document, null, 4));</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="deletedocument"><a class="link" href="#deletedocument">deleteDocument</a></h3>
-<div class="paragraph">
-<p>This method makes it possible to delete one or more documents from the collection.</p>
-</div>
-<div class="paragraph lead">
-<p>Parameters</p>
-</div>
-<table class="tableblock frame-none grid-none stretch">
-<colgroup>
-<col style="width: 1%;">
-<col style="width: 1%;">
-<col style="width: 98%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Kind</th>
-<th class="tableblock halign-left valign-top">Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">keys</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string | Array.&lt;string&gt;</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Document keys to delete. Each argument could be an id or a path. Prefer the usage of ID rather than paths.</p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph lead">
-<p>Returns</p>
-</div>
-<div class="paragraph">
-<p><strong>Array.&lt;string&gt;</strong> : The list of keys that were actually deleted.</p>
-</div>
-<div class="paragraph lead">
-<p>Examples</p>
-</div>
-<div class="listingblock">
-<div class="title">Deleting a single document</div>
-<div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">const deletedId = collector.deleteDocument('9aba4116-a219-4ccf-9f7a-17dc1486f82e');</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Sample response</div>
-<div class="content">
-<pre class="highlight"><code class="language-JSON" data-lang="JSON">'9aba4116-a219-4ccf-9f7a-17dc1486f82e'</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Deleting multiple documents</div>
-<div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">const deletedIds = collector.deleteDocument(
-	'9aba4116-a219-4ccf-9f7a-17dc1486f82e',
-	'1f5fd4b6-1bfa-4a5b-adde-5241982ea200'
-);</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Sample response</div>
-<div class="content">
-<pre class="highlight"><code class="language-JSON" data-lang="JSON">[
-	'9aba4116-a219-4ccf-9f7a-17dc1486f82e',
-	'1f5fd4b6-1bfa-4a5b-adde-5241982ea200'
-]</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="getdocumentnode"><a class="link" href="#getdocumentnode">getDocumentNode</a></h3>
-<div class="paragraph">
-<p>This method makes it possible to get one ore more documents from the collection.</p>
-</div>
-<div class="paragraph lead">
-<p>Parameters</p>
-</div>
-<table class="tableblock frame-none grid-none stretch">
-<colgroup>
-<col style="width: 1%;">
-<col style="width: 1%;">
-<col style="width: 98%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Kind</th>
-<th class="tableblock halign-left valign-top">Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">keys</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string | Array.&lt;string&gt;</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Document keys to get. Each argument could be an id or a path. Prefer the usage of ID rather than paths.</p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph lead">
-<p>Returns</p>
-</div>
-<div class="paragraph">
-<p><strong>Object | Array&lt;Object&gt;</strong> : One or more gotten documents.</p>
-</div>
-<div class="paragraph lead">
-<p>Examples</p>
-</div>
-<div class="listingblock">
-<div class="title">Getting a single document</div>
-<div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">const node = collector.getDocumentNode('9aba4116-a219-4ccf-9f7a-17dc1486f82e');</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Sample response</div>
-<div class="content">
-<pre class="highlight"><code class="language-JSON" data-lang="JSON">{
-	_id: '9aba4116-a219-4ccf-9f7a-17dc1486f82e',
-	_name: '9aba4116-a219-4ccf-9f7a-17dc1486f82e',
-	_path: '/9aba4116-a219-4ccf-9f7a-17dc1486f82e',
-	text: `This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission. More information...`,
-	title: 'Example Domain',
-	url: 'https://example.com/'
+<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">{
+  "data": {
+    "interface": {
+      "search": {
+        "hits": [
+          {
+            "_documentType": "webpage",
+            "title": "Explorer - Enonic Market",
+            "url": "https://market.enonic.com/vendors/enonic/explorer"
+          },
+          {
+            "_documentType": "webpage",
+            "title": "Extensions and plugins for Enonic XP and Content Studio (CMS)",
+            "url": "https://market.enonic.com/"
+          },
+          {
+            "_documentType": "webpage",
+            "title": "Enonic - Enonic Market",
+            "url": "https://market.enonic.com/vendors/enonic"
+          },
+          {
+            "_documentType": "webpage",
+            "title": "Applications - Enonic Market",
+            "url": "https://market.enonic.com/applications"
+          },
+          {
+            "_documentType": "webpage",
+            "title": "React4xp Lib - Enonic Market",
+            "url": "https://market.enonic.com/vendors/enonic/react4xp-lib"
+          }
+        ]
+      }
+    }
+  }
 }</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">Getting a multiple documents</div>
-<div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">const node = collector.getDocumentNode(
-	'9aba4116-a219-4ccf-9f7a-17dc1486f82e',
-	'1f5fd4b6-1bfa-4a5b-adde-5241982ea200'
-);</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Sample response</div>
-<div class="content">
-<pre class="highlight"><code class="language-JSON" data-lang="JSON">[{
-	_id: '9aba4116-a219-4ccf-9f7a-17dc1486f82e',
-	_name: '9aba4116-a219-4ccf-9f7a-17dc1486f82e',
-	_path: '/9aba4116-a219-4ccf-9f7a-17dc1486f82e',
-	text: `This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission. More information...`,
-	title: 'Example Domain',
-	url: 'https://example.com/'
-}, {
-	_id: '1f5fd4b6-1bfa-4a5b-adde-5241982ea200',
-	_name: '1f5fd4b6-1bfa-4a5b-adde-5241982ea200',
-	_path: '/1f5fd4b6-1bfa-4a5b-adde-5241982ea200',
-	text: `fnord`,
-	title: 'Fnord',
-	url: 'https://fnord.com/'
-}]</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="shouldstop"><a class="link" href="#shouldstop">shouldStop</a></h3>
-<div class="paragraph">
-<p>This method checks whether the STOP button has be clicked in the Explorer Admin GUI.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
-<p>Useful to finish gracefully, for instance by breaking loops.</p>
-</div>
-<div class="paragraph lead">
-<p>Parameters</p>
+<p>Explorer is also capable of various aggregations as well. Below we perform a term aggregation search over the title and _documentType fields.</p>
 </div>
 <div class="paragraph">
-<p><strong>None</strong></p>
-</div>
-<div class="paragraph lead">
-<p>Returns</p>
-</div>
-<div class="paragraph">
-<p><strong>Boolean</strong> : Whether the STOP button has been clicked.</p>
-</div>
-<div class="paragraph lead">
-<p>Examples</p>
+<p>Try it out yourself!</p>
 </div>
 <div class="listingblock">
-<div class="title">Calling the shouldStop method</div>
+<div class="title">Search with aggs</div>
 <div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">while (!collector.shouldStop() &amp;&amp; moreToDo) {
-	// do something
+<pre class="highlight"><code class="language-GraphQL" data-lang="GraphQL">query {
+  interface {
+    search(
+      searchString: "explorer"
+      aggregations: [
+        {name: "title", terms: {field: "title"}},
+        {name: "documentTypes", terms: {field: "_documentType"}}
+    ]){
+      aggregationsAsJson
+      }
+   }
 }</code></pre>
 </div>
 </div>
-</div>
 <div class="sect2">
-<h3 id="addsuccess"><a class="link" href="#addsuccess">addSuccess</a></h3>
+<h3 id="live_api"><a class="link" href="#live_api">Live API</a></h3>
 <div class="paragraph">
-<p>Adds a success to the journal.</p>
-</div>
-<div class="paragraph lead">
-<p>Parameters</p>
+<p>Back in the Enonic Console, the API enpoint has already been exposed publicly via an Ingress. Visit the <code>Solution &#8594; Ingresses</code> section and find the link on the Ingress called <code>Explorer API</code>.</p>
 </div>
 <div class="paragraph">
-<p>An object with the following keys and their values:</p>
+<p>Visit the <a href="graphql.ahtml">Graphql API</a> or <a href="ingest.ahtml">Ingest API</a> pages to learn more.</p>
 </div>
-<table class="tableblock frame-none grid-none stretch">
-<colgroup>
-<col style="width: 1%;">
-<col style="width: 1%;">
-<col style="width: 98%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Kind</th>
-<th class="tableblock halign-left valign-top">Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">message</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The success message to add to the journal</p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph lead">
-<p>Returns</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="next_up"><a class="link" href="#next_up">Next up</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p><strong>Void</strong></p>
-</div>
-<div class="paragraph lead">
-<p>Examples</p>
-</div>
-<div class="listingblock">
-<div class="title">Calling the addSuccess method</div>
-<div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">collector.addSuccess({
-	message: `The document scraped from ${url} was persisted successfully :)`
-});</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="addinformation"><a class="link" href="#addinformation">addInformation</a></h3>
-<div class="paragraph">
-<p>Adds useful information to the journal.</p>
-</div>
-<div class="paragraph lead">
-<p>Parameters</p>
-</div>
-<div class="paragraph">
-<p>An object with the following keys and their values:</p>
-</div>
-<table class="tableblock frame-none grid-none stretch">
-<colgroup>
-<col style="width: 1%;">
-<col style="width: 1%;">
-<col style="width: 98%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Kind</th>
-<th class="tableblock halign-left valign-top">Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">message</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The information message to add to the journal</p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph lead">
-<p>Returns</p>
-</div>
-<div class="paragraph">
-<p><strong>Void</strong></p>
-</div>
-<div class="paragraph lead">
-<p>Examples</p>
-</div>
-<div class="listingblock">
-<div class="title">Calling the addInformation method</div>
-<div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">collector.addInformation({
-	message: `While scraping ${url} something interesting was found.`
-});</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="addwarning"><a class="link" href="#addwarning">addWarning</a></h3>
-<div class="paragraph">
-<p>Adds a warning to the journal.</p>
-</div>
-<div class="paragraph lead">
-<p>Parameters</p>
-</div>
-<table class="tableblock frame-none grid-none stretch">
-<colgroup>
-<col style="width: 1%;">
-<col style="width: 1%;">
-<col style="width: 98%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Kind</th>
-<th class="tableblock halign-left valign-top">Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">message</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The warning message to add to the journal</p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph lead">
-<p>Returns</p>
-</div>
-<div class="paragraph">
-<p><strong>Void</strong></p>
-</div>
-<div class="paragraph lead">
-<p>Examples</p>
-</div>
-<div class="listingblock">
-<div class="title">Calling the addWarning method</div>
-<div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">collector.addWarning({
-	message: `${url} isn't available today`
-});</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="adderror"><a class="link" href="#adderror">addError</a></h3>
-<div class="paragraph">
-<p>Adds an error to the journal.</p>
-</div>
-<div class="paragraph lead">
-<p>Parameters</p>
-</div>
-<table class="tableblock frame-none grid-none stretch">
-<colgroup>
-<col style="width: 1%;">
-<col style="width: 1%;">
-<col style="width: 98%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Kind</th>
-<th class="tableblock halign-left valign-top">Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">message</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The error message to add to the journal</p>
-</div></div></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph lead">
-<p>Returns</p>
-</div>
-<div class="paragraph">
-<p><strong>Void</strong></p>
-</div>
-<div class="paragraph lead">
-<p>Examples</p>
-</div>
-<div class="listingblock">
-<div class="title">Calling the addError method</div>
-<div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">try {
-	// do something that fails
-} catch (e) {
-	collector.addError({
-		message: `It's a real problem that ${url} isn't available :(`
-	});
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="stop"><a class="link" href="#stop">stop</a></h3>
-<div class="paragraph lead">
-<p>Description</p>
+<p>With the fundamentals covered, we recommend looking into the following areas to learn more:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Persists the journal to the journal repo.</p>
+<p>Get an overview of the <a href="admin.ahtml">Explorer admin</a></p>
 </li>
 <li>
-<p>Sends emails if notifications are configured on the Explorer Admin GUI.</p>
-</li>
-<li>
-<p>Persists information that the collector has failed or finished (so it can be started again).</p>
+<p>Learn more about <a href="collectors.ahtml">collectors</a>.</p>
 </li>
 </ul>
-</div>
-<div class="paragraph lead">
-<p>Parameters</p>
-</div>
-<div class="paragraph">
-<p><strong>None</strong></p>
-</div>
-<div class="paragraph lead">
-<p>Returns</p>
-</div>
-<div class="paragraph">
-<p><strong>Void</strong></p>
-</div>
-<div class="paragraph lead">
-<p>Examples</p>
-</div>
-<div class="listingblock">
-<div class="title">Calling the stop method</div>
-<div class="content">
-<pre class="highlight"><code class="language-TypeScript" data-lang="TypeScript">collector.stop();</code></pre>
-</div>
-</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-15 06:17:43 UTC
+Last updated 2023-09-15 08:34:02 UTC
 </div>
 </div>
 </body>

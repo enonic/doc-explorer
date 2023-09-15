@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>Explorer Admin</title>
+<title>Collections</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,21 +436,22 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Explorer Admin</h1>
+<h1>Collections</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
-<li><a href="#access">Access</a></li>
-<li><a href="#home_page">Home page</a></li>
-<li><a href="#navigation">Navigation</a></li>
-<li><a href="#actions">Actions</a>
+<li><a href="#options">Options</a>
 <ul class="sectlevel2">
-<li><a href="#create">Create</a></li>
-<li><a href="#standard_actions">Standard actions</a></li>
-<li><a href="#custom_actions">Custom actions</a></li>
+<li><a href="#collector_config">Collector config</a></li>
+<li><a href="#collector_schedule">Collector schedule</a></li>
+<li><a href="#run_collector_manually">Run collector manually</a></li>
 </ul>
 </li>
+<li><a href="#status">Status</a></li>
+<li><a href="#journal">Journal</a></li>
+<li><a href="#notifications">Notifications</a></li>
+<li><a href="#schedule">Schedule</a></li>
 </ul>
 </div>
 </div>
@@ -459,15 +460,72 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Explorer administrative interface enable search administrators to define and manage how data is collected and then exposed through fine tuned interfaces.</p>
+<p>Use collections to gather and manage <a href="documents.ahtml">documents</a>. Documents can be injected externally through the API, or activedly fetched by a collector.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/collections-menu.png" alt="Available menu items for collections" width="450w">
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="access"><a class="link" href="#access">Access</a></h2>
+<h2 id="options"><a class="link" href="#options">Options</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>From the Enonic XP admin interface: Click <code>XP meny &#8594; Explorer</code>. This will launch the Explorer Admin interface.</p>
+<p>When creating and editing a collection, these are the common fiels of a collector and their purpose.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/collection-form.png" alt="Showing the form for creating a new collection" width="1024w">
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Name</dt>
+<dd>
+<p>Specify a unique name for the collection. This name is also an identifier, and cannot be changed once the collection has been saved.</p>
+</dd>
+<dt class="hdlist1">Default language</dt>
+<dd>
+<p>Optionally specify a default language for the collection. This will be used to optimize indexing and search in the collection through the use of stemming.</p>
+</dd>
+<dt class="hdlist1">Collector</dt>
+<dd>
+<p>Optionally select a collector. Collectors are background jobs that are used to fetch data from external sources, and add them as <a href="documents.ahtml">documents</a> to this collection.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can build your own custom collector or find existing collectors on <a href="https://market.enonic.com/applications">Enonic Market</a>.
+</td>
+</tr>
+</table>
+</div>
+</dd>
+</dl>
+</div>
+<div class="sect2">
+<h3 id="collector_config"><a class="link" href="#collector_config">Collector config</a></h3>
+<div class="paragraph">
+<p>If you selected a collector, it will optionally present you with configuration options through a new set of form fields.</p>
+</div>
+<div class="paragraph">
+<p>The fields will be custom to the specific collector.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="collector_schedule"><a class="link" href="#collector_schedule">Collector schedule</a></h3>
+<div class="imageblock">
+<div class="content">
+<img src="media/scheduling.png" alt="Scheduling interface" width="768">
+</div>
+</div>
+<div class="paragraph">
+<p>If you selected a collector, you may optionally define schedule(s) to automatically run the collector.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -476,7 +534,70 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Only users with "Explorer Admin" or "System Admin" roles can access the interface.
+Consider that the scheduler should be allowed to finish before it is triggered again. Only one instance of the collector will be running at a time.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="run_collector_manually"><a class="link" href="#run_collector_manually">Run collector manually</a></h3>
+<div class="imageblock">
+<div class="content">
+<img src="media/custom-actions.png" alt="Custom actions listed on the left hand side" width="340w">
+</div>
+</div>
+<div class="paragraph">
+<p>From the collections list view: Clicking the <code>Collect</code> icon will manually trigger the collector job.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="status"><a class="link" href="#status">Status</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Status is a sub-item in the Collections menu. Status will be visible if there are any collectors actively running.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/status.png" alt="Progress of currently running collectors" width="1024">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="journal"><a class="link" href="#journal">Journal</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Journal shows the history of completed collector jobs and their result.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/journal.png" alt="List of completed collector jobs" width="1024">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="notifications"><a class="link" href="#notifications">Notifications</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Optionally add e-mails to notify users about collector related events.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/journal.png" alt="List of completed collector jobs" width="1024">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For the e-mail notification to work, your Enonic XP deployment must be configured with an e-mail gateway.
 </td>
 </tr>
 </table>
@@ -484,79 +605,14 @@ Only users with "Explorer Admin" or "System Admin" roles can access the interfac
 </div>
 </div>
 <div class="sect1">
-<h2 id="home_page"><a class="link" href="#home_page">Home page</a></h2>
+<h2 id="schedule"><a class="link" href="#schedule">Schedule</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Explorer home page provides the ability to quickly search across all of your indexed documents.</p>
+<p>The schedule provides a global view of all collector jobs scheduled to run. This helps you plan execution and resource management optimally.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/home.png" alt="Explorer home page" width="1024w">
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="navigation"><a class="link" href="#navigation">Navigation</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>From the top bar, you can access the Explorer menu to navigate across the various pages of the Explorer Admin.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="media/menu.png" alt="Explorer menu expanded" width="350w">
-</div>
-</div>
-<div class="paragraph">
-<p>Additionally, the top bar will have information about your installed license (unlock additional features), as well as current user and the conventional XP menu on the right hand side.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="actions"><a class="link" href="#actions">Actions</a></h2>
-<div class="sectionbody">
-<div class="imageblock">
-<div class="content">
-<img src="media/list.png" alt="Sample list of entities" width="1024w">
-</div>
-</div>
-<div class="paragraph">
-<p>The different Explorer pages provide an entity list view. From here you can perform various actions.</p>
-</div>
-<div class="sect2">
-<h3 id="create"><a class="link" href="#create">Create</a></h3>
-<div class="imageblock">
-<div class="content">
-<img src="media/plus.png" alt="Green plus create icon" width="67">
-</div>
-</div>
-<div class="paragraph">
-<p>When supported, a big green <code>+</code> icon at the bottom right of the page enables you to crate new entities.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="standard_actions"><a class="link" href="#standard_actions">Standard actions</a></h3>
-<div class="imageblock">
-<div class="content">
-<img src="media/actions.png" alt="Sample list of entities" width="768w">
-</div>
-</div>
-<div class="paragraph">
-<p>From the right hand side of each entry in the list,  perform standard actions like <code>Edit</code>,<code>Copy</code> and <code>Delete</code> by clicking the respective action icon.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="custom_actions"><a class="link" href="#custom_actions">Custom actions</a></h3>
-<div class="paragraph">
-<p>Selected entities support custom actions. Such actions are listed on the left hand side.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="media/custom-actions.png" alt="Custom actions listed on the left hand side" width="340w">
-</div>
-</div>
-<div class="paragraph">
-<p>In the above example, one entity supports the <code>Collect</code> action while the other does not.</p>
+<img src="media/TODO.png" alt="Calendar view of collector schedules" width="1024w">
 </div>
 </div>
 </div>
@@ -564,7 +620,7 @@ Only users with "Explorer Admin" or "System Admin" roles can access the interfac
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-15 06:17:43 UTC
+Last updated 2023-09-15 08:34:02 UTC
 </div>
 </div>
 </body>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>Enonic Explorer documentation</title>
+<title>Explorer Admin</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,11 +436,21 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Enonic Explorer documentation</h1>
+<h1>Explorer Admin</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">Introduction</a></li>
+<li><a href="#access">Access</a></li>
+<li><a href="#home_page">Home page</a></li>
+<li><a href="#navigation">Navigation</a></li>
+<li><a href="#actions">Actions</a>
+<ul class="sectlevel2">
+<li><a href="#create">Create</a></li>
+<li><a href="#standard_actions">Standard actions</a></li>
+<li><a href="#custom_actions">Custom actions</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -449,7 +459,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Collect, index and search across multiple different datasources with Explorer.</p>
+<p>The Explorer administrative interface enable search administrators to define and manage how data is collected and then exposed through fine tuned interfaces.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="access"><a class="link" href="#access">Access</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>From the Enonic XP admin interface: Click <code>XP meny &#8594; Explorer</code>. This will launch the Explorer Admin interface.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -458,39 +476,95 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-tl;dr - visit the <a href="start.ahtml">getting started</a> section.
+Only users with "Explorer Admin" or "System Admin" roles can access the interface.
 </td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>These are the core concepts of Explorer:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="collections.ahtml">Collections</a> Each collection may hold a set of data, typically from a specific source.</p>
-</li>
-<li>
-<p><a href="collectors.ahtml">Collectors</a> are Enonic apps that can retrive and fill data into collections, based on events or via scheduling</p>
-</li>
-<li>
-<p><a href="doctypes.ahtml">Document types</a> define fields and how to index them for search.</p>
-</li>
-<li>
-<p><a href="synonyms.ahtml">Synonyms</a> and <a href="stopwords.ahtml">Stop word</a> lists can be created and managed for improved search results.</p>
-</li>
-<li>
-<p><a href="interfaces.ahtml">Inferfaces</a> - Allows search admins to compose and tune search across collections</p>
-</li>
-</ul>
+</div>
+<div class="sect1">
+<h2 id="home_page"><a class="link" href="#home_page">Home page</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Explorer home page provides the ability to quickly search across all of your indexed documents.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/home.png" alt="Explorer home page" width="1024w">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="navigation"><a class="link" href="#navigation">Navigation</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>From the top bar, you can access the Explorer menu to navigate across the various pages of the Explorer Admin.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/menu.png" alt="Explorer menu expanded" width="350w">
+</div>
+</div>
+<div class="paragraph">
+<p>Additionally, the top bar will have information about your installed license (unlock additional features), as well as current user and the conventional XP menu on the right hand side.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="actions"><a class="link" href="#actions">Actions</a></h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="media/list.png" alt="Sample list of entities" width="1024w">
+</div>
+</div>
+<div class="paragraph">
+<p>The different Explorer pages provide an entity list view. From here you can perform various actions.</p>
+</div>
+<div class="sect2">
+<h3 id="create"><a class="link" href="#create">Create</a></h3>
+<div class="imageblock">
+<div class="content">
+<img src="media/plus.png" alt="Green plus create icon" width="67">
+</div>
+</div>
+<div class="paragraph">
+<p>When supported, a big green <code>+</code> icon at the bottom right of the page enables you to crate new entities.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="standard_actions"><a class="link" href="#standard_actions">Standard actions</a></h3>
+<div class="imageblock">
+<div class="content">
+<img src="media/actions.png" alt="Sample list of entities" width="768w">
+</div>
+</div>
+<div class="paragraph">
+<p>From the right hand side of each entry in the list,  perform standard actions like <code>Edit</code>,<code>Copy</code> and <code>Delete</code> by clicking the respective action icon.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="custom_actions"><a class="link" href="#custom_actions">Custom actions</a></h3>
+<div class="paragraph">
+<p>Selected entities support custom actions. Such actions are listed on the left hand side.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/custom-actions.png" alt="Custom actions listed on the left hand side" width="340w">
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example, one entity supports the <code>Collect</code> action while the other does not.</p>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-15 06:17:43 UTC
+Last updated 2023-09-15 08:34:02 UTC
 </div>
 </div>
 </body>

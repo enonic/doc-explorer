@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>Upgrade a custom collector</title>
+<title>API keys</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,292 +436,172 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
-<h1>Upgrade a custom collector</h1>
+<h1>API keys</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#development">Development</a>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#key_management">Key management</a></li>
+<li><a href="#usage">Usage</a>
 <ul class="sectlevel2">
-<li><a href="#dependencies">Dependencies</a>
-<ul class="sectlevel3">
-<li><a href="#gradle_properties">gradle.properties</a></li>
-<li><a href="#build_gradle">build.gradle</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#installation">Installation</a>
-<ul class="sectlevel2">
-<li><a href="#document_types">Document-types</a></li>
-<li><a href="#deprecations">Deprecations</a>
-<ul class="sectlevel3">
-<li><a href="#register">Register</a></li>
-<li><a href="#unregister">Unregister</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#configuration">Configuration</a>
-<ul class="sectlevel2">
-<li><a href="#react_component">React Component</a></li>
-</ul>
-</li>
-<li><a href="#run">Run</a>
-<ul class="sectlevel2">
-<li><a href="#task">Task</a>
-<ul class="sectlevel3">
-<li><a href="#task_descriptor_xml">Task Descriptor XML</a></li>
-<li><a href="#journal">Journal</a></li>
-<li><a href="#persistdocument">persistDocument</a>
-<ul class="sectlevel4">
-<li><a href="#create">create</a></li>
-<li><a href="#update">update</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li><a href="#curl">cURL</a></li>
+<li><a href="#graphql_client">GraphQL client</a></li>
+<li><a href="#ingest_client">Ingest Client</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div id="preamble">
+<div class="sect1">
+<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order to make further development easier and to clean up old tech dept both lib-explorer and app-explorer have gotten new major releases.
-As such there are some breaking changes to the API&#8217;s.</p>
+<p>Use API keys in order to configure who can access what in the different APIs.</p>
 </div>
 <div class="paragraph">
-<p>This document explains what is needed to move from</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>lib-explorer-3.x.x to lib-explorer-4.x.x</p>
-</li>
-<li>
-<p>app-explorer-1.5.x to app-explorer-2.x.x</p>
-</li>
-</ul>
+<p>You can access the API Key management as a sub-item of the API page.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="development"><a class="link" href="#development">Development</a></h2>
+<h2 id="key_management"><a class="link" href="#key_management">Key management</a></h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="dependencies"><a class="link" href="#dependencies">Dependencies</a></h3>
-<div class="sect3">
-<h4 id="gradle_properties"><a class="link" href="#gradle_properties">gradle.properties</a></h4>
 <div class="paragraph">
-<p>lib-explorer-4.0.0 (and app-explorer-2.0.0) requires xpVersion=7.10.0</p>
+<p>The various form fields of keys are described below.</p>
 </div>
-<div class="paragraph">
-<p>See <a href="custom.ahtml#_gradle_properties">custom#_gradle_properties</a>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="build_gradle"><a class="link" href="#build_gradle">build.gradle</a></h4>
-<div class="paragraph">
-<p>In build.gradle you have to bump lib-explorer version to 4.0.0.</p>
-</div>
-<div class="paragraph">
-<p>See <a href="custom.ahtml#_build_gradle">custom#_build_gradle</a>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="media/keys.png" alt="Screenshot of the API keys list view" width="1280w">
 </div>
 </div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Name</dt>
+<dd>
+<p>An API-key must have a unique name. Once an API-key is created you cannot change it&#8217;s name.</p>
+</dd>
+</dl>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="installation"><a class="link" href="#installation">Installation</a></h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="document_types"><a class="link" href="#document_types">Document-types</a></h3>
-<div class="paragraph">
-<p>Collectors are now supposed to provide their own documentTypes.</p>
-</div>
-<div class="paragraph">
-<p>See <a href="custom.ahtml#_documenttypes_json">custom#_documentTypes_json</a>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="deprecations"><a class="link" href="#deprecations">Deprecations</a></h3>
-<div class="sect3">
-<h4 id="register"><a class="link" href="#register">Register</a></h4>
-<div class="ulist">
-<ul>
-<li>
-<p>In lib-explorer-3.0.0/app-explorer-1.5.0 the register function would log a deprecation warning.</p>
-</li>
-<li>
-<p>In lib-explorer-4.0.0/app-explorer-2.0.0 the register function will now throw a deprecation error.</p>
-</li>
-</ul>
-</div>
-<div class="admonitionblock important">
+<div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-important" title="Important"></i>
+<i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The register function is deprecated and will throw an error!
+The name has no other purpose than to distinguish multiple different keys when working in the Explorer Admin.
 </td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>Simply remove it from src/main/resources/main.ts</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="unregister"><a class="link" href="#unregister">Unregister</a></h4>
-<div class="admonitionblock warning">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Key</dt>
+<dd>
+<p>When you first create a new API key, the key field will contain the autogenerated key, if you don&#8217;t like it, simply click the generate key button for a new one, or simply enter one yourself.</p>
+<div class="admonitionblock caution">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
+<i class="fa icon-caution" title="Caution"></i>
 </td>
 <td class="content">
-The unregister function is deprecated and will log a warning.
+For security reasons, the clear-text key itself is not persisted in Explorer. This means that if you loose the key, it cannot be recovered, and you must create a new one.
 </td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>Simply remove it from src/main/resources/main.ts</p>
+</dd>
+<dt class="hdlist1">Collections</dt>
+<dd>
+<p>Specify which collection(s) the API key is valid for. If you add a collection here, you can perform CRUD operations via the <a href="ingest.ahtml">Ingest API</a>.</p>
+</dd>
+<dt class="hdlist1">Interfaces</dt>
+<dd>
+<p>Specify which interface(s) the API key is valid for. If you add an interface here, you can read from it using the <a href="graphql.ahtml">GraphQL API</a>.</p>
+</dd>
+</dl>
 </div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="configuration"><a class="link" href="#configuration">Configuration</a></h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="react_component"><a class="link" href="#react_component">React Component</a></h3>
-<div class="paragraph">
-<p>The previous way to implement a Collector React Component was strongly hooked to semantic-ui-react-form, which had various complexity issues.</p>
-</div>
-<div class="paragraph">
-<p>The new way uses React.forwardRef and React.useImperativeHandle in order for the (child) Collector component to provide callbacks that the (parent) Collection component can run when appropriate.</p>
-</div>
-<div class="paragraph">
-<p>These are named <strong>afterReset</strong> and <strong>validate</strong>:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>When the <strong>[Reset]</strong> button is clicked: the (parent) Collection component will reset it&#8217;s state, but whatever state is internal to the (child) Collector component needs to be handled inside it&#8217;s <strong>afterReset</strong> function.</p>
-</li>
-<li>
-<p>When the <strong>[Save]</strong> button is clicked: the (parent) Collection component will validate it&#8217;s own input fields, but whatever inputs are provided by the (child) Collector component, should be handeled inside it&#8217;s own <strong>validate</strong> function.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>These props are removed:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong class="red">context</strong> object (sort of replaced by collectorConfig)</p>
-</li>
-<li>
-<p><strong class="red">dispatch</strong> function (sort of replaced by setCollectorConfig)</p>
-</li>
-<li>
-<p><strong class="red">isFirstRun</strong> ref (no longer needed)</p>
-</li>
-<li>
-<p><strong class="red">path</strong> string (no longer needed)</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>These props are added:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong class="lime">collectorConfig</strong> (object)</p>
-</li>
-<li>
-<p><strong class="lime">setCollectorConfig</strong> (setState function)</p>
-</li>
-<li>
-<p><strong class="lime">setCollectorConfigErrorCount</strong> (setState function)</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>This prop is untouched:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong class="green">explorer</strong> (object)</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>See <a href="custom.ahtml#_react_component">custom#_react_component</a>.</p>
-</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Read access to an interface implicitly gives read access to all collection within the interface.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="run"><a class="link" href="#run">Run</a></h2>
+<h2 id="usage"><a class="link" href="#usage">Usage</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Once a key has been created, simply include it as a header value when performing an HTTP request against your selected API.</p>
+</div>
+<div class="paragraph">
+<p>An API key with the value <code>mySecretKey</code> should be passed in the following header format:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Authorization: Explorer-Api-Key mySecretKey</pre>
+</div>
+</div>
 <div class="sect2">
-<h3 id="task"><a class="link" href="#task">Task</a></h3>
-<div class="sect3">
-<h4 id="task_descriptor_xml"><a class="link" href="#task_descriptor_xml">Task Descriptor XML</a></h4>
-<div class="ulist">
-<ul>
-<li>
-<p><strong class="red">name</strong> has been replaced by <strong class="lime">collectionId</strong>.</p>
-</li>
-<li>
-<p><strong class="lime">language</strong> has been added.</p>
-</li>
-</ul>
-</div>
+<h3 id="curl"><a class="link" href="#curl">cURL</a></h3>
 <div class="paragraph">
-<p>See <a href="custom.ahtml#_collect_xml">custom#_collect_xml</a>.</p>
+<p>cURL is a popular command line tool which can be used to perform API requests.
+The API key can be added to the header like this:</p>
+</div>
+<div class="listingblock">
+<div class="title">Setting headers with cURL</div>
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">curl \
+-H "Authorization: Explorer-Api-Key mySecretKey"\
+-H "Content-Type: application/json" \
+-H "Accept: application/json" \
+http://localhost:8080/webapp/com.enonic.app.explorer/api/</code></pre>
 </div>
 </div>
-<div class="sect3">
-<h4 id="journal"><a class="link" href="#journal">Journal</a></h4>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The above example sets three headers in total.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="graphql_client"><a class="link" href="#graphql_client">GraphQL client</a></h3>
 <div class="paragraph">
-<p>collector.addSuccess() and collector.addError() no longer takes an uri parameter.</p>
+<p>When accessing the GraphQL API externally,
+the API key can must be added to the header.
+For the Altair GraphQL Client (Chrome Extension),
+the header can be set clicking the top icon in the left hand menu panel.</p>
 </div>
+<div class="imageblock">
+<div class="content">
+<img src="media/headers.png" alt="Adding headers in GraphQL client" width="544w">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ingest_client"><a class="link" href="#ingest_client">Ingest Client</a></h3>
 <div class="paragraph">
-<p>See <a href="custom.ahtml#_journal">custom#_journal</a>.</p>
+<p>The Ingest API comes with a handy user interface, simply add the API key at the top of the form, and it will automatically work for all API methods.</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="persistdocument"><a class="link" href="#persistdocument">persistDocument</a></h4>
-<div class="sect4">
-<h5 id="create"><a class="link" href="#create">create</a></h5>
-<div class="paragraph">
-<p>Since collectors now provide their own document-types, you also have to specify <strong>documentTypeName</strong> when persisting a document.
-Just make sure it matches a (lowercased and ascii folded) _name in the src/main/resources/documentTypes.json file.</p>
-</div>
-<div class="paragraph">
-<p>See <a href="custom.ahtml#_create">custom#_create</a>.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="update"><a class="link" href="#update">update</a></h5>
-<div class="paragraph">
-<p>Since <strong class="red">uri</strong> is no longer a required parameter to persistDocument, there is no way for a collector instance to automatically figure out which document node to <strong>update</strong>.
-If you want to <strong>update</strong> a document, rather than creating endless new ones, you have to lookup and provide the document node <strong class="lime">_id</strong> in your collector task implementation.</p>
-</div>
-<div class="paragraph">
-<p>See <a href="custom.ahtml#_update">custom#_update</a>.</p>
-</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/rest-client.png" alt="Adding headers in REST client" width="768">
 </div>
 </div>
 </div>
@@ -730,7 +610,7 @@ If you want to <strong>update</strong> a document, rather than creating endless 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-15 06:17:43 UTC
+Last updated 2023-09-15 08:34:02 UTC
 </div>
 </div>
 </body>
