@@ -53,6 +53,27 @@ Simply remove it from src/main/resources/main.ts
 
 == Configuration
 
+=== collectors.json
+
+The collectors.json file has been simplified a bit.
+
+* `configAssetPath` has been renamed to `formAssetPath`.
+* `componentPath` has been replaced by `formLibraryName`
+
+Renamed:
+
+ < "configAssetPath": "collector/form/SampleCollector.esm.js",
+ > "formAssetPath": "collector/form/SampleCollector.esm.js",
+
+Replaced:
+
+ < "componentPath": "window.SampleCollector.Collector",
+ > "formLibraryName": "SampleCollector",
+
+IMPORTANT: The SampleCollector.tsx is now expected to export a React Component named `Collector`.
+
+CAUTION: The old syntax is still supported, but might be removed in a future release.
+
 === React Component
 
 The previous way to implement a Collector React Component was strongly hooked to semantic-ui-react-form, which had various complexity issues.
