@@ -43,41 +43,40 @@ Below you will find some sample queries
 [source,cfg]
 ----
 query MyQuery {
-	interface(name: "minions") {
-		querySynonyms(searchString: "bananas") {
-			search(
+  interface(name: "minions") {
+    querySynonyms(searchString: "bananas") {
+      search(
         filters: {boolean: {must: {exists: {field: "title"}} }}
-				count: 1
-				highlight: {fields: [
-					{field: "title"}
-					{field: "text"}
-					{field: "_allText"}
-				]}
-				aggregations: [
-					{name: "collections", terms: {field: "_collection"}},
-					{name: "documentTypes", terms: {field: "_documentType"}}
-				]
-			) {
-				count
-				total
-				aggregationsAsJson
-				hits {
-					_highlight
-					_collection
-					_documentType
-					# _json
-					_score
-				}
-			} # search
-			languages
-			synonyms {
-				thesaurusName
-				synonyms {
-					locale
-					synonym
-				}
-			} # synonyms
-		}
-	}
+        count: 1
+        highlight: {fields: [
+          {field: "title"}
+          {field: "text"}
+          {field: "_allText"}
+        ]}
+        aggregations: [
+          {name: "collections", terms: {field: "_collection"}},
+          {name: "documentTypes", terms: {field: "_documentType"}}
+        ]) {
+        count
+        total
+        aggregationsAsJson
+        hits {
+        _highlight
+        _collection
+        _documentType
+      # _json
+        _score
+        }
+      } # search
+      languages
+      synonyms {
+        thesaurusName
+        synonyms {
+          locale
+          synonym
+        }
+      } # synonyms
+    }
+  }
 }
 ----
