@@ -55,6 +55,20 @@ User-Agent:: Some webservers handle user-agents differently. Here you can preten
 
 Max pages:: Some websites dynamically generate pages. To avoid infinite crawling sessions, you may specify a maximum number of pages to crawl. The default value is 1000.
 
+=== Headless browser
+
+NOTE: Available from Explorer 4.3.0.
+
+You can set up a headless browser to render pages that require JavaScript to be executed. This is done by setting the `browserlessUrl` property in the application configuration file.
+
+.${XP_HOME}/config/com.enonic.app.explorer.cfg
+[source,cfg]
+----
+browserlessUrl = http://localhost:3000/content
+----
+
+TIP: You can download and run browserless via Docker.
+
 == Custom collectors
 
 An exciting feature of Explorer is that you may also build your own collectors. We prepared a dedicated https://developer.enonic.com/docs/collector[starter-kit and tutorial for building custom collectors] to give you a flying start.
