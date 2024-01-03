@@ -451,6 +451,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#the_webcrawler_collector">The Webcrawler collector</a>
 <ul class="sectlevel2">
 <li><a href="#configuration">Configuration</a></li>
+<li><a href="#headless_browser">Headless browser</a></li>
 </ul>
 </li>
 <li><a href="#custom_collectors">Custom collectors</a></li>
@@ -573,6 +574,42 @@ Text within &lt;script&gt;, &lt;nav&gt; and &lt;footer&gt; elements will automat
 </dl>
 </div>
 </div>
+<div class="sect2">
+<h3 id="headless_browser"><a class="link" href="#headless_browser">Headless browser</a></h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Available from Explorer 4.3.0.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You can set up a headless browser to render pages that require JavaScript to be executed. This is done by setting the <code>browserlessUrl</code> property in the application configuration file.</p>
+</div>
+<div class="listingblock">
+<div class="title">${XP_HOME}/config/com.enonic.app.explorer.cfg</div>
+<div class="content">
+<pre class="highlight"><code class="language-cfg" data-lang="cfg">browserlessUrl = http://localhost:3000/content</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can download and run browserless via Docker.
+</td>
+</tr>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -586,7 +623,7 @@ Text within &lt;script&gt;, &lt;nav&gt; and &lt;footer&gt; elements will automat
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-19 16:45:24 UTC
+Last updated 2024-01-03 10:32:09 UTC
 </div>
 </div>
 </body>
