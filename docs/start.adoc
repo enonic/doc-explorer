@@ -49,7 +49,7 @@ From the main panel you can search the indexed documents - bu sadly there is not
 
 == Collecting data
 
-To get some data to play with, let's use the built-in, simple <<collectors/webcrawler#,Web crawler collector>> to fetch content from Enonic Market.
+To get some data to play with, let's use the built-in, simple <<collectors/the_webcrawler_collector#,Web crawler collector>> to fetch content from Enonic Market.
 
 . **Create a new Collection**. `Collections -> btn:[+]`. The Create button (Green +) can be found at the bottom right hand of the page. 
 +
