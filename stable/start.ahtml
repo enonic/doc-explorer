@@ -581,7 +581,7 @@ Only users with the role <code>system.admin</code>, or <code>com.enonic.explorer
 <h2 id="collecting_data"><a class="link" href="#collecting_data">Collecting data</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To get some data to play with, let&#8217;s use the built-in, simple <a href="collectors/the_webcrawler_collector.ahtml">Web crawler collector</a> to fetch content from Enonic Market.</p>
+<p>To get some data to play with, let&#8217;s use the built-in, simple <a href="collectors.ahtml#the_webcrawler_collector">Web crawler collector</a> to fetch content from Enonic Market.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -937,7 +937,7 @@ An interface in this context is not the actual user interface, but refers to the
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-02 13:49:10 UTC
+Last updated 2024-04-02 13:51:46 UTC
 </div>
 </div>
 </body>
