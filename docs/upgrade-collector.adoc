@@ -42,7 +42,7 @@ dependencies {
 
 Collectors are now supposed to provide their own documentTypes.
 
-See https://developer.enonic.com/docs/collector/stable/doctype[Managed document types].
+See https://developer.enonic.com/docs/collector/stable/doctypes[Managed document types].
 
 === Deprecations
 
