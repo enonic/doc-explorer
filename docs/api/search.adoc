@@ -24,7 +24,6 @@ Uses an explorer interface to search and returns scored results.
 ! Name      ! Type  ! Attributes ! Default ! Description
 ! categoryA ! Array.<string> ! <optional> !         ! List of active facets in facet category named categoryA to filter on.
 ! categoryB ! Array.<string> ! <optional> !         ! List of active facets in facet category named categoryB to filter on.
-! ...
 !===
 
 | interface    | string  | <required> | undefined                           | Which explorer interface to use.

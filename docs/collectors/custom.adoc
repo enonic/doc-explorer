@@ -445,7 +445,7 @@ export function run({name, collectorId, configJson, language}) { <--3-->
 } // export function run
 ----
 
-<1> Perhaps import <<_polyfills,polyfills>>.
+<1> Perhaps import <<#polyfills,polyfills>>.
 <2> Import the Collector class
 <3> The collect task gets passed four named parameters.
 <4> Construct a Collector instance.

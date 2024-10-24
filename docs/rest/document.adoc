@@ -91,13 +91,13 @@ export function get() {
 
 === Headers
 
-[%header,cols="1%,1%,1%,1%,97%a"]
+[%header,cols="1%,1%,1%,97%a"]
 [frame="none"]
 [grid="none"]
 |===
-| Name         | Attributes | Value            | Details
-| Accept       | <optional> | application/json | What MIME-type the client wants in the response
-| Content-Type | <required> | application/json | What type of data is sent in the request body
+| Name          | Attributes | Value                     | Details
+| Accept        | <optional> | application/json          | What MIME-type the client wants in the response
+| Content-Type  | <required> | application/json          | What type of data is sent in the request body
 | Authorization | <required> | Explorer-Api-Key password | A valid API key (password) for the collection you want to get documents from.
 |===
 

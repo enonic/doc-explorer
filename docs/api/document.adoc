@@ -23,9 +23,9 @@ Two objects with the following keys and their values:
 [frame="none"]
 [grid="none"]
 |===
-| Name  | Type   | Attributes | Default | Details
-| _name | String | <optional> |         | If not provided the name will become the same as _id
-| ...   |        | <optional> |         | More properties you want to persist
+| Name              | Type   | Attributes | Default | Details
+| _name             | String | <optional> |         | If not provided the name will become the same as _id
+| anotherProperty   | String | <optional> |         | More properties you want to persist
 |===
 
 ===== Options Object
@@ -92,13 +92,13 @@ Two objects with the following keys and their values:
 
 ===== Data Object
 
-[%header,cols="1%,1%,1%,1%,97%a"]
+[%header,cols="1%,1%,1%,97%a"]
 [frame="none"]
 [grid="none"]
 |===
-| Name         | Type    | Attributes | Default              | Details
-| _id                |         | <required> |                | The id of the document you want to update
-| ...                |         | <optional> |                | More properties you want to persist
+| Name               | Type    | Attributes | Details
+| _id                | String  | <required> | The id of the document you want to update
+| anotherProperty    | String  | <optional> | More properties you want to persist
 |===
 
 ===== Options Object
