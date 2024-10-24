@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.22">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <title>GraphQL Search API</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -498,7 +498,7 @@ mapping.explorerApi.target = /webapp/com.enonic.app.explorer/api/graphql</code><
 <p>The API is self-documented, and can be accessed directly using the Query tester in Explorer Admin</p>
 </div>
 <div class="paragraph">
-<p>To test the public endpoint directly, we recommend using a tool like a browser extension like <a href="https://chrome.google.com/webstore/detail/altair-graphql-client/flnheeellpciglgpaodhkhmapeljopja">the Altair GraphQL client</a>.</p>
+<p>To test the public endpoint directly, we recommend using an external tool, for example a browser extension like <a href="https://chrome.google.com/webstore/detail/altair-graphql-client/flnheeellpciglgpaodhkhmapeljopja">the Altair GraphQL client</a>.</p>
 </div>
 </div>
 </div>
@@ -555,7 +555,7 @@ mapping.explorerApi.target = /webapp/com.enonic.app.explorer/api/graphql</code><
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-03 09:17:00 UTC
+Last updated 2024-10-24 12:17:50 UTC
 </div>
 </div>
 </body>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.22">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <title>Collections</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -461,7 +461,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Use collections to gather and manage <a href="documents.ahtml">documents</a>. Documents can be injected externally through the API, or activedly fetched by a collector.</p>
+<p>Use collections to gather and manage <a href="documents.ahtml">documents</a>. Documents can be injected externally through the API, or actively fetched by a collector.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -535,7 +535,7 @@ You can build your own custom collector or find existing collectors on <a href="
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Consider that the scheduler should be allowed to finish before it is triggered again. Only one instance of the collector will be running at a time.
+Note that the scheduler should be allowed to finish before it is triggered again. Only one instance of the collector will be running at a time.
 </td>
 </tr>
 </table>
@@ -549,7 +549,7 @@ Consider that the scheduler should be allowed to finish before it is triggered a
 </div>
 </div>
 <div class="paragraph">
-<p>From the collections list view: Clicking the <code>Collect</code> icon will manually trigger the collector job.</p>
+<p>Clicking the <code>Collect</code> icon from the Collections list view will manually trigger the collector job.</p>
 </div>
 </div>
 </div>
@@ -571,7 +571,7 @@ Consider that the scheduler should be allowed to finish before it is triggered a
 <h2 id="journal"><a class="link" href="#journal">Journal</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Journal shows the history of completed collector jobs and their result.</p>
+<p>Journal shows the history of completed collector jobs and their results.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -584,7 +584,7 @@ Consider that the scheduler should be allowed to finish before it is triggered a
 <h2 id="notifications"><a class="link" href="#notifications">Notifications</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Optionally add e-mails to notify users about collector related events.</p>
+<p>Optionally add e-mails to notify users about collector-related events.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -611,17 +611,12 @@ For the e-mail notification to work, your Enonic XP deployment must be configure
 <div class="paragraph">
 <p>The schedule provides a global view of all collector jobs scheduled to run. This helps you plan execution and resource management optimally.</p>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="media/TODO.png" alt="Calendar view of collector schedules" width="1024w">
-</div>
-</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-03 09:17:00 UTC
+Last updated 2024-10-24 12:17:50 UTC
 </div>
 </div>
 </body>

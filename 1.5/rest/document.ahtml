@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.22">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <title>REST API Document</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -668,11 +668,10 @@ export function get() {
 <h3 id="headers_2"><a class="link" href="#headers_2">Headers</a></h3>
 <table class="tableblock frame-none grid-none stretch">
 <colgroup>
-<col style="width: 0.99%;">
-<col style="width: 0.99%;">
-<col style="width: 0.99%;">
-<col style="width: 0.99%;">
-<col style="width: 96.04%;">
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 1%;">
+<col style="width: 97%;">
 </colgroup>
 <thead>
 <tr>
@@ -680,26 +679,31 @@ export function get() {
 <th class="tableblock halign-left valign-top">Attributes</th>
 <th class="tableblock halign-left valign-top">Value</th>
 <th class="tableblock halign-left valign-top">Details</th>
-<th class="tableblock halign-left valign-top">Accept</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Accept</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;optional&gt;</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">application/json</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">What MIME-type the client wants in the response</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Content-Type</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>&lt;required&gt;</p>
+<p>What MIME-type the client wants in the response</p>
 </div></div></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Content-Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;required&gt;</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">application/json</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">What type of data is sent in the request body</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>What type of data is sent in the request body</p>
+</div></div></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Authorization</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;required&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Explorer-Api-Key password</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Explorer-Api-Key password</p>
+<p>A valid API key (password) for the collection you want to get documents from.</p>
 </div></div></td>
 </tr>
 </tbody>
@@ -936,7 +940,7 @@ export function get() {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-03 09:17:00 UTC
+Last updated 2024-10-24 12:17:25 UTC
 </div>
 </div>
 </body>

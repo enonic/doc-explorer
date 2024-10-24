@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.22">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <title>Synonyms</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -467,7 +467,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Use synonyms to improve search results. This is especially helpful when working with domain specific texts. For instance, when a user searches <code>fish</code>, but the search actually searches both <code>fish</code> and  <code>salmon</code>.</p>
+<p>Use synonyms to improve search results. This is especially helpful when working with domain-specific texts. For instance, when a user searches for <code>fish</code> but gets hits for both <code>fish</code> and  <code>salmon</code>.</p>
 </div>
 </div>
 </div>
@@ -489,7 +489,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Explorer uses the same <strong>locales</strong> which are made available by Java.</p>
 </div>
 <div class="paragraph">
-<p>In addition we&#8217;ve added <strong>zxx</strong> for (non linguistic content / not applicable).</p>
+<p>In addition, we&#8217;ve added <strong>zxx</strong> for (non-linguistic content / not applicable).</p>
 </div>
 <div class="ulist">
 <ul>
@@ -537,18 +537,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect2">
 <h3 id="use_from_to_both"><a class="link" href="#use_from_to_both">Use: From, To, Both</a></h3>
 <div class="paragraph">
-<p>You must select how a synonym is <strong>used</strong>. It may be used in three ways:</p>
+<p>You must select how a synonym is <strong>used</strong>. It may be used in one of three ways:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>From (Only used to find which synonyms to apply to the main query, itself is not applied to the main query.)</p>
+<p><code>from</code> (Only used to find which synonyms to apply to the main query, itself is not applied to the main query.)</p>
 </li>
 <li>
-<p>To (Only used to apply to the main query. Not used when finding synonyms.)</p>
+<p><code>to</code> (Only used to apply to the main query. Not used when finding synonyms.)</p>
 </li>
 <li>
-<p>Both (Used to find synonyms, but also added to the main query.)</p>
+<p><code>both</code> (Used to find synonyms, but also added to the main query.)</p>
 </li>
 </ol>
 </div>
@@ -556,7 +556,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect2">
 <h3 id="enabled_comments"><a class="link" href="#enabled_comments">Enabled &amp; Comments</a></h3>
 <div class="paragraph">
-<p>Turning on and off certain synonyms may greatly affect the search results.
+<p>Turning certain synonyms on and off may greatly affect the search results.
 You may supply a comment as to why it&#8217;s a good idea to keep, or disable a synonym.</p>
 </div>
 </div>
@@ -566,12 +566,12 @@ You may supply a comment as to why it&#8217;s a good idea to keep, or disable a 
 <h2 id="how_it_works"><a class="link" href="#how_it_works">How it works</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The combination of all these concepts, makes it possible to create both simple and quite complex thesauri:</p>
+<p>The combination of all these concepts makes it possible to create both simple and quite complex thesauri:</p>
 </div>
 <div class="sect2">
 <h3 id="single_languagedialect"><a class="link" href="#single_languagedialect">Single language/dialect</a></h3>
 <div class="paragraph">
-<p>You may setup a thesaurus with just a single language.
+<p>You may set up a thesaurus with just a single language.
 For instance <strong>English [en]</strong>.</p>
 </div>
 <div class="paragraph">
@@ -579,14 +579,14 @@ For instance <strong>English [en]</strong>.</p>
 You could make a synonym <strong>from</strong>: <span class="red">artic</span>, <strong>to</strong>: <span class="green">arctic</span></p>
 </div>
 <div class="paragraph">
-<p>Or depending upon your data, and/or the focus of your search engine, you may want a "two-way" synonym between <strong>car</strong> and <strong>auto</strong>.
+<p>Or, depending on your data and/or the focus of your search engine, you may want a "two-way" synonym between <strong>car</strong> and <strong>auto</strong>.
 To achieve that set usage to <strong class="green">both</strong> instead of using <strong class="red">from</strong> and <strong class="red">to</strong>.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="multi_language_codes"><a class="link" href="#multi_language_codes">Multi language &amp; Codes</a></h3>
 <div class="paragraph">
-<p>In your domain language, maybe there are special codes which doesn&#8217;t really belong to a specific language (and thus shouldn&#8217;t be stemmed).</p>
+<p>In your domain language, maybe there are special codes which don&#8217;t really belong to a specific language (and thus shouldn&#8217;t be stemmed).</p>
 </div>
 <div class="paragraph">
 <p>For example in the medical world, there&#8217;s something called ATC codes.
@@ -599,7 +599,7 @@ Let&#8217;s say you have a search page, which can search and present both Norweg
 <div class="sect2">
 <h3 id="management_alternatives"><a class="link" href="#management_alternatives">Management alternatives</a></h3>
 <div class="paragraph">
-<p>Depending on how you want to manage it, you could either setup a single "complex" thesaurus or multiple "simple" ones.</p>
+<p>Depending on how you want to manage it, you could either set up a single "complex" thesaurus or multiple "simple" ones.</p>
 </div>
 <div class="paragraph">
 <p>Both alternatives will give the same results&#8230;&#8203;</p>
@@ -634,94 +634,86 @@ Let&#8217;s say you have a search page, which can search and present both Norweg
 <div class="sect2">
 <h3 id="interface_languages_parameter"><a class="link" href="#interface_languages_parameter">Interface languages parameter</a></h3>
 <div class="paragraph">
-<p>When an <strong>interface</strong> is used to search, it has a <strong>languages</strong> parameter.
-If you leave it empty "all" languages in the <strong>selected thesauri</strong> will be searched and applied (with stemming).
-Supplying a languages parameter will <strong>limit</strong> which languages are used when searching for synonyms to apply.</p>
+<p>When an <strong>interface</strong> is used to search, it has a <code>languages</code> parameter.
+If you leave it empty, "all" languages in the <strong>selected thesauri</strong> will be searched and applied (with stemming).
+Supplying a <code>languages</code> parameter will <strong>limit</strong> which languages are used when searching for synonyms to apply.</p>
 </div>
 <div class="paragraph">
 <p>Given the example above:</p>
 </div>
-<div class="paragraph">
+<div class="ulist">
+<ul>
+<li>
 <p>languages: ["en"]</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>will give 0 synonyms applied (no matter what the search string is).</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
+<p>will give 0 synonyms applied (no matter what the search string is).</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
 <p>languages: ["no"]</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>will give 0 synonyms applied (no matter what the search string is).</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
+<p>will give 0 synonyms applied (no matter what the search string is).</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
 <p>languages: ["zxx"]</p>
+</li>
+</ul>
 </div>
-<div class="ulist">
-<ul>
-<li>
+<div class="paragraph">
 <p>will give 0 synonyms applied (no matter what the search string is).</p>
-</li>
-</ul>
 </div>
-<div class="paragraph">
+<div class="ulist">
+<ul>
+<li>
 <p>languages: ["zxx", "en"]</p>
+</li>
+</ul>
 </div>
-<div class="ulist">
-<ul>
-<li>
+<div class="paragraph">
 <p>will apply <span class="blue">sodium monofluorophosphate</span> if the search string is <span class="blue">A01AA02</span></p>
-</li>
-</ul>
 </div>
-<div class="paragraph">
+<div class="ulist">
+<ul>
+<li>
 <p>languages: ["zxx", "no"]</p>
+</li>
+</ul>
 </div>
-<div class="ulist">
-<ul>
-<li>
+<div class="paragraph">
 <p>will apply <span class="blue">natriummonofluorofosfat</span> if the search string is <span class="blue">A01AA02</span></p>
-</li>
-</ul>
 </div>
-<div class="paragraph">
+<div class="ulist">
+<ul>
+<li>
 <p>languages: ["en", "no"]</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>will apply <span class="blue">sodium monofluorophosphate</span> if the search string is <span class="blue">natriummonofluorofosfat</span></p>
-</li>
-<li>
-<p>and <span class="blue">natriummonofluorofosfat</span> if the search string is <span class="blue">sodium monofluorophosphate</span></p>
-</li>
-<li>
-<p>if the search string is <span class="blue">A01AA02</span>, no synonyms will be applied.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>languages: ["zxx", "en", "no"]</p>
+<p>will apply <span class="blue">sodium monofluorophosphate</span> if the search string is <span class="blue">natriummonofluorofosfat</span>,
+and <span class="blue">natriummonofluorofosfat</span> if the search string is <span class="blue">sodium monofluorophosphate</span>,
+if the search string is <span class="blue">A01AA02</span>, no synonyms will be applied.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>will apply <span class="blue">sodium monofluorophosphate</span> if the search string is <span class="blue">natriummonofluorofosfat</span></p>
-</li>
-<li>
-<p>and <span class="blue">natriummonofluorofosfat</span> if the search string is <span class="blue">sodium monofluorophosphate</span></p>
-</li>
-<li>
-<p>if the search string is <span class="blue">A01AA02</span>, both <span class="blue">natriummonofluorofosfat</span> and <span class="blue">sodium monofluorophosphate</span> will be applied.</p>
+<p>languages: ["zxx", "en", "no"]</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>will apply <span class="blue">sodium monofluorophosphate</span> if the search string is <span class="blue">natriummonofluorofosfat</span>,
+and <span class="blue">natriummonofluorofosfat</span> if the search string is <span class="blue">sodium monofluorophosphate</span>,
+if the search string is <span class="blue">A01AA02</span>, both <span class="blue">natriummonofluorofosfat</span> and <span class="blue">sodium monofluorophosphate</span> will be applied.</p>
 </div>
 </div>
 </div>
@@ -729,7 +721,7 @@ Supplying a languages parameter will <strong>limit</strong> which languages are 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-03 09:17:00 UTC
+Last updated 2024-10-24 12:17:50 UTC
 </div>
 </div>
 </body>

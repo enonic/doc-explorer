@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.22">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <title>Document types</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -463,10 +463,10 @@ Each collection may contain a number of <a href="documents.ahtml">documents</a>.
 Each document may have fields with values.</p>
 </div>
 <div class="paragraph">
-<p>Each document, must have a specific document-type.</p>
+<p>Each document must have a specific document-type.</p>
 </div>
 <div class="paragraph">
-<p>The document types controls the indexing, on a per field level, as well as optional validation rules.</p>
+<p>A document type controls the indexing, on a per field level, as well as optional validation rules.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -486,7 +486,7 @@ A single collection may have documents with different document types.
 <h2 id="document_types_list"><a class="link" href="#document_types_list">Document types list</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The table will show a list of the document-types.</p>
+<p>The table will show a list of the document types.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -494,7 +494,7 @@ A single collection may have documents with different document types.
 </div>
 </div>
 <div class="paragraph">
-<p>Each row represents a document-type and will have a button to edit the document-type.</p>
+<p>Each row represents a document type and will have a button to edit it.</p>
 </div>
 </div>
 </div>
@@ -513,7 +513,7 @@ A single collection may have documents with different document types.
 <dl>
 <dt class="hdlist1">Name</dt>
 <dd>
-<p>A unique name which is also the identifier. The name may only contain a strictly limited set of characters.</p>
+<p>A unique name which is also an identifier. The name may only contain a strictly limited set of characters.</p>
 <div class="admonitionblock warning">
 <table>
 <tr>
@@ -521,7 +521,7 @@ A single collection may have documents with different document types.
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-The name cannot be changed after a document-type is created. Deleting a document type after clients have started using it will be a breaking change in the GraphQL API. To prevent breaking the API, a document type can rather be disabled.
+The name cannot be changed after a document type is created. Deleting a document type after clients have started using it will be a breaking change in the GraphQL API. To prevent breaking the API, a document type should rather be disabled.
 </td>
 </tr>
 </table>
@@ -529,7 +529,7 @@ The name cannot be changed after a document-type is created. Deleting a document
 </dd>
 <dt class="hdlist1">Add fields automatically</dt>
 <dd>
-<p>Enable this option if you want the document type to be dynamic. If enabled, whenever a document is created or updated it will automatically detect new fields, determine a <a href="#_value_type">Value type</a> for the field and add it to the document-type.</p>
+<p>Enable this option if you want the document type to be dynamic. If enabled, whenever a document is created or updated it will automatically detect new fields, determine a <a href="#_value_type">Value type</a> for the field and add it to the document type.</p>
 </dd>
 </dl>
 </div>
@@ -539,7 +539,7 @@ The name cannot be changed after a document-type is created. Deleting a document
 <h2 id="fields"><a class="link" href="#fields">Fields</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Once a document type has been created, you may manage it&#8217;s fields.</p>
+<p>Once a document type has been created, you can manage its fields.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -555,7 +555,7 @@ The name cannot be changed after a document-type is created. Deleting a document
 <dl>
 <dt class="hdlist1">Name</dt>
 <dd>
-<p>Each field must have a unique name within the document-type.</p>
+<p>Each field must have a unique name within the document type.</p>
 <div class="admonitionblock warning">
 <table>
 <tr>
@@ -563,18 +563,18 @@ The name cannot be changed after a document-type is created. Deleting a document
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-The name cannot be changed after a field is created. Deleting a field after clients have started using it will be a breaking change in the GraphQL API. To prevent breaking the API, a field can rather be disabled.
+The name cannot be changed after a field is created. Deleting a field after clients have started using it will be a breaking change in the GraphQL API. To prevent breaking the API, a field should rather be disabled.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Fields can also be nested. A dot '<strong>.</strong>' is used to indicate nesting. For instance: <code>person.name</code>. In this case, the field <code>person</code> will be reserved for nesting, and can no longer be used for indexing.</p>
+<p>Fields can also be nested. A dot '<strong>.</strong>' is used to indicate nesting. For instance: <code>person.name</code>. In this case, the field <code>person</code> will be reserved for nesting and can no longer be used for indexing.</p>
 </div>
 </dd>
 <dt class="hdlist1">Value type</dt>
 <dd>
-<p>Each field must have a specific value type. The value type enables field validation, and default indexing options.</p>
+<p>Each field must have a specific value type. The value type enables field validation and default indexing options.</p>
 <div class="paragraph">
 <p>The value types are: <code>Boolean</code>, <code>Double</code>, <code>geoPoint</code>, <code>instant</code>, <code>localDate</code>, <code>localDateTime</code>, <code>localTime</code>,<code>long</code>, <code>set</code> and <code>string</code>.</p>
 </div>
@@ -671,7 +671,7 @@ For details on all indexing options, see <a href="https://developer.enonic.com/d
 <h2 id="updating_document_types"><a class="link" href="#updating_document_types">Updating document types</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>When a document type is in use (one or more documents exists), it is still possible to modify and update the document type.</p>
+<p>When a document type is in use (one or more documents exist), it is still possible to modify and update the document type.</p>
 </div>
 <div class="paragraph">
 <p>After saving your changes to the document type, all documents will automatically be re-indexed based on the new document type definition.</p>
@@ -681,7 +681,7 @@ For details on all indexing options, see <a href="https://developer.enonic.com/d
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-03 09:17:00 UTC
+Last updated 2024-10-24 12:17:50 UTC
 </div>
 </div>
 </body>

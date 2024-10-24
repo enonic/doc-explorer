@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.22">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <title>Getting Started</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -513,7 +513,7 @@ Developers may also run Explorer locally by <a href="https://developer.enonic.co
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Start by signing up for get a free account on <a href="https://console.enonic.com" class="bare">https://console.enonic.com</a></p>
+<p>Start by signing up for a free account on <a href="https://console.enonic.com" class="bare">https://console.enonic.com</a></p>
 </li>
 <li>
 <p><strong>Create a new Solution</strong>. <code>Solutions &#8594; <b class="button">Create</b></code>.</p>
@@ -541,7 +541,7 @@ The template ensures that Explorer and all relevant dependencies are pre-install
 <h2 id="explorer_admin"><a class="link" href="#explorer_admin">Explorer admin</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Once the environment has booted. From the new solution page, click <code>Admin &#8594; <b class="button">Launch</b></code>.</p>
+<p>Once the environment has booted, click <code>Admin &#8594; <b class="button">Launch</b></code> from the new solution page.</p>
 </div>
 <div class="paragraph">
 <p>This will take you to the environment dashboard.</p>
@@ -573,7 +573,7 @@ Only users with the role <code>system.admin</code>, or <code>com.enonic.explorer
 <p>The Explorer menu is available from the top left.</p>
 </div>
 <div class="paragraph">
-<p>From the main panel you can search the indexed documents - bu sadly there is nothing to search yet. 🤷</p>
+<p>From the main panel you can search the indexed documents - but sadly there is nothing to search yet. 🤷</p>
 </div>
 </div>
 </div>
@@ -581,22 +581,22 @@ Only users with the role <code>system.admin</code>, or <code>com.enonic.explorer
 <h2 id="collecting_data"><a class="link" href="#collecting_data">Collecting data</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To get some data to play with, let&#8217;s use the built-in, simple <a href="collectors.ahtml#the_webcrawler_collector">Web crawler collector</a> to fetch content from Enonic Market.</p>
+<p>To get some data to play with, let&#8217;s use the simple built-in <a href="collectors.ahtml#the_webcrawler_collector">Web crawler collector</a> to fetch content from Enonic Market.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>Create a new Collection</strong>. <code>Collections &#8594; <b class="button">+</b></code>. The Create button (Green +) can be found at the bottom right hand of the page.</p>
+<p><strong>Create a new Collection</strong>: `Collections &#8594; <b class="button">]`. The Create button (green btn:[</b>) can be found at the bottom right hand of the page.</p>
 <div class="ulist">
 <ul>
 <li>
 <p>Give your new collection a name, i.e. <code>market</code>.</p>
 </li>
 <li>
-<p>choose <code>Web crawler</code> from the collector dropdown menu</p>
+<p>Choose <code>Web crawler</code> from the collector dropdown menu</p>
 </li>
 <li>
-<p>provide the collector with a starting URL: <code>https://market.enonic.com</code></p>
+<p>Provide the collector with a starting URL: <code>https://market.enonic.com</code></p>
 </li>
 <li>
 <p>Skip all other options, and click <b class="button">Save</b> at the bottom of the form</p>
@@ -635,7 +635,7 @@ Only users with the role <code>system.admin</code>, or <code>com.enonic.explorer
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-In addition to using collectors (jobs that runs within Enonic), you may also inject data externally through the <a href="ingest.ahtml">Ingest API</a>.
+In addition to using collectors (jobs that run within Enonic), you may also inject data externally through the <a href="ingest.ahtml">Ingest API</a>.
 </td>
 </tr>
 </table>
@@ -646,7 +646,7 @@ In addition to using collectors (jobs that runs within Enonic), you may also inj
 <h2 id="documents"><a class="link" href="#documents">Documents</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code>Document</code> is the term used for a single item within a collection</p>
+<p><code>Document</code> is a term used for a single item within a collection.</p>
 </div>
 <div class="paragraph">
 <p>Once the collector job has completed, clicking the <code>document count</code> will take you to the <code>Documents</code> page.</p>
@@ -667,7 +667,7 @@ The <code>Documents</code> page is available from the Explorer menu as well.
 <p>From the Documents page, you may browse and filter all available documents. You can also configure which fields to show. Clicking the leftmost <code>JSON</code> icon will reveal the raw data that was indexed for this document.</p>
 </div>
 <div class="paragraph">
-<p>Peform your your first search by typing <code>explorer</code> in the search box:</p>
+<p>Perform your first search by typing <code>explorer</code> in the search box:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -737,7 +737,7 @@ An interface in this context is not the actual user interface, but refers to the
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>Create a new interface</strong> by clicking <code>Interfaces &#8594; <b class="button">+</b></code>.</p>
+<p><strong>Create a new interface</strong> by clicking <code>Interfaces &#8594; <b class="button">+</b></code>:</p>
 <div class="ulist">
 <ul>
 <li>
@@ -774,7 +774,7 @@ An interface in this context is not the actual user interface, but refers to the
 <h2 id="graphql_api"><a class="link" href="#graphql_api">GraphQL API</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To try out the API, click the pink <b class="button">graphQL</b> icon to the left.</p>
+<p>To try out the API, click the pink <b class="button">graphQL</b> icon on the left.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -837,7 +837,7 @@ An interface in this context is not the actual user interface, but refers to the
 <li>
 <p>Click the pink <code>play</code> button.</p>
 <div class="paragraph">
-<p>You should now get a result looking something like this</p>
+<p>You should now get a result looking something like this:</p>
 </div>
 <div class="listingblock">
 <div class="title">Searchstring "explorer"</div>
@@ -883,7 +883,7 @@ An interface in this context is not the actual user interface, but refers to the
 </ol>
 </div>
 <div class="paragraph">
-<p>Explorer is also capable of various aggregations as well. Below we perform a term aggregation search over the title and _documentType fields.</p>
+<p>Explorer is also capable of various aggregations as well. Below we perform a term aggregation search over the <code>title</code> and <code>_documentType</code> fields.</p>
 </div>
 <div class="paragraph">
 <p>Try it out yourself!</p>
@@ -937,7 +937,7 @@ An interface in this context is not the actual user interface, but refers to the
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-03 09:17:00 UTC
+Last updated 2024-10-24 12:17:50 UTC
 </div>
 </div>
 </body>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.22">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <title>Explorer Admin</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -460,7 +460,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Explorer administrative interface enable search administrators to define and manage how data is collected and then exposed through fine tuned interfaces.</p>
+<p>The Explorer Admin interface enables search administrators to define and manage how data is collected and then exposed through fine-tuned interfaces.</p>
 </div>
 </div>
 </div>
@@ -468,7 +468,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="access"><a class="link" href="#access">Access</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>From the Enonic XP admin interface: Click <code>XP meny &#8594; Explorer</code>. This will launch the Explorer Admin interface.</p>
+<p>From the Enonic XP admin interface: Click <code>XP menu &#8594; Explorer</code>. This will launch the Explorer Admin interface.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -532,7 +532,7 @@ Only users with "Explorer Admin" or "System Admin" roles can access the interfac
 </div>
 </div>
 <div class="paragraph">
-<p>When supported, a big green <code>+</code> icon at the bottom right of the page enables you to crate new entities.</p>
+<p>When supported, a big green <code>+</code> icon at the bottom right of the page enables you to create new entities.</p>
 </div>
 </div>
 <div class="sect2">
@@ -543,13 +543,13 @@ Only users with "Explorer Admin" or "System Admin" roles can access the interfac
 </div>
 </div>
 <div class="paragraph">
-<p>From the right hand side of each entry in the list,  perform standard actions like <code>Edit</code>,<code>Copy</code> and <code>Delete</code> by clicking the respective action icon.</p>
+<p>From the right hand side of each entry in the list,  perform standard actions like <code>Edit</code>, <code>Copy</code> and <code>Delete</code> by clicking the respective action icon.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="custom_actions"><a class="link" href="#custom_actions">Custom actions</a></h3>
 <div class="paragraph">
-<p>Selected entities support custom actions. Such actions are listed on the left hand side.</p>
+<p>Selected entities support custom actions which are listed on the left hand side.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -565,7 +565,7 @@ Only users with "Explorer Admin" or "System Admin" roles can access the interfac
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-03 09:17:00 UTC
+Last updated 2024-10-24 12:17:50 UTC
 </div>
 </div>
 </body>

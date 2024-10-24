@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.22">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <title>Interfaces</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -455,7 +455,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>The purpose of Explorer is to enable search across multiple data sources.</p>
 </div>
 <div class="paragraph">
-<p>When you have collected documented, you may explose them by defining a <code>search interface</code> - or just interface for short.</p>
+<p>When you have collected documented, you may expose them by defining a <code>search interface</code> - or just <code>interface</code> for short.</p>
 </div>
 <div class="paragraph">
 <p>An interface allows you to select which collections and synonyms to combine, as well as the ability to tune and boost your search down to the field level.</p>
@@ -474,7 +474,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>From the interface list view, you may perform regular actions.</p>
 </div>
 <div class="paragraph">
-<p>Additionally, it offers two custom actions for <code>Trying</code> out the interface:</p>
+<p>Additionally, it offers two custom actions for trying out the interface:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -503,7 +503,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <dl>
 <dt class="hdlist1">Name</dt>
 <dd>
-<p>Each interface needs a unique name, which is also the identifier</p>
+<p>Each interface needs a unique name, which is also the identifier.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -523,7 +523,7 @@ Once created, the name cannot be changed.
 </dd>
 <dt class="hdlist1">Boosting</dt>
 <dd>
-<p>By default, the _alltext field is used when performing text searches. Here, you may add specific fields and boosting options to tune your search results.</p>
+<p>By default, the <code>_alltext</code> field is used when performing text searches. Here, you may add specific fields and boosting options to tune your search results.</p>
 <div class="paragraph">
 <p><code>Field boosting</code> means matches in the specified field will get a higher (or lower) priority when calculating the document scoring.</p>
 </div>
@@ -533,7 +533,19 @@ Once created, the name cannot be changed.
 </dd>
 <dt class="hdlist1">Stop-words</dt>
 <dd>
-<p>The search string is split, by unicode boundaries, into words, then each word matching a stop word will be removed from the search string. Stop-words are applied before the synonym stage.</p>
+<p>Optionally add one or more stop-words.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Read more about <a href="#stop_words">Stop-words</a>.
+</td>
+</tr>
+</table>
+</div>
 <div class="admonitionblock caution">
 <table>
 <tr>
@@ -549,11 +561,18 @@ Be careful when adding stop words, it may quickly lead to an empty search string
 </dd>
 <dt class="hdlist1">Synonyms</dt>
 <dd>
-<p>Optionally add one ore more thesauri. They will be used to "decorate" the query, and hopefully provide better results.</p>
-<div class="paragraph">
-<p>First any <a href="#_stop_words">Stop-words</a> are removed,
-then the remaining search string is used to query for synonyms,
-matches are used to decorate the main query.</p>
+<p>Optionally add one or more thesauri. They will be used to "decorate" the query, and hopefully provide better results.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Read more about <a href="#synonyms">Synonyms</a>.
+</td>
+</tr>
+</table>
 </div>
 </dd>
 </dl>
@@ -563,7 +582,7 @@ matches are used to decorate the main query.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-03 09:17:00 UTC
+Last updated 2024-10-24 12:17:50 UTC
 </div>
 </div>
 </body>
