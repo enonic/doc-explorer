@@ -4,11 +4,11 @@
 
 == Introduction
 
-Each indexed item in Explorer is called a `Document`. The document will have a specific <<doctypes#, Document Type>>, and be stored in a specific <<collections#, Collection>>.
+Each indexed item in Explorer is called a `Document`. The document will have a specific <<doctypes#, Document Type>> and be stored in a specific <<collections#, Collection>>.
 
 == Browser
 
-From the Documents page, you may instantly access all available document, search and filter the list to get the results you are looking for.
+From the Documents page, you may instantly access all available documents, search and filter the list to get the results you are looking for.
 
 image::documents.png[Browse and filter across all indexed documents, 1024w]
 
@@ -28,4 +28,4 @@ AND/OR toggle:: String search mode
 Collections filter:: Select collections to include
 Document types filter:: Select document types to include
 Columns:: Add columns to the result view
-Count:: Number of items in the result view 
+Count:: Number of items in the result view

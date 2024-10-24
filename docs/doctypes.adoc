@@ -8,19 +8,19 @@ In Explorer data is organized into <<collections#, Collections>>.
 Each collection may contain a number of <<documents#, documents>>.
 Each document may have fields with values.
 
-Each document, must have a specific document-type.
+Each document must have a specific document-type.
 
-The document types controls the indexing, on a per field level, as well as optional validation rules.
+A document type controls the indexing, on a per field level, as well as optional validation rules.
 
 NOTE: A single collection may have documents with different document types.
 
 == Document types list
 
-The table will show a list of the document-types.
+The table will show a list of the document types.
 
 image::doctypes.png[Browse and manage document types, 1024w]
 
-Each row represents a document-type and will have a button to edit the document-type.
+Each row represents a document type and will have a button to edit it.
 
 
 == Settings
@@ -29,15 +29,15 @@ When creating a new document type, you must define the basic settings:
 
 image::doctype-new.png[Initial doctype configuration, 1000w]
 
-Name:: A unique name which is also the identifier. The name may only contain a strictly limited set of characters.
+Name:: A unique name which is also an identifier. The name may only contain a strictly limited set of characters.
 +
-WARNING: The name cannot be changed after a document-type is created. Deleting a document type after clients have started using it will be a breaking change in the GraphQL API. To prevent breaking the API, a document type can rather be disabled.
+WARNING: The name cannot be changed after a document type is created. Deleting a document type after clients have started using it will be a breaking change in the GraphQL API. To prevent breaking the API, a document type should rather be disabled.
 
-Add fields automatically:: Enable this option if you want the document type to be dynamic. If enabled, whenever a document is created or updated it will automatically detect new fields, determine a <<#_value_type, Value type>> for the field and add it to the document-type.
+Add fields automatically:: Enable this option if you want the document type to be dynamic. If enabled, whenever a document is created or updated it will automatically detect new fields, determine a <<#_value_type, Value type>> for the field and add it to the document type.
 
 == Fields
 
-Once a document type has been created, you may manage it's fields.
+Once a document type has been created, you can manage its fields.
 
 image::doctype-fields.png[List of document type fields, 1000w]
 
@@ -46,15 +46,15 @@ Each row represents a field and will have a button to edit the field, or add new
 
 === Fields
 
-Name:: Each field must have a unique name within the document-type.
+Name:: Each field must have a unique name within the document type.
 +
-WARNING: The name cannot be changed after a field is created. Deleting a field after clients have started using it will be a breaking change in the GraphQL API. To prevent breaking the API, a field can rather be disabled.
+WARNING: The name cannot be changed after a field is created. Deleting a field after clients have started using it will be a breaking change in the GraphQL API. To prevent breaking the API, a field should rather be disabled.
 +
-Fields can also be nested. A dot '*.*' is used to indicate nesting. For instance: `person.name`. In this case, the field `person` will be reserved for nesting, and can no longer be used for indexing.
+Fields can also be nested. A dot '*.*' is used to indicate nesting. For instance: `person.name`. In this case, the field `person` will be reserved for nesting and can no longer be used for indexing.
 
-Value type:: Each field must have a specific value type. The value type enables field validation, and default indexing options. 
+Value type:: Each field must have a specific value type. The value type enables field validation and default indexing options.
 +
-The value types are: `Boolean`, `Double`, `geoPoint`, `instant`, `localDate`, `localDateTime`, `localTime`,`long`, `set` and `string`. 
+The value types are: `Boolean`, `Double`, `geoPoint`, `instant`, `localDate`, `localDateTime`, `localTime`,`long`, `set` and `string`.
 +
 NOTE: Value type validation is only enforced if documents are created with validateOccurrences=true.
 +
@@ -84,6 +84,6 @@ Active:: Deleting a field will potentially break the strongly typed <<graphql#, 
 
 == Updating document types
 
-When a document type is in use (one or more documents exists), it is still possible to modify and update the document type.
+When a document type is in use (one or more documents exist), it is still possible to modify and update the document type.
 
 After saving your changes to the document type, all documents will automatically be re-indexed based on the new document type definition.

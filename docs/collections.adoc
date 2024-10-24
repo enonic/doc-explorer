@@ -4,7 +4,7 @@
 
 == Introduction
 
-Use collections to gather and manage <<documents#, documents>>. Documents can be injected externally through the API, or activedly fetched by a collector.
+Use collections to gather and manage <<documents#, documents>>. Documents can be injected externally through the API, or actively fetched by a collector.
 
 image::collections-menu.png[Available menu items for collections, 450w]
 
@@ -35,13 +35,13 @@ image::scheduling.png[Scheduling interface,768]
 
 If you selected a collector, you may optionally define schedule(s) to automatically run the collector.
 
-NOTE: Consider that the scheduler should be allowed to finish before it is triggered again. Only one instance of the collector will be running at a time.
+NOTE: Note that the scheduler should be allowed to finish before it is triggered again. Only one instance of the collector will be running at a time.
 
 === Run collector manually
 
 image::custom-actions.png[Custom actions listed on the left hand side,340w]
 
-From the collections list view: Clicking the `Collect` icon will manually trigger the collector job.
+Clicking the `Collect` icon from the Collections list view will manually trigger the collector job.
 
 
 == Status
@@ -52,13 +52,13 @@ image::status.png[Progress of currently running collectors,1024]
 
 == Journal
 
-Journal shows the history of completed collector jobs and their result.
+Journal shows the history of completed collector jobs and their results.
 
 image::journal.png[List of completed collector jobs,1024]
 
 == Notifications
 
-Optionally add e-mails to notify users about collector related events.
+Optionally add e-mails to notify users about collector-related events.
 
 image::journal.png[List of completed collector jobs,1024]
 
@@ -68,4 +68,4 @@ NOTE: For the e-mail notification to work, your Enonic XP deployment must be con
 
 The schedule provides a global view of all collector jobs scheduled to run. This helps you plan execution and resource management optimally.
 
-image::TODO.png[Calendar view of collector schedules,1024w]
+//image::TODO.png[Calendar view of collector schedules,1024w]

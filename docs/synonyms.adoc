@@ -4,7 +4,7 @@
 
 == Introduction
 
-Use synonyms to improve search results. This is especially helpful when working with domain specific texts. For instance, when a user searches `fish`, but the search actually searches both `fish` and  `salmon`.
+Use synonyms to improve search results. This is especially helpful when working with domain-specific texts. For instance, when a user searches for `fish` but gets hits for both `fish` and  `salmon`.
 
 == Concepts
 
@@ -18,7 +18,7 @@ Each *thesaurus* may contain *synonyms* in one or more *languages/locales*.
 
 Explorer uses the same *locales* which are made available by Java.
 
-In addition we've added *zxx* for (non linguistic content / not applicable).
+In addition, we've added *zxx* for (non-linguistic content / not applicable).
 
 * https://en.wikipedia.org/wiki/ISO_639-2#Special_situations
 * https://en.wikipedia.org/wiki/ISO_639-3#Special_codes
@@ -39,35 +39,35 @@ Explorer is able to match multiple *locales* down to a specific *stemming langua
 
 === Use: From, To, Both
 
-You must select how a synonym is *used*. It may be used in three ways:
+You must select how a synonym is *used*. It may be used in one of three ways:
 
-1. From (Only used to find which synonyms to apply to the main query, itself is not applied to the main query.)
-2. To (Only used to apply to the main query. Not used when finding synonyms.)
-3. Both (Used to find synonyms, but also added to the main query.)
+1. `from` (Only used to find which synonyms to apply to the main query, itself is not applied to the main query.)
+2. `to` (Only used to apply to the main query. Not used when finding synonyms.)
+3. `both` (Used to find synonyms, but also added to the main query.)
 
 === Enabled & Comments
 
-Turning on and off certain synonyms may greatly affect the search results.
+Turning certain synonyms on and off may greatly affect the search results.
 You may supply a comment as to why it's a good idea to keep, or disable a synonym.
 
 == How it works
 
-The combination of all these concepts, makes it possible to create both simple and quite complex thesauri:
+The combination of all these concepts makes it possible to create both simple and quite complex thesauri:
 
 === Single language/dialect
 
-You may setup a thesaurus with just a single language.
+You may set up a thesaurus with just a single language.
 For instance *English [en]*.
 
 Let's say you want to help with some common misspellings.
 You could make a synonym *from*: [red]#artic#, *to*: [green]#arctic#
 
-Or depending upon your data, and/or the focus of your search engine, you may want a "two-way" synonym between *car* and *auto*.
+Or, depending on your data and/or the focus of your search engine, you may want a "two-way" synonym between *car* and *auto*.
 To achieve that set usage to [green]*both* instead of using [red]*from* and [red]*to*.
 
 === Multi language & Codes
 
-In your domain language, maybe there are special codes which doesn't really belong to a specific language (and thus shouldn't be stemmed).
+In your domain language, maybe there are special codes which don't really belong to a specific language (and thus shouldn't be stemmed).
 
 For example in the medical world, there's something called ATC codes.
 Let's say you have a search page, which can search and present both Norwegian and English results.
@@ -76,7 +76,7 @@ You have the ATC code [blue]#A01AA02#, the Norwegian word [blue]#natriummonofluo
 
 === Management alternatives
 
-Depending on how you want to manage it, you could either setup a single "complex" thesaurus or multiple "simple" ones.
+Depending on how you want to manage it, you could either set up a single "complex" thesaurus or multiple "simple" ones.
 
 Both alternatives will give the same results...
 
@@ -92,43 +92,43 @@ Both alternatives will give the same results...
 
 === Interface languages parameter
 
-When an *interface* is used to search, it has a *languages* parameter.
-If you leave it empty "all" languages in the *selected thesauri* will be searched and applied (with stemming).
-Supplying a languages parameter will *limit* which languages are used when searching for synonyms to apply.
+When an *interface* is used to search, it has a `languages` parameter.
+If you leave it empty, "all" languages in the *selected thesauri* will be searched and applied (with stemming).
+Supplying a `languages` parameter will *limit* which languages are used when searching for synonyms to apply.
 
 Given the example above:
 
-languages: ["en"]
+* languages: ["en"]
 
-* will give 0 synonyms applied (no matter what the search string is).
+will give 0 synonyms applied (no matter what the search string is).
 
-languages: ["no"]
+* languages: ["no"]
 
-* will give 0 synonyms applied (no matter what the search string is).
+will give 0 synonyms applied (no matter what the search string is).
 
-languages: ["zxx"]
+* languages: ["zxx"]
 
-* will give 0 synonyms applied (no matter what the search string is).
+will give 0 synonyms applied (no matter what the search string is).
 
-languages: ["zxx", "en"]
+* languages: ["zxx", "en"]
 
-* will apply [blue]#sodium monofluorophosphate# if the search string is [blue]#A01AA02#
+will apply [blue]#sodium monofluorophosphate# if the search string is [blue]#A01AA02#
 
-languages: ["zxx", "no"]
+* languages: ["zxx", "no"]
 
-* will apply [blue]#natriummonofluorofosfat# if the search string is [blue]#A01AA02#
+will apply [blue]#natriummonofluorofosfat# if the search string is [blue]#A01AA02#
 
-languages: ["en", "no"]
+* languages: ["en", "no"]
 
-* will apply [blue]#sodium monofluorophosphate# if the search string is [blue]#natriummonofluorofosfat#
-* and [blue]#natriummonofluorofosfat# if the search string is [blue]#sodium monofluorophosphate#
-* if the search string is [blue]#A01AA02#, no synonyms will be applied.
+will apply [blue]#sodium monofluorophosphate# if the search string is [blue]#natriummonofluorofosfat#,
+and [blue]#natriummonofluorofosfat# if the search string is [blue]#sodium monofluorophosphate#,
+if the search string is [blue]#A01AA02#, no synonyms will be applied.
 
-languages: ["zxx", "en", "no"]
+* languages: ["zxx", "en", "no"]
 
-* will apply [blue]#sodium monofluorophosphate# if the search string is [blue]#natriummonofluorofosfat#
-* and [blue]#natriummonofluorofosfat# if the search string is [blue]#sodium monofluorophosphate#
-* if the search string is [blue]#A01AA02#, both [blue]#natriummonofluorofosfat# and [blue]#sodium monofluorophosphate# will be applied.
+will apply [blue]#sodium monofluorophosphate# if the search string is [blue]#natriummonofluorofosfat#,
+and [blue]#natriummonofluorofosfat# if the search string is [blue]#sodium monofluorophosphate#,
+if the search string is [blue]#A01AA02#, both [blue]#natriummonofluorofosfat# and [blue]#sodium monofluorophosphate# will be applied.
 
 
 //== Abbreviations

@@ -8,7 +8,7 @@ For any given language or topic, stop-words are typically short words that occur
 
 They are found in most documents and thus do not provide much value in terms of saying which result should be scored higher than another.
 
-As such, it can be a good idea to remove them from queries improve scoring.
+As such, it can be a good idea to remove them from queries to improve scoring.
 
 == How it works
 

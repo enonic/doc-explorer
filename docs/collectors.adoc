@@ -13,9 +13,9 @@ Collectors are typically distributed as regular XP applications. A single applic
 
 === Configure
 
-When you create a collection, select the collector, and configure it using the form that appears.
+When you create a collection, select the collector and configure it using the form that appears.
 
-Each collector may provide special configuration forms that allow you to tune how it will work for a specific <<collections, collection>>.
+Each collector may provide special configuration forms that allow you to tune how it will work for a specific <<#collections, collection>>.
 
 NOTE: A collection may only have a single collector associated with it.
 
@@ -35,7 +35,7 @@ NOTE: Text within <script>, <nav> and <footer> elements will automatically be re
 
 The webcrawler collector has the following configuration options.
 
-URL:: This is the URL at which the collector will start crawling. For instance `https://market.enonic.com`. Only pages within the specified **domain** will be indexed.
+URL:: This is the URL at which the collector will start crawling (for instance `https://market.enonic.com`). Only pages within the specified **domain** will be indexed.
 
 Exclude patterns:: To avoid indexing all pages within a domain, you may specify exclude patterns.
 +
@@ -49,7 +49,6 @@ Example: Ignore pages ending with `.html`
 +
     .html$
 +
-TODO: Verify examples and Document format(link?)
 
 User-Agent:: Some webservers handle user-agents differently. Here you can pretend to be a specific browser or robot. If you leave the field empty it will use a default user agent.
 

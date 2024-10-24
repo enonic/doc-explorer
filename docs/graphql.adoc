@@ -4,7 +4,7 @@
 
 == Endpoint
 
-The API's default location is:   
+The API's default location is:
 
     http://localhost:8080/webapp/com.enonic.app.explorer/api/graphql
 
@@ -32,7 +32,7 @@ Access to the API requires that you create and submit a <<keys#, valid API key>>
 
 The API is self-documented, and can be accessed directly using the Query tester in Explorer Admin
 
-To test the public endpoint directly, we recommend using a tool like a browser extension like https://chrome.google.com/webstore/detail/altair-graphql-client/flnheeellpciglgpaodhkhmapeljopja[the Altair GraphQL client]. 
+To test the public endpoint directly, we recommend using an external tool, for example a browser extension like https://chrome.google.com/webstore/detail/altair-graphql-client/flnheeellpciglgpaodhkhmapeljopja[the Altair GraphQL client].
 
 == Usage
 

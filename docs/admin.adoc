@@ -4,10 +4,10 @@
 
 == Introduction
 
-The Explorer administrative interface enable search administrators to define and manage how data is collected and then exposed through fine tuned interfaces.
+The Explorer Admin interface enables search administrators to define and manage how data is collected and then exposed through fine-tuned interfaces.
 
 == Access
-From the Enonic XP admin interface: Click `XP meny -> Explorer`. This will launch the Explorer Admin interface. 
+From the Enonic XP admin interface: Click `XP menu -> Explorer`. This will launch the Explorer Admin interface.
 
 NOTE: Only users with "Explorer Admin" or "System Admin" roles can access the interface.
 
@@ -19,7 +19,7 @@ image::home.png[Explorer home page,1024w]
 
 == Navigation
 
-From the top bar, you can access the Explorer menu to navigate across the various pages of the Explorer Admin. 
+From the top bar, you can access the Explorer menu to navigate across the various pages of the Explorer Admin.
 
 image::menu.png[Explorer menu expanded,350w]
 
@@ -35,16 +35,16 @@ The different Explorer pages provide an entity list view. From here you can perf
 
 image::plus.png[Green plus create icon,67]
 
-When supported, a big green `+` icon at the bottom right of the page enables you to crate new entities.
+When supported, a big green `+` icon at the bottom right of the page enables you to create new entities.
 
 === Standard actions
 image::actions.png[Sample list of entities,768w]
 
-From the right hand side of each entry in the list,  perform standard actions like `Edit`,`Copy` and `Delete` by clicking the respective action icon.
+From the right hand side of each entry in the list,  perform standard actions like `Edit`, `Copy` and `Delete` by clicking the respective action icon.
 
 === Custom actions
 
-Selected entities support custom actions. Such actions are listed on the left hand side. 
+Selected entities support custom actions which are listed on the left hand side.
 
 image::custom-actions.png[Custom actions listed on the left hand side,340w]
 

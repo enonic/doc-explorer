@@ -1,5 +1,5 @@
 = Ingest API
-:imagesdir: media 
+:imagesdir: media
 :toc: right
 
 A REST style api to create, read, update and delete documents. Use this to update documents in your collection(s) externally.
@@ -28,8 +28,6 @@ Using the vhost configuration above, the API will be available on `company.com/i
 
 The API requires that you <<keys#, create and submit a valid API key>> in the HTTP request header.
 
-TODO: What about cty+accept?
-
 [%header,cols="1%,1%,1%,97%a"]
 [frame="none"]
 [grid="none"]
@@ -52,7 +50,7 @@ Use the client by following the steps below:
 
 === Common variables
 
-Specify the API key, and the collection to access. These values will automatically be applied to the different operations. 
+Specify the API key, and the collection to access. These values will automatically be applied to the different operations.
 
 === Bulk operations
 
@@ -67,7 +65,7 @@ You may perform the following bulk operations:
 Using a document's URL you may perform the following operations:
 
 * Get
-* Patch - TODO? Modify?
+* Patch
 * Delete
 
 == Usage examples

@@ -396,7 +396,7 @@ const node = collector.getDocumentNode(
 
 === shouldStop
 
-This method checks whether the STOP button has be clicked in the Explorer Admin GUI.
+This method checks whether the STOP button has been clicked in the Explorer Admin GUI.
 
 Useful to finish gracefully, for instance by breaking loops.
 
@@ -423,7 +423,7 @@ while (!collector.shouldStop() && moreToDo) {
 
 === addSuccess
 
-Adds a success to the journal.
+Adds a success entry to the journal.
 
 [.lead]
 Parameters
@@ -456,7 +456,7 @@ collector.addSuccess({
 
 === addInformation
 
-Adds useful information to the journal.
+Adds an info entry to the journal.
 
 [.lead]
 Parameters
@@ -489,7 +489,7 @@ collector.addInformation({
 
 === addWarning
 
-Adds a warning to the journal.
+Adds a warning entry to the journal.
 
 [.lead]
 Parameters
@@ -520,7 +520,7 @@ collector.addWarning({
 
 === addError
 
-Adds an error to the journal.
+Adds an error entry to the journal.
 
 [.lead]
 Parameters
