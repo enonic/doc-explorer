@@ -15,7 +15,7 @@ Collectors are typically distributed as regular XP applications. A single applic
 
 When you create a collection, select the collector and configure it using the form that appears.
 
-Each collector may provide special configuration forms that allow you to tune how it will work for a specific <<#collections, collection>>.
+Each collector may provide special configuration forms that allow you to tune how it will work for a specific <<collections#, collection>>.
 
 NOTE: A collection may only have a single collector associated with it.
 
@@ -29,7 +29,7 @@ Explorer ships with a standard collector called `Webcrawler`. This is a simple w
 
 The webcrawler only processes HTML pages. It will extract text from the HTML document, effectively removing any element tags.
 
-NOTE: Text within <script>, <nav> and <footer> elements will automatically be removed before the document is stored in the collection.
+NOTE: Text within `<script>`, `<nav>` and `<footer>` elements will automatically be removed before the document is stored in the collection.
 
 === Configuration
 
@@ -70,4 +70,4 @@ TIP: You can download and run browserless via Docker.
 
 == Custom collectors
 
-An exciting feature of Explorer is that you may also build your own collectors. We prepared a dedicated https://developer.enonic.com/docs/collector[starter-kit and tutorial for building custom collectors] to give you a flying start.
+An exciting feature of Explorer is that you may also build your own collectors. We prepared a dedicated https://developer.enonic.com/learn/building-custom-collectors[starter-kit and tutorial for building custom collectors] to give you a flying start.
