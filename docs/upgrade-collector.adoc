@@ -42,7 +42,7 @@ dependencies {
 
 Collectors are now supposed to provide their own documentTypes.
 
-See https://developer.enonic.com/docs/collector/stable/doctypes[Managed document types].
+See https://developer.enonic.com/learn/building-custom-collectors/stable/document-type[Managed document types].
 
 === Deprecations
 
@@ -53,13 +53,13 @@ See https://developer.enonic.com/docs/collector/stable/doctypes[Managed document
 
 IMPORTANT: The register function is deprecated and will throw an error!
 
-Simply remove it from src/main/resources/main.ts
+Simply remove it from `src/main/resources/main.ts`
 
 ==== Unregister
 
 WARNING: The unregister function is deprecated and will log a warning.
 
-Simply remove it from src/main/resources/main.ts
+Simply remove it from `src/main/resources/main.ts`
 
 == Configuration
 
@@ -112,7 +112,7 @@ This prop is untouched:
 
 * [green]*explorer* (object)
 
-See https://developer.enonic.com/docs/collector/stable/form[Collector form].
+See https://developer.enonic.com/learn/building-custom-collectors/stable/form[Collector form].
 
 == Run
 
@@ -123,7 +123,7 @@ See https://developer.enonic.com/docs/collector/stable/form[Collector form].
 * [red]*name* has been replaced by [lime]*collectionId*.
 * [lime]*language* has been added.
 
-See https://developer.enonic.com/docs/collector/stable/task#task_schema[Task schema].
+See https://developer.enonic.com/learn/building-custom-collectors/stable/task#task_schema[Task schema].
 
 ==== Journal
 
