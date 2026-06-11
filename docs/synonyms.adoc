@@ -27,13 +27,13 @@ In addition, we've added *zxx* for (non-linguistic content / not applicable).
 
 Here's a list of the languages Enonic supports for stemming:
 
-* https://developer.enonic.com/docs/xp/stable/storage/indexing#languages
+* https://developer.enonic.com/docs/code/stable/storage/indexing#languages
 
 And some documentation on how it works:
 
-* https://developer.enonic.com/docs/xp/stable/storage/indexing#stemmed
-* https://developer.enonic.com/docs/xp/stable/storage/dsl#stemmed
-* https://developer.enonic.com/docs/xp/stable/storage/noql#stemmed
+* https://developer.enonic.com/docs/code/stable/storage/indexing#stemming
+* https://developer.enonic.com/docs/code/stable/storage/querying#query_dsl
+* https://developer.enonic.com/docs/code/stable/storage/noql#stemmed
 
 Explorer is able to match multiple *locales* down to a specific *stemming language*.
 
