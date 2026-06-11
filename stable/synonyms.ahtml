@@ -510,7 +510,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://developer.enonic.com/docs/xp/stable/storage/indexing#languages" class="bare">https://developer.enonic.com/docs/xp/stable/storage/indexing#languages</a></p>
+<p><a href="https://developer.enonic.com/docs/code/stable/storage/indexing#languages" class="bare">https://developer.enonic.com/docs/code/stable/storage/indexing#languages</a></p>
 </li>
 </ul>
 </div>
@@ -520,13 +520,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://developer.enonic.com/docs/xp/stable/storage/indexing#stemmed" class="bare">https://developer.enonic.com/docs/xp/stable/storage/indexing#stemmed</a></p>
+<p><a href="https://developer.enonic.com/docs/code/stable/storage/indexing#stemming" class="bare">https://developer.enonic.com/docs/code/stable/storage/indexing#stemming</a></p>
 </li>
 <li>
-<p><a href="https://developer.enonic.com/docs/xp/stable/storage/dsl#stemmed" class="bare">https://developer.enonic.com/docs/xp/stable/storage/dsl#stemmed</a></p>
+<p><a href="https://developer.enonic.com/docs/code/stable/storage/querying#query_dsl" class="bare">https://developer.enonic.com/docs/code/stable/storage/querying#query_dsl</a></p>
 </li>
 <li>
-<p><a href="https://developer.enonic.com/docs/xp/stable/storage/noql#stemmed" class="bare">https://developer.enonic.com/docs/xp/stable/storage/noql#stemmed</a></p>
+<p><a href="https://developer.enonic.com/docs/code/stable/storage/noql#stemmed" class="bare">https://developer.enonic.com/docs/code/stable/storage/noql#stemmed</a></p>
 </li>
 </ul>
 </div>
@@ -721,7 +721,7 @@ if the search string is <span class="blue">A01AA02</span>, both <span class="blu
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-11 10:02:10 UTC
+Last updated 2026-06-11 12:51:58 UTC
 </div>
 </div>
 </body>
