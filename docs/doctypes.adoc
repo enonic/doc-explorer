@@ -58,7 +58,7 @@ The value types are: `Boolean`, `Double`, `geoPoint`, `instant`, `localDate`, `l
 +
 NOTE: Value type validation is only enforced if documents are created with validateOccurrences=true.
 +
-Visit the Enonic XP https://developer.enonic.com/docs/xp/stable/storage/indexing#value_types^[Value types] documentation for more details on value types and indexing.
+Visit the Enonic XP https://developer.enonic.com/docs/code/stable/storage/properties#value_types[Value types] documentation for more details on value types and indexing.
 
 Min:: 0 means the field is optional. Setting it to anything larger than 0 means it's a required field.
 +

@@ -6,7 +6,7 @@
 
 The collector JS API can be accessed via Enonic applicatoins. It is provisioned via the `lib-explorer` dependency. Similar to the ingest API, the collector API provides everything you need to work with collections and documents.
 
-NOTE: *Building your own collector?* Check out the https://developer.enonic.com/docs/collector[collector starter tutorial]
+NOTE: *Building your own collector?* Check out the https://developer.enonic.com/docs/explorer/stable/lib-explorer[Collector API]
 
 == Usage
 Add the following to your `build.gradle` file:

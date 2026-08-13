@@ -20,7 +20,7 @@ Default language:: Optionally specify a default language for the collection. Thi
 
 Collector:: Optionally select a collector. Collectors are background jobs that are used to fetch data from external sources, and add them as <<documents#, documents>> to this collection.
 +
-TIP: You can build your own custom collector or find existing collectors on https://market.enonic.com/applications[Enonic Market].
+TIP: You can build your own custom collector or find existing collectors on https://market.enonic.com/apps[Enonic Market].
 
 
 === Collector config
